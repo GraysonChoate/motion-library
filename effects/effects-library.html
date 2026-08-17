@@ -337,11 +337,19 @@ footer b{color:var(--ink-dim); font-weight:500}
 .breathecard p{margin:0; font-size:13.5px; color:var(--ink-dim); line-height:1.55}
 .idlepill{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
   color:var(--ink-faint); border:1px solid var(--edge-soft); padding:6px 11px; border-radius:2px}
-.tempbar{position:absolute; left:0; right:0; bottom:0; height:46%; pointer-events:none}
+.tempbar{position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen}
+.tempscale{position:absolute; left:clamp(20px,5vw,50px); right:clamp(20px,5vw,50px); bottom:96px;
+  height:8px; border-radius:4px; z-index:4;
+  background:linear-gradient(90deg, rgb(180,99,58), rgb(119,88,79), rgb(58,78,99))}
+.tempscale i{position:absolute; top:-5px; left:0; width:3px; height:18px; border-radius:2px; margin-left:-1.5px;
+  background:var(--cream); box-shadow:0 0 8px rgba(0,0,0,.8); will-change:transform}
+.tempends{position:absolute; left:clamp(20px,5vw,50px); right:clamp(20px,5vw,50px); bottom:78px;
+  display:flex; justify-content:space-between; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); z-index:4}
 .tempread{position:absolute; left:clamp(20px,5vw,50px); bottom:52px; font-family:var(--mono);
   font-size:11px; letter-spacing:.1em; color:var(--gold); font-variant-numeric:tabular-nums; z-index:4}
 .causticcv{position:absolute; inset:0; width:100%; height:100%; display:block;
-  filter:blur(9px) contrast(1.5); opacity:.55; mix-blend-mode:screen}
+  filter:blur(6px) contrast(2.1) brightness(.95); opacity:.26; mix-blend-mode:screen}
 /* ---- SYS view transitions ---- */
 .vtwrap{position:absolute; inset:0; padding:clamp(18px,3vw,34px); display:grid; place-content:center}
 .vtgrid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; width:min(560px,80vw)}
@@ -2490,16 +2498,16 @@ function frame(now){
       <div class="plane p-wall" style="opacity:.85"></div>
       <canvas class="causticcv" id="causticCv"></canvas>
       <div class="ambcap">Lit, not filled</div>
-      <p class="hint">Rendered at 1/8 scale, blurred up</p></div>
+      <p class="hint">Rendered at 1/6 scale, blurred up · demo α .26, ship .10–.15</p></div>
     <div class="rail">
       <div class="rail-top"><span class="id">AMB-05</span><h3>Caustics</h3><span class="src">low-res canvas, upscaled</span></div>
       <div class="rail-grid">
-        <div><h5>What it does</h5><p>Layered sine waves at different frequencies and drifts produce the rippling light pattern you get off water. Rendered at <b>one-eighth resolution</b> and scaled up with blur, so it costs almost nothing.</p></div>
+        <div><h5>What it does</h5><p>Layered sine waves at different frequencies and drifts produce the rippling light pattern you get off water. Rendered at <b>one-sixth resolution</b> and scaled up with blur, so it costs almost nothing.</p></div>
         <div><h5>When to use it</h5><p>Anything that should feel lit rather than filled — spas, pools, glass, coastal brands. <b>Rendering small and blurring up is the general trick</b> for any soft procedural texture: the blur hides the low resolution completely, and you pay for a fraction of the pixels.</p></div>
       </div>
       <details class="code"><summary>Code</summary><pre>
 <i>// render tiny — 1/8 scale — then let CSS blur and stretch it</i>
-cv.width = (w / <b>8</b>) | 0;  cv.height = (h / <b>8</b>) | 0;
+cv.width = (w / <b>6</b>) | 0;  cv.height = (h / <b>6</b>) | 0;
 
 for (let y = 0; y &lt; cv.height; y++){
   for (let x = 0; x &lt; cv.width; x++){
@@ -2523,6 +2531,8 @@ canvas { filter: blur(<b>9px</b>) contrast(1.5); mix-blend-mode: screen; opacity
       <div class="plane p-wall" style="opacity:.9"></div>
       <div class="tempbar" id="tempBar"></div>
       <div class="ambcap">Position, felt not shown</div>
+      <div class="tempscale"><i id="tempMark"></i></div>
+      <div class="tempends"><span>warm · top of page</span><span>cool · bottom</span></div>
       <p class="tempread" id="tempRead">depth 0% · warm</p>
       <p class="hint">Scroll — the light travels with you</p></div>
     <div class="rail">
@@ -3820,7 +3830,7 @@ qa('[data-demo="amb-caustic"]').forEach(stage => {
     if (now - last < 70) return;
     last = now;
     const r = stage.getBoundingClientRect();
-    const w = Math.max(2,(r.width/8)|0), h = Math.max(2,(r.height/8)|0);
+    const w = Math.max(2,(r.width/6)|0), h = Math.max(2,(r.height/6)|0);
     if (w!==W || h!==H){ W=w; H=h; cv.width=w; cv.height=h; img = ctx.createImageData(w,h); }
     const t = now*0.001, d = img.data;
     let i = 0;
@@ -3828,9 +3838,10 @@ qa('[data-demo="amb-caustic"]').forEach(stage => {
       const v = y/h*6.0;
       for (let x=0;x<w;x++){
         const u = x/w*6.0;
-        const a = Math.sin(u*1.7 + t*0.7) * Math.sin(v*2.1 - t*0.5);
-        const b2= Math.sin(u*2.9 - t*0.4 + a) * Math.sin(v*1.3 + t*0.6);
-        const c = Math.pow(Math.abs(a*b2), 0.55);
+        const a = Math.sin(u*3.1 + t*0.8) * Math.sin(v*3.7 - t*0.55);
+        const b2= Math.sin(u*5.3 - t*0.45 + a*2.2) * Math.sin(v*4.1 + t*0.65 + a);
+        const e = Math.sin(u*7.9 + v*6.3 - t*0.9 + b2*1.6);
+        const c = Math.pow(Math.abs(a*b2*0.7 + e*0.35), 0.28);
         d[i++] = 232*c; d[i++] = 214*c; d[i++] = 170*c; d[i++] = 255;
       }
     }
@@ -3840,13 +3851,16 @@ qa('[data-demo="amb-caustic"]').forEach(stage => {
 
 /* ================= AMB-06 temperature drift ================= */
 qa('[data-demo="amb-temp"]').forEach(stage => {
-  const bar = q('#tempBar', stage), read = q('#tempRead', stage);
+  const bar = q('#tempBar', stage), read = q('#tempRead', stage), mark = q('#tempMark', stage);
+  const DEMO_ALPHA = 0.40;      // demo amplitude — ship value is 0.14
   register(stage, () => ({ tick(){
     const pr = prog(stage);
     const warm=[180,99,58], cool=[58,78,99];
     const mix = warm.map((c,i)=>Math.round(c + (cool[i]-c)*pr));
-    bar.style.background = `linear-gradient(180deg, transparent, rgba(${mix.join()},0.14))`;
-    read.textContent = `depth ${(pr*100).toFixed(0)}% · ${pr<0.4?'warm':pr<0.66?'neutral':'cool'}`;
+    bar.style.background = `rgba(${mix.join()},${DEMO_ALPHA})`;
+    if (mark) mark.style.left = (pr*100).toFixed(2)+'%';
+    read.innerHTML = `depth ${(pr*100).toFixed(0)}% · rgb(${mix.join(', ')}) · `
+      + `<span style="color:var(--ink-faint)">demo α ${DEMO_ALPHA} — ship 0.14</span>`;
   }}));
 });
 
