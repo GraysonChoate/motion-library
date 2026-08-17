@@ -480,6 +480,48 @@ footer b{color:var(--ink-dim); font-weight:500}
 .grainlabel{position:absolute; inset:0; display:grid; place-items:center; font-family:var(--serif);
   font-size:clamp(22px,4vw,44px); color:var(--cream)}
 
+/* ================= PATTERNS ================= */
+.axhead{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin:clamp(36px,6vh,64px) 0 6px;
+  padding-bottom:12px; border-bottom:1px solid var(--edge-soft)}
+.axhead h3{font-family:var(--serif); font-weight:400; font-size:clamp(24px,3.6vw,36px); margin:0; color:var(--cream)}
+.axhead .n{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--ember)}
+.axhead p{margin:0; flex:1 1 240px; min-width:200px; font-size:14px; color:var(--ink-faint)}
+.pcard{border:1px solid var(--edge-soft); border-left:2px solid var(--gold); border-radius:2px;
+  background:linear-gradient(180deg,rgba(201,164,92,.035),transparent); padding:22px clamp(18px,2.4vw,26px);
+  margin-top:16px}
+.pcard-top{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px}
+.pcard-top .code{font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:var(--gold);
+  border:1px solid var(--edge); padding:3px 9px; border-radius:2px}
+.pcard-top h4{font-family:var(--serif); font-weight:400; font-size:23px; margin:0; color:var(--cream)}
+.pcard-top .act{margin-left:auto; font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--char); background:var(--gold); padding:5px 11px; border-radius:2px}
+.pcard .ex{font-family:var(--mono); font-size:11px; color:var(--ink-faint); margin:0 0 16px; line-height:1.7}
+.pgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px 28px}
+.pgrid h5{font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--teal); margin:0 0 6px}
+.pgrid p{margin:0; font-size:13.5px; color:var(--ink-dim); line-height:1.6}
+.pgrid p b{color:var(--ink); font-weight:500}
+.pgrid .warn h5{color:var(--ember)}
+.pgrid ol{margin:0; padding-left:17px; font-size:13.5px; color:var(--ink-dim); line-height:1.75}
+.pgrid ol b{color:var(--ink); font-weight:500}
+.rcard{border:1px solid var(--edge-soft); border-radius:2px; background:var(--soot);
+  padding:20px clamp(16px,2.2vw,24px); margin-top:14px}
+.rcard-top{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:12px}
+.rcard-top h4{font-family:var(--serif); font-weight:400; font-size:21px; margin:0; color:var(--cream)}
+.rswatch{display:flex; gap:3px}
+.rswatch i{width:26px; height:26px; border-radius:2px; display:block}
+.rcard .ex{font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); margin:0 0 14px}
+.fx{display:flex; flex-wrap:wrap; gap:5px; margin-top:5px}
+.fx code{font-family:var(--mono); font-size:10.5px; padding:3px 7px; border-radius:2px;
+  background:rgba(94,138,126,.14); color:var(--teal); border:1px solid rgba(94,138,126,.25)}
+.fx.no code{background:rgba(180,99,58,.12); color:var(--ember); border-color:rgba(180,99,58,.3)}
+.matrix{width:100%; border-collapse:collapse; font-size:12.5px; margin-top:12px}
+.matrix th{text-align:left; font-family:var(--mono); font-size:9.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--teal); font-weight:400; padding:8px 10px 8px 0;
+  border-bottom:1px solid var(--edge)}
+.matrix td{padding:9px 10px 9px 0; border-bottom:1px solid var(--edge-soft); color:var(--ink-dim); vertical-align:top}
+.matrix td:first-child{color:var(--gold); font-family:var(--mono); font-size:11px; white-space:nowrap}
+
 /* ================= KIT ================= */
 .kitsec{padding:clamp(40px,7vh,72px) 0 0}
 .kithead{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
@@ -746,6 +788,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <div class="tabbar-inner">
     <button class="tab" role="tab" id="tab-research" aria-controls="panel-research" aria-selected="false">Research <span class="n">the gauge</span></button>
     <button class="tab" role="tab" id="tab-effects"  aria-controls="panel-effects"  aria-selected="true">Effects <span class="n">the fixtures</span></button>
+    <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns <span class="n">the classifier</span></button>
     <button class="tab" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false">Kit <span class="n">the furniture</span></button>
     <button class="tab" role="tab" id="tab-standards" aria-controls="panel-standards" aria-selected="false">Standards <span class="n">the tolerances</span></button>
   </div>
@@ -2840,6 +2883,254 @@ overlay.style.background =
     room. If it only works with your narration, you're carrying it — not the research.</p></blockquote>
   </div>
 </div><!-- /panel-research -->
+
+<div class="panel" id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+  <div class="panel-intro">
+    <p class="role">The classifier</p>
+    <h2>Two questions place any business</h2>
+    <p>Businesses don't cluster by category. A yoga studio and a barbershop are the same design problem
+    — <strong>book a slot with a person in a space</strong>. A café and a taco stand are the same problem
+    — <strong>come here, now</strong>.</p>
+    <p>So there are two axes. <strong>Pattern decides structure</strong> — sections, order, money action,
+    required components. <strong>Register decides treatment</strong> — palette, type, density, which
+    effects are allowed.</p>
+    <p><strong>8 patterns × 6 registers = 48 briefs from 14 lookups</strong>, and it covers business
+    types nobody wrote down. A pet groomer is <code>A × Community</code>. A crossfit box is
+    <code>C × Raw</code>. A wine bar is <code>B × Craft</code>.</p>
+  </div>
+
+  <div class="axhead"><span class="n">AXIS 1</span><h3>Decision pattern</h3>
+    <p>What the customer is deciding, and what action ends the visit.</p></div>
+
+  <div class="pcard">
+    <div class="pcard-top"><span class="code">A</span><h4>Book a slot</h4><span class="act">Book</span></div>
+    <p class="ex">yoga · pilates · barber · salon · spa · med-spa · dental · chiro · massage · tattoo · vet · physio · nails</p>
+    <div class="pgrid">
+      <div><h5>What they're deciding</h5><p>Two things at once: <b>is this my kind of place</b>, and <b>is this person competent</b>. Vibe decides whether they consider it; competence decides whether they book.</p></div>
+      <div><h5>Hero archetype</h5><p>The space itself, or the practitioner. Never a stock photo of a generic person — an obviously fake face costs more trust than an empty frame.</p></div>
+      <div><h5>Sections, in order</h5><ol><li>Hero — space or practitioner, with the <b>book action visible immediately</b></li><li>What it is / who it's for — one short paragraph</li><li>Services with prices</li><li>Schedule or availability</li><li>Practitioners</li><li>Proof — reviews</li><li>Location and hours</li><li>Book</li></ol></div>
+      <div><h5>Required components</h5><p>Schedule · Staff cards · Review proof · Hours · Location · Sticky action bar</p></div>
+      <div><h5>Proof that works</h5><p>Star rating with review count, plus one named quote. For anything aesthetic, a before/after gallery.</p></div>
+      <div class="warn"><h5>Deal-breakers</h5><p>Schedule behind a login. No prices anywhere. Booking link buried more than one click deep. No indication of who actually works there.</p></div>
+    </div>
+    <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.6;
+      border-top:1px solid var(--edge-soft);padding-top:14px"><b style="color:var(--tan)">Worked example ·</b> A reformer pilates studio: hero on the studio itself, book button top-right in a colour used nowhere else, class schedule with spots remaining, three instructors with credentials, 4.9 from 200 reviews.</p>
+  </div>
+  <div class="pcard">
+    <div class="pcard-top"><span class="code">B</span><h4>Come and consume</h4><span class="act">Menu · Order · Directions</span></div>
+    <p class="ex">café · restaurant · bar · bakery · brewery · juice bar · food truck · deli</p>
+    <div class="pgrid">
+      <div><h5>What they're deciding</h5><p>Almost nothing about brand. <b>Is it good, is it open, where is it.</b> Visitors arrive with one of those three intents and leave the moment they can't satisfy it.</p></div>
+      <div><h5>Hero archetype</h5><p>The product, close and appetising. Food and drink shot tight beats an interior shot every time.</p></div>
+      <div><h5>Sections, in order</h5><ol><li>Hero — the product, with hours and location visible</li><li>Menu, as live text</li><li>The one thing that makes them different</li><li>Location, hours, map</li><li>Order or directions</li></ol></div>
+      <div><h5>Required components</h5><p>Live-text menu · Hours with open state · Location · Review proof · Sticky action bar</p></div>
+      <div><h5>Proof that works</h5><p>Star rating. Nobody reads long testimonials for a café — the number does the work.</p></div>
+      <div class="warn"><h5>Deal-breakers</h5><p><b>A PDF menu.</b> 85% of visitors check on a phone and it's the single most common failure in this category. No hours. Address as an image instead of text.</p></div>
+    </div>
+    <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.6;
+      border-top:1px solid var(--edge-soft);padding-top:14px"><b style="color:var(--tan)">Worked example ·</b> A coffee roaster: hero on a cup shot tight, menu as categorised live text with prices and dietary marks, open-now state computed, map with the neighbourhood named in the copy.</p>
+  </div>
+  <div class="pcard">
+    <div class="pcard-top"><span class="code">C</span><h4>Join</h4><span class="act">Free trial · Tour</span></div>
+    <p class="ex">gym · climbing · crossfit · coworking · studio membership · clubs · recovery</p>
+    <div class="pgrid">
+      <div><h5>What they're deciding</h5><p><b>Will I actually use this, and is it worth the monthly.</b> The fear isn't price, it's paying for something they'll stop attending.</p></div>
+      <div><h5>Hero archetype</h5><p>The room in use, with real people in it. Energy and occupancy — an empty gym reads as a failing gym.</p></div>
+      <div><h5>Sections, in order</h5><ol><li>Hero — the room in use, trial CTA</li><li>What makes it different</li><li>Timetable</li><li>Pricing, low-commitment tier first</li><li>Results — transformations or member stories</li><li>Facility</li><li>Trial signup</li></ol></div>
+      <div><h5>Required components</h5><p>Schedule · Pricing tiers · Before/after · Review proof · Staff cards · Sticky action bar</p></div>
+      <div><h5>Proof that works</h5><p><b>Before/after and named member stories.</b> These outperform written testimonials by a wide margin here.</p></div>
+      <div class="warn"><h5>Deal-breakers</h5><p>Membership ask before a trial offer. Timetable that needs a login. Stock gym photography — instantly recognisable and instantly disqualifying.</p></div>
+    </div>
+    <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.6;
+      border-top:1px solid var(--edge-soft);padding-top:14px"><b style="color:var(--tan)">Worked example ·</b> A strength gym: hero on the floor mid-session, free-trial CTA, timetable readable without login, drop-in tier listed before unlimited, three named member stories with before/after.</p>
+  </div>
+  <div class="pcard">
+    <div class="pcard-top"><span class="code">D</span><h4>Hire for a job</h4><span class="act">Call · Quote</span></div>
+    <p class="ex">contractor · plumber · electrician · roofer · landscaper · HVAC · cleaner · mover · painter</p>
+    <div class="pgrid">
+      <div><h5>What they're deciding</h5><p><b>Are they competent, will they turn up, what will it cost.</b> Usually urgent, often on a phone, rarely browsing for pleasure.</p></div>
+      <div><h5>Hero archetype</h5><p>Finished work. The best photograph they own of a completed job — this category converts on evidence, not atmosphere.</p></div>
+      <div><h5>Sections, in order</h5><ol><li>Hero — finished work, <b>phone number visible</b></li><li>Services</li><li>Work gallery / before-after</li><li>Service area</li><li>Reviews and licensing</li><li>Quote form</li></ol></div>
+      <div><h5>Required components</h5><p>Before/after · Review proof · Location (service area) · Sticky action bar with phone</p></div>
+      <div><h5>Proof that works</h5><p>Before/after, licence and insurance badges, review count. Badges work hardest <b>next to the quote button</b>, not in the header.</p></div>
+      <div class="warn"><h5>Deal-breakers</h5><p>Phone number not visible without scrolling. No service area — people need to know if you cover them. No evidence of completed work.</p></div>
+    </div>
+    <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.6;
+      border-top:1px solid var(--edge-soft);padding-top:14px"><b style="color:var(--tan)">Worked example ·</b> A roofer: hero on a finished roof, phone in the header and in a sticky bar, before/after slider, service area listed by suburb, licence number beside the quote form.</p>
+  </div>
+  <div class="pcard">
+    <div class="pcard-top"><span class="code">E</span><h4>Retain a professional</h4><span class="act">Consultation</span></div>
+    <p class="ex">law · accounting · financial advice · insurance · architecture · consulting · agency</p>
+    <div class="pgrid">
+      <div><h5>What they're deciding</h5><p><b>Are they credible, and do they handle situations like mine.</b> High-consideration, low-frequency. Trust is the entire purchase.</p></div>
+      <div><h5>Hero archetype</h5><p>A person, or a restrained typographic statement. This is the one category where a type-first hero with no image reads as more expensive, not less.</p></div>
+      <div><h5>Sections, in order</h5><ol><li>Hero — restrained positioning statement</li><li>Practice areas / services</li><li>Who they are — team and credentials</li><li>Results or case examples</li><li>Process — what happens when you call</li><li>Consultation</li></ol></div>
+      <div><h5>Required components</h5><p>Staff cards · Review proof · Sticky action bar · Location</p></div>
+      <div><h5>Proof that works</h5><p>Credentials, years in practice, named case outcomes. Star ratings matter less here than specificity.</p></div>
+      <div class="warn"><h5>Deal-breakers</h5><p>Stock photos of handshakes or skylines. Vague service descriptions. No named people — anonymity is fatal when the product is a person.</p></div>
+    </div>
+    <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.6;
+      border-top:1px solid var(--edge-soft);padding-top:14px"><b style="color:var(--tan)">Worked example ·</b> A small law firm: type-first hero stating what they do and for whom, practice areas, three named partners with admissions and years, two case outcomes, a 'what happens when you call' section.</p>
+  </div>
+  <div class="pcard">
+    <div class="pcard-top"><span class="code">F</span><h4>Buy a product</h4><span class="act">Shop</span></div>
+    <p class="ex">boutique · roaster selling beans · maker · gallery · furniture · specialty retail</p>
+    <div class="pgrid">
+      <div><h5>What they're deciding</h5><p><b>Do I want this, and can I trust them to ship it.</b> Product desire first, logistics confidence second.</p></div>
+      <div><h5>Hero archetype</h5><p>The product, styled. Or a bento grid of products when the range matters more than any single item.</p></div>
+      <div><h5>Sections, in order</h5><ol><li>Hero — product</li><li>Featured products</li><li>The story behind the making</li><li>Full range</li><li>Shipping and returns</li><li>Shop</li></ol></div>
+      <div><h5>Required components</h5><p>Review proof · Pricing · Sticky action bar</p></div>
+      <div><h5>Proof that works</h5><p>Product reviews and a visible returns policy. Reassurance about shipping converts as hard as desire.</p></div>
+      <div class="warn"><h5>Deal-breakers</h5><p>Prices hidden. No shipping information. Product photography on inconsistent backgrounds — the fastest way to look like a hobby.</p></div>
+    </div>
+    <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.6;
+      border-top:1px solid var(--edge-soft);padding-top:14px"><b style="color:var(--tan)">Worked example ·</b> A coffee roaster's retail side: bento hero of four bags, tasting notes per product, the roasting story, shipping terms stated plainly next to the buy button.</p>
+  </div>
+  <div class="pcard">
+    <div class="pcard-top"><span class="code">G</span><h4>Attend an occasion</h4><span class="act">Enquire · Check a date</span></div>
+    <p class="ex">venue · event space · wedding venue · tours · escape rooms · galleries · experiences</p>
+    <div class="pgrid">
+      <div><h5>What they're deciding</h5><p><b>Is this right for my occasion, and is it free on my date.</b> Emotional first, logistical immediately after.</p></div>
+      <div><h5>Hero archetype</h5><p>The space full of people, mid-event. An empty venue photograph is the single weakest asset this category can lead with.</p></div>
+      <div><h5>Sections, in order</h5><ol><li>Hero — the space in use</li><li>What kind of occasions it suits</li><li>Gallery</li><li>Capacity and specifications</li><li>Packages or pricing</li><li>Availability enquiry</li></ol></div>
+      <div><h5>Required components</h5><p>Pricing tiers · Location · Review proof · Sticky action bar</p></div>
+      <div><h5>Proof that works</h5><p>Photographs of real events held there, plus named client testimonials. Specifics — capacity, hours, what's included.</p></div>
+      <div class="warn"><h5>Deal-breakers</h5><p>Only empty-room photographs. No capacity numbers. No price indication at all — people need a bracket before they'll enquire.</p></div>
+    </div>
+    <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.6;
+      border-top:1px solid var(--edge-soft);padding-top:14px"><b style="color:var(--tan)">Worked example ·</b> A wedding venue: hero of a full room at dusk, occasion types, gallery of real weddings, capacity and inclusions table, price bracket, date enquiry form.</p>
+  </div>
+  <div class="pcard">
+    <div class="pcard-top"><span class="code">H</span><h4>Enrol</h4><span class="act">Enrol · Trial class</span></div>
+    <p class="ex">schools · music lessons · driving · tutoring · academies · athletic training · kids' programs</p>
+    <div class="pgrid">
+      <div><h5>What they're deciding</h5><p>Often <b>on someone else's behalf</b> — a parent deciding for a child. <b>Will this work for them, and are these people trustworthy with my kid.</b></p></div>
+      <div><h5>Hero archetype</h5><p>Students mid-action, engaged. Not posed group shots.</p></div>
+      <div><h5>Sections, in order</h5><ol><li>Hero — students in action, trial CTA</li><li>Programs by age or level</li><li>Outcomes — what students achieve</li><li>Instructors and credentials</li><li>Schedule and terms</li><li>Pricing</li><li>Enrol or book a trial</li></ol></div>
+      <div><h5>Required components</h5><p>Schedule · Pricing tiers · Staff cards · Review proof · Location · Sticky action bar</p></div>
+      <div><h5>Proof that works</h5><p>Parent testimonials and student outcomes. Credentials and safety checks matter more here than in any other pattern.</p></div>
+      <div class="warn"><h5>Deal-breakers</h5><p>No age or level breakdown. Instructors without credentials. No trial option — asking a parent to commit a term unseen.</p></div>
+    </div>
+    <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.6;
+      border-top:1px solid var(--edge-soft);padding-top:14px"><b style="color:var(--tan)">Worked example ·</b> An athletic training centre: hero of athletes mid-session, programs split by age bracket, measurable outcomes, coaches with certifications, trial session as the primary CTA.</p>
+  </div>
+  <div class="axhead"><span class="n">AXIS 2</span><h3>Register</h3>
+    <p>Same pattern, different language. A barbershop and a day spa are both pattern A and share
+    almost nothing visually.</p></div>
+
+  <div class="rcard">
+    <div class="rcard-top"><h4>Raw</h4><span class="rswatch"><i style="background:#141414"></i><i style="background:#2A2622"></i><i style="background:#C4552B"></i><i style="background:#E8E2D6"></i></span></div>
+    <p class="ex">barbershop · boxing gym · tattoo · dive bar · crossfit · streetwear</p>
+    <div class="pgrid">
+      <div><h5>Palette</h5><p>Near-black ground, one hot accent, high contrast. Very little mid-tone.</p></div>
+      <div><h5>Type</h5><p>Heavy weights, tight tracking, big. Condensed if available. Uppercase used freely.</p></div>
+      <div><h5>Density &amp; motion</h5><p>Dense. Small gaps, sections stacked tight. Motion is fast and impactful.</p></div>
+      <div><h5>Photo treatment</h5><p>High contrast, crushed blacks, desaturated except the accent.</p></div>
+    </div>
+    <div style="margin-top:14px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--teal);margin:0 0 6px">Use</h5><div class="fx"><code>TYP-07</code><code>TYP-06</code><code>TYP-09</code><code>REA-02</code><code>GL-07</code><code>REV-01</code></div></div>
+    <div style="margin-top:10px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--ember);margin:0 0 6px">Never</h5><div class="fx no"><code>AMB-04</code><code>TYP-03</code><code>AMB-02</code></div></div>
+    <p style="margin:14px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6">Breathing and open tracking read as soft — exactly wrong here. Density is the signal.</p>
+  </div>
+  <div class="rcard">
+    <div class="rcard-top"><h4>Calm</h4><span class="rswatch"><i style="background:#F2EEE4"></i><i style="background:#DDD6C8"></i><i style="background:#8C9A93"></i><i style="background:#3F4744"></i></span></div>
+    <p class="ex">yoga · pilates · day spa · wellness · meditation · float</p>
+    <div class="pgrid">
+      <div><h5>Palette</h5><p>Light or muted ground, low saturation, natural tones. Almost no pure black.</p></div>
+      <div><h5>Type</h5><p>Light weights, generous tracking, lowercase where possible. Serif for warmth.</p></div>
+      <div><h5>Density &amp; motion</h5><p>Very open. Large gaps, one idea per screen. Motion slow, long easing, nothing sudden.</p></div>
+      <div><h5>Photo treatment</h5><p>Lifted blacks, low contrast, warm. Never crushed — harshness fights the register.</p></div>
+    </div>
+    <div style="margin-top:14px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--teal);margin:0 0 6px">Use</h5><div class="fx"><code>TYP-02</code><code>TYP-03</code><code>REV-02</code><code>AMB-04</code><code>AMB-06</code><code>AMB-02</code></div></div>
+    <div style="margin-top:10px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--ember);margin:0 0 6px">Never</h5><div class="fx no"><code>REA-02</code><code>GL-04</code><code>TYP-05</code><code>TYP-07</code></div></div>
+    <p style="margin:14px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6">Sparks, fluid and scramble read as technology. This register sells the absence of stimulation.</p>
+  </div>
+  <div class="rcard">
+    <div class="rcard-top"><h4>Clinical</h4><span class="rswatch"><i style="background:#FFFFFF"></i><i style="background:#EDF1F4"></i><i style="background:#2E5C7A"></i><i style="background:#1A2430"></i></span></div>
+    <p class="ex">med-spa · dental · medical · legal · financial · insurance</p>
+    <div class="pgrid">
+      <div><h5>Palette</h5><p>Cool neutrals, white or near-white ground, one confident blue or green. No warmth.</p></div>
+      <div><h5>Type</h5><p>Neutral sans, medium weights, generous line-height. Restraint reads as competence.</p></div>
+      <div><h5>Density &amp; motion</h5><p>Structured and even. <b>Motion near zero</b> — animation reads as unserious when someone is deciding about their health or money.</p></div>
+      <div><h5>Photo treatment</h5><p>Bright, clean, true colour. Clinical photography, no grading.</p></div>
+    </div>
+    <div style="margin-top:14px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--teal);margin:0 0 6px">Use</h5><div class="fx"><code>REV-01</code><code>TYP-01</code></div></div>
+    <div style="margin-top:10px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--ember);margin:0 0 6px">Never</h5><div class="fx no"><code>GL-01</code><code>GL-04</code><code>AMB-05</code><code>TYP-09</code><code>REA-02</code></div></div>
+    <p style="margin:14px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6">The strongest move here is almost no motion at all. Credentials and clarity carry it.</p>
+  </div>
+  <div class="rcard">
+    <div class="rcard-top"><h4>Craft</h4><span class="rswatch"><i style="background:#2B211B"></i><i style="background:#8C5A34"></i><i style="background:#C9A45C"></i><i style="background:#E8DCC8"></i></span></div>
+    <p class="ex">roaster · bakery · maker · tailor · brewery · furniture · butcher</p>
+    <div class="pgrid">
+      <div><h5>Palette</h5><p>Warm earth, material colours, brass and wood tones. Rich but not saturated.</p></div>
+      <div><h5>Type</h5><p>Serif display with real character, sans for body. Type does the storytelling.</p></div>
+      <div><h5>Density &amp; motion</h5><p>Medium density. Motion is tactile and physical — things have weight and settle.</p></div>
+      <div><h5>Photo treatment</h5><p>Warm grade, texture preserved, slight film character. Process shots over product shots.</p></div>
+    </div>
+    <div style="margin-top:14px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--teal);margin:0 0 6px">Use</h5><div class="fx"><code>DEP-01</code><code>AMB-01</code><code>AMB-05</code><code>TYP-01</code><code>REV-01</code><code>DEP-02</code></div></div>
+    <div style="margin-top:10px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--ember);margin:0 0 6px">Never</h5><div class="fx no"><code>GL-01</code><code>GL-05</code><code>TYP-05</code></div></div>
+    <p style="margin:14px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6">The GL group reads as technology, which is the opposite of what this register sells. Grain and depth do the work.</p>
+  </div>
+  <div class="rcard">
+    <div class="rcard-top"><h4>Luxury</h4><span class="rswatch"><i style="background:#0C0C0C"></i><i style="background:#1A1A1A"></i><i style="background:#B9A67C"></i><i style="background:#F5F2EC"></i></span></div>
+    <p class="ex">fine dining · high-end salon · private club · jeweller · premium retail</p>
+    <div class="pgrid">
+      <div><h5>Palette</h5><p>Near-black or bone. One metallic. Nothing else — a third colour costs more than it adds.</p></div>
+      <div><h5>Type</h5><p>Very large display type, extreme tracking on labels, enormous whitespace around it.</p></div>
+      <div><h5>Density &amp; motion</h5><p>Extremely open. <b>One signature moment, total stillness everywhere else.</b> Restraint is the entire signal.</p></div>
+      <div><h5>Photo treatment</h5><p>Deep blacks, controlled highlights, editorial. Few images, each perfect.</p></div>
+    </div>
+    <div style="margin-top:14px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--teal);margin:0 0 6px">Use</h5><div class="fx"><code>REV-02</code><code>TYP-02</code><code>TYP-03</code><code>AMB-01</code></div></div>
+    <div style="margin-top:10px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--ember);margin:0 0 6px">Never</h5><div class="fx no"><code>TYP-09</code><code>REA-02</code><code>TYP-05</code><code>AMB-02</code><code>GL-05</code></div></div>
+    <p style="margin:14px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6">The fastest way to make something look cheap is to add a second effect. Pick one and stop.</p>
+  </div>
+  <div class="rcard">
+    <div class="rcard-top"><h4>Community</h4><span class="rswatch"><i style="background:#F7F3EC"></i><i style="background:#E4B363"></i><i style="background:#3C6E71"></i><i style="background:#2B2B28"></i></span></div>
+    <p class="ex">neighbourhood café · family gym · kids' programs · community studio · local retail</p>
+    <div class="pgrid">
+      <div><h5>Palette</h5><p>Warm and approachable, mid-saturation, more than one accent permitted here.</p></div>
+      <div><h5>Type</h5><p>Friendly sans, medium weights, sentence case. Nothing austere.</p></div>
+      <div><h5>Density &amp; motion</h5><p>Comfortable density. Motion gentle and simple — welcoming rather than impressive.</p></div>
+      <div><h5>Photo treatment</h5><p>Natural, warm, faces included. Slightly lifted, never moody.</p></div>
+    </div>
+    <div style="margin-top:14px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--teal);margin:0 0 6px">Use</h5><div class="fx"><code>REV-01</code><code>TYP-01</code><code>DEP-02</code><code>AMB-01</code></div></div>
+    <div style="margin-top:10px"><h5 style="font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--ember);margin:0 0 6px">Never</h5><div class="fx no"><code>GL-04</code><code>TYP-05</code><code>TYP-07</code><code>AMB-05</code></div></div>
+    <p style="margin:14px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6">Faces and warmth convert here. Anything that reads as cool or exclusive works against the business.</p>
+  </div>
+<div class="axhead"><span class="n">HOW</span><h3>Classifying</h3>
+    <p>First decision in every build. Get it wrong and everything downstream is wrong.</p></div>
+  <div class="kitcard">
+    <h4>Order of operations</h4>
+    <table class="matrix">
+      <tr><th>Step</th><th>Do this</th></tr>
+      <tr><td>1</td><td>Read the site's nav, services and primary button. <b>The money action is usually literally written on their busiest button.</b></td></tr>
+      <tr><td>2</td><td>Assign the <b>pattern</b> from Axis 1. State a confidence.</td></tr>
+      <tr><td>3</td><td>Assign the <b>register</b> from Axis 2, using their palette, type weight and photography — not their industry.</td></tr>
+      <tr><td>4</td><td>State both out loud before building: <code>Pattern C × Register Raw · confidence high</code>.</td></tr>
+      <tr><td>5</td><td>Pull required sections and components from the pattern. Pull palette, type, density and effect allowance from the register.</td></tr>
+    </table>
+    <p style="margin-top:16px"><b>If confidence is low</b>, take the closest pattern and drop to the
+    <b>Community</b> register. Generic-but-strong beats specific-and-wrong, and Community is the most
+    forgiving treatment. Never stop to ask.</p>
+    <p><b>When two patterns both fit</b> — a roaster with a café and an online shop — pick the one
+    matching <b>the busiest button on their current site</b>. That's the revenue they actually care
+    about, and it's observable rather than a guess.</p>
+    <p><b>Register beats industry every time.</b> A med-spa and a day spa are both pattern A, and
+    building the med-spa in the Calm register would strip out the credentials that are the entire
+    reason someone books it.</p>
+  </div>
+</div><!-- /panel-patterns -->
 
 <div class="panel" id="panel-kit" role="tabpanel" aria-labelledby="tab-kit" hidden>
   <div class="panel-intro">
