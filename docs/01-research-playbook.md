@@ -116,8 +116,8 @@ for f in hero.jpg store1.jpg store2.jpg; do
 done
 ```
 
-**Mean brightness is a design directive.** Summer Moon's rooms measured 31–50%, so a
-dark page is *faithful*. If a client's rooms measure 80%, a dark page is a costume.
+**Mean brightness is a design directive.** One client's rooms measured 31–50%, so a
+dark page was *faithful* to them. If a client's rooms measure 80%, a dark page is a costume.
 
 ⚠️ **Verify an image depicts the client before measuring it.** An image search once
 returned industrial V-belt product photos; the palette math ran perfectly and produced
@@ -136,7 +136,7 @@ That gap is where the insight lives. Examples from the first run:
 
 | The brand says | Customers say |
 |---|---|
-| "signature sweet cream" | *"Moon Milk is crack for coffee lovers"* |
+| "our signature blend" | *"this stuff is addictive"* |
 | "a distinctive experience" | *"I drive across town for this"* |
 
 **Record the word customers use that the brand never does.** It is almost always more
@@ -179,19 +179,18 @@ campaign for core identity)
 ### Two fields that most often get missed
 
 **Latent narrative structure.** Check whether the client has already written their own
-arc. Summer Moon's story page ran `A SPARK → WILDFIRE → THE AFTERGLOW` — a fire's
-lifecycle, and a complete scroll spine, sitting two clicks deep. **Never invent an arc
-before checking for theirs.**
+arc. On the one run so far, the story page carried a named three-act structure — a
+complete scroll spine, sitting two clicks deep. **Never invent an arc before checking
+for theirs.**
 
-**A naming system.** Every Summer Moon product is a state of fire — Velvet Blaze,
-Inferno, Ember, Spark, Fireside. When a naming system exists, **it is the art
-direction**, already decided by the client.
+**A naming system.** If every product in a range shares a theme, that system **is the
+art direction** — already decided, by the client.
 
 ---
 
 # Part 3 — Verify
 
-This is the part that didn't exist before, and it's why the navy error survived.
+This is the part that didn't exist before, and it's why the palette guess survived.
 Nothing here is optional.
 
 ## 3.1 The two-source rule
@@ -211,8 +210,8 @@ source (the company). Their site plus a news article is two.
 Walk the card. For every field ask: **what tier is this, actually?**
 
 Downgrade ruthlessly. Facts drift upward in confidence as they get repeated in
-conversation — the navy claim started as tier F and got treated as tier A within two
-messages, purely from repetition.
+conversation — the palette guess started as tier F and was being treated as tier A within two
+messages, purely through repetition.
 
 **Anything still tier D, E, or F after this pass cannot enter the direction.**
 
@@ -247,7 +246,7 @@ November.
 List what the homepage leads with, in order. List their strongest owned material.
 **The gap is the thesis.** One sentence.
 
-Summer Moon's:
+From the one run so far:
 
 > **The homepage is a coupon. The story is in the basement.**
 

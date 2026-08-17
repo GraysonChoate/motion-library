@@ -2,10 +2,11 @@
 
 **Read this first. It is the entry point to everything else in this folder.**
 
-> ⚠️ **Status: experimental, v1.** This workflow has been run end-to-end exactly
-> once, on Summer Moon Coffee, as a test of whether the process works at all.
-> Treat it as a strong starting hypothesis, not settled practice. Where it fails
-> you, say so — see [§8](#8-what-to-send-back).
+> ⚠️ **Status: unvalidated, v1.** The research half (phases 1–6) has been run once
+> against a real client. **The build half has never been run.** Nobody has taken
+> research from this process through to a finished page, so there is no evidence yet
+> that it produces better work than taste would have. Treat it as a hypothesis you
+> are helping test — see [§8](#8-what-to-send-back).
 
 ---
 
@@ -110,7 +111,7 @@ for f in hero.jpg store1.jpg store2.jpg; do
 done
 ```
 
-**Mean brightness is a design directive, not a mood.** Summer Moon's rooms measured
+**Mean brightness is a design directive, not a mood.** the test client's rooms measured
 31–50%, so a dark page is *faithful to them*. If a client's rooms measure 80%, a
 dark page is a costume you put on them.
 
@@ -127,17 +128,16 @@ nothing looks broken.**
 
 The client is usually a better writer than the brief. Look for, in order:
 
-1. **A latent narrative structure.** Summer Moon's story page ran
-   `A SPARK → WILDFIRE → THE AFTERGLOW` — a fire's lifecycle, and a ready-made
-   scroll spine. **Never invent an arc before checking for theirs.**
-2. **A tagline they already own.** ("always better, never bitter")
-3. **Their best sentence.** ("a story of midnight alchemy")
-4. **A naming system.** Every Summer Moon product is a state of fire — Velvet Blaze,
-   Inferno, Ember, Spark, Fireside. **The naming system is the art direction.**
-5. **A latent interaction.** Summer Moon customers order Moon Milk by fraction
-   (⅛ ¼ ½ ¾) and the menu calls it *"find your sweet spot"* — a signature
-   interaction the client named before we arrived.
-6. **Trademarks and legal marks.** (Moon Milk® — carry the ®.)
+1. **A latent narrative structure.** on the one client run so far, the story page already
+   carried a named three-act arc — a complete scroll spine, sitting two clicks deep
+   behind the homepage. **Never invent an arc before checking for theirs.**
+2. **A tagline they already own.**
+3. **Their best sentence.** Usually on an About page nobody links to.
+4. **A naming system.** If every product in a range shares a theme, **that naming
+   system is the art direction** — already decided, by them.
+5. **A latent interaction.** A mix, grade, strength, or tier the client already
+   exposes to customers is a signature interaction they named before you arrived.
+6. **Trademarks and legal marks** — carry the ®.
 
 **Gate:** a file of verbatim quotes with the page each came from.
 
@@ -146,7 +146,7 @@ The client is usually a better writer than the brief. Look for, in order:
 List what the homepage leads with. List their strongest owned material. **The gap is
 the thesis.** Write it as one sentence.
 
-Summer Moon's:
+From the one run so far:
 
 > **The homepage is a coupon. The story is in the basement.**
 
@@ -168,7 +168,7 @@ applied literally to a coffee brand you get *"an AI startup that happens to sell
 ### Phase 7 — Build
 
 See [`02-technique-reference.md`](02-technique-reference.md) and open
-`ember-bench.html`. Non-negotiables in [§6](#6-the-quality-floor).
+`motion-bench.html`. Non-negotiables in [§6](#6-the-quality-floor).
 
 ---
 
@@ -244,7 +244,7 @@ Every one of these happened in the test run. They are cheap to repeat.
 
 ## 6. The quality floor
 
-**Demo values ≠ ship values.** Everything in `ember-bench.html` is cranked so the
+**Demo values ≠ ship values.** Everything in `motion-bench.html` is cranked so the
 effect is obvious at a glance. Production wants the opposite: the page feels alive and
 **the reader never notices the mechanism.** Ship values run roughly 40–50% of demo
 values — full table in [`02-technique-reference.md`](02-technique-reference.md).
@@ -309,10 +309,10 @@ Open a PR against this folder. The docs are the product as much as the code is.
 | `00-intern-handoff.md` | this document — start here |
 | `01-research-playbook.md` | the research process in full detail |
 | `02-technique-reference.md` | code index + **demo-vs-ship dial table** |
-| `03-summer-moon-research.md` | worked example — measured data only |
-| `04-summer-moon-direction.md` | worked example — direction built from that data |
-| `../ember-bench.html` | **open in a browser** — 11 live techniques |
+| `../templates/research-card.md` | the fill-in research deliverable |
+| `../motion-bench.html` | **open in a browser** — 11 live techniques |
 
-**Your first day:** open `ember-bench.html` and move your cursor through every stage.
-Then read `03` and `04` back to back — that pair shows measured facts on one side and
-the direction derived from them on the other, which is the whole method in miniature.
+**Your first day:** open `motion-bench.html` and move your cursor through every stage.
+Then read `01` and fill a research card for any local business you like — a café you
+know, your gym. Doing it once on a business you already understand is the fastest way
+to see what the card catches that intuition misses.

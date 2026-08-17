@@ -15,17 +15,17 @@ Built with **no dependencies, no build step, and no video or image assets.**
 | I want to… | Go to |
 |---|---|
 | **I'm new here** | **[`docs/00-intern-handoff.md`](docs/00-intern-handoff.md) — start here** |
-| **Feel the techniques** | Open `ember-bench.html` in any browser. Move your cursor into each stage. |
+| **Feel the techniques** | Open `motion-bench.html` in any browser. Move your cursor into each stage. |
 | **Copy a technique into a project** | [`docs/02-technique-reference.md`](docs/02-technique-reference.md) — ⚠️ read the demo-vs-ship table first |
 | **Research a new client properly** | [`docs/01-research-playbook.md`](docs/01-research-playbook.md) |
-| **See a worked example** | [`docs/03-summer-moon-research.md`](docs/03-summer-moon-research.md) |
-| **See direction built from that research** | [`docs/04-summer-moon-direction.md`](docs/04-summer-moon-direction.md) |
+| **Do the research on a client** | [`templates/research-card.md`](templates/research-card.md) — the fill-in deliverable |
 
-> **Status: experimental, v1.** This workflow has been run end-to-end once, on Summer
-> Moon Coffee, as a test of whether it works at all. Treat it as a strong starting
-> hypothesis, not settled practice — and report back what breaks.
+> **Status: unvalidated, v1.** The research half has been run once on a real client.
+> The build half has never been run. Nobody has yet taken research from this process
+> through to a finished page, so **there is no evidence this produces better work than
+> taste would have.** Treat it as a hypothesis to test, not a method to trust.
 
-`ember-bench.html` is a single self-contained file. Double-click it. No install,
+`motion-bench.html` is a single self-contained file. Double-click it. No install,
 no server, no npm.
 
 ### Where this lives, and how to move it
@@ -115,10 +115,9 @@ produces "an AI startup that happens to sell lattes."
 ## The research half
 
 Design decisions here come from **measured data, not taste**. The playbook exists
-because guessing produced a wrong answer that survived three rounds of discussion: an
-early call that Summer Moon was a *navy* brand. Measuring their actual HTML showed gold
-`#E3B245` was dominant, with slate-blue and teal as the cool axis. Nothing built on the
-guess would have been theirs.
+because, on the one client it has been run against, an unmeasured palette guess survived
+three rounds of discussion before measurement disproved it. The guessed colour was not
+even in the brand's palette. Nothing built on it would have been theirs.
 
 Two things from [`docs/01-research-playbook.md`](docs/01-research-playbook.md) that
 save the most time:
@@ -162,15 +161,50 @@ tuned constants highlighted. Register the demo through the shared
 `register(stage, init)` helper so it joins the single loop and the visibility gate —
 never add a second `requestAnimationFrame`.
 
-Give it an ID in an existing group (`DEP-` / `REA-` / `COP-` / `REV-`) and add a row to
-the dial table in `docs/02-technique-reference.md` with **both** demo and ship values.
+Give it an ID in an existing group and add a row to the dial table in
+`docs/02-technique-reference.md` with **both** demo and ship values.
+
+Current groups — open a new prefix when something genuinely doesn't fit:
+
+| Prefix | Group | Purpose |
+|---|---|---|
+| `DEP-` | Depth | flat surfaces into space you move through |
+| `REA-` | Reactivity | the page answering pointer and input |
+| `COP-` | Copy in motion | type carrying hierarchy and consequence |
+| `REV-` | Reveal | how content arrives |
+| `TYP-` | Typography | *open* — type as the subject, not the vehicle |
+| `AMB-` | Ambient | *open* — atmosphere, grain, idle life |
+
+### Backlog
+
+Candidates worth building next. Claim one by opening a PR.
+
+**Typography (`TYP-`)** — variable-font weight driven by scroll or pointer distance ·
+per-line mask reveal · letter-spacing that opens on scroll · type on a curved path ·
+tabular counter roll-up · marquee with velocity-linked speed
+
+**Depth (`DEP-`)** — 2.5D displacement from a depth map · sticky scale-through
+transition · device-orientation tilt for mobile
+
+**Reactivity (`REA-`)** — cursor lens / local magnification · hover displacement on
+imagery · pointer-reactive grid or mesh
+
+**Reveal (`REV-`)** — curtain and split transitions · staggered grid entrance ·
+cross-page transition without a framework
+
+**Ambient (`AMB-`)** — animated grain · slow noise field · breathing scale on idle
+
+Two constraints for anything added: **no dependencies**, and it must register through
+the shared loop. A technique that ships its own `requestAnimationFrame` or pulls in a
+library doesn't go in.
 
 ---
 
-## Status
+## Palette
 
-The Summer Moon material is an **unofficial concept study with no affiliation** to the
-company. Moon Milk® is their registered trademark. All quoted copy is theirs, gathered
-from their public site. No prices, reviews, testimonials, or claims were invented.
+The bench is skinned in the **Grounded Labs palette** — graphite black, luminous ivory,
+pale blueprint blue, warm gray, muted burnt orange, aged brass, restrained honey-gold.
 
-The techniques are client-agnostic — swap the palette tokens and they carry to any project.
+**The palette is a skin, not a dependency.** Every technique is client-agnostic. Swap the
+tokens in `:root` and the whole bench re-skins in one edit. Nothing in the library
+references a specific client.

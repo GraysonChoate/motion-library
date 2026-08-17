@@ -1,6 +1,6 @@
 # Technique Reference — demo values vs ship values
 
-Open `ember-bench.html` in any browser to feel each technique. This file is the
+Open `motion-bench.html` in any browser to feel each technique. This file is the
 index, and it exists mainly to answer one question:
 
 > **The demos look dramatic. Do I ship those numbers?**
