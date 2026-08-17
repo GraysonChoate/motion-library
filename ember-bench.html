@@ -1,0 +1,1375 @@
+<title>Ember Bench</title>
+<style>
+:root{
+  --char:#17120F; --soot:#241F21; --ash:#332B27; --smoke:#4E413F;
+  --ember:#A45126; --flame:#C4682F; --gold:#E3B245; --tan:#DEAC82;
+  --cream:#FEF9E5; --slate:#6D7B9D; --teal:#108474;
+  --ink:#EFE6D6; --ink-dim:#A89B8C; --ink-faint:#6E6157;
+  --edge:rgba(227,178,69,.16); --edge-soft:rgba(239,230,214,.08);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",ui-serif,serif;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --stage:clamp(320px,52vh,520px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--char); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+/* cursor firelight — the page is lit by what you carry */
+#hearth{position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(600px circle at var(--mx,50%) var(--my,30%),
+    rgba(196,104,47,.13), rgba(164,81,38,.05) 40%, transparent 70%);
+  transition:opacity .6s ease}
+#grain{position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.045; mix-blend-mode:overlay}
+.wrap{position:relative; z-index:2; max-width:1080px; margin:0 auto; padding:0 24px}
+
+/* ---------- masthead ---------- */
+header.mast{padding:clamp(64px,12vh,140px) 0 clamp(40px,7vh,80px)}
+.kicker{font-family:var(--mono); font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 20px}
+h1{font-family:var(--serif); font-weight:400; font-size:clamp(44px,8.5vw,104px);
+  line-height:.92; letter-spacing:-.02em; margin:0; color:var(--cream); text-wrap:balance}
+h1 em{font-style:italic; color:var(--tan)}
+.lede{max-width:62ch; margin:28px 0 0; font-size:clamp(16px,1.9vw,19px); color:var(--ink-dim)}
+.lede strong{color:var(--ink); font-weight:500}
+.mast-meta{display:flex; flex-wrap:wrap; gap:8px 28px; margin-top:36px;
+  font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint)}
+.mast-meta b{color:var(--slate); font-weight:400}
+
+/* ---------- law strip ---------- */
+.laws{border-top:1px solid var(--edge); border-bottom:1px solid var(--edge);
+  margin:clamp(48px,8vh,88px) 0; padding:32px 0;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:28px}
+.law h4{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 8px}
+.law p{margin:0; font-size:14px; color:var(--ink-dim); line-height:1.55}
+
+/* ---------- purpose sections ---------- */
+section.purpose{padding:clamp(48px,8vh,90px) 0 0}
+.purpose-head{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap;
+  padding-bottom:14px; border-bottom:1px solid var(--edge-soft); margin-bottom:8px}
+.purpose-head h2{font-family:var(--serif); font-weight:400; font-size:clamp(26px,4vw,40px);
+  letter-spacing:-.01em; margin:0; color:var(--cream)}
+.purpose-head .n{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--ember)}
+.purpose-head p{margin:0; flex:1 1 260px; min-width:220px; font-size:14px; color:var(--ink-faint)}
+
+/* ---------- bench ---------- */
+.bench{margin:44px 0 0; border:1px solid var(--edge-soft); border-radius:2px;
+  background:linear-gradient(180deg,var(--soot),#1C1715); overflow:hidden}
+.stage{position:relative; height:var(--stage); overflow:hidden; background:#120E0C;
+  cursor:crosshair; isolation:isolate}
+.rail{padding:22px 24px 24px; border-top:1px solid var(--edge-soft)}
+.rail-top{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:12px}
+.id{font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--gold);
+  border:1px solid var(--edge); padding:3px 8px; border-radius:2px; white-space:nowrap}
+.rail h3{font-family:var(--serif); font-weight:400; font-size:clamp(19px,2.4vw,25px);
+  margin:0; color:var(--cream); letter-spacing:-.01em}
+.src{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-faint); margin-left:auto}
+.rail-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px 32px; margin-bottom:18px}
+@media(max-width:720px){.rail-grid{grid-template-columns:1fr}}
+.rail-grid h5{font-family:var(--mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--teal); margin:0 0 6px}
+.rail-grid p{margin:0; font-size:14.5px; color:var(--ink-dim); line-height:1.6}
+.rail-grid p b{color:var(--ink); font-weight:500}
+
+details.code{border-top:1px solid var(--edge-soft); margin-top:4px}
+details.code summary{cursor:pointer; list-style:none; padding:12px 0 0;
+  font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-faint); display:flex; align-items:center; gap:8px}
+details.code summary::-webkit-details-marker{display:none}
+details.code summary::before{content:"+"; color:var(--ember); font-size:14px}
+details.code[open] summary::before{content:"–"}
+details.code summary:hover{color:var(--gold)}
+pre{margin:12px 0 4px; padding:16px; background:#0E0B0A; border:1px solid var(--edge-soft);
+  border-radius:2px; overflow-x:auto; font-family:var(--mono); font-size:12.5px;
+  line-height:1.65; color:#CDBFAE; tab-size:2}
+pre b{color:var(--gold); font-weight:400}
+pre i{color:var(--ink-faint); font-style:normal}
+
+/* ---------- demo internals ---------- */
+.plane{position:absolute; inset:-8%; will-change:transform}
+.hint{position:absolute; left:16px; bottom:14px; z-index:9; font-family:var(--mono);
+  font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);
+  pointer-events:none; background:rgba(18,14,12,.6); padding:5px 9px; border-radius:2px}
+canvas.fill{position:absolute; inset:0; width:100%; height:100%; display:block}
+
+/* depth plates (procedural stand-ins for real photography) */
+.plate-sky{background:
+  radial-gradient(120% 80% at 50% 100%, rgba(164,81,38,.30), transparent 60%),
+  linear-gradient(180deg,#0C0908,#1A1310 70%,#241A15)}
+.plate-arch{background:radial-gradient(46% 38% at 50% 74%, rgba(228,150,70,.55), rgba(164,81,38,.18) 55%, transparent 76%)}
+.plate-brick{background:
+  repeating-linear-gradient(0deg,transparent 0 22px,rgba(0,0,0,.35) 22px 24px),
+  repeating-linear-gradient(90deg,transparent 0 46px,rgba(0,0,0,.28) 46px 48px),
+  linear-gradient(180deg,rgba(78,65,63,.55),rgba(36,30,31,.9))}
+.plate-coal{background:radial-gradient(70% 40% at 50% 96%, rgba(228,140,54,.75), rgba(164,81,38,.28) 45%, transparent 70%)}
+.vig{position:absolute; inset:0; box-shadow:inset 0 0 140px 40px #0C0908; pointer-events:none}
+
+/* tilt */
+.tiltwrap{position:absolute; inset:0; display:grid; place-items:center; perspective:1100px}
+.tiltcard{width:min(78%,420px); padding:34px 30px; border-radius:3px;
+  background:linear-gradient(155deg,rgba(52,44,40,.92),rgba(28,23,21,.94));
+  border:1px solid var(--edge); transform-style:preserve-3d; will-change:transform;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.9)}
+.tiltcard .lbl{font-family:var(--mono); font-size:10px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:12px}
+.tiltcard q{display:block; font-family:var(--serif); font-size:clamp(19px,2.6vw,27px);
+  line-height:1.28; color:var(--cream); quotes:none; letter-spacing:-.01em}
+.tiltcard .by{margin-top:14px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--slate)}
+
+/* focus / dof */
+.dofset{position:absolute; inset:0; display:grid; place-items:center}
+.dofcard{position:absolute; width:min(42%,190px); aspect-ratio:3/4; border-radius:2px;
+  border:1px solid var(--edge-soft); will-change:transform,filter,opacity;
+  background:linear-gradient(160deg,rgba(164,81,38,.5),rgba(36,30,31,.95));
+  display:grid; place-items:end center; padding:14px; font-family:var(--mono);
+  font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--cream)}
+
+/* type demos */
+.typestage{position:absolute; inset:0; display:flex; flex-direction:column;
+  justify-content:center; padding:0 clamp(20px,5vw,56px)}
+.big{font-family:var(--serif); font-weight:400; font-size:clamp(30px,6.4vw,72px);
+  line-height:1.0; letter-spacing:-.02em; color:var(--cream); margin:0}
+.big em{font-style:italic; color:var(--tan)}
+.ch{display:inline-block; white-space:pre; will-change:transform,filter,opacity}
+.eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold); margin:0 0 18px}
+.lineclip{overflow:hidden; display:block}
+.lineclip > span{display:block; will-change:transform}
+
+/* sticky swap */
+.swapstage{position:absolute; inset:0}
+.swapset{position:absolute; inset:0; display:flex; flex-direction:column;
+  justify-content:center; gap:22px; padding:0 clamp(20px,5vw,56px);
+  opacity:0; will-change:opacity,filter}
+.swapset .t,.swapset .b{will-change:transform}
+.scrubrail{position:absolute; right:18px; top:50%; transform:translateY(-50%);
+  width:2px; height:52%; background:var(--edge-soft); border-radius:2px}
+.scrubrail i{position:absolute; left:-2px; width:6px; height:6px; border-radius:50%;
+  background:var(--gold); top:0; will-change:transform}
+
+/* mask wipe */
+.wipegrid{position:absolute; inset:0; display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; padding:clamp(20px,4vw,40px); align-content:center;
+  will-change:-webkit-mask-image,mask-image}
+.wipecell{padding:20px 16px; border-left:1px solid var(--edge)}
+.wipecell h6{font-family:var(--serif); font-weight:400; font-size:clamp(17px,2.4vw,26px);
+  margin:0 0 10px; color:var(--cream)}
+.wipecell p{margin:0; font-size:13px; color:var(--ink-dim); line-height:1.55}
+@media(max-width:640px){.wipegrid{grid-template-columns:1fr; gap:0}
+  .wipecell{border-left:none; border-top:1px solid var(--edge); padding:14px 0}}
+
+/* clip open */
+.clipwrap{position:absolute; inset:0; will-change:clip-path; clip-path:inset(50% 50%)}
+
+/* ratio */
+.ratiostage{position:absolute; inset:0; display:grid; grid-template-rows:1fr auto}
+.cup{position:relative; overflow:hidden; display:grid; place-items:center}
+.coffee{position:absolute; inset:0; background:linear-gradient(180deg,#2A1A11,#150D09)}
+.milk{position:absolute; inset:0;
+  background:radial-gradient(140% 90% at 50% 108%, #FDF3D8, #E9D3A6 42%, #C9A574 68%, transparent 82%);
+  will-change:-webkit-mask-image,mask-image}
+.ratioread{position:relative; z-index:3; text-align:center; pointer-events:none}
+.ratioread .frac{font-family:var(--serif); font-size:clamp(52px,12vw,120px); line-height:1;
+  color:var(--cream); letter-spacing:-.03em; mix-blend-mode:difference}
+.ratioread .name{font-family:var(--mono); font-size:11px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold); margin-top:10px}
+.ratiobar{display:flex; gap:0; border-top:1px solid var(--edge)}
+.ratiobar button{flex:1; background:transparent; border:none; border-right:1px solid var(--edge-soft);
+  padding:14px 6px; color:var(--ink-faint); font-family:var(--mono); font-size:12px;
+  letter-spacing:.1em; cursor:pointer; transition:color .25s,background .25s}
+.ratiobar button:last-child{border-right:none}
+.ratiobar button:hover{color:var(--gold); background:rgba(227,178,69,.06)}
+.ratiobar button[aria-pressed="true"]{color:var(--char); background:var(--gold)}
+.ratiobar button:focus-visible{outline:2px solid var(--slate); outline-offset:-3px}
+
+/* magnetic */
+.magstage{position:absolute; inset:0; display:grid; place-items:center}
+.magbtn{position:relative; padding:17px 34px; border-radius:999px; border:1px solid var(--gold);
+  background:rgba(227,178,69,.06); color:var(--gold); font-family:var(--mono);
+  font-size:12px; letter-spacing:.16em; text-transform:uppercase; cursor:pointer;
+  will-change:transform; transition:background .3s,color .3s}
+.magbtn:hover{background:var(--gold); color:var(--char)}
+.magbtn:focus-visible{outline:2px solid var(--slate); outline-offset:4px}
+
+footer{border-top:1px solid var(--edge); margin-top:clamp(64px,10vh,120px);
+  padding:44px 0 72px; font-size:13.5px; color:var(--ink-faint)}
+footer p{margin:0 0 10px; max-width:70ch}
+footer b{color:var(--ink-dim); font-weight:500}
+.disclaimer{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ember); margin-top:20px}
+
+/* ---- DEP-01: legible depth scene (silhouettes, not washes) ---- */
+.p-wall{inset:-8%; background:
+  repeating-linear-gradient(0deg,transparent 0 24px,rgba(0,0,0,.62) 24px 27px),
+  repeating-linear-gradient(90deg,transparent 0 50px,rgba(0,0,0,.5) 50px 53px),
+  linear-gradient(180deg,#150F0C,#241A15);
+  filter:blur(2px) brightness(.8)}
+/* glowing mouth — small, so the dark wall around it can occlude */
+.p-arch{inset:-8%}
+.p-arch::before{content:""; position:absolute; left:50%; bottom:16%; transform:translateX(-50%);
+  width:24%; height:38%; border-radius:50% 50% 4% 4% / 66% 66% 3% 3%;
+  background:radial-gradient(64% 74% at 50% 92%, #FFD489, #E08A38 38%, #A4471C 68%, #43190E 100%);
+  box-shadow:0 0 70px 14px rgba(196,104,47,.5), inset 0 -18px 40px rgba(0,0,0,.6)}
+/* DARK pillars, well inside the frame — the primary occluders */
+.p-pillars{inset:-8%; background:
+  linear-gradient(90deg, transparent 0 9%, #2B211C 9% 19%, transparent 19% 81%,
+                  #2B211C 81% 91%, transparent 91% 100%)}
+.p-pillars::before{content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent 0 18.4%, rgba(255,183,94,.5) 18.4% 19.2%,
+             transparent 19.2% 80.8%, rgba(255,183,94,.5) 80.8% 81.6%, transparent 81.6%)}
+/* dark lintel across the top — second occluder, crosses the arch */
+.p-beam{inset:-8%}
+.p-beam::before{content:""; position:absolute; left:-4%; right:-4%; top:19%; height:11%;
+  background:linear-gradient(180deg,#332621,#1B1310);
+  box-shadow:0 10px 26px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,183,94,.28)}
+.p-coals{inset:-8%; background:
+  radial-gradient(52% 17% at 50% 99%, #FFBB55, rgba(196,104,47,.42) 42%, transparent 68%)}
+/* blurred DARK foreground lip + two ember blobs — travels hardest */
+.p-fore{inset:-16%; filter:blur(13px)}
+.p-fore::before{content:""; position:absolute; left:-10%; right:-10%; bottom:-6%; height:20%;
+  background:linear-gradient(180deg,transparent,#0B0705 55%)}
+.fore-blob{position:absolute; border-radius:50%;
+  background:radial-gradient(circle,#FFD08A,rgba(196,104,47,.5) 50%,transparent 72%)}
+
+/* exploded view — makes the layering unmistakable */
+.stage.showplanes .plane{opacity:.72; box-shadow:inset 0 0 0 1px rgba(227,178,69,.55)}
+.stage.showplanes .p-wall{filter:blur(0) brightness(.9)}
+
+.planetoggle{position:absolute; right:14px; top:14px; z-index:12; cursor:pointer;
+  font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  background:rgba(18,14,12,.75); color:var(--ink-faint); border:1px solid var(--edge);
+  padding:6px 10px; border-radius:2px; transition:color .2s,border-color .2s}
+.planetoggle:hover{color:var(--gold); border-color:var(--gold)}
+.planetoggle:focus-visible{outline:2px solid var(--slate); outline-offset:2px}
+.legend{position:absolute; left:14px; top:14px; z-index:12; display:grid; gap:4px;
+  opacity:0; transition:opacity .3s; pointer-events:none}
+.legend span{font-family:var(--mono); font-size:9.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--gold); background:rgba(12,9,8,.84);
+  padding:3px 8px; border-radius:2px; font-variant-numeric:tabular-nums}
+.stage.showplanes .legend{opacity:1}
+
+/* ---- COP-02: per-line velocity lag ---- */
+.vline{display:block; will-change:transform,filter}
+.velread{position:absolute; right:16px; top:14px; z-index:9; pointer-events:none;
+  font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--gold);
+  background:rgba(12,9,8,.72); padding:7px 11px; border-radius:2px;
+  font-variant-numeric:tabular-nums; line-height:1.7}
+.velread b{color:var(--ink-faint); font-weight:400}
+.velread u{text-decoration:none; color:var(--slate)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important; transition:none!important}
+  #hearth{display:none}
+  .swapset{opacity:1!important; filter:none!important; position:relative!important; inset:auto!important}
+  .swapstage{display:flex; flex-direction:column; justify-content:center; gap:20px; overflow-y:auto}
+  .clipwrap{clip-path:none!important}
+  .wipegrid{-webkit-mask-image:none!important; mask-image:none!important}
+  .ch{opacity:1!important; filter:none!important; transform:none!important}
+  .lineclip > span{transform:none!important}
+  .vline{transform:none!important; filter:none!important}
+  .velread,.planetoggle,.legend{display:none}
+}
+</style>
+
+<div id="hearth"></div>
+<canvas id="grain"></canvas>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="kicker">Motion library · unofficial concept study</p>
+  <h1>Fourteen ways to make a<br>flat page feel <em>lit from within</em></h1>
+  <p class="lede">A working bench of scroll and pointer techniques, pulled apart from five reference
+  builds and rebuilt with <strong>zero video and zero image assets</strong>. Every demo below is live —
+  move your cursor into it, scroll through it, drag it. The code is underneath each one.</p>
+  <p class="lede">Palette and temperature are measured from Summer Moon Coffee's own site and store
+  photography, so this doubles as look-dev: <strong>gold #E3B245</strong>, ember <strong>#A45126</strong>,
+  slate <strong>#6D7B9D</strong>, at the 31–50% screen brightness their rooms actually measure.</p>
+  <div class="mast-meta">
+    <span>Deps <b>none</b></span>
+    <span>Assets <b>zero</b></span>
+    <span>Loop <b>one shared rAF</b></span>
+    <span>Reduced-motion <b>every demo</b></span>
+  </div>
+</header>
+
+<div class="laws">
+  <div class="law">
+    <h4>Depth beats motion</h4>
+    <p>Things arriving on screen is not dimension. Dimension is parallax between planes, focus
+    falling off with distance, and light that moves independently of the object it lands on.</p>
+  </div>
+  <div class="law">
+    <h4>Input is the material</h4>
+    <p>Video can't answer the cursor. Every technique here reads pointer or scroll and responds
+    inside the same frame, which is the entire difference between alive and playing back.</p>
+  </div>
+  <div class="law">
+    <h4>One loop, gated</h4>
+    <p>Fourteen effects, a single <code>requestAnimationFrame</code>, and nothing computed for a
+    stage that's off screen. Fourteen private loops is how a page like this dies on a laptop.</p>
+  </div>
+  <div class="law">
+    <h4>Motion carries meaning</h4>
+    <p>Copy moves to show hierarchy, sequence, or consequence. If a reader can't tell why a word
+    moved, the movement was decoration and it costs legibility.</p>
+  </div>
+</div>
+
+<!-- ============ DEPTH ============ -->
+<section class="purpose">
+  <div class="purpose-head">
+    <span class="n">GROUP 01</span>
+    <h2>Depth</h2>
+    <p>Turning flat surfaces into space you move through, rather than pictures you scroll past.</p>
+  </div>
+
+  <!-- DEP-01 -->
+  <div class="bench">
+    <div class="stage" data-demo="parallax">
+      <div class="plane p-wall"    data-depth="0.05" data-label="Far wall"></div>
+      <div class="plane p-arch"    data-depth="0.20" data-label="Roaster mouth"></div>
+      <div class="plane p-pillars" data-depth="0.46" data-label="Brick pillars"></div>
+      <div class="plane p-beam"    data-depth="0.64" data-label="Lintel"></div>
+      <div class="plane p-coals"   data-depth="0.80" data-label="Coal bed"></div>
+      <div class="plane p-fore"    data-depth="1.00" data-label="Foreground lip">
+        <i class="fore-blob" style="left:4%;top:62%;width:150px;height:150px"></i>
+        <i class="fore-blob" style="left:78%;top:70%;width:190px;height:190px"></i>
+      </div>
+      <div class="vig"></div>
+      <div class="legend"></div>
+      <button class="planetoggle" type="button" aria-pressed="false">Show planes</button>
+      <p class="hint">Move cursor · scroll page</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">DEP-01</span>
+        <h3>Multi-plane parallax</h3>
+        <span class="src">from Urban Jungle mouse-parallax</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Five planes with real <b>silhouettes</b> — wall, roaster mouth,
+        brick pillars, coal bed, blurred foreground embers. Each translates by
+        <b>depth × pointer</b> and <b>depth × scroll</b>; the foreground swings ~20× further than
+        the wall. Hit <b>Show planes</b> to see the separation.</p></div>
+        <div><h5>When to use it</h5><p>Any hero built from stills — the highest return-on-effort
+        technique here. Two rules learned the hard way: planes need <b>edges that cross each
+        other</b> (gradient washes read as one flat image no matter how you move them), and the
+        nearest plane must be <b>blurred and travel hardest</b>, because that's how real lenses
+        behave.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+const planes = [...stage.querySelectorAll('[data-depth]')];
+let px = 0, py = 0;
+
+function frame(){
+  px = lerp(px, pointer.inside ? pointer.nx : 0, <b>0.07</b>);   <i>// nx,ny = -0.5 … 0.5</i>
+  py = lerp(py, pointer.inside ? pointer.ny : 0, <b>0.07</b>);
+
+  const r = stage.getBoundingClientRect();
+  const s = ((innerHeight - r.top) / (innerHeight + r.height) - .5) * 2;   <i>// -1 … 1</i>
+
+  for (const p of planes){
+    const d = +p.dataset.depth;                  <i>// 0.05 … 1.00</i>
+    const x = px * <b>-150</b> * d;                     <i>// was -60 — far too timid</i>
+    const y = py * <b>-95</b>  * d + s * <b>150</b> * d;
+    const rot = px * <b>2.2</b> * d;                    <i>// rotation sells the swing</i>
+    p.style.transform =
+      `translate3d(${x}px,${y}px,0) rotate(${rot}deg) scale(${1 + d * .07})`;
+  }
+}
+<i>// three things make parallax READ, and all three are required:</i>
+<i>//  1. silhouettes that occlude each other (pillars crossing the arch)</i>
+<i>//  2. enough travel — 150px on the near plane, not 40</i>
+<i>//  3. blur on the nearest plane, so it behaves like a lens not a sticker</i>
+</pre></details>
+    </div>
+  </div>
+
+  <!-- DEP-02 -->
+  <div class="bench">
+    <div class="stage" data-demo="tilt">
+      <div class="plane plate-sky" style="opacity:.8"></div>
+      <div class="tiltwrap">
+        <div class="tiltcard">
+          <div class="lbl">Midnight alchemy</div>
+          <q>Under a summer moon, late into the night, we landed on our legendary creamer.</q>
+          <div class="by">Their words, not ours</div>
+        </div>
+      </div>
+      <div class="vig"></div>
+      <p class="hint">Move cursor across card</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">DEP-02</span>
+        <h3>Pointer-tilted panel</h3>
+        <span class="src">from Urban Jungle GlassPanel</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>A parent holds <b>perspective</b>; the child rotates on X and Y
+        toward the pointer and translates slightly with it. The card reads as a physical plate
+        catching light rather than a div.</p></div>
+        <div><h5>When to use it</h5><p>Pull-quotes, story panels, a single product card. Keep
+        rotation under <b>6°</b> — past that it stops reading as a tilt and starts reading as a
+        gimmick. Never tilt a block of running text a reader has to follow.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// parent needs perspective; card needs preserve-3d</i>
+.wrap { perspective: 1100px; }
+.card { transform-style: preserve-3d; will-change: transform; }
+
+let rx = 0, ry = 0, trx = 0, try_ = 0;
+stage.addEventListener('pointermove', e => {
+  const r = card.getBoundingClientRect();
+  const mx = (e.clientX - (r.left + r.width/2))  / (r.width/2);
+  const my = (e.clientY - (r.top  + r.height/2)) / (r.height/2);
+  try_ =  my * <b>-5</b>;   <i>// invert Y: cursor above ⇒ top tips away</i>
+  trx =  mx * <b>6</b>;
+});
+
+function frame(){
+  rx += (trx - rx) * .09;
+  ry += (try_ - ry) * .09;
+  card.style.transform =
+    `rotateY(${rx}deg) rotateX(${ry}deg) translate3d(${rx*1.6}px,${ry*1.2}px,0)`;
+}
+<i>// the small translate is what sells it — pure rotation feels hinged, not floating</i>
+</pre></details>
+    </div>
+  </div>
+
+  <!-- DEP-03 -->
+  <div class="bench">
+    <div class="stage" data-demo="dof">
+      <div class="plane plate-sky" style="opacity:.7"></div>
+      <div class="dofset">
+        <div class="dofcard" data-i="0">Velvet Blaze</div>
+        <div class="dofcard" data-i="1">Glowing Ember</div>
+        <div class="dofcard" data-i="2">Inferno</div>
+      </div>
+      <div class="vig"></div>
+      <p class="hint">Move cursor left ↔ right</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">DEP-03</span>
+        <h3>Focus falloff carousel</h3>
+        <span class="src">new — depth via blur, not position</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Pointer position drives a virtual focal plane. Cards near it
+        are sharp, full-opacity and forward; cards away from it <b>blur and recede</b> — a lens
+        behaviour, not a layout behaviour.</p></div>
+        <div><h5>When to use it</h5><p>Product ranges where one item should dominate without a
+        click. Depth-of-field is the cue the eye trusts most for distance, and it's <b>cheaper than
+        parallax</b> because nothing needs to move far.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+const cards = [...stage.querySelectorAll('.card')];
+let focus = 1, target = 1;                        <i>// which card is "in focus"</i>
+
+stage.addEventListener('pointermove', e => {
+  const r = stage.getBoundingClientRect();
+  target = ((e.clientX - r.left) / r.width) * (cards.length - 1);
+});
+
+function frame(){
+  focus += (target - focus) * .08;
+  cards.forEach((c, i) => {
+    const d = Math.abs(i - focus);                <i>// distance from focal plane</i>
+    c.style.transform =
+      `translateX(${(i - focus) * 62}%) scale(${1 - d * .12}) translateZ(0)`;
+    c.style.filter  = `blur(${d * <b>5</b>}px) brightness(${1 - d * .3})`;
+    c.style.opacity = String(1 - d * .34);
+    c.style.zIndex  = String(100 - Math.round(d * 10));
+  });
+}
+<i>// blur + brightness + scale together; any one alone reads flat</i>
+</pre></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REACTIVITY ============ -->
+<section class="purpose">
+  <div class="purpose-head">
+    <span class="n">GROUP 02</span>
+    <h2>Reactivity</h2>
+    <p>The page answering the pointer. This is the category video physically cannot compete in.</p>
+  </div>
+
+  <!-- REA-01 -->
+  <div class="bench">
+    <div class="stage" data-demo="embers">
+      <canvas class="fill" id="emberCanvas"></canvas>
+      <p class="hint">Sweep cursor through the embers</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">REA-01</span>
+        <h3>Ember field with pointer wake</h3>
+        <span class="src">from veldara Particles, rewritten</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Canvas particles rise with per-particle drift and flicker.
+        The pointer applies a <b>falloff repulsion</b>, so sweeping through leaves a wake that
+        settles — the page registers that you were there.</p></div>
+        <div><h5>When to use it</h5><p>Ambient life behind a hero. Scale count to viewport area,
+        cap it, and <b>never run it off screen</b>. Additive blending is what makes embers glow
+        instead of looking like dots.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+const P = [], N = Math.min(140, Math.floor(w * h / 9000));   <i>// area-scaled, capped</i>
+for (let i = 0; i &lt; N; i++) P.push({
+  x: Math.random()*w, y: Math.random()*h,
+  vx: (Math.random()-.5)*.25, vy: -(.18 + Math.random()*.55), <i>// embers rise</i>
+  r: Math.random()*1.7 + .5, life: Math.random(),
+  hue: 22 + Math.random()*26                                  <i>// ember → gold</i>
+});
+
+function frame(){
+  ctx.clearRect(0,0,w,h);
+  ctx.globalCompositeOperation = 'lighter';        <i>// additive = glow</i>
+  for (const p of P){
+    p.x += p.vx; p.y += p.vy;
+    p.vx += (Math.random()-.5) * .02;              <i>// thermal wander</i>
+
+    <b>if (pointer.inside){</b>                             <i>// pointer wake</i>
+      const dx = p.x - pointer.x, dy = p.y - pointer.y;
+      const d2 = dx*dx + dy*dy;
+      if (d2 &lt; 120*120){
+        const f = (1 - Math.sqrt(d2)/120) * <b>.9</b>;    <i>// linear falloff</i>
+        p.vx += (dx/(Math.sqrt(d2)||1)) * f;
+        p.vy += (dy/(Math.sqrt(d2)||1)) * f;
+      }
+    }
+    p.vx *= .97; p.vy = p.vy * .97 - .006;         <i>// drag + buoyancy</i>
+    if (p.y &lt; -10){ p.y = h + 10; p.x = Math.random()*w; }
+
+    p.life += .015;
+    const a = (.35 + Math.sin(p.life)*.3) * .8;    <i>// flicker</i>
+    ctx.fillStyle = `hsla(${p.hue},85%,58%,${a})`;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill();
+  }
+  ctx.globalCompositeOperation = 'source-over';
+}
+</pre></details>
+    </div>
+  </div>
+
+  <!-- REA-02 -->
+  <div class="bench">
+    <div class="stage" data-demo="trail">
+      <div class="plane plate-sky" style="opacity:.55"></div>
+      <canvas class="fill" id="trailCanvas"></canvas>
+      <div class="magstage"><button class="magbtn" id="magBtn">Find your sweet spot</button></div>
+      <p class="hint">Move fast · then approach the button</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">REA-02</span>
+        <h3>Spark trail + magnetic control</h3>
+        <span class="src">from Mouse_Trail_CTA, sparks not thumbnails</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Two behaviours that belong together. Pointer velocity spawns
+        sparks that fade and fall; the button reads pointer distance and <b>leans toward it</b>
+        inside a radius, so it feels attracted rather than static.</p></div>
+        <div><h5>When to use it</h5><p>The trail is for one signature region, never page-wide.
+        Magnetism belongs on the <b>single most important control</b> — used twice it stops meaning
+        "this one matters." Cap displacement so the hit area never escapes the cursor.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// ── spark trail: spawn on VELOCITY, not on every move event ──</i>
+let last = {x:0,y:0}, sparks = [];
+stage.addEventListener('pointermove', e => {
+  const r = stage.getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  const speed = Math.hypot(x - last.x, y - last.y);
+  if (speed > <b>4</b>){                                <i>// slow moves stay quiet</i>
+    for (let i = 0; i &lt; Math.min(3, speed/6); i++)
+      sparks.push({ x, y, vx:(Math.random()-.5)*1.4,
+                    vy:-Math.random()*1.1, life:1, r:Math.random()*1.6+.6 });
+  }
+  last = {x,y};
+});
+
+<i>// in the shared loop: integrate, decay, cull</i>
+sparks = sparks.filter(s => {
+  s.x += s.vx; s.y += s.vy; s.vy += <b>.035</b>;        <i>// gravity: sparks arc and fall</i>
+  s.life -= .022;
+  ctx.fillStyle = `rgba(233,150,60,${Math.max(0,s.life)})`;
+  ctx.beginPath(); ctx.arc(s.x,s.y,s.r*s.life,0,6.283); ctx.fill();
+  return s.life > 0;                                <i>// filter IS the cleanup</i>
+});
+
+<i>// ── magnetic button ──</i>
+const r = btn.getBoundingClientRect();
+const dx = px - (r.left + r.width/2), dy = py - (r.top + r.height/2);
+const dist = Math.hypot(dx,dy), R = <b>150</b>;
+const pull = dist &lt; R ? (1 - dist/R) : 0;
+btn.style.transform = `translate(${dx*pull*.28}px, ${dy*pull*.28}px)`;
+<i>// .28 keeps the button under the cursor it's chasing — higher and it dodges you</i>
+</pre></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COPY ============ -->
+<section class="purpose">
+  <div class="purpose-head">
+    <span class="n">GROUP 03</span>
+    <h2>Copy in motion</h2>
+    <p>Type that moves to carry hierarchy and consequence — never to be seen moving.</p>
+  </div>
+
+  <!-- COP-01 -->
+  <div class="bench">
+    <div class="stage" data-demo="stagger">
+      <div class="typestage">
+        <p class="eyebrow">001 — Austin, Texas · 2002</p>
+        <h1 class="big" data-split="char">Roasted over <em>oak</em>.</h1>
+        <p class="eyebrow" style="margin:22px 0 0;color:var(--slate)">Always better, never bitter</p>
+      </div>
+      <p class="hint">Scroll this stage out and back</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">COP-01</span>
+        <h3>Character blur-stagger</h3>
+        <span class="src">from Cortex TextEffect</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Splits a headline to characters and animates each from
+        <b>blur + brightness 0 + y-offset</b> on a small stagger. Letters resolve out of heat haze
+        rather than sliding in.</p></div>
+        <div><h5>When to use it</h5><p>Once per page, on the line that matters. Keep the stagger at
+        <b>0.015s</b> — 0.05 reads as a novelty typewriter. Always set <code>aria-label</code> on
+        the parent, because split text destroys the accessible string.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+function splitChars(el){
+  const text = el.textContent;
+  <b>el.setAttribute('aria-label', text);</b>            <i>// a11y: restore the string</i>
+  el.textContent = '';
+  return [...text].map(c => {
+    const s = document.createElement('span');
+    s.className = 'ch'; s.textContent = c === ' ' ? ' ' : c;
+    s.setAttribute('aria-hidden','true');
+    s.style.cssText =
+      'opacity:0;filter:blur(10px) brightness(0);transform:translateY(20px)';
+    el.appendChild(s); return s;
+  });
+}
+
+function reveal(chars, show){
+  chars.forEach((c,i) => {
+    c.style.transition = 'opacity .4s cubic-bezier(.16,1,.3,1),' +
+                         'filter .4s cubic-bezier(.16,1,.3,1),' +
+                         'transform .4s cubic-bezier(.16,1,.3,1)';
+    c.style.transitionDelay = (i * <b>0.015</b>) + 's';
+    c.style.opacity   = show ? '1' : '0';
+    c.style.filter    = show ? 'blur(0) brightness(1)' : 'blur(10px) brightness(0)';
+    c.style.transform = show ? 'translateY(0)' : 'translateY(20px)';
+  });
+}
+<i>// drive with IntersectionObserver; CSS transitions, not rAF — the GPU handles it</i>
+</pre></details>
+    </div>
+  </div>
+
+  <!-- COP-02 -->
+  <div class="bench">
+    <div class="stage" data-demo="skew">
+      <div class="typestage">
+        <p class="eyebrow">Scroll-velocity response</p>
+        <h1 class="big" id="skewTarget">
+          <span class="vline">A spark.</span>
+          <span class="vline"><em>Wildfire.</em></span>
+          <span class="vline">The afterglow.</span>
+        </h1>
+      </div>
+      <div class="velread">
+        <b>vel</b> <span id="velNum">0</span><u>px/f</u><br>
+        <b>skew</b> <span id="velDeg">0.0</span><u>°</u>
+      </div>
+      <p class="hint">Scroll fast — lines lag apart, then settle</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">COP-02</span>
+        <h3>Velocity skew &amp; settle</h3>
+        <span class="src">new — the "flows with purpose" mechanism</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Measures scroll <b>velocity</b>, not position. Each line
+        chases that velocity at its <b>own rate</b>, so lines lag apart into a whip and snap back
+        together — skew, vertical drag, stretch and blur all scale with speed. The readout shows
+        the live numbers.</p></div>
+        <div><h5>When to use it</h5><p>This is what makes a page feel <b>physical</b> rather than
+        animated, and it's nearly free. The trick isn't the skew — it's the <b>per-line rate
+        difference</b>. Move every line identically and you get a tilted block; stagger the rates
+        and the type has mass.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// ⚠ THE BUG WORTH KNOWING: don't lerp toward an already-decaying value.</i>
+<i>// Double-damping cost ~80% of the amplitude and made this invisible.</i>
+
+let raw = 0, lastY = scrollY;
+addEventListener('scroll', () => {
+  raw += scrollY - lastY;                       <i>// ACCUMULATE, don't overwrite</i>
+  lastY = scrollY;                              <i>// sustained scroll builds up</i>
+}, { passive:true });
+
+const lines = [...el.querySelectorAll('.vline')];
+const RATES = [<b>0.22, 0.15, 0.10</b>];                 <i>// ← the whole effect lives here</i>
+let smoothed = [0, 0, 0];
+
+function frame(){
+  raw *= <b>0.90</b>;                                  <i>// single decay, applied once</i>
+  raw = Math.max(-130, Math.min(130, raw));     <i>// clamp the input, not the output</i>
+
+  lines.forEach((ln, i) => {
+    smoothed[i] = lerp(smoothed[i], raw, RATES[i]);   <i>// each line has inertia</i>
+    const v = smoothed[i];
+
+    const skew  = Math.max(-14, Math.min(14, v * <b>-0.11</b>));
+    const drag  = v * <b>0.34</b>;                       <i>// vertical lag — most visible part</i>
+    const sy    = 1 + Math.abs(v) * .0030;
+    const blur  = Math.min(5, Math.abs(v) * .05);
+
+    ln.style.transform = `translateY(${drag}px) skewY(${skew}deg) scaleY(${sy})`;
+    ln.style.filter    = `blur(${blur}px)`;
+  });
+}
+</pre></details>
+    </div>
+  </div>
+
+  <!-- COP-03 -->
+  <div class="bench">
+    <div class="stage" data-demo="swap">
+      <div class="swapstage">
+        <div class="swapset" data-set="0">
+          <div class="t"><p class="eyebrow">001 — The spark</p><h1 class="big">A local auction.</h1></div>
+          <div class="b"><h1 class="big"><em>2002.</em></h1></div>
+        </div>
+        <div class="swapset" data-set="1">
+          <div class="t"><p class="eyebrow">002 — Wildfire</p><h1 class="big">Every brick,</h1></div>
+          <div class="b"><h1 class="big"><em>laid by hand.</em></h1></div>
+        </div>
+        <div class="swapset" data-set="2">
+          <div class="t"><p class="eyebrow">003 — The afterglow</p><h1 class="big">Seventy rooms.</h1></div>
+          <div class="b"><h1 class="big"><em>One fire.</em></h1></div>
+        </div>
+      </div>
+      <div class="scrubrail"><i id="scrubDot"></i></div>
+      <p class="hint">Scroll — three sets cross-fade</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">COP-03</span>
+        <h3>Sticky set swap, opposing drift</h3>
+        <span class="src">from Deep Neural sol-sets</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Stacked sets share one scroll range. Each fades and unblurs
+        across four stops while its top half drifts <b>up</b> and bottom half drifts <b>down</b> —
+        so every set opens and closes like a shutter.</p></div>
+        <div><h5>When to use it</h5><p>Sequential narrative in fixed vertical space — exactly the
+        Spark → Wildfire → Afterglow arc. Opposing drift is the whole trick; move both halves the
+        same way and it's just a slide.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// piecewise interpolation across multi-stop ranges (Framer useTransform, vanilla)</i>
+function mapStops(v, inS, outS){
+  if (v &lt;= inS[0]) return outS[0];
+  if (v >= inS[inS.length-1]) return outS[outS.length-1];
+  for (let i = 0; i &lt; inS.length-1; i++){
+    if (v >= inS[i] && v &lt;= inS[i+1]){
+      const t = (v - inS[i]) / (inS[i+1] - inS[i]);
+      return outS[i] + (outS[i+1] - outS[i]) * t;
+    }
+  }
+}
+
+const WINDOWS = [                       <i>// four stops: in, hold, hold, out</i>
+  [0.00, 0.06, 0.26, 0.33],
+  [0.34, 0.40, 0.60, 0.67],
+  [0.68, 0.74, 0.94, 1.00],
+];
+
+sets.forEach((set, i) => {
+  const w = WINDOWS[i];
+  set.style.opacity = mapStops(p, w, [0,1,1,0]);
+  set.style.filter  = `blur(${mapStops(p, w, [15,0,0,15])}px)`;
+  const drift = mapStops(p, [w[0], w[3]], [0, 120]);
+  set.querySelector('.t').style.transform = `translateY(${<b>-drift</b>}px)`;  <i>// up</i>
+  set.querySelector('.b').style.transform = `translateY(${<b> drift</b>}px)`;  <i>// down</i>
+});
+</pre></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVEAL ============ -->
+<section class="purpose">
+  <div class="purpose-head">
+    <span class="n">GROUP 04</span>
+    <h2>Reveal</h2>
+    <p>How content arrives. Wipes and apertures instead of the universal fade-up.</p>
+  </div>
+
+  <!-- REV-01 -->
+  <div class="bench">
+    <div class="stage" data-demo="wipe">
+      <div class="plane plate-sky" style="opacity:.6"></div>
+      <div class="wipegrid" id="wipeGrid">
+        <div class="wipecell"><h6>Oak fire</h6><p>Roasted over seasoned Texas oak in handmade brick ovens, using a 19th-century process.</p></div>
+        <div class="wipecell"><h6>Moon Milk®</h6><p>Signature sweet cream, formulated to complement the oak-roasted undertones rather than cover them.</p></div>
+        <div class="wipecell"><h6>Seventy rooms</h6><p>From one South First storefront to seventy-plus locations, all still fed by the same fire.</p></div>
+      </div>
+      <div class="vig"></div>
+      <p class="hint">Scroll — content wipes in left to right</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">REV-01</span>
+        <h3>Gradient mask wipe</h3>
+        <span class="src">from veldara card reveal</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Rewrites <code>mask-image</code> each frame as a moving
+        gradient edge, so content is <b>uncovered</b> rather than faded. The soft band is the
+        reveal's whole character.</p></div>
+        <div><h5>When to use it</h5><p>Multi-column content that should feel written in, not
+        popped in. Switch the axis to <code>to bottom</code> under 768px — a horizontal wipe on a
+        single mobile column reveals nothing. Always <code>will-change: mask-image</code>.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// progress 0→1 from a scroll trigger; rewrite the mask every frame</i>
+const axis = innerWidth &lt; 768 ? 'to bottom' : 'to right';
+const soft = innerWidth &lt; 768 ? 20 : 15;         <i>// edge softness, %</i>
+const lead = p * <b>130</b>;                            <i>// 130 > 100 so it fully clears</i>
+
+const mask = `linear-gradient(${axis},` +
+             `black ${lead}%, transparent ${lead + soft}%)`;
+grid.style.maskImage = mask;
+grid.style.webkitMaskImage = mask;               <i>// Safari still wants the prefix</i>
+<i>// CSS: .grid { will-change: mask-image } — without it Safari repaints the world</i>
+</pre></details>
+    </div>
+  </div>
+
+  <!-- REV-02 -->
+  <div class="bench">
+    <div class="stage" data-demo="clip">
+      <div class="clipwrap" id="clipWrap">
+        <div class="plane plate-sky"></div>
+        <div class="plane plate-arch" style="opacity:.9"></div>
+        <div class="plane plate-coal" style="opacity:.85"></div>
+        <div class="typestage" style="z-index:4">
+          <p class="eyebrow">The moon is closer than you think</p>
+          <h1 class="big">Seventy rooms,<br><em>one fire.</em></h1>
+        </div>
+      </div>
+      <div class="vig"></div>
+      <p class="hint">Scroll — aperture opens from centre</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">REV-02</span>
+        <h3>Aperture open</h3>
+        <span class="src">from Deep Neural clip-path reveal</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Animates <code>clip-path: inset()</code> from 50% to 0 on an
+        eased curve, so a full scene opens from a slit at centre. Reads as a shutter, or a roaster
+        door.</p></div>
+        <div><h5>When to use it</h5><p>Section transitions where the next scene should feel
+        <b>revealed rather than scrolled to</b>. Because it clips a container, everything inside —
+        parallax planes and all — arrives together as one world.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// cubic-bezier(.65,0,.35,1) solved by Newton-Raphson — worth it for the ease</i>
+function bezier(t,p1x,p1y,p2x,p2y){
+  const cx=t=>((1-3*p2x+3*p1x)*t+(3*p2x-6*p1x))*t*t+3*p1x*t;
+  const cy=t=>((1-3*p2y+3*p1y)*t+(3*p2y-6*p1y))*t*t+3*p1y*t;
+  const dx=t=>(3*(1-3*p2x+3*p1x)*t+2*(3*p2x-6*p1x))*t+3*p1x;
+  let g=t; for(let i=0;i&lt;8;i++){const x=cx(g)-t,d=dx(g);
+    if(Math.abs(x)&lt;1e-6||Math.abs(d)&lt;1e-6)break; g-=x/d;}
+  return cy(g);
+}
+
+const eased = bezier(Math.min(1, p / <b>0.35</b>), .65, 0, .35, 1);
+const inset = 50 * (1 - eased);
+wrap.style.clipPath = `inset(${inset}% ${inset}% round 3px)`;
+<i>// round 3px keeps the opening edge from looking laser-cut</i>
+</pre></details>
+    </div>
+  </div>
+
+  <!-- REV-03 -->
+  <div class="bench">
+    <div class="stage" data-demo="ratio">
+      <div class="ratiostage">
+        <div class="cup">
+          <div class="coffee"></div>
+          <div class="milk" id="milkLayer"></div>
+          <div class="ratioread">
+            <div class="frac" id="fracRead">¼</div>
+            <div class="name" id="fracName">Semi-sweet</div>
+          </div>
+        </div>
+        <div class="ratiobar" role="group" aria-label="Moon Milk ratio">
+          <button data-r="0.125" aria-pressed="false">⅛</button>
+          <button data-r="0.25"  aria-pressed="true">¼</button>
+          <button data-r="0.5"   aria-pressed="false">½</button>
+          <button data-r="0.75"  aria-pressed="false">¾</button>
+        </div>
+      </div>
+      <p class="hint">Pick a ratio</p>
+    </div>
+    <div class="rail">
+      <div class="rail-top">
+        <span class="id">REV-03</span>
+        <h3>The Ratio — cream flood</h3>
+        <span class="src">new — their own ordering system</span>
+      </div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Their real menu lets you order Moon Milk by fraction. Picking
+        one floods cream upward through a <b>gradient mask</b> and shifts the whole stage's colour
+        temperature with it. No video, no images.</p></div>
+        <div><h5>When to use it</h5><p>This is the signature interaction — the screenshot-and-send
+        moment. It works because the brand <b>already named it</b>: "find your sweet spot." Given
+        buttons, it's keyboard-operable and announces state.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+let ratio = .25, shown = .25;
+
+function frame(){
+  shown += (ratio - shown) * <b>.08</b>;                 <i>// cream pours, never snaps</i>
+
+  const top = 100 - shown * 100;                  <i>// fill height from bottom</i>
+  const mask = `linear-gradient(to top,` +
+               `black ${100-top}%, transparent ${100-top+14}%)`;
+  milk.style.maskImage = mask;
+  milk.style.webkitMaskImage = mask;
+
+  <i>// temperature travels with sweetness: ember at ⅛ → moonlight at ¾</i>
+  stage.style.background =
+    `hsl(${<b>24 + shown*26</b>}, ${38 - shown*20}%, ${7 + shown*9}%)`;
+}
+
+buttons.forEach(b => b.addEventListener('click', () => {
+  ratio = +b.dataset.r;
+  buttons.forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+}));
+</pre></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><b>How to use this.</b> Each bench is independent — lift the snippet, keep the constants,
+  swap the palette tokens. The constants marked in gold are the ones that were tuned by feel;
+  they're the difference between the effect working and the effect being visible.</p>
+  <p><b>The architecture that matters more than any single effect:</b> one
+  <code>requestAnimationFrame</code> loop drives all fourteen demos, and each stage is registered
+  with an <code>IntersectionObserver</code> so nothing off screen computes a thing. Fourteen
+  private loops would idle this page at 100% CPU. That pattern is the actual takeaway.</p>
+  <p><b>What's still missing:</b> real photography. Every plate here is procedural — layered
+  gradients standing in for the roaster, the coals, the brick. Drop real plates into DEP-01 and
+  DEP-03 and the depth stops being a demonstration and starts being a place.</p>
+  <p class="disclaimer">Unofficial concept study · not affiliated with Summer Moon Coffee ·
+  Moon Milk® is their registered trademark · all quoted copy is theirs</p>
+</footer>
+</div>
+
+<script>
+(() => {
+'use strict';
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+const lerp  = (a,b,t) => a + (b-a)*t;
+
+/* ---------- grain ---------- */
+(() => {
+  const c = document.getElementById('grain'), x = c.getContext('2d');
+  const draw = () => {
+    c.width = innerWidth>>1; c.height = innerHeight>>1;
+    const d = x.createImageData(c.width, c.height);
+    for (let i=0;i<d.data.length;i+=4){
+      const v = Math.random()*255;
+      d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=255;
+    }
+    x.putImageData(d,0,0);
+  };
+  draw(); addEventListener('resize', draw, {passive:true});
+})();
+
+/* ---------- global pointer → firelight ---------- */
+const hearth = document.getElementById('hearth');
+let gx = innerWidth/2, gy = innerHeight*0.3, gtx = gx, gty = gy;
+addEventListener('pointermove', e => { gtx = e.clientX; gty = e.clientY; }, {passive:true});
+
+/* ---------- visibility registry ---------- */
+const stages = new Map();
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { const s = stages.get(e.target); if (s) s.visible = e.isIntersecting; });
+}, { rootMargin: '120px' });
+
+function register(stage, init){
+  const api = init(stage) || {};
+  const rec = { stage, visible:false, tick:api.tick, pointer:{x:0,y:0,inside:false} };
+  stages.set(stage, rec);
+  io.observe(stage);
+  stage.addEventListener('pointermove', e => {
+    const r = stage.getBoundingClientRect();
+    rec.pointer.x = e.clientX - r.left; rec.pointer.y = e.clientY - r.top;
+    rec.pointer.inside = true;
+    rec.pointer.nx = rec.pointer.x / r.width - .5;
+    rec.pointer.ny = rec.pointer.y / r.height - .5;
+  }, {passive:true});
+  stage.addEventListener('pointerleave', () => { rec.pointer.inside = false; });
+  return rec;
+}
+/* scroll progress of a stage through the viewport, 0→1 */
+function prog(stage){
+  const r = stage.getBoundingClientRect();
+  return clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1);
+}
+
+const q  = (s,r=document) => r.querySelector(s);
+const qa = (s,r=document) => [...r.querySelectorAll(s)];
+
+/* ================= DEP-01 parallax ================= */
+qa('[data-demo="parallax"]').forEach(stage => {
+  const planes = qa('[data-depth]', stage);
+  const legend = q('.legend', stage), toggle = q('.planetoggle', stage);
+  planes.forEach(p => {
+    const s = document.createElement('span');
+    s.textContent = `${p.dataset.label} · d ${(+p.dataset.depth).toFixed(2)}`;
+    legend.appendChild(s);
+  });
+  let explode = 0, explodeTarget = 0;
+  toggle.addEventListener('click', () => {
+    const on = stage.classList.toggle('showplanes');
+    explodeTarget = on ? 1 : 0;
+    toggle.setAttribute('aria-pressed', String(on));
+    toggle.textContent = on ? 'Hide planes' : 'Show planes';
+  });
+  let px=0, py=0;
+  const N = planes.length;
+  const rec = register(stage, () => ({ tick(){
+    px = lerp(px, rec.pointer.inside ? rec.pointer.nx : 0, .07);
+    py = lerp(py, rec.pointer.inside ? rec.pointer.ny : 0, .07);
+    explode = lerp(explode, explodeTarget, .10);
+    const s = (prog(stage) - .5) * 2;
+    planes.forEach((p,i) => {
+      const d = +p.dataset.depth;
+      const x = px * -150 * d;
+      const y = py * -95 * d + s * 150 * d;
+      const rot = px * 2.2 * d;
+      /* exploded: fan the stack apart so the layering is literally visible */
+      const ex = explode * ((i - (N-1)/2) * 78);
+      const ey = explode * ((i - (N-1)/2) * 26);
+      const esc = 1 - explode * .22;
+      p.style.transform =
+        `translate3d(${x+ex}px,${y+ey}px,0) rotate(${rot + explode*-6}deg) ` +
+        `scale(${(1+d*.07) * esc})`;
+    });
+  }}));
+});
+
+/* ================= DEP-02 tilt ================= */
+qa('[data-demo="tilt"]').forEach(stage => {
+  const card = q('.tiltcard', stage);
+  let rx=0, ry=0;
+  const rec = register(stage, () => ({ tick(){
+    const tx = rec.pointer.inside ? rec.pointer.nx*12 : 0;
+    const ty = rec.pointer.inside ? rec.pointer.ny*-10 : 0;
+    rx = lerp(rx, tx, .09); ry = lerp(ry, ty, .09);
+    card.style.transform =
+      `rotateY(${rx}deg) rotateX(${ry}deg) translate3d(${rx*1.6}px,${-ry*1.2}px,0)`;
+  }}));
+});
+
+/* ================= DEP-03 focus falloff ================= */
+qa('[data-demo="dof"]').forEach(stage => {
+  const cards = qa('.dofcard', stage);
+  let f = 1;
+  const rec = register(stage, () => ({ tick(){
+    const t = rec.pointer.inside ? (rec.pointer.nx + .5) * (cards.length-1) : 1;
+    f = lerp(f, t, .08);
+    cards.forEach((c,i) => {
+      const d = Math.abs(i - f);
+      c.style.transform = `translateX(${(i-f)*64}%) scale(${1-d*.12})`;
+      c.style.filter = `blur(${d*5}px) brightness(${1-d*.3})`;
+      c.style.opacity = String(clamp(1-d*.34, .08, 1));
+      c.style.zIndex = String(100 - Math.round(d*10));
+    });
+  }}));
+});
+
+/* ================= REA-01 ember field ================= */
+qa('[data-demo="embers"]').forEach(stage => {
+  const cv = q('canvas', stage), ctx = cv.getContext('2d');
+  let w=0, h=0, P=[];
+  function size(){
+    const dpr = Math.min(devicePixelRatio||1, 2), r = stage.getBoundingClientRect();
+    w = r.width; h = r.height;
+    cv.width = w*dpr; cv.height = h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    const N = Math.min(150, Math.floor(w*h/9000));
+    P = Array.from({length:N}, () => ({
+      x:Math.random()*w, y:Math.random()*h,
+      vx:(Math.random()-.5)*.25, vy:-(.18+Math.random()*.55),
+      r:Math.random()*1.7+.5, life:Math.random()*6, hue:22+Math.random()*26
+    }));
+  }
+  size(); addEventListener('resize', size, {passive:true});
+  const rec = register(stage, () => ({ tick(){
+    ctx.clearRect(0,0,w,h);
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of P){
+      if (!RM){
+        p.x += p.vx; p.y += p.vy; p.vx += (Math.random()-.5)*.02;
+        if (rec.pointer.inside){
+          const dx = p.x-rec.pointer.x, dy = p.y-rec.pointer.y;
+          const dd = Math.hypot(dx,dy);
+          if (dd < 120 && dd > 0){
+            const fo = (1-dd/120)*.9;
+            p.vx += (dx/dd)*fo; p.vy += (dy/dd)*fo;
+          }
+        }
+        p.vx *= .97; p.vy = p.vy*.97 - .006;
+        if (p.y < -12){ p.y = h+12; p.x = Math.random()*w; }
+        if (p.x < -12) p.x = w+12; if (p.x > w+12) p.x = -12;
+        p.life += .015;
+      }
+      const a = (.35 + Math.sin(p.life)*.3)*.85;
+      ctx.fillStyle = `hsla(${p.hue},85%,58%,${clamp(a,0,1)})`;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }}));
+});
+
+/* ================= REA-02 spark trail + magnet ================= */
+qa('[data-demo="trail"]').forEach(stage => {
+  const cv = q('canvas', stage), ctx = cv.getContext('2d');
+  const btn = q('.magbtn', stage);
+  let w=0,h=0, sparks=[], last={x:0,y:0};
+  function size(){
+    const dpr = Math.min(devicePixelRatio||1,2), r = stage.getBoundingClientRect();
+    w=r.width; h=r.height; cv.width=w*dpr; cv.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  size(); addEventListener('resize', size, {passive:true});
+  stage.addEventListener('pointermove', e => {
+    if (RM) return;
+    const r = stage.getBoundingClientRect();
+    const x = e.clientX-r.left, y = e.clientY-r.top;
+    const sp = Math.hypot(x-last.x, y-last.y);
+    if (sp > 4 && sparks.length < 260){
+      for (let i=0;i<Math.min(3, sp/6);i++)
+        sparks.push({x,y,vx:(Math.random()-.5)*1.4,vy:-Math.random()*1.1,
+                     life:1,r:Math.random()*1.6+.6});
+    }
+    last = {x,y};
+  }, {passive:true});
+  const rec = register(stage, () => ({ tick(){
+    ctx.clearRect(0,0,w,h);
+    ctx.globalCompositeOperation = 'lighter';
+    sparks = sparks.filter(s => {
+      s.x+=s.vx; s.y+=s.vy; s.vy+=.035; s.life-=.022;
+      ctx.fillStyle = `rgba(233,150,60,${clamp(s.life,0,1)})`;
+      ctx.beginPath(); ctx.arc(s.x,s.y,Math.max(0,s.r*s.life),0,6.283); ctx.fill();
+      return s.life > 0;
+    });
+    ctx.globalCompositeOperation = 'source-over';
+    if (rec.pointer.inside && !RM){
+      const br = btn.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+      const cx = br.left-sr.left+br.width/2, cy = br.top-sr.top+br.height/2;
+      const dx = rec.pointer.x-cx, dy = rec.pointer.y-cy, dd = Math.hypot(dx,dy);
+      const pull = dd < 150 ? (1-dd/150) : 0;
+      btn.style.transform = `translate(${dx*pull*.28}px,${dy*pull*.28}px)`;
+    } else btn.style.transform = 'translate(0,0)';
+  }}));
+});
+
+/* ================= COP-01 char stagger ================= */
+qa('[data-split="char"]').forEach(el => {
+  const html = el.innerHTML;
+  const plain = el.textContent;
+  el.setAttribute('aria-label', plain);
+  // preserve <em> by walking nodes
+  const chars = [];
+  const walk = (src, dest) => {
+    [...src.childNodes].forEach(n => {
+      if (n.nodeType === 3){
+        [...n.textContent].forEach(c => {
+          const s = document.createElement('span');
+          s.className='ch'; s.textContent = c===' ' ? ' ' : c;
+          s.setAttribute('aria-hidden','true');
+          if (!RM) s.style.cssText='opacity:0;filter:blur(10px) brightness(0);transform:translateY(20px)';
+          dest.appendChild(s); chars.push(s);
+        });
+      } else if (n.nodeName === 'BR'){ dest.appendChild(document.createElement('br')); }
+      else { const c = document.createElement(n.nodeName.toLowerCase()); walk(n,c); dest.appendChild(c); }
+    });
+  };
+  const tmp = document.createElement('div');
+  el.innerHTML = html; walk(el, tmp);
+  el.innerHTML = ''; [...tmp.childNodes].forEach(n => el.appendChild(n));
+
+  if (RM) return;
+  let shown = false;
+  const set = show => {
+    if (show === shown) return; shown = show;
+    chars.forEach((c,i) => {
+      c.style.transition = 'opacity .4s cubic-bezier(.16,1,.3,1),filter .4s cubic-bezier(.16,1,.3,1),transform .4s cubic-bezier(.16,1,.3,1)';
+      c.style.transitionDelay = (i*0.015)+'s';
+      c.style.opacity = show?'1':'0';
+      c.style.filter = show?'blur(0px) brightness(1)':'blur(10px) brightness(0)';
+      c.style.transform = show?'translateY(0)':'translateY(20px)';
+    });
+  };
+  new IntersectionObserver(es => es.forEach(e => set(e.intersectionRatio > .25)),
+    {threshold:[0,.25,.6]}).observe(el);
+});
+
+/* ================= COP-02 velocity skew ================= */
+(() => {
+  const el = document.getElementById('skewTarget');
+  if (!el) return;
+  const stage = el.closest('.stage');
+  const lines = qa('.vline', el);
+  const numEl = document.getElementById('velNum'), degEl = document.getElementById('velDeg');
+  if (RM) return;
+  /* accumulate, single decay — never lerp toward a decaying value */
+  let raw = 0, lastY = scrollY;
+  addEventListener('scroll', () => { raw += scrollY - lastY; lastY = scrollY; }, {passive:true});
+  addEventListener('wheel', e => { raw += e.deltaY * .35; }, {passive:true});
+  const RATES = [.22, .15, .10];
+  const sm = [0,0,0];
+  register(stage, () => ({ tick(){
+    raw = clamp(raw * .90, -130, 130);
+    let lead = 0;
+    lines.forEach((ln,i) => {
+      sm[i] = lerp(sm[i], raw, RATES[i] ?? .12);
+      const v = sm[i];
+      if (i === 0) lead = v;
+      const skew = clamp(v * -0.11, -14, 14);
+      ln.style.transform =
+        `translateY(${v*0.34}px) skewY(${skew}deg) scaleY(${1+Math.abs(v)*.0030})`;
+      ln.style.filter = `blur(${Math.min(5, Math.abs(v)*.05)}px)`;
+    });
+    if (numEl) numEl.textContent = String(Math.round(raw));
+    if (degEl) degEl.textContent = (clamp(lead*-0.11,-14,14)).toFixed(1);
+  }}));
+})();
+
+/* ================= COP-03 sticky swap ================= */
+function mapStops(v, inS, outS){
+  if (v <= inS[0]) return outS[0];
+  if (v >= inS[inS.length-1]) return outS[outS.length-1];
+  for (let i=0;i<inS.length-1;i++){
+    if (v>=inS[i] && v<=inS[i+1]){
+      const t=(v-inS[i])/(inS[i+1]-inS[i]);
+      return outS[i]+(outS[i+1]-outS[i])*t;
+    }
+  }
+  return outS[outS.length-1];
+}
+qa('[data-demo="swap"]').forEach(stage => {
+  const sets = qa('.swapset', stage), dot = document.getElementById('scrubDot');
+  const W = [[0,.06,.26,.33],[.34,.40,.60,.67],[.68,.74,.94,1]];
+  register(stage, () => ({ tick(){
+    if (RM) return;
+    const p = prog(stage);
+    sets.forEach((s,i) => {
+      const w = W[i];
+      s.style.opacity = String(mapStops(p,w,[0,1,1,0]));
+      s.style.filter = `blur(${mapStops(p,w,[15,0,0,15])}px)`;
+      const d = mapStops(p,[w[0],w[3]],[0,120]);
+      const t = q('.t',s), b = q('.b',s);
+      if (t) t.style.transform = `translateY(${-d}px)`;
+      if (b) b.style.transform = `translateY(${d}px)`;
+    });
+    if (dot) dot.style.transform = `translateY(${p * (stage.offsetHeight*.52 - 6)}px)`;
+  }}));
+});
+
+/* ================= REV-01 mask wipe ================= */
+qa('[data-demo="wipe"]').forEach(stage => {
+  const grid = q('.wipegrid', stage);
+  register(stage, () => ({ tick(){
+    if (RM) return;
+    const p = clamp((prog(stage) - .12) / .55, 0, 1);
+    const axis = innerWidth < 768 ? 'to bottom' : 'to right';
+    const soft = innerWidth < 768 ? 20 : 15;
+    const lead = p*130;
+    const m = `linear-gradient(${axis}, black ${lead}%, transparent ${lead+soft}%)`;
+    grid.style.maskImage = m; grid.style.webkitMaskImage = m;
+  }}));
+});
+
+/* ================= REV-02 aperture ================= */
+function bezier(t,p1x,p1y,p2x,p2y){
+  const cx=u=>((1-3*p2x+3*p1x)*u+(3*p2x-6*p1x))*u*u+3*p1x*u;
+  const cy=u=>((1-3*p2y+3*p1y)*u+(3*p2y-6*p1y))*u*u+3*p1y*u;
+  const dx=u=>(3*(1-3*p2x+3*p1x)*u+2*(3*p2x-6*p1x))*u+3*p1x;
+  let g=t; for(let i=0;i<8;i++){const x=cx(g)-t,d=dx(g);
+    if(Math.abs(x)<1e-6||Math.abs(d)<1e-6)break; g-=x/d;}
+  return cy(g);
+}
+qa('[data-demo="clip"]').forEach(stage => {
+  const wrap = q('.clipwrap', stage);
+  register(stage, () => ({ tick(){
+    if (RM){ wrap.style.clipPath='none'; return; }
+    const e = bezier(clamp((prog(stage)-.1)/.4,0,1), .65,0,.35,1);
+    const i = 50*(1-e);
+    wrap.style.clipPath = `inset(${i}% ${i}% round 3px)`;
+  }}));
+});
+
+/* ================= REV-03 the ratio ================= */
+qa('[data-demo="ratio"]').forEach(stage => {
+  const milk = q('.milk', stage), cup = q('.cup', stage);
+  const frac = document.getElementById('fracRead'), name = document.getElementById('fracName');
+  const btns = qa('.ratiobar button', stage);
+  const LABEL = {'0.125':['⅛','A whisper'],'0.25':['¼','Semi-sweet'],
+                 '0.5':['½','Balanced'],'0.75':['¾','Full moon']};
+  let ratio=.25, shown=.25;
+  btns.forEach(b => b.addEventListener('click', () => {
+    ratio = +b.dataset.r;
+    btns.forEach(o => o.setAttribute('aria-pressed', String(o===b)));
+    const L = LABEL[b.dataset.r]; frac.textContent = L[0]; name.textContent = L[1];
+  }));
+  register(stage, () => ({ tick(){
+    shown = RM ? ratio : lerp(shown, ratio, .08);
+    const fill = shown*100;
+    const m = `linear-gradient(to top, black ${fill}%, transparent ${Math.min(100,fill+14)}%)`;
+    milk.style.maskImage = m; milk.style.webkitMaskImage = m;
+    cup.style.background = `hsl(${24+shown*26},${38-shown*20}%,${7+shown*9}%)`;
+  }}));
+});
+
+/* ================= one loop ================= */
+function loop(){
+  gx = lerp(gx, gtx, .08); gy = lerp(gy, gty, .08);
+  hearth.style.setProperty('--mx', gx+'px');
+  hearth.style.setProperty('--my', gy+'px');
+  stages.forEach(rec => { if (rec.visible && rec.tick) rec.tick(); });
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+})();
+</script>
