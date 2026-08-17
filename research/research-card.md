@@ -1,5 +1,7 @@
 # Research Card — <CLIENT NAME>
 
+*Grounded Labs Toolroom · fill this in as you work through `README.md`*
+
 Collected by: ___________  Date: ___________
 Status: ☐ in progress ☐ complete ☐ complete-with-gaps
 

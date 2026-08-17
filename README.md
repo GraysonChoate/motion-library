@@ -1,210 +1,170 @@
-# Motion Library
+# Grounded Labs Toolroom
 
-A working reference for building **reactive, dimensional websites for local
-businesses** — cafés, studios, gyms, restaurants, salons, small retail. Two halves:
+Everything we've learned about making a website feel like the business it belongs to,
+kept in one place so nobody learns it twice.
 
-1. **A live motion bench** — eleven scroll and pointer techniques you can feel and copy.
-2. **A research playbook** — how to gather real brand facts before designing anything.
+**This is internal.** It is never shown to clients. If a client needs to see a
+reference, show them a real site in their industry.
 
-Built with **no dependencies, no build step, and no video or image assets.**
+A toolroom isn't where product gets made — it's where the jigs, fixtures and gauges get
+made. That's this. Not client work; the tooling that makes client work come out
+consistently good.
 
----
-
-## Start here
-
-| I want to… | Go to |
+| | |
 |---|---|
-| **I'm new here** | **[`docs/00-intern-handoff.md`](docs/00-intern-handoff.md) — start here** |
-| **Feel the techniques** | Open `motion-bench.html` in any browser. Move your cursor into each stage. |
-| **Copy a technique into a project** | [`docs/02-technique-reference.md`](docs/02-technique-reference.md) — ⚠️ read the demo-vs-ship table first |
-| **Research a new client properly** | [`docs/01-research-playbook.md`](docs/01-research-playbook.md) |
-| **Do the research on a client** | [`templates/research-card.md`](templates/research-card.md) — the fill-in deliverable |
+| **[`research/`](research/)** | how to find out what's actually true about a client, and prove it — the **gauge** |
+| **[`effects/`](effects/)** | working, debugged interaction code you can lift — the **fixtures** |
+| **[`standards/`](standards/)** | accessibility, performance, and demo-vs-ship values — the **tolerances** |
 
-> **Status: unvalidated, v1.** The research half has been run once on a real client.
-> The build half has never been run. Nobody has yet taken research from this process
-> through to a finished page, so **there is no evidence this produces better work than
-> taste would have.** Treat it as a hypothesis to test, not a method to trust.
+**New here?** Open **[`effects/effects-library.html`](effects/effects-library.html)** in a
+browser and move your cursor through every stage. Then read
+[`research/README.md`](research/README.md) and fill in a research card for a business you
+already know — a café near you, your gym. Doing it once on something familiar is the
+fastest way to see what the card catches that intuition misses.
 
-`motion-bench.html` is a single self-contained file. Double-click it. No install,
-no server, no npm.
-
-### Where this lives, and how to move it
-
-This folder currently sits inside the `grounded-labs-website` repo purely for lack of
-somewhere better — it is **unrelated to the Grounded Labs project** and touches none of
-it. It was meant to be its own repo, but the automation creating it lacked
-repo-creation permission.
-
-It is **fully self-contained and portable**. To give it a proper home:
-
-```bash
-mkdir motion-library && cd motion-library
-cp -r /path/to/grounded-labs-website/motion-library/. .
-git init && git add -A && git commit -m "Motion Library"
-# then create an empty repo on GitHub and:
-git remote add origin git@github.com:<you>/motion-library.git
-git push -u origin main
-```
-
-Nothing references a path outside this folder, so the copy works as-is.
+> ⚠️ **Status: unvalidated, v1.** The research half has been run once against a real
+> client. **The build half has never been run.** Nobody has taken research from this
+> process through to a finished page, so there is no evidence yet that it produces
+> better work than taste would have. Treat it as a hypothesis you are helping test.
 
 ---
 
-## ⚠️ Read this before shipping anything
+## 1. What we actually do
 
-**The bench is tuned for demo legibility, not production.** Constants are cranked so
-each effect is obvious in a single glance and visible in a screenshot. Production wants
-the opposite: the page feels alive and the reader **never notices the mechanism**.
+We take a small business with a real identity and a website that undersells it, and we
+**elevate the execution without rebranding the company**.
 
-**Ship values are roughly 40–50% of demo values.** The full dial table is in
-[`docs/02-technique-reference.md`](docs/02-technique-reference.md). The four that most
-need dialling back:
+> **We don't touch the brand. We light it.**
 
-| Technique | Demo | Ship |
+Almost every local business already owns everything needed — an origin story, a
+distinctive product, colors, a vocabulary, a tagline. It's usually buried under promo
+bars and product grids. The job is to find what they own, move it to the front, and give
+it dimension.
+
+**What this is not:** not a rebrand, not a copywriting exercise (their words are usually
+better than ours), and not a template. If the output could belong to a different client,
+start over.
+
+---
+
+## 2. The workflow
+
+Seven phases. **Do them in order.** Each has a gate — don't start the next until the gate
+passes. Most of the damage in the first run came from skipping ahead.
+
+| # | Phase | Time | Output |
+|---|---|---|---|
+| 1 | Access check | 10 min | a stated list of what you can and can't reach |
+| 2 | First-party scrape | 30 min | their raw HTML/CSS on disk |
+| 3 | Measure | 20 min | palette + brightness table, all measured |
+| 4 | Mine words & structure | 30 min | verbatim copy, latent structure |
+| 5 | Diagnosis | 15 min | **one sentence** |
+| 6 | Direction | 45 min | constraints, no code |
+| 7 | Build | varies | the page |
+
+Phases 1–6 are [`research/README.md`](research/README.md) in full detail. Phase 7 is
+[`effects/`](effects/) and [`standards/`](standards/).
+
+**Two gates worth calling out:**
+
+- **Phase 1's gate is a written statement of what you couldn't reach.** A blocked fetch
+  is a finding to report, not a hole to paper over with a search summary. The worst
+  failure of the first run was describing research in a way that implied a site had been
+  read when every fetch had been blocked — everything downstream inherited that.
+- **Phase 5's gate is one sentence.** If the diagnosis needs a paragraph, you don't have
+  it yet.
+
+---
+
+## 3. Evidence tiers — tag every fact
+
+The discipline that prevents the most expensive mistakes.
+
+| Tier | Source | Use it? |
 |---|---|---|
-| DEP-01 near-plane travel | 150px | **60–80px** |
-| COP-02 skew | ±14° | **±4–5°** |
-| REA-01 ember repulsion | 0.9 | **0.35–0.5** |
-| REA-02 magnet pull | 0.28 | **0.14–0.18** |
+| **A — Measured** | bytes you downloaded and parsed | build on it |
+| **B — Verbatim** | their own copy, quoted exactly, with the URL | build on it |
+| **C — Human-verified** | screenshot or statement from a person | build on it |
+| **D — Search summary** | third-party paraphrase | **lead only** — corroborate first |
+| **E — Inference** | reasoned from A or B | label it; say what would disprove it |
+| **F — Imagination** | your mental model of the brand | **never ship** |
 
-Reveals and staggers (COP-01, COP-03, REV-01/02/03) were already tuned for production —
-ship those as-is. If a colleague can describe what the animation did, it's too strong.
+**The cautionary pair, both from the first run:** an *inference* that a site ran on
+Shopify — reasoned from its URL patterns — was correct. A *guess* about the brand's
+dominant colour survived three rounds of discussion until measurement killed it; the
+guessed colour wasn't even in their palette.
 
----
-
-## What's in the bench
-
-**Group 01 — Depth.** Flat surfaces into space you move through.
-`DEP-01` multi-plane parallax (+ exploded "Show planes" view) ·
-`DEP-02` pointer-tilted panel · `DEP-03` focus falloff
-
-**Group 02 — Reactivity.** The category video cannot compete in.
-`REA-01` ember field with pointer wake · `REA-02` spark trail + magnetic control
-
-**Group 03 — Copy in motion.** Type moving to carry meaning, not to be seen moving.
-`COP-01` character blur-stagger · `COP-02` velocity skew & settle ·
-`COP-03` sticky set swap with opposing drift
-
-**Group 04 — Reveal.** Wipes and apertures instead of the universal fade-up.
-`REV-01` gradient mask wipe · `REV-02` aperture open · `REV-03` The Ratio (cream flood)
+The difference wasn't luck. The inference was falsifiable and got checked. The guess was
+never tested, because nothing in the process required testing it.
 
 ---
 
-## The four ideas worth more than any single effect
+## 4. Tool reality — route by source type
 
-**1. One loop, gated.** Eleven effects share a single `requestAnimationFrame`, and every
-stage is registered with an `IntersectionObserver` so nothing off screen computes.
-Eleven private loops would idle a page at 100% CPU. **Copy this pattern before you copy
-any effect.**
+Automation and humans have different reach. This table saves the most time of anything
+here.
 
-**2. Depth ≠ arrival.** Things appearing on screen is not dimension. Dimension is
-parallax *between* planes, focus falling off with distance, and light moving
-independently of what it lands on. Parallax only reads when **all three** are true:
-silhouettes that occlude each other, enough travel, and blur on the nearest plane.
-
-**3. Input is the material.** Video can't answer the cursor. Every technique here reads
-pointer or scroll and responds in the same frame — that is the whole difference between
-alive and playing back.
-
-**4. Steal mechanics, reject mood.** Reference builds carry a genre along with their
-technique. A neural-tech scroll engine is reusable; its coldness on a coffee brand
-produces "an AI startup that happens to sell lattes."
-
----
-
-## The research half
-
-Design decisions here come from **measured data, not taste**. The playbook exists
-because, on the one client it has been run against, an unmeasured palette guess survived
-three rounds of discussion before measurement disproved it. The guessed colour was not
-even in the brand's palette. Nothing built on it would have been theirs.
-
-Two things from [`docs/01-research-playbook.md`](docs/01-research-playbook.md) that
-save the most time:
-
-**Evidence tiers.** Tag every fact A–F, from *measured bytes* down to *my imagination*.
-Never ship tier F. Mixing tiers is how a guess becomes a build spec.
-
-**Route by source type.** Automated fetching works fine on a small business's own site
-and fails completely on search engines and social platforms — datacenter IPs get bot
-checks, empty JS shells, or unrelated junk. **Ask a human for those screenshots up front
-instead of burning four attempts on a locked door.** One screenshot from a real browser
-beat four automated attempts at Instagram.
-
-Also non-negotiable: **measure palettes, never eyeball them** (ImageMagick on the
-client's own images), and **sanity-check every image before measuring it** — an image
-search once returned industrial V-belt product shots, the palette math ran perfectly,
-and produced a completely fictitious brand palette. Correct arithmetic on wrong inputs
-is more dangerous than an error, because nothing looks broken.
-
----
-
-## Accessibility & performance floor
-
-Anything shipped from here keeps all six:
-
-1. `prefers-reduced-motion` fallback — every bench demo has one
-2. `aria-label` on any split text (splitting destroys the accessible string)
-3. `will-change` on anything animating `mask-image`, `clip-path`, or `filter`
-4. Visible `:focus-visible` on every interactive control
-5. Clamp inputs **before** mapping, never outputs after
-6. Re-check axis-dependent effects on mobile — a horizontal wipe on a single-column
-   phone layout reveals nothing
-
----
-
-## Adding to the library
-
-Keep the bench's shape: a `<div class="stage" data-demo="…">` with a live demo, a rail
-stating **what it does** and **when to use it**, and a `<details>` code block with the
-tuned constants highlighted. Register the demo through the shared
-`register(stage, init)` helper so it joins the single loop and the visibility gate —
-never add a second `requestAnimationFrame`.
-
-Give it an ID in an existing group and add a row to the dial table in
-`docs/02-technique-reference.md` with **both** demo and ship values.
-
-Current groups — open a new prefix when something genuinely doesn't fit:
-
-| Prefix | Group | Purpose |
+| Source | Automated fetch | Route to |
 |---|---|---|
-| `DEP-` | Depth | flat surfaces into space you move through |
-| `REA-` | Reactivity | the page answering pointer and input |
-| `COP-` | Copy in motion | type carrying hierarchy and consequence |
-| `REV-` | Reveal | how content arrives |
-| `TYP-` | Typography | *open* — type as the subject, not the vehicle |
-| `AMB-` | Ambient | *open* — atmosphere, grain, idle life |
+| Client's own site | ✅ reliable | you, scripted |
+| Client's CDN images | ✅ reliable | you + ImageMagick |
+| Google / Bing / DuckDuckGo | ❌ shells, bot checks, junk | **a human's browser** |
+| Instagram / TikTok / Facebook | ❌ 429 / 400 / empty JS | **a human's browser** |
+| Yelp / Google reviews | ⚠️ varies | try once, then a human |
 
-### Backlog
+**Two failures on one source means switch source, not technique.** The first run burned
+four attempts on Instagram — profile, API, embed, headless browser — when the answer was
+one screenshot from a person.
 
-Candidates worth building next. Claim one by opening a PR.
+**Batch the human-only asks into your first message:** Google Images for
+`"<brand>" interior`, the Instagram grid, the homepage as they see it, the top ~10
+reviews, and any brand assets they hold.
 
-**Typography (`TYP-`)** — variable-font weight driven by scroll or pointer distance ·
-per-line mask reveal · letter-spacing that opens on scroll · type on a curved path ·
-tabular counter roll-up · marquee with velocity-linked speed
-
-**Depth (`DEP-`)** — 2.5D displacement from a depth map · sticky scale-through
-transition · device-orientation tilt for mobile
-
-**Reactivity (`REA-`)** — cursor lens / local magnification · hover displacement on
-imagery · pointer-reactive grid or mesh
-
-**Reveal (`REV-`)** — curtain and split transitions · staggered grid entrance ·
-cross-page transition without a framework
-
-**Ambient (`AMB-`)** — animated grain · slow noise field · breathing scale on idle
-
-Two constraints for anything added: **no dependencies**, and it must register through
-the shared loop. A technique that ships its own `requestAnimationFrame` or pulls in a
-library doesn't go in.
+**For cafés, studios, gyms and salons the brand lives on Instagram more than the
+website.** Skipping it means missing the identity. Ask on day one.
 
 ---
 
-## Palette
+## 5. Known failure modes
 
-The bench is skinned in the **Grounded Labs palette** — graphite black, luminous ivory,
-pale blueprint blue, warm gray, muted burnt orange, aged brass, restrained honey-gold.
+Every one of these happened in the first run.
 
-**The palette is a skin, not a dependency.** Every technique is client-agnostic. Swap the
-tokens in `:root` and the whole bench re-skins in one edit. Nothing in the library
-references a specific client.
+1. **Claiming a fetch succeeded when it was blocked.** Poisons everything downstream.
+2. **Shipping a tier-F guess.** The palette guess.
+3. **Measuring an unverified image.** An image search returned unrelated product photos;
+   the palette math ran perfectly and produced a fictitious brand palette.
+4. **Trying one blocked source four ways** instead of switching sources.
+5. **Generating paid assets with no visual reference.** Text-only prompts produce stock
+   that could belong to any competitor.
+6. **Not confirming the medium first.** Assets were generated one message before that
+   entire medium was ruled out.
+7. **Importing a reference's mood along with its mechanics.**
+8. **Shipping demo-amplitude motion.** See [`standards/`](standards/).
+
+---
+
+## 6. What to send back
+
+The workflow is unproven, so your friction is data. When you finish a client, report:
+
+- Where the phase gates were wrong — too slow, too strict, wrong order
+- Anything in §4 that has changed — platforms adjust their blocking constantly
+- Ship values you had to retune, and for what kind of content
+- Failure modes not in §5 — add them
+- How long each phase actually took versus §2
+
+Open a PR. The docs are the product as much as the code is.
+
+---
+
+## 7. Legal and ethical floor
+
+Most of what we make starts as **unsolicited concept work**. Normal practice, with rules:
+
+1. **Label concept work in the page** — visible and persistent, so nobody can mistake it
+   for a live site.
+2. **Invent nothing.** No prices, reviews, testimonials, classes, credentials, claims or
+   links you haven't verified. Tier A–C only.
+3. **Respect marks.** Registered trademarks carry their ®.
+4. **Use their real links.** Verify; don't guess a URL pattern.
+5. **Never imply a relationship that doesn't exist.**

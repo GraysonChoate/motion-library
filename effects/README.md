@@ -1,7 +1,9 @@
-# Technique Reference — demo values vs ship values
+# Effects — the fixtures
 
-Open `motion-bench.html` in any browser to feel each technique. This file is the
-index, and it exists mainly to answer one question:
+Working, debugged interaction code. Lift it, keep the constants, swap the palette tokens.
+
+Open [`effects-library.html`](effects-library.html) in any browser to feel each
+technique. This file is the index, and it exists mainly to answer one question:
 
 > **The demos look dramatic. Do I ship those numbers?**
 
@@ -108,31 +110,57 @@ How content arrives. Wipes and apertures instead of the universal fade-up.
 
 ---
 
-## The architecture that matters more than any effect
+## Before you ship any of this
 
-```js
-// ONE loop for everything
-const stages = new Map();
-const io = new IntersectionObserver(es => es.forEach(e => {
-  const s = stages.get(e.target); if (s) s.visible = e.isIntersecting;
-}), { rootMargin: '120px' });
+Two things live in [`../standards/`](../standards/) and apply to everything here:
 
-function loop(){
-  stages.forEach(rec => { if (rec.visible && rec.tick) rec.tick(); });
-  requestAnimationFrame(loop);
-}
-```
+**One `requestAnimationFrame` loop for the whole page**, every section gated by an
+`IntersectionObserver`. Anything added to this folder must register through the shared
+loop — a technique that ships its own rAF doesn't go in.
 
-Eleven effects, one `requestAnimationFrame`, nothing computed off screen. Eleven
-private loops would idle the page at 100% CPU. **Copy this pattern before you copy
-any single effect.**
+**The full accessibility and performance floor** — reduced-motion as a designed state,
+`aria-label` on split text, `will-change` on masks and filters, reads batched before
+writes, mobile axis checks. Run the checklist at the bottom of
+[`../standards/README.md`](../standards/README.md).
 
-## Non-negotiables for anything shipped from here
+---
 
-1. `prefers-reduced-motion` fallback — every demo in the bench has one; keep them.
-2. `aria-label` on any split text.
-3. `will-change` on anything animating `mask-image`, `clip-path`, or `filter`.
-4. Visible `:focus-visible` on every interactive control.
-5. Clamp every input **before** mapping it, never the output after.
-6. Mobile: re-check axis-dependent effects (mask wipes, horizontal parallax) — a
-   horizontal wipe on a single-column phone layout reveals nothing.
+## Adding a technique
+
+Keep the shape: a `<div class="stage" data-demo="…">` with a live demo, a rail stating
+**what it does** and **when to use it**, and a `<details>` code block with the tuned
+constants highlighted. Register through `register(stage, init)`.
+
+Give it an ID in an existing group, and add a row to the dial table above with **both**
+demo and ship values.
+
+| Prefix | Group | Purpose |
+|---|---|---|
+| `DEP-` | Depth | flat surfaces into space you move through |
+| `REA-` | Reactivity | the page answering pointer and input |
+| `COP-` | Copy in motion | type carrying hierarchy and consequence |
+| `REV-` | Reveal | how content arrives |
+| `TYP-` | Typography | *open* — type as the subject, not the vehicle |
+| `AMB-` | Ambient | *open* — atmosphere, grain, idle life |
+
+### Backlog
+
+**Architecture** — native CSS scroll timelines (`animation-timeline: view()`) ·
+View Transitions API · FLIP · spring physics instead of easing
+
+**Typography (`TYP-`)** — variable-font axis animation · per-line mask reveal ·
+tracking open on reveal · text scramble · counter roll · text on a path ·
+knockout type · velocity-coupled marquee
+
+**Depth (`DEP-`)** — depth-map 2.5D displacement · sticky scale-through ·
+device-orientation tilt
+
+**Reactivity (`REA-`)** — cursor lens · spotlight mask · custom cursor with state
+morph · elastic drag · RGB split on hover
+
+**Reveal (`REV-`)** — curtain and split transitions · staggered grid entrance ·
+progressive blur
+
+**Ambient (`AMB-`)** — animated grain · slow noise field · breathing on idle
+
+Two constraints: **no dependencies**, and it must register through the shared loop.

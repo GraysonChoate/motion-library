@@ -1,4 +1,4 @@
-# Research Playbook
+# Research — the gauge
 
 **Research is the whole job.** Everything downstream — direction, palette, copy,
 motion — is a derivative of this phase. Get it wrong and you produce something
@@ -11,7 +11,7 @@ This playbook has four parts, in order:
 3. [**Verify**](#part-3--verify) — prove it, then try to break it
 4. [**Conclude**](#part-4--conclude) — the diagnosis
 
-Fill in `templates/research-card.md` as you go. **A card with blanks is a valid
+Fill in [`research-card.md`](research-card.md) as you go. **A card with blanks is a valid
 deliverable. A card with guesses is not.**
 
 ---
@@ -149,7 +149,7 @@ alive than anything on the site, and it is frequently the headline.
 Research isn't done when you run out of energy. It's done when **every field below is
 either filled or explicitly marked NOT FOUND.** Blanks are information. Silence isn't.
 
-Use `templates/research-card.md`. Every field carries a tier and a source URL.
+Use [`research-card.md`](research-card.md). Every field carries a tier and a source URL.
 
 **Identity** — trading name · founding year · founders · location count · HQ ·
 ownership model (family / franchise / chain) · **the specific origin event**
