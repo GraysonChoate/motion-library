@@ -323,6 +323,48 @@ footer b{color:var(--ink-dim); font-weight:500}
   margin-top:8px; position-try-fallbacks:flip-block}
 .popcard::backdrop{background:transparent}
 
+/* ---- AMB additions ---- */
+.aurora{position:absolute; inset:-20%; filter:blur(58px); opacity:.72}
+.aurora i{position:absolute; border-radius:50%; display:block; will-change:transform}
+.ambcap{position:absolute; inset:0; display:grid; place-items:center; font-family:var(--serif);
+  font-size:clamp(20px,3.6vw,40px); color:var(--cream); text-align:center; padding:0 12%;
+  letter-spacing:-.01em; z-index:3}
+.breathe{position:absolute; inset:0; display:grid; place-items:center; gap:18px;
+  grid-auto-flow:row; align-content:center}
+.breathecard{width:min(66%,380px); padding:26px 28px; border-radius:3px; border:1px solid var(--edge);
+  background:linear-gradient(155deg,var(--ash),var(--soot)); will-change:transform,box-shadow}
+.breathecard h6{font-family:var(--serif); font-weight:400; font-size:21px; margin:0 0 6px; color:var(--cream)}
+.breathecard p{margin:0; font-size:13.5px; color:var(--ink-dim); line-height:1.55}
+.idlepill{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint); border:1px solid var(--edge-soft); padding:6px 11px; border-radius:2px}
+.tempbar{position:absolute; left:0; right:0; bottom:0; height:46%; pointer-events:none}
+.tempread{position:absolute; left:clamp(20px,5vw,50px); bottom:52px; font-family:var(--mono);
+  font-size:11px; letter-spacing:.1em; color:var(--gold); font-variant-numeric:tabular-nums; z-index:4}
+.causticcv{position:absolute; inset:0; width:100%; height:100%; display:block;
+  filter:blur(9px) contrast(1.5); opacity:.55; mix-blend-mode:screen}
+/* ---- SYS view transitions ---- */
+.vtwrap{position:absolute; inset:0; padding:clamp(18px,3vw,34px); display:grid; place-content:center}
+.vtgrid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; width:min(560px,80vw)}
+.vtcell{aspect-ratio:1; border-radius:3px; border:1px solid var(--edge-soft); cursor:pointer;
+  background:linear-gradient(150deg,var(--ash),var(--soot)); display:grid; place-items:center;
+  font-family:var(--mono); font-size:11px; color:var(--tan)}
+.vtcell:focus-visible{outline:2px solid var(--slate); outline-offset:2px}
+.vtdetail{width:min(560px,80vw); min-height:230px; border-radius:3px; border:1px solid var(--edge);
+  background:linear-gradient(150deg,rgba(201,164,92,.22),var(--soot)); padding:26px; cursor:pointer;
+  display:flex; flex-direction:column; justify-content:flex-end}
+.vtdetail h6{font-family:var(--serif); font-weight:400; font-size:26px; margin:0 0 6px; color:var(--cream)}
+.vtdetail p{margin:0; font-size:13.5px; color:var(--ink-dim)}
+.specwrap{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center;
+  gap:16px; padding:0 clamp(20px,5vw,50px)}
+.speclist{display:grid; gap:8px}
+.specrow{display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center;
+  padding:12px 14px; border:1px solid var(--edge-soft); border-radius:2px; background:var(--soot)}
+.specrow b{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--gold); font-weight:400}
+.specrow span{font-size:13.5px; color:var(--ink-dim)}
+.specrow i{font-family:var(--mono); font-size:10px; font-style:normal; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--teal)}
+
 /* ---- group brief ---- */
 .brief{border:1px solid var(--edge-soft); border-left:2px solid var(--gold); border-radius:2px;
   background:linear-gradient(180deg,rgba(201,164,92,.045),transparent);
@@ -733,6 +775,84 @@ function frame(){
 </pre></details>
     </div>
   </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="sys-vt">
+      <div class="vtwrap" id="vtWrap"></div>
+      <p class="hint">Click a cell — it morphs, then click again</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">SYS-04</span><h3>View Transitions</h3><span class="src">browser-native morphing</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Give two elements the same <code>view-transition-name</code> across a DOM change and the browser <b>morphs one into the other</b> &mdash; position, size and crossfade &mdash; automatically. Wrap the change in <code>startViewTransition</code> and that is the entire implementation.</p></div>
+        <div><h5>When to use it</h5><p>Expanding a card into a detail view, filtering a list, or full page navigation. <b>This is how you get app-like transitions with no framework.</b> Names must be unique at any moment, so assign them to the participating elements only, then clear them.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// same-document: wrap the DOM change, that is all</i>
+document.<b>startViewTransition</b>(() =&gt; {
+  grid.hidden = true;
+  detail.hidden = false;
+});
+
+<i>/* the browser matches elements sharing a name and tweens between them */</i>
+.card--3  { <b>view-transition-name: hero;</b> }
+.detail   { <b>view-transition-name: hero;</b> }
+
+<i>/* names must be UNIQUE at any given moment — assign on the participants
+   right before the transition, clear them straight after            */</i>
+
+::view-transition-old(hero),
+::view-transition-new(hero) { animation-duration: <b>.45s</b>; }
+
+<i>/* cross-DOCUMENT, for real page navigation — three lines, no JS: */</i>
+@view-transition { navigation: auto; }
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="sys-spec">
+      <div class="specwrap">
+        <div class="speclist">
+          <div class="specrow"><b>immediate</b><span>As soon as the rule is parsed</span><i>heaviest</i></div>
+          <div class="specrow"><b>eager</b><span>Any hint the link may be used</span><i>heavy</i></div>
+          <div class="specrow"><b>moderate</b><span>Hover ~200ms or touchstart</span><i>recommended</i></div>
+          <div class="specrow"><b>conservative</b><span>On pointerdown, just before click</span><i>safest</i></div>
+        </div>
+        <p class="snapread" id="specSupport"></p>
+      </div>
+      <p class="hint">Navigation-level — shown as reference, not a live demo</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">SYS-05</span><h3>Speculation Rules</h3><span class="src">prefetch and prerender on intent</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>A JSON block telling the browser which links to <b>prefetch or fully prerender</b> before the user clicks. With <code>eagerness: &quot;moderate&quot;</code> it fires on hover or touchstart, so by the time the click lands the next page is already rendered.</p></div>
+        <div><h5>When to use it</h5><p>Any multi-page site. Paired with cross-document View Transitions it produces <b>navigation that feels like a single-page app with none of the machinery</b>. Prerender aggressively only on safe GET pages &mdash; it executes the page's scripts, so never prerender anything that mutates state.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+&lt;script type="<b>speculationrules</b>"&gt;
+{
+  "prerender": [{
+    "where": { "href_matches": "/*" },
+    "<b>eagerness</b>": "moderate"        <i>// fires on hover / touchstart</i>
+  }],
+  "prefetch": [{
+    "where": { "href_matches": "/*" },
+    "eagerness": "conservative"    <i>// fires on pointerdown</i>
+  }]
+}
+&lt;/script&gt;
+
+<i>/* eagerness scale:
+     immediate     — as soon as the rule is parsed
+     eager         — as soon as the link is even slightly likely
+     moderate      — on hover ~200ms, or touchstart      &lt;- the useful one
+     conservative  — on pointerdown, just before the click             */</i>
+
+<i>/* ⚠ prerender RUNS the page: its scripts execute, analytics fire.
+   Never prerender anything that mutates state, and exclude
+   /logout, /cart/*, and anything behind a POST.                     */</i>
+</pre></details>
+    </div>
+  </div>
 </section>
 
 <section class="purpose group" data-g="gl">
@@ -887,6 +1007,114 @@ function step(){
 <i>// advect.frag — sample backwards along the velocity field</i>
 vec2 back = uv - texture(uVel, uv).xy * uDt;
 outColor = texture(uSrc, back) * uDissipation;
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="gl-gpgpu">
+      <canvas class="glcanvas" data-gpgpu="1"></canvas>
+      <span class="gltag" id="gpgpuTag">WebGL2 · GPGPU</span>
+      <p class="hint">Move the cursor — particles are attracted</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">GL-05</span><h3>GPGPU particles</h3><span class="src">positions stored in a texture</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Particle positions live in a <b>floating-point texture</b>, not in JavaScript. A shader updates all of them in one draw call, then the vertex shader reads that texture to place points. The CPU never touches a particle.</p></div>
+        <div><h5>When to use it</h5><p>Any particle count past a few thousand. Our canvas field caps around 150 before it costs frames; <b>this runs tens of thousands at the same price</b>, because the work happens in parallel on the GPU and never crosses the CPU boundary.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// state lives in a texture: RGBA = x, y, vx, vy — one texel per particle</i>
+<i>// UPDATE pass — runs once for ALL particles</i>
+vec4 s = texture(uState, uv);
+vec2 pos = s.xy, vel = s.zw;
+
+vec2 toM = uMouse - pos;
+float d  = max(length(toM), 0.02);
+vel += normalize(toM) * <b>0.0009</b> / (d*d);   <i>// inverse-square attraction</i>
+vel *= <b>0.982</b>;                             <i>// drag</i>
+pos += vel;
+
+o = vec4(pos, vel);                      <i>// write the new state</i>
+
+<i>// RENDER pass — vertex shader READS that texture to place each point</i>
+<b>vec4 s = texelFetch(uState, ivec2(idx % W, idx / W), 0);</b>
+gl_Position  = vec4(s.xy, 0.0, 1.0);
+gl_PointSize = 2.0 + length(s.zw) * 40.0;
+
+<i>// ping-pong again — you cannot read and write the same texture */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="gl-post">
+      <canvas class="glcanvas" data-post="1"></canvas>
+      <span class="gltag">WebGL2 · multi-pass</span>
+      <div class="btnrow" style="position:absolute;left:16px;bottom:52px;z-index:6">
+        <button class="tbtn" id="postToggle" aria-pressed="true">Post-processing: ON</button>
+      </div>
+      <p class="hint">Toggle to see the raw render underneath</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">GL-06</span><h3>Post-processing stack</h3><span class="src">render to texture, then treat it</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>The scene renders into a framebuffer instead of the screen, then that image passes through treatment shaders &mdash; <b>bright-pass, blur, chromatic aberration, vignette, grain</b> &mdash; before being drawn. Exactly how a film grade works.</p></div>
+        <div><h5>When to use it</h5><p>This is the single biggest difference between WebGL that looks like a demo and WebGL that looks cinematic. <b>Bloom is what sells emissive materials</b>; nothing in the raw render glows. Keep the bright-pass threshold high or the whole frame smears.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// 1. render the scene into a texture instead of the screen</i>
+gl.bindFramebuffer(gl.FRAMEBUFFER, sceneFBO);
+drawScene();
+
+<i>// 2. bright-pass — keep only what should glow</i>
+vec3 c = texture(uScene, uv).rgb;
+float lum = dot(c, vec3(0.2126, 0.7152, 0.0722));
+o = vec4(c * step(<b>0.72</b>, lum), 1.0);      <i>// threshold — high, or everything smears</i>
+
+<i>// 3. blur that, then composite back over the original</i>
+vec3 col = scene + bloom * <b>0.85</b>;
+
+<i>// 4. chromatic aberration — offset channels radially from centre</i>
+vec2 dir = (uv - 0.5);
+float k = <b>0.004</b> * dot(dir, dir) * 4.0;   <i>// stronger toward the edges</i>
+col.r = texture(uScene, uv + dir*k).r;
+col.b = texture(uScene, uv - dir*k).b;
+
+<i>// 5. vignette and grain last — always last, or the bloom eats them</i>
+col *= 1.0 - dot(dir,dir)*0.85;
+col += (hash(uv*uTime) - 0.5) * 0.035;
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="gl-mesh">
+      <canvas class="glcanvas" data-mesh="1"></canvas>
+      <span class="gltag">WebGL2 · 40×40 grid</span>
+      <p class="hint">Scroll fast — the sheet bends and settles</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">GL-07</span><h3>Mesh distortion on scroll</h3><span class="src">vertex displacement</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>A subdivided plane whose <b>vertices</b> are displaced in the vertex shader by scroll velocity. The surface bulges and curves as you scroll and settles when you stop, so the page has a physical skin rather than flat rectangles.</p></div>
+        <div><h5>When to use it</h5><p>Image grids and full-bleed media. Subtlety is everything &mdash; <b>a few percent of displacement reads as material, more reads as a funhouse mirror</b>. It needs real geometry, so this is the one technique here that cannot be done with a single full-screen quad.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// vertex shader — displace the grid, do not touch the fragment</i>
+uniform float uVel;      <i>// smoothed scroll velocity, clamped</i>
+
+vec3 pos = position;
+
+<i>// curve the sheet: strongest at the centre, zero at the edges</i>
+float edge = 1.0 - abs(pos.x);
+pos.z += sin(pos.x * 3.14159) * uVel * <b>0.35</b>;
+pos.y += edge * uVel * <b>0.12</b>;
+
+<i>// a travelling ripple so the distortion is not a rigid bend</i>
+pos.z += sin(pos.y * 6.0 - uTime * 2.0) * uVel * <b>0.06</b>;
+
+gl_Position = uProj * vec4(pos, 1.0);
+
+<i>// grid resolution decides smoothness: 40x40 is plenty for a bend,
+// 4x4 will show faceting the moment anything curves            */</i>
 </pre></details>
     </div>
   </div>
@@ -2159,6 +2387,166 @@ function frame(now){
 </pre></details>
     </div>
   </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="amb-aurora">
+      <div class="aurora" id="auroraBox"></div>
+      <div class="ambcap">Life without content</div>
+      <p class="hint">Three blobs, coprime cycles, never repeats</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">AMB-02</span><h3>Aurora drift</h3><span class="src">blurred blobs, pure CSS</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Three or four large radial gradients, heavily blurred, drifting on long independent cycles. Because the periods are <b>coprime</b>, the composition never visibly repeats.</p></div>
+        <div><h5>When to use it</h5><p>Dark heroes and empty sections that need life without content. This is the mesh-gradient look, and the two things that make it work are <b>enough blur that no blob edge is ever visible</b> and slow enough motion that nobody catches it moving. Under 40px blur it reads as three circles.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>/* the whole effect — no canvas, no JS */</i>
+.aurora   { position:absolute; inset:-20%; filter: blur(<b>58px</b>); opacity:.72; }
+.aurora i { position:absolute; border-radius:50%; }
+
+<i>/* coprime durations so the loop never lines up */</i>
+.aurora i:nth-child(1){ animation: drift1 <b>23s</b> ease-in-out infinite alternate; }
+.aurora i:nth-child(2){ animation: drift2 <b>31s</b> ease-in-out infinite alternate; }
+.aurora i:nth-child(3){ animation: drift3 <b>19s</b> ease-in-out infinite alternate; }
+
+@keyframes drift1 { to { transform: translate(22%, -14%) scale(1.25); } }
+
+<i>/* inset:-20% keeps blurred edges off screen — blur on a flush-fitting
+   element produces a visible soft border all the way round           */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="amb-dust">
+      <canvas class="fill" id="dustCv"></canvas>
+      <div class="ambcap">Air, not vacuum</div>
+      <p class="hint">Three depth layers · scroll to see parallax</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">AMB-03</span><h3>Dust motes with depth</h3><span class="src">three parallax layers</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Slow drifting particles split across <b>three depth layers</b> — far ones small, dim and slow; near ones larger, brighter, blurred and moving several times faster, including on scroll.</p></div>
+        <div><h5>When to use it</h5><p>Interiors, archives, anything that should feel like air rather than vacuum. The depth split is what separates this from a screensaver: <b>one layer of uniform particles reads as decoration, three layers read as a room</b>.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+const LAYERS = [
+  { n: 34, speed: 0.06, size: 0.9, alpha: 0.16, blur: 0,   par: 0.15 },  <i>// far</i>
+  { n: 20, speed: 0.14, size: 1.7, alpha: 0.26, blur: 0.6, par: 0.45 },  <i>// mid</i>
+  { n: 9,  speed: 0.30, size: 3.4, alpha: 0.34, blur: 1.8, par: 1.00 },  <i>// near</i>
+];
+
+for (const L of LAYERS){
+  for (const p of L.particles){
+    p.x += Math.sin(t * 0.0002 + p.seed) * L.speed;   <i>// lateral wander</i>
+    p.y -= L.speed * 0.4;                              <i>// slow rise</i>
+    const y = p.y + <b>scrollOffset * L.par</b>;              <i>// near layer moves most</i>
+    ctx.globalAlpha = L.alpha;
+    ctx.filter = L.blur ? `blur(${L.blur}px)` : 'none';
+    ctx.beginPath(); ctx.arc(p.x, y, L.size, 0, 6.283); ctx.fill();
+  }
+}
+<i>// blur on the NEAR layer, not the far one — that is how lenses behave,
+// and inverting it is the tell that someone guessed                   */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="amb-breathe">
+      <div class="breathe">
+        <div class="breathecard" id="breatheCard"><h6>Still while you work</h6><p>Stop moving for a few seconds and this begins to breathe. Move the cursor and it stops immediately.</p></div>
+        <span class="idlepill" id="idlePill">idle 0.0s · dormant</span>
+      </div>
+      <p class="hint">Stop moving for three seconds</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">AMB-04</span><h3>Breathing on idle</h3><span class="src">idle detection + micro-motion</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Content holds perfectly still while you interact, then — after a few seconds of no input — begins an almost imperceptible scale and shadow cycle. Any pointer or scroll movement stops it instantly.</p></div>
+        <div><h5>When to use it</h5><p>Landing pages that sit open on a second monitor, kiosks, anything left idle. It signals the page is <b>live rather than frozen</b>. Amplitude has to be tiny — <b>1.5% scale is the ceiling</b>; past that it reads as a page that won't sit still, which is worse than static.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+let idleSince = performance.now();
+const wake = () => { idleSince = performance.now(); };
+['pointermove','scroll','keydown','pointerdown'].forEach(ev =>
+  addEventListener(ev, wake, { passive: true }));
+
+function frame(now){
+  const idle = (now - idleSince) / 1000;
+  const gate = Math.min(1, Math.max(0, (idle - <b>2.5</b>) / 1.5));  <i>// ease in after 2.5s</i>
+
+  const breath = Math.sin(now * <b>0.0009</b>) * gate;               <i>// ~7s period</i>
+  card.style.transform = `scale(${1 + breath * <b>0.015</b>})`;      <i>// 1.5% ceiling</i>
+  card.style.boxShadow = `0 ${16 + breath*10}px ${40 + breath*18}px
+                          -22px rgba(0,0,0,${.55 + breath*.12})`;
+}
+<i>// the shadow moving with the scale is what sells it as breathing
+// rather than as a scale animation                                */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="amb-caustic">
+      <div class="plane p-wall" style="opacity:.85"></div>
+      <canvas class="causticcv" id="causticCv"></canvas>
+      <div class="ambcap">Lit, not filled</div>
+      <p class="hint">Rendered at 1/8 scale, blurred up</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">AMB-05</span><h3>Caustics</h3><span class="src">low-res canvas, upscaled</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Layered sine waves at different frequencies and drifts produce the rippling light pattern you get off water. Rendered at <b>one-eighth resolution</b> and scaled up with blur, so it costs almost nothing.</p></div>
+        <div><h5>When to use it</h5><p>Anything that should feel lit rather than filled — spas, pools, glass, coastal brands. <b>Rendering small and blurring up is the general trick</b> for any soft procedural texture: the blur hides the low resolution completely, and you pay for a fraction of the pixels.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// render tiny — 1/8 scale — then let CSS blur and stretch it</i>
+cv.width = (w / <b>8</b>) | 0;  cv.height = (h / <b>8</b>) | 0;
+
+for (let y = 0; y &lt; cv.height; y++){
+  for (let x = 0; x &lt; cv.width; x++){
+    const u = x / cv.width * 6.0, v = y / cv.height * 6.0;
+    <i>// three drifting wave systems, multiplied not added</i>
+    let a = Math.sin(u * 1.7 + t * 0.7) * Math.sin(v * 2.1 - t * 0.5);
+    let b = Math.sin(u * 2.9 - t * 0.4 + a) * Math.sin(v * 1.3 + t * 0.6);
+    let c = Math.pow(Math.abs(a * b), <b>0.55</b>);       <i>// pow() sharpens the ridges</i>
+    …
+  }
+}
+
+<i>/* CSS does the rest */</i>
+canvas { filter: blur(<b>9px</b>) contrast(1.5); mix-blend-mode: screen; opacity:.55; }
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="amb-temp">
+      <div class="plane p-wall" style="opacity:.9"></div>
+      <div class="tempbar" id="tempBar"></div>
+      <div class="ambcap">Position, felt not shown</div>
+      <p class="tempread" id="tempRead">depth 0% · warm</p>
+      <p class="hint">Scroll — the light travels with you</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">AMB-06</span><h3>Colour temperature drift</h3><span class="src">scroll-mapped white balance</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>A single overlay whose tint travels with scroll depth — warm at the top of the page, cool at the bottom. The eye reads it as light changing rather than as a colour effect, because nothing else about the page changes.</p></div>
+        <div><h5>When to use it</h5><p>Long scrolling pages with a narrative arc. It gives a reader an <b>unconscious sense of position</b> — how far in they are — without a progress bar. Keep total travel under ~14% opacity or it stops reading as light and starts reading as a filter.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// map scroll depth onto a warm→cool overlay</i>
+const p = scrollY / (document.body.scrollHeight - innerHeight);
+
+const warm = [180,  99, 58];    <i>// ember</i>
+const cool = [ 58,  78, 99];    <i>// blueprint</i>
+const mix  = warm.map((c, i) => Math.round(c + (cool[i] - c) * p));
+
+overlay.style.background =
+  `linear-gradient(180deg, transparent, rgba(${mix.join()}, <b>0.14</b>))`;
+
+<i>// 0.14 is the ceiling. Above that the page looks tinted;
+// below it the reader feels the change without seeing it.  */</i>
+</pre></details>
+    </div>
+  </div>
 </section>
 
 
@@ -3336,6 +3724,446 @@ qa('[data-demo="plt-size"]').forEach(stage => {
     n.textContent='interpolate-size NOT supported — panels snap instead of easing (safe fallback)';
     q('.pltwrap',stage).appendChild(n);
   }
+});
+
+
+/* ================= AMB-02 aurora ================= */
+qa('[data-demo="amb-aurora"]').forEach(stage => {
+  const box = q('#auroraBox', stage);
+  const BLOBS = [
+    {c:'rgba(180,99,58,.85)',  w:'62%', h:'70%', l:'-6%',  t:'2%',  d:23},
+    {c:'rgba(58,78,99,.95)',   w:'70%', h:'64%', l:'38%',  t:'18%', d:31},
+    {c:'rgba(201,164,92,.55)', w:'48%', h:'56%', l:'18%',  t:'34%', d:19},
+    {c:'rgba(94,138,126,.45)', w:'44%', h:'50%', l:'60%',  t:'-4%', d:27},
+  ];
+  BLOBS.forEach((b,i) => {
+    const el = document.createElement('i');
+    el.style.cssText = `background:radial-gradient(circle,${b.c},transparent 70%);width:${b.w};height:${b.h};left:${b.l};top:${b.t}`;
+    if (!RM) el.style.animation = `auroraDrift${i%4} ${b.d}s ease-in-out infinite alternate`;
+    box.appendChild(el);
+  });
+  if (!q('#auroraKF')){
+    const st2=document.createElement('style'); st2.id='auroraKF';
+    st2.textContent = `
+      @keyframes auroraDrift0{to{transform:translate(22%,-14%) scale(1.25)}}
+      @keyframes auroraDrift1{to{transform:translate(-18%,12%) scale(1.15)}}
+      @keyframes auroraDrift2{to{transform:translate(14%,20%) scale(1.32)}}
+      @keyframes auroraDrift3{to{transform:translate(-12%,-18%) scale(1.18)}}`;
+    document.head.appendChild(st2);
+  }
+});
+
+/* ================= AMB-03 dust motes ================= */
+qa('[data-demo="amb-dust"]').forEach(stage => {
+  const cv = q('#dustCv', stage), ctx = cv.getContext('2d');
+  const LAYERS = [
+    {n:34, speed:.06, size:.9, alpha:.16, blur:0,   par:.15, ps:[]},
+    {n:20, speed:.14, size:1.7,alpha:.26, blur:.6,  par:.45, ps:[]},
+    {n:9,  speed:.30, size:3.4,alpha:.34, blur:1.8, par:1.0, ps:[]},
+  ];
+  let w=0,h=0;
+  function size(){
+    const r=stage.getBoundingClientRect(), dpr=Math.min(devicePixelRatio||1,2);
+    w=r.width; h=r.height; cv.width=w*dpr; cv.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    LAYERS.forEach(L=>{ L.ps = Array.from({length:L.n},()=>({
+      x:Math.random()*w, y:Math.random()*h, seed:Math.random()*99 })); });
+  }
+  size(); addEventListener('resize', size, {passive:true});
+  register(stage, () => ({ tick(){
+    const r=stage.getBoundingClientRect();
+    if (Math.abs(r.width-w)>1) size();
+    const off = (prog(stage)-.5)*70;
+    ctx.clearRect(0,0,w,h);
+    const t = RM ? 0 : performance.now();
+    for (const L of LAYERS){
+      ctx.globalAlpha = L.alpha;
+      ctx.filter = L.blur ? `blur(${L.blur}px)` : 'none';
+      ctx.fillStyle = '#E8E2D6';
+      for (const pt of L.ps){
+        if (!RM){ pt.x += Math.sin(t*0.0002 + pt.seed)*L.speed; pt.y -= L.speed*0.4; }
+        if (pt.y < -6) { pt.y = h+6; pt.x = Math.random()*w; }
+        if (pt.x < -6) pt.x = w+6; if (pt.x > w+6) pt.x = -6;
+        ctx.beginPath(); ctx.arc(pt.x, pt.y + off*L.par, L.size, 0, 6.283); ctx.fill();
+      }
+    }
+    ctx.filter='none'; ctx.globalAlpha=1;
+  }}));
+});
+
+/* ================= AMB-04 breathing on idle ================= */
+qa('[data-demo="amb-breathe"]').forEach(stage => {
+  const card = q('#breatheCard', stage), pill = q('#idlePill', stage);
+  let idleSince = performance.now();
+  const wake = () => { idleSince = performance.now(); };
+  ['pointermove','scroll','keydown','pointerdown'].forEach(ev =>
+    addEventListener(ev, wake, {passive:true}));
+  register(stage, () => ({ tick(){
+    const now = performance.now();
+    const idle = (now - idleSince)/1000;
+    if (RM){ pill.textContent = 'reduced motion · breathing disabled'; return; }
+    const gate = Math.min(1, Math.max(0, (idle - 2.5)/1.5));
+    const breath = Math.sin(now*0.0009)*gate;
+    card.style.transform = `scale(${1 + breath*0.015})`;
+    card.style.boxShadow = `0 ${16+breath*10}px ${40+breath*18}px -22px rgba(0,0,0,${.55+breath*.12})`;
+    pill.textContent = `idle ${idle.toFixed(1)}s · ${gate>0.02 ? 'breathing' : 'dormant'}`;
+    pill.style.color = gate>0.02 ? 'var(--gold)' : 'var(--ink-faint)';
+  }}));
+});
+
+/* ================= AMB-05 caustics ================= */
+qa('[data-demo="amb-caustic"]').forEach(stage => {
+  const cv = q('#causticCv', stage), ctx = cv.getContext('2d');
+  let last = 0, img = null, W=0, H=0;
+  register(stage, () => ({ tick(){
+    if (RM) return;
+    const now = performance.now();
+    if (now - last < 70) return;
+    last = now;
+    const r = stage.getBoundingClientRect();
+    const w = Math.max(2,(r.width/8)|0), h = Math.max(2,(r.height/8)|0);
+    if (w!==W || h!==H){ W=w; H=h; cv.width=w; cv.height=h; img = ctx.createImageData(w,h); }
+    const t = now*0.001, d = img.data;
+    let i = 0;
+    for (let y=0;y<h;y++){
+      const v = y/h*6.0;
+      for (let x=0;x<w;x++){
+        const u = x/w*6.0;
+        const a = Math.sin(u*1.7 + t*0.7) * Math.sin(v*2.1 - t*0.5);
+        const b2= Math.sin(u*2.9 - t*0.4 + a) * Math.sin(v*1.3 + t*0.6);
+        const c = Math.pow(Math.abs(a*b2), 0.55);
+        d[i++] = 232*c; d[i++] = 214*c; d[i++] = 170*c; d[i++] = 255;
+      }
+    }
+    ctx.putImageData(img,0,0);
+  }}));
+});
+
+/* ================= AMB-06 temperature drift ================= */
+qa('[data-demo="amb-temp"]').forEach(stage => {
+  const bar = q('#tempBar', stage), read = q('#tempRead', stage);
+  register(stage, () => ({ tick(){
+    const pr = prog(stage);
+    const warm=[180,99,58], cool=[58,78,99];
+    const mix = warm.map((c,i)=>Math.round(c + (cool[i]-c)*pr));
+    bar.style.background = `linear-gradient(180deg, transparent, rgba(${mix.join()},0.14))`;
+    read.textContent = `depth ${(pr*100).toFixed(0)}% · ${pr<0.4?'warm':pr<0.66?'neutral':'cool'}`;
+  }}));
+});
+
+
+/* ================= SYS-04 View Transitions ================= */
+qa('[data-demo="sys-vt"]').forEach(stage => {
+  const wrap = q('#vtWrap', stage);
+  const N = 9; let open = null;
+  const supported = !!document.startViewTransition;
+  function render(){
+    wrap.innerHTML = '';
+    if (open === null){
+      const g = document.createElement('div'); g.className = 'vtgrid';
+      for (let i=0;i<N;i++){
+        const c = document.createElement('button');
+        c.className='vtcell'; c.textContent = String(i+1).padStart(2,'0');
+        c.addEventListener('click', () => go(i));
+        g.appendChild(c);
+      }
+      wrap.appendChild(g);
+    } else {
+      const d = document.createElement('button');
+      d.className='vtdetail';
+      d.innerHTML = `<h6>Cell ${String(open+1).padStart(2,'0')}</h6><p>Same view-transition-name on both elements. The browser tweened position, size and crossfade — no animation code was written.</p>`;
+      d.addEventListener('click', () => go(null));
+      wrap.appendChild(d);
+    }
+  }
+  function tagAndRender(target){
+    // clear any existing names, then name only the two participants
+    qa('.vtcell, .vtdetail', wrap).forEach(el => el.style.viewTransitionName = '');
+    render();
+    const el = open === null
+      ? qa('.vtcell', wrap)[target === null ? 0 : target]
+      : q('.vtdetail', wrap);
+    if (el) el.style.viewTransitionName = 'vthero';
+  }
+  function go(next){
+    const from = open === null ? qa('.vtcell', wrap)[next] : q('.vtdetail', wrap);
+    if (from) from.style.viewTransitionName = 'vthero';
+    const swap = () => { open = next; tagAndRender(next); };
+    if (supported && !RM) document.startViewTransition(swap);
+    else swap();
+  }
+  render();
+  if (!supported){
+    const n=document.createElement('p'); n.className='snapread';
+    n.style.cssText='position:absolute;left:20px;bottom:52px;color:var(--ember)';
+    n.textContent='startViewTransition NOT supported — falls back to an instant swap';
+    stage.appendChild(n);
+  }
+});
+
+/* ================= SYS-05 Speculation Rules support ================= */
+qa('[data-demo="sys-spec"]').forEach(stage => {
+  const el = q('#specSupport', stage);
+  const ok = HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules');
+  el.textContent = ok
+    ? 'speculationrules: supported in this browser'
+    : 'speculationrules: NOT supported — links simply load normally, no fallback needed';
+  el.style.color = ok ? 'var(--teal)' : 'var(--ember)';
+});
+
+/* ================= GL-05 GPGPU particles ================= */
+qa('[data-demo="gl-gpgpu"]').forEach(stage => {
+  const cv = q('canvas.glcanvas', stage);
+  const gl = cv.getContext('webgl2', {antialias:false, alpha:false});
+  const ext = gl && gl.getExtension('EXT_color_buffer_float');
+  const fail = m => { if(cv) cv.remove(); const f=document.createElement('div');
+    f.className='glfail'; f.textContent=m; stage.appendChild(f); };
+  if (!gl || !ext) return fail('float framebuffers unavailable — GPGPU needs EXT_color_buffer_float');
+  const SZ = 128, COUNT = SZ*SZ;                 // 16,384 particles
+  const cc=(t,src)=>{const sh=gl.createShader(t);gl.shaderSource(sh,src);gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(sh));return sh;};
+  const link=(v,f)=>{const pr=gl.createProgram();gl.attachShader(pr,cc(gl.VERTEX_SHADER,v));
+    gl.attachShader(pr,cc(gl.FRAGMENT_SHADER,f));gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS))console.error(gl.getProgramInfoLog(pr));return pr;};
+  const QUAD_VS = `#version 300 es
+in vec2 p; out vec2 uv; void main(){ uv=p*0.5+0.5; gl_Position=vec4(p,0.,1.);}`;
+  const UPDATE = link(QUAD_VS, `#version 300 es
+precision highp float; in vec2 uv; out vec4 o;
+uniform sampler2D uState; uniform vec2 uMouse; uniform float uActive;
+void main(){
+  vec4 s = texture(uState, uv);
+  vec2 pos = s.xy, vel = s.zw;
+  vec2 toM = uMouse - pos;
+  float d = max(length(toM), 0.05);
+  vel += normalize(toM) * (0.00075 * uActive) / (d*d);
+  vel += vec2(sin(pos.y*7.0), cos(pos.x*7.0)) * 0.00004;
+  vel *= 0.984;
+  pos += vel;
+  if (pos.x < -1.1) pos.x = 1.1; if (pos.x > 1.1) pos.x = -1.1;
+  if (pos.y < -1.1) pos.y = 1.1; if (pos.y > 1.1) pos.y = -1.1;
+  o = vec4(pos, vel);
+}`);
+  const RENDER = link(`#version 300 es
+precision highp float;
+uniform sampler2D uState; uniform int uW; out float vSpeed;
+void main(){
+  int i = gl_VertexID;
+  vec4 s = texelFetch(uState, ivec2(i % uW, i / uW), 0);
+  vSpeed = length(s.zw);
+  gl_Position = vec4(s.xy, 0.0, 1.0);
+  gl_PointSize = 1.0 + min(vSpeed*160.0, 3.2);
+}`, `#version 300 es
+precision highp float; in float vSpeed; out vec4 o;
+void main(){
+  vec2 c = gl_PointCoord - 0.5;
+  if (dot(c,c) > 0.25) discard;
+  vec3 cool = vec3(0.239,0.365,0.463), warm = vec3(0.816,0.663,0.373);
+  o = vec4(mix(cool, warm, clamp(vSpeed*55.0,0.,1.)), 0.55);
+}`);
+  const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const seed = new Float32Array(COUNT*4);
+  for(let i=0;i<COUNT;i++){ const a=Math.random()*6.283, r=Math.sqrt(Math.random());
+    seed[i*4]=Math.cos(a)*r; seed[i*4+1]=Math.sin(a)*r; seed[i*4+2]=0; seed[i*4+3]=0; }
+  function makeState(data){
+    const tex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,tex);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA32F,SZ,SZ,0,gl.RGBA,gl.FLOAT,data||null);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    const fb=gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER,fb);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,tex,0);
+    return {tex,fb};
+  }
+  let A=makeState(seed), B=makeState(null);
+  const tag=q('#gpgpuTag',stage); if(tag) tag.textContent=`WebGL2 · GPGPU · ${COUNT.toLocaleString()} particles`;
+  const rec = register(stage, () => ({ tick(){
+    const r = stage.getBoundingClientRect(), dpr=Math.min(devicePixelRatio||1,1.6);
+    if (cv.width !== (r.width*dpr|0)){ cv.width=r.width*dpr|0; cv.height=r.height*dpr|0; }
+    if (!RM){
+      gl.bindFramebuffer(gl.FRAMEBUFFER,B.fb); gl.viewport(0,0,SZ,SZ);
+      gl.useProgram(UPDATE);
+      const l=gl.getAttribLocation(UPDATE,'p'); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+      gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,A.tex);
+      gl.uniform1i(gl.getUniformLocation(UPDATE,'uState'),0);
+      gl.uniform2f(gl.getUniformLocation(UPDATE,'uMouse'),
+        rec.pointer.inside ? rec.pointer.nx*2 : Math.sin(performance.now()*0.0004)*0.6,
+        rec.pointer.inside ? -rec.pointer.ny*2 : Math.cos(performance.now()*0.0005)*0.5);
+      gl.uniform1f(gl.getUniformLocation(UPDATE,'uActive'), rec.pointer.inside?1.0:0.45);
+      gl.drawArrays(gl.TRIANGLES,0,3);
+      [A,B]=[B,A];
+    }
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null); gl.viewport(0,0,cv.width,cv.height);
+    gl.clearColor(0.055,0.06,0.07,1); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+    gl.useProgram(RENDER);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,A.tex);
+    gl.uniform1i(gl.getUniformLocation(RENDER,'uState'),0);
+    gl.uniform1i(gl.getUniformLocation(RENDER,'uW'),SZ);
+    gl.drawArrays(gl.POINTS,0,COUNT);
+    gl.disable(gl.BLEND);
+  }}));
+});
+
+/* ================= GL-06 post-processing ================= */
+qa('[data-demo="gl-post"]').forEach(stage => {
+  const cv = q('canvas.glcanvas', stage);
+  const gl = cv.getContext('webgl2', {antialias:false, alpha:false});
+  if (!gl){ cv.remove(); const f=document.createElement('div'); f.className='glfail';
+    f.textContent='WebGL2 unavailable'; stage.appendChild(f); return; }
+  const cc=(t,src)=>{const sh=gl.createShader(t);gl.shaderSource(sh,src);gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(sh));return sh;};
+  const V=`#version 300 es
+in vec2 p; out vec2 uv; void main(){uv=p*0.5+0.5; gl_Position=vec4(p,0.,1.);}`;
+  const link=f=>{const pr=gl.createProgram();gl.attachShader(pr,cc(gl.VERTEX_SHADER,V));
+    gl.attachShader(pr,cc(gl.FRAGMENT_SHADER,f));gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS))console.error(gl.getProgramInfoLog(pr));return pr;};
+  const SCENE = link(`#version 300 es
+precision highp float; in vec2 uv; out vec4 o;
+uniform vec2 uRes; uniform float uTime;
+void main(){
+  vec2 sc=(gl_FragCoord.xy-0.5*uRes)/uRes.y;
+  vec3 col=vec3(0.055,0.06,0.07);
+  for(int i=0;i<7;i++){
+    float fi=float(i);
+    vec2 c=vec2(sin(uTime*0.4+fi*1.7)*0.62, cos(uTime*0.32+fi*2.3)*0.3);
+    float d=length(sc-c);
+    float glow=0.026/max(d,0.012);
+    vec3 tint = mix(vec3(0.816,0.663,0.373), vec3(0.239,0.365,0.463), fract(fi*0.37));
+    col += tint*glow*0.5;
+  }
+  o=vec4(col,1.0);
+}`);
+  const POST = link(`#version 300 es
+precision highp float; in vec2 uv; out vec4 o;
+uniform sampler2D uScene; uniform float uTime; uniform float uOn;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+void main(){
+  vec3 scene=texture(uScene,uv).rgb;
+  if(uOn<0.5){ o=vec4(scene,1.0); return; }
+  vec2 dir=uv-0.5;
+  float k=0.004*dot(dir,dir)*4.0;
+  vec3 col;
+  col.r=texture(uScene,uv+dir*k).r;
+  col.g=scene.g;
+  col.b=texture(uScene,uv-dir*k).b;
+  vec3 bloom=vec3(0.0);
+  for(int i=0;i<12;i++){
+    float a=float(i)*0.5236;
+    vec2 off=vec2(cos(a),sin(a))*0.014;
+    vec3 c=texture(uScene,uv+off).rgb;
+    float lum=dot(c,vec3(0.2126,0.7152,0.0722));
+    bloom+=c*step(0.72,lum);
+  }
+  col += bloom/12.0*0.85;
+  col *= 1.0-dot(dir,dir)*0.85;
+  col += (hash(uv*(1.0+fract(uTime)))-0.5)*0.035;
+  o=vec4(col,1.0);
+}`);
+  const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const bindQuad=pr=>{const l=gl.getAttribLocation(pr,'p');gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);};
+  const tex=gl.createTexture(); const fbo=gl.createFramebuffer();
+  let fw=0,fh=0;
+  function sizeFBO(w,h){
+    fw=w; fh=h;
+    gl.bindTexture(gl.TEXTURE_2D,tex);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,tex,0);
+  }
+  let on = true;
+  const btn = q('#postToggle', stage);
+  btn.addEventListener('click', () => { on=!on; btn.textContent='Post-processing: '+(on?'ON':'OFF');
+    btn.setAttribute('aria-pressed',String(on)); });
+  register(stage, () => ({ tick(){
+    const r=stage.getBoundingClientRect(), dpr=Math.min(devicePixelRatio||1,1.5);
+    const w=Math.max(2,r.width*dpr|0), h=Math.max(2,r.height*dpr|0);
+    if (cv.width!==w){ cv.width=w; cv.height=h; }
+    if (fw!==w||fh!==h) sizeFBO(w,h);
+    const t = RM ? 1.0 : performance.now()*0.001;
+    gl.bindFramebuffer(gl.FRAMEBUFFER,fbo); gl.viewport(0,0,w,h);
+    gl.useProgram(SCENE); bindQuad(SCENE);
+    gl.uniform2f(gl.getUniformLocation(SCENE,'uRes'),w,h);
+    gl.uniform1f(gl.getUniformLocation(SCENE,'uTime'),t);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null); gl.viewport(0,0,w,h);
+    gl.useProgram(POST); bindQuad(POST);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,tex);
+    gl.uniform1i(gl.getUniformLocation(POST,'uScene'),0);
+    gl.uniform1f(gl.getUniformLocation(POST,'uTime'),t);
+    gl.uniform1f(gl.getUniformLocation(POST,'uOn'),on?1:0);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+  }}));
+});
+
+/* ================= GL-07 mesh distortion ================= */
+qa('[data-demo="gl-mesh"]').forEach(stage => {
+  const cv = q('canvas.glcanvas', stage);
+  const gl = cv.getContext('webgl2', {antialias:true, alpha:false});
+  if (!gl){ cv.remove(); const f=document.createElement('div'); f.className='glfail';
+    f.textContent='WebGL2 unavailable'; stage.appendChild(f); return; }
+  const cc=(t,src)=>{const sh=gl.createShader(t);gl.shaderSource(sh,src);gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(sh));return sh;};
+  const pr=gl.createProgram();
+  gl.attachShader(pr,cc(gl.VERTEX_SHADER,`#version 300 es
+in vec2 a; out vec2 vUv; out float vZ;
+uniform float uVel, uTime, uAspect;
+void main(){
+  vUv=a*0.5+0.5;
+  vec3 pos=vec3(a,0.0);
+  float edge=1.0-abs(pos.x);
+  pos.z += sin(pos.x*3.14159)*uVel*0.35;
+  pos.y += edge*uVel*0.12;
+  pos.z += sin(pos.y*6.0-uTime*2.0)*uVel*0.06;
+  vZ=pos.z;
+  float persp = 1.0/(1.0 - pos.z*0.55);
+  gl_Position=vec4(pos.x*persp*0.94, pos.y*persp*0.94, 0.0, 1.0);
+}`));
+  gl.attachShader(pr,cc(gl.FRAGMENT_SHADER,`#version 300 es
+precision highp float; in vec2 vUv; in float vZ; out vec4 o;
+void main(){
+  vec2 g=abs(fract(vUv*10.0)-0.5);
+  float line=smoothstep(0.46,0.5,max(g.x,g.y));
+  vec3 warm=vec3(0.816,0.663,0.373), cool=vec3(0.239,0.318,0.404);
+  vec3 base=mix(cool*0.5, warm*0.8, vUv.y*0.7+0.15+vZ*0.8);
+  o=vec4(base*(0.35+line*0.9), 1.0);
+}`));
+  gl.linkProgram(pr);
+  if(!gl.getProgramParameter(pr,gl.LINK_STATUS))console.error(gl.getProgramInfoLog(pr));
+  const N=40, verts=[], idx=[];
+  for(let y=0;y<=N;y++) for(let x=0;x<=N;x++) verts.push(x/N*2-1, y/N*2-1);
+  for(let y=0;y<N;y++) for(let x=0;x<N;x++){
+    const i=y*(N+1)+x; idx.push(i,i+1,i+N+1, i+1,i+N+2,i+N+1); }
+  const vb=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,vb);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(verts),gl.STATIC_DRAW);
+  const ib=gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,ib);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(idx),gl.STATIC_DRAW);
+  let raw=0,lastY=scrollY,sm=0;
+  addEventListener('scroll',()=>{ raw += scrollY-lastY; lastY=scrollY; },{passive:true});
+  register(stage, () => ({ tick(){
+    const r=stage.getBoundingClientRect(), dpr=Math.min(devicePixelRatio||1,1.6);
+    if (cv.width!==(r.width*dpr|0)){ cv.width=r.width*dpr|0; cv.height=r.height*dpr|0; }
+    raw = clamp(raw*0.90, -140, 140);
+    sm = lerp(sm, RM?0:raw/140, 0.12);
+    gl.viewport(0,0,cv.width,cv.height);
+    gl.clearColor(0.055,0.06,0.07,1); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER,vb);
+    const l=gl.getAttribLocation(pr,'a'); gl.enableVertexAttribArray(l);
+    gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,ib);
+    gl.uniform1f(gl.getUniformLocation(pr,'uVel'),sm);
+    gl.uniform1f(gl.getUniformLocation(pr,'uTime'),performance.now()*0.001);
+    gl.uniform1f(gl.getUniformLocation(pr,'uAspect'),cv.width/cv.height);
+    gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);
+  }}));
 });
 
 /* ================= tabs + group filter ================= */

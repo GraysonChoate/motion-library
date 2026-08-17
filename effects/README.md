@@ -87,6 +87,11 @@ Read first. These change how everything after them is built.
   change at 60fps. **The most important technique here and the one fewest people know.**
 - **SYS-03 · Spring physics** — no duration; integrates position and velocity, so
   interruptions carry momentum. Tune stiffness and damping, not duration.
+- **SYS-04 · View Transitions** — same `view-transition-name` on two elements and the
+  browser morphs between them. **App-like transitions with no framework.** Names must be
+  unique at any moment. `@view-transition { navigation: auto }` for cross-document.
+- **SYS-05 · Speculation Rules** — prefetch/prerender on hover intent. `moderate` is the
+  useful eagerness. ⚠️ **prerender executes the page** — never on anything that mutates state.
 
 ### Group 0.5 — Rendered (`GL-`)
 The GPU tier. All **raw WebGL2 — still zero dependencies.**
@@ -99,6 +104,14 @@ The GPU tier. All **raw WebGL2 — still zero dependencies.**
   character comes entirely from the noise**, not the blend.
 - **GL-04 · Fluid cursor** — ping-pong FBOs. Two framebuffers swapping roles each frame is the
   general pattern for *any* GPU simulation.
+- **GL-05 · GPGPU particles** — positions in a float texture, updated in one draw call,
+  read back by the vertex shader via `texelFetch`. **16,384 particles at the cost of ~150
+  on canvas**, because the CPU never touches one.
+- **GL-06 · Post-processing** — render to FBO, then bright-pass → bloom → chromatic
+  aberration → vignette → grain. **This is the difference between WebGL that looks like a
+  demo and WebGL that looks cinematic.** Toggle in the demo to see the raw render.
+- **GL-07 · Mesh distortion** — vertex displacement on a 40×40 grid driven by scroll
+  velocity. The only technique here needing real geometry rather than a full-screen quad.
 
 ⚠️ This is **the one group permitted a library** in production (Three.js). That permission
 does not extend anywhere else. Everything here also needs a static fallback — the demos
@@ -182,8 +195,18 @@ How content arrives. Wipes and apertures instead of the universal fade-up.
 ### Group 05 — Ambient (`AMB-`)
 Noticed only in its absence.
 
-- **AMB-01 · Animated film grain** — canvas noise regenerated at ~12fps, half resolution,
+- **AMB-01 · Animated film grain** — canvas noise at ~12fps, half resolution,
   `mix-blend-mode: overlay`. Kills gradient banding.
+- **AMB-02 · Aurora drift** — blurred blobs on **coprime durations** so the loop never
+  visibly repeats. Under 40px blur it reads as three circles.
+- **AMB-03 · Dust motes** — three depth layers with different speed, size and parallax.
+  **Blur the near layer, not the far one** — inverting that is the tell.
+- **AMB-04 · Breathing on idle** — micro-motion after ~2.5s of no input, stops instantly on
+  activity. **1.5% scale is the ceiling.** The shadow moving with it is what sells it.
+- **AMB-05 · Caustics** — layered sines at 1/8 resolution, blurred up. **Render small and
+  blur** is the general trick for any soft procedural texture.
+- **AMB-06 · Colour temperature drift** — warm→cool overlay mapped to scroll depth. Gives
+  readers an unconscious sense of position. Keep under 14% opacity.
 
 ---
 
@@ -224,17 +247,13 @@ demo and ship values.
 
 ### Backlog
 
-Built as of this version: **34 techniques across eight groups.** Still queued —
-
-**Architecture** — View Transitions API (`view-transition-name`) · Speculation Rules
-(prefetch on hover intent, pairs with View Transitions for app-like navigation)
+Built as of this version: **44 techniques across eight groups.** Still queued —
 
 **Typography** — text on a curved path (SVG `textPath`) · knockout type
 (`background-clip: text`) · optical-size axis switching
 
-**Rendered** — GPGPU particles (positions in textures) · post-processing stack (bloom, DOF,
-chromatic aberration) · mesh distortion on scroll · **Gaussian splatting** and **MSDF text**,
-both of which need real asset files and a local build rather than a single HTML page
+**Rendered** — **Gaussian splatting** and **MSDF text**, both of which need real asset files
+and a local build rather than a single HTML page
 
 **Depth** — depth-map 2.5D displacement · sticky scale-through · device-orientation tilt
 for mobile
