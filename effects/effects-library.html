@@ -18,7 +18,7 @@ html{-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--char); color:var(--ink);
   font-family:var(--sans); font-size:16px; line-height:1.6;
-  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased; overflow-x:clip;
 }
 /* cursor firelight — the page is lit by what you carry */
 #hearth{position:fixed; inset:0; z-index:0; pointer-events:none;
@@ -60,7 +60,7 @@ section.purpose{padding:clamp(48px,8vh,90px) 0 0}
 
 /* ---------- bench ---------- */
 .bench{margin:44px 0 0; border:1px solid var(--edge-soft); border-radius:2px;
-  background:linear-gradient(180deg,var(--soot),#191B1F); overflow:hidden}
+  background:linear-gradient(180deg,var(--soot),#191B1F); overflow:clip}
 .stage{position:relative; height:var(--stage); overflow:hidden; background:#111216;
   cursor:crosshair; isolation:isolate}
 .rail{padding:22px 24px 24px; border-top:1px solid var(--edge-soft)}
@@ -290,6 +290,9 @@ footer b{color:var(--ink-dim); font-weight:500}
   .st-note::after{content:"not supported in this browser — would fall back to no animation"; color:var(--ember)}
 }
 @keyframes stgrow{from{transform:scaleX(0)} to{transform:scaleX(1)}}
+/* overflow:hidden makes an element a SCROLL CONTAINER, which freezes view()
+   progress. overflow:clip clips without creating a scrollport. */
+.stage[data-demo="scrolltimeline"]{overflow:clip}
 .st-note{position:absolute; left:8%; top:calc(50% + 22px); font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase}
 .flipwrap{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; gap:18px; padding:0 clamp(20px,5vw,50px)}
 .flipgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
@@ -427,6 +430,16 @@ footer b{color:var(--ink-dim); font-weight:500}
 .checklist li{padding-left:26px; position:relative}
 .checklist li::before{content:"☐"; position:absolute; left:0; color:var(--gold)}
 
+@media (max-width:680px){
+  .tabbar-inner{overflow-x:auto; scrollbar-width:none; padding:0 16px}
+  .tabbar-inner::-webkit-scrollbar{display:none}
+  .tab{padding:14px 11px 12px; font-size:10.5px; gap:0}
+  .tab .n{display:none}
+  .wrap{padding:0 16px}
+  .brief{padding:20px 16px}
+  .rail{padding:18px 16px 20px}
+}
+
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important; transition:none!important}
   #hearth{display:none}
@@ -521,7 +534,7 @@ footer b{color:var(--ink-dim); font-weight:500}
       <div class="rail-top"><span class="id">SYS-01</span><h3>Native CSS scroll timelines</h3><span class="src">browser-native, zero JS</span></div>
       <div class="rail-grid">
         <div><h5>What it does</h5><p>Binds a keyframe animation directly to scroll position with <code>animation-timeline: view()</code>. No JS, no rAF, no <code>IntersectionObserver</code> — and it runs <b>off the main thread</b>, so it physically cannot jank when your JS is busy.</p></div>
-        <div><h5>When to use it</h5><p>Reach for this <b>before</b> writing any scroll JS. It would replace a large share of the code in this library. Baseline in Chrome, Edge and Safari; Firefox behind a flag. Wrap in <code>@supports</code> and it degrades to no animation, which is a fine floor.</p></div>
+        <div><h5>When to use it</h5><p>Reach for this <b>before</b> writing any scroll JS. It would replace a large share of the code in this library. Baseline in Chrome, Edge and Safari; Firefox behind a flag; wrap in <code>@supports</code> and it degrades to no animation.<br><br><b>Watch the overflow gotcha in the code below</b> — an <code>overflow:hidden</code> ancestor silently freezes it, which cost an hour of this library's build.</p></div>
       </div>
       <details class="code"><summary>Code</summary><pre>
 <i>/* the entire technique — no JavaScript at all */</i>
@@ -538,6 +551,26 @@ footer b{color:var(--ink-dim); font-weight:500}
    scroll()          — progress of the nearest scroll container
    view()            — progress of THIS element through the viewport
    animation-range   — entry / exit / cover / contain, each 0-100%          */</i>
+
+<b>⚠ THE GOTCHA THAT COSTS AN HOUR — found by auditing this very page</b>
+<i>/* ANY ancestor with overflow:hidden becomes a SCROLL CONTAINER, and view()
+   resolves against the nearest scrollport. If that box never scrolls, your
+   progress freezes at whatever value it happened to hold — no error, no
+   warning, nothing in devtools. It just sits there.
+
+   You must clear the WHOLE ancestor chain, not just the parent. On this page
+   three separate ancestors were doing it, including the one nobody suspects: */</i>
+
+body   { overflow-x: <b>clip</b>; }   <i>/* NOT hidden. Per spec, overflow-x:hidden
+                                   forces overflow-y to auto — so the single
+                                   most common line in any stylesheet quietly
+                                   turns &lt;body&gt; into a scroll container.     */</i>
+.card  { overflow: <b>clip</b>; }     <i>/* every clipping wrapper in between      */</i>
+.stage { overflow: <b>clip</b>; }
+
+<i>/* overflow:clip clips identically and creates no scrollport.
+   Baseline everywhere that supports scroll timelines, so there is no reason
+   to use hidden on an ancestor of a scroll-driven animation.               */</i>
 </pre></details>
     </div>
   </div>
