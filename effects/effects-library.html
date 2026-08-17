@@ -480,6 +480,150 @@ footer b{color:var(--ink-dim); font-weight:500}
 .grainlabel{position:absolute; inset:0; display:grid; place-items:center; font-family:var(--serif);
   font-size:clamp(22px,4vw,44px); color:var(--cream)}
 
+/* ================= KIT ================= */
+.kitsec{padding:clamp(40px,7vh,72px) 0 0}
+.kithead{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
+  padding-bottom:12px; border-bottom:1px solid var(--edge-soft); margin-bottom:6px}
+.kithead h3{font-family:var(--serif); font-weight:400; font-size:clamp(24px,3.6vw,36px);
+  margin:0; color:var(--cream); letter-spacing:-.01em}
+.kithead .n{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--ember)}
+.kithead p{margin:0; flex:1 1 240px; min-width:210px; font-size:14px; color:var(--ink-faint)}
+.kitcard{border:1px solid var(--edge-soft); border-radius:2px; background:var(--soot);
+  padding:22px clamp(18px,2.6vw,26px); margin-top:20px}
+.kitcard > h4{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 12px}
+.kitcard p{margin:0 0 12px; font-size:14.5px; color:var(--ink-dim); line-height:1.6}
+.kitcard p b{color:var(--ink); font-weight:500}
+.kitgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px 28px}
+
+/* token demos */
+.scaleRow{display:flex; align-items:baseline; gap:14px; padding:7px 0; border-bottom:1px solid var(--edge-soft)}
+.scaleRow b{font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--tan);
+  min-width:74px; font-weight:400}
+.scaleRow span{font-family:var(--serif); color:var(--cream); line-height:1.05; white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis}
+.scaleRow i{margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--ink-faint);
+  font-style:normal; font-variant-numeric:tabular-nums; white-space:nowrap}
+.spaceRow{display:flex; align-items:center; gap:12px; padding:5px 0}
+.spaceRow b{font-family:var(--mono); font-size:10px; color:var(--tan); min-width:56px; font-weight:400}
+.spaceRow i{display:block; height:12px; background:linear-gradient(90deg,var(--gold),var(--tan)); border-radius:1px}
+.swatchRow{display:grid; grid-template-columns:repeat(auto-fit,minmax(74px,1fr)); gap:6px; margin:10px 0 4px}
+.swatch{aspect-ratio:1.5; border-radius:2px; display:flex; align-items:flex-end; padding:5px;
+  font-family:var(--mono); font-size:8.5px; letter-spacing:.04em}
+
+/* layout archetypes */
+.arch{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px}
+.archbox{border:1px solid var(--edge-soft); border-radius:2px; overflow:clip; background:#101115;
+  cursor:default; transition:border-color .2s}
+.archbox:hover{border-color:var(--edge)}
+.archwire{aspect-ratio:16/10; position:relative; background:
+  linear-gradient(180deg,#15171B,#101115)}
+.archwire i{position:absolute; background:var(--edge); display:block; border-radius:1px}
+.archwire i.img{background:linear-gradient(150deg,rgba(201,164,92,.30),rgba(58,78,99,.30))}
+.archwire i.txt{background:rgba(232,226,214,.34)}
+.archwire i.cta{background:var(--gold)}
+.archbox b{display:block; padding:10px 12px 4px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--gold); font-weight:400}
+.archbox span{display:block; padding:0 12px 12px; font-size:12.5px; color:var(--ink-faint); line-height:1.5}
+
+/* utility components */
+.uc{border:1px solid var(--edge-soft); border-radius:2px; background:#131519; padding:18px; margin-top:12px}
+.uc-hours{display:grid; gap:2px; font-size:13.5px}
+.uc-hours div{display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--edge-soft)}
+.uc-hours div:last-child{border-bottom:none}
+.uc-hours .day{color:var(--ink-dim)} .uc-hours .hrs{color:var(--ink); font-variant-numeric:tabular-nums}
+.uc-hours .today{color:var(--gold)} .uc-hours .today .hrs{color:var(--gold)}
+.uc-open{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--teal); margin-bottom:10px}
+.uc-open i{width:6px; height:6px; border-radius:50%; background:var(--teal); display:block;
+  box-shadow:0 0 0 3px rgba(94,138,126,.2)}
+.uc-menu{display:grid; gap:14px}
+.uc-menu .mi{display:grid; grid-template-columns:1fr auto; gap:4px 14px; align-items:baseline}
+.uc-menu .mi b{font-family:var(--serif); font-weight:400; font-size:17px; color:var(--cream)}
+.uc-menu .mi s{text-decoration:none; font-family:var(--mono); font-size:13px; color:var(--gold);
+  font-variant-numeric:tabular-nums}
+.uc-menu .mi span{grid-column:1/-1; font-size:12.5px; color:var(--ink-faint); line-height:1.45}
+.uc-menu .mi em{font-style:normal; font-family:var(--mono); font-size:9.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--teal); margin-left:8px}
+.uc-sched{display:grid; gap:6px}
+.uc-sched .sl{display:grid; grid-template-columns:66px 1fr auto auto; gap:12px; align-items:center;
+  padding:9px 10px; border:1px solid var(--edge-soft); border-radius:2px; font-size:13px}
+.uc-sched .t{font-family:var(--mono); font-size:11.5px; color:var(--gold); font-variant-numeric:tabular-nums}
+.uc-sched .cl{color:var(--cream)} .uc-sched .who{color:var(--ink-faint); font-size:12px}
+.uc-sched .sp{font-family:var(--mono); font-size:10px; color:var(--teal); text-transform:uppercase; letter-spacing:.1em}
+.uc-sched .sp.full{color:var(--ember)}
+.uc-stars{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.uc-stars .st{color:var(--gold); font-size:15px; letter-spacing:2px}
+.uc-stars .num{font-family:var(--mono); font-size:13px; color:var(--ink); font-variant-numeric:tabular-nums}
+.uc-stars .src{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint)}
+.uc-ba{position:relative; aspect-ratio:16/9; border-radius:2px; overflow:clip; cursor:ew-resize; user-select:none}
+.uc-ba .before,.uc-ba .after{position:absolute; inset:0}
+.uc-ba .before{background:linear-gradient(150deg,#3a3a38,#1c1c1a)}
+.uc-ba .after{background:linear-gradient(150deg,rgba(201,164,92,.5),rgba(58,78,99,.45)),linear-gradient(150deg,#3a3a38,#1c1c1a)}
+.uc-ba .hnd{position:absolute; top:0; bottom:0; width:2px; background:var(--cream); z-index:3}
+.uc-ba .hnd::after{content:""; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:30px; height:30px; border-radius:50%; border:2px solid var(--cream); background:rgba(0,0,0,.35)}
+.uc-ba span{position:absolute; bottom:8px; font-family:var(--mono); font-size:9.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--cream); z-index:4; text-shadow:0 1px 4px #000}
+.uc-price{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px}
+.uc-price .tier{border:1px solid var(--edge-soft); border-radius:2px; padding:16px; display:grid; gap:8px}
+.uc-price .tier.hot{border-color:var(--gold); background:rgba(201,164,92,.06)}
+.uc-price .nm{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--tan)}
+.uc-price .pr{font-family:var(--serif); font-size:30px; color:var(--cream); line-height:1}
+.uc-price .pr sub{font-family:var(--mono); font-size:11px; color:var(--ink-faint); vertical-align:baseline}
+.uc-price ul{margin:0; padding-left:16px; font-size:12.5px; color:var(--ink-dim); line-height:1.7}
+.uc-cta{position:relative; display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:14px 18px; border-radius:3px; background:var(--gold); color:var(--char); flex-wrap:wrap}
+.uc-cta b{font-family:var(--serif); font-weight:400; font-size:18px}
+.uc-cta span{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; opacity:.75}
+.uc-cta i{font-style:normal; font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; background:var(--char); color:var(--gold); padding:9px 15px; border-radius:2px}
+.uc-staff{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px}
+.uc-staff .pf{display:grid; gap:8px}
+.uc-staff .av{aspect-ratio:3/4; border-radius:2px; background:linear-gradient(150deg,#2b2f36,#16171a);
+  position:relative; overflow:clip}
+.uc-staff .av::after{content:""; position:absolute; inset:auto 0 0 0; height:55%;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.5))}
+.uc-staff .nm{font-family:var(--serif); font-size:16px; color:var(--cream)}
+.uc-staff .rl{font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--tan)}
+.uc-map{aspect-ratio:16/8; border-radius:2px; position:relative; overflow:clip;
+  background:linear-gradient(150deg,#1b1f25,#121418)}
+.uc-map .rd{position:absolute; background:rgba(232,226,214,.10)}
+.uc-map .pin{position:absolute; left:50%; top:48%; transform:translate(-50%,-100%); width:14px; height:14px;
+  border-radius:50% 50% 50% 0; background:var(--gold); rotate:-45deg;
+  box-shadow:0 0 0 6px rgba(201,164,92,.16)}
+.uc-map .addr{position:absolute; left:12px; bottom:12px; font-family:var(--mono); font-size:11px;
+  color:var(--cream); background:rgba(14,15,19,.82); padding:7px 11px; border-radius:2px; line-height:1.5}
+
+/* photo treatments */
+.treatgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px}
+.treatcell{display:grid; gap:7px}
+.treatimg{aspect-ratio:4/3; border-radius:2px; overflow:clip; position:relative;
+  background-image:
+    radial-gradient(38% 46% at 32% 34%, #b9a88e, transparent 60%),
+    radial-gradient(50% 40% at 72% 66%, #6f6255, transparent 62%),
+    linear-gradient(150deg, #8d8172, #3d3830 62%, #21201c)}
+.treatimg.t-duo{filter:grayscale(1) contrast(1.18) brightness(.94)}
+.treatimg.t-duo::after{content:""; position:absolute; inset:0; mix-blend-mode:color;
+  background:linear-gradient(150deg, #B4633A, #3A4E63)}
+.treatimg.t-grade{filter:contrast(1.16) saturate(.62) brightness(.93)}
+.treatimg.t-grade::after{content:""; position:absolute; inset:0; mix-blend-mode:soft-light;
+  background:linear-gradient(180deg, rgba(201,164,92,.55), rgba(58,78,99,.55))}
+.treatimg.t-wash::after{content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(22,23,26,0) 35%, rgba(22,23,26,.92))}
+.treatimg.t-crop{aspect-ratio:1/1}
+.treatcell b{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold)}
+.treatcell span{font-size:12px; color:var(--ink-faint); line-height:1.5}
+
+/* edge language */
+.edgegrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px}
+.edgebox{aspect-ratio:4/3; display:grid; place-items:center; font-family:var(--mono); font-size:10px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-dim); background:var(--soot)}
+.edgebox.hair{border:1px solid rgba(232,226,214,.20); border-radius:2px}
+.edgebox.soft{border-radius:14px; box-shadow:0 18px 40px -18px rgba(0,0,0,.9); border:1px solid transparent}
+.edgebox.inset{border-radius:2px; box-shadow:inset 0 1px 0 rgba(232,226,214,.14), 0 1px 0 rgba(0,0,0,.5)}
+.edgebox.none{border-radius:2px; background:var(--ash)}
+
 /* ================= TAB SHELL ================= */
 .tabbar{position:sticky; top:0; z-index:60; background:rgba(22,23,26,.93);
   backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
@@ -602,6 +746,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <div class="tabbar-inner">
     <button class="tab" role="tab" id="tab-research" aria-controls="panel-research" aria-selected="false">Research <span class="n">the gauge</span></button>
     <button class="tab" role="tab" id="tab-effects"  aria-controls="panel-effects"  aria-selected="true">Effects <span class="n">the fixtures</span></button>
+    <button class="tab" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false">Kit <span class="n">the furniture</span></button>
     <button class="tab" role="tab" id="tab-standards" aria-controls="panel-standards" aria-selected="false">Standards <span class="n">the tolerances</span></button>
   </div>
 </nav>
@@ -2696,6 +2841,323 @@ overlay.style.background =
   </div>
 </div><!-- /panel-research -->
 
+<div class="panel" id="panel-kit" role="tabpanel" aria-labelledby="tab-kit" hidden>
+  <div class="panel-intro">
+    <p class="role">The furniture</p>
+    <h2>Everything that isn't motion</h2>
+    <p>A mockup is roughly <strong>80% structure and 20% motion</strong>. This is the 80%: tokens,
+    layout archetypes, the utility components each business type actually requires, photo treatments
+    for imagery that arrives imperfect, and the edge language that reads as expensive in 2026.</p>
+    <p>The AI assembles from here. <strong>It should never invent a spacing value, a type size, or a
+    component that already exists below.</strong> Inventing structure is where the time goes and
+    where quality becomes a coin flip.</p>
+  </div>
+
+  <!-- ============ TOKENS ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 01</span><h3>Tokens</h3>
+      <p>Fixed vocabulary. Every size on the page comes from these three scales — no exceptions.</p></div>
+
+    <div class="kitcard">
+      <h4>Type scale — fluid, clamp-based</h4>
+      <p>One scale, viewport-fluid, no media queries. Every value is <code>clamp(min, preferred, max)</code>
+      so it holds from an iPad to a desktop without a breakpoint. <b>Nothing on the page uses a size
+      that isn't on this scale.</b></p>
+      <div class="scaleRow"><b>display</b><span style="font-size:clamp(38px,5.2vw,62px)">Roasted over oak</span><i>clamp(38px, 5.2vw, 62px)</i></div>
+      <div class="scaleRow"><b>h1</b><span style="font-size:clamp(30px,4vw,46px)">Roasted over oak</span><i>clamp(30px, 4vw, 46px)</i></div>
+      <div class="scaleRow"><b>h2</b><span style="font-size:clamp(23px,2.8vw,32px)">Roasted over oak</span><i>clamp(23px, 2.8vw, 32px)</i></div>
+      <div class="scaleRow"><b>h3</b><span style="font-size:clamp(18px,2vw,23px)">Roasted over oak</span><i>clamp(18px, 2vw, 23px)</i></div>
+      <div class="scaleRow"><b>body</b><span style="font-size:16px;font-family:var(--sans)">Roasted over oak in handmade brick ovens</span><i>16px / 1.6</i></div>
+      <div class="scaleRow"><b>small</b><span style="font-size:13.5px;font-family:var(--sans)">Roasted over oak in handmade brick ovens</span><i>13.5px / 1.55</i></div>
+      <div class="scaleRow"><b>label</b><span style="font-size:10.5px;font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase">Roasted over oak</span><i>10.5px · .16em · upper</i></div>
+      <p style="margin-top:14px"><b>Rules.</b> Line-height 1.05–1.15 on display and headings, 1.6 on body.
+      <code>text-wrap: balance</code> on every heading. Body measure capped at <b>68 characters</b>.
+      Labels always uppercase with tracking — that contrast is most of what makes type look art-directed.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Spacing — 8pt grid</h4>
+      <p>Eight values. <b>If a gap isn't on this list it's wrong.</b> This single constraint does more
+      for perceived quality than any effect in the library, because inconsistent spacing is the
+      number-one tell of an amateur page.</p>
+      <div class="spaceRow"><b>4px</b><i style="width:4px"></i></div>
+      <div class="spaceRow"><b>8px</b><i style="width:8px"></i></div>
+      <div class="spaceRow"><b>12px</b><i style="width:12px"></i></div>
+      <div class="spaceRow"><b>16px</b><i style="width:16px"></i></div>
+      <div class="spaceRow"><b>24px</b><i style="width:24px"></i></div>
+      <div class="spaceRow"><b>32px</b><i style="width:32px"></i></div>
+      <div class="spaceRow"><b>48px</b><i style="width:48px"></i></div>
+      <div class="spaceRow"><b>64px</b><i style="width:64px"></i></div>
+      <div class="spaceRow"><b>96px</b><i style="width:96px"></i></div>
+      <div class="spaceRow"><b>128px</b><i style="width:128px"></i></div>
+      <p style="margin-top:14px"><b>Section rhythm.</b> Vertical padding between sections is
+      <b>96px or 128px</b> and nothing else. Inside a component, gaps stay ≤ 32px. The rule that keeps
+      it readable: <b>space inside an element is always smaller than space around it.</b></p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Colour — derived, not chosen</h4>
+      <p>Take the brand's most-repeated hex from their own HTML. Everything else is <b>derived from
+      it</b>, so the palette can't drift off-brand.</p>
+      <div class="swatchRow">
+        <div class="swatch" style="background:#16171A;color:#8f8a80">ink 900</div>
+        <div class="swatch" style="background:#1F2124;color:#8f8a80">ink 800</div>
+        <div class="swatch" style="background:#2A2D31;color:#a9a398">ink 700</div>
+        <div class="swatch" style="background:#6E6A62;color:#16171A">ink 400</div>
+        <div class="swatch" style="background:#A9A398;color:#16171A">ink 300</div>
+        <div class="swatch" style="background:#E8E2D6;color:#16171A">ink 100</div>
+      </div>
+      <div class="swatchRow">
+        <div class="swatch" style="background:#5E3620;color:#E8E2D6">brand 900</div>
+        <div class="swatch" style="background:#8C4C2D;color:#E8E2D6">brand 700</div>
+        <div class="swatch" style="background:#B4633A;color:#16171A">brand 500 ← measured</div>
+        <div class="swatch" style="background:#CE8B67;color:#16171A">brand 300</div>
+        <div class="swatch" style="background:#E7C4B0;color:#16171A">brand 100</div>
+      </div>
+      <p style="margin-top:14px"><b>Roles.</b> Ground · surface · raised · hairline · body text ·
+      dim text · <b>brand (accent only)</b> · one cool counterpoint for shadow.
+      <b>The accent is never a background.</b> It is the CTA, the active state, one rule, one
+      highlight — nothing else. The fastest way to make a page look cheap is a large area of
+      saturated brand colour.</p>
+      <p><b>Neutrals get a hue bias toward the brand.</b> A pure grey reads as unconsidered; a grey
+      with 3–5% of the brand hue in it reads as chosen.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Radii and elevation</h4>
+      <p>Three radii: <b>2px</b> (default — reads engineered), <b>3px</b> (media), <b>999px</b> (pills
+      only). <b>2026 premium reads as sharp geometry and 1px hairlines, not soft blurred shadows</b> —
+      the rounded-16px-plus-drop-shadow card is the single most dated pattern you can put on a page.</p>
+    </div>
+  </section>
+
+  <!-- ============ LAYOUT ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 02</span><h3>Layout archetypes</h3>
+      <p>Pick one hero and one section rhythm. Never design a layout from scratch — that is where the
+      twenty minutes goes.</p></div>
+
+    <div class="kitcard">
+      <h4>Hero archetypes — pick exactly one</h4>
+      <div class="arch">
+        <div class="archbox"><div class="archwire">
+          <i class="img" style="left:0;top:0;width:100%;height:100%"></i>
+          <i class="txt" style="left:8%;bottom:26%;width:52%;height:9%"></i>
+          <i class="txt" style="left:8%;bottom:17%;width:34%;height:5%"></i>
+          <i class="cta" style="left:8%;bottom:8%;width:17%;height:6%"></i></div>
+          <b>Full-bleed</b><span>One strong photograph, type over the lower third. Needs a genuinely good image — if the photo is weak this archetype fails hardest.</span></div>
+        <div class="archbox"><div class="archwire">
+          <i class="txt" style="left:6%;top:22%;width:38%;height:11%"></i>
+          <i class="txt" style="left:6%;top:37%;width:30%;height:5%"></i>
+          <i class="cta" style="left:6%;top:48%;width:16%;height:6%"></i>
+          <i class="img" style="right:0;top:0;width:46%;height:100%"></i></div>
+          <b>Editorial split</b><span>Type left, image right. The safest strong choice and the best default when photography is only average.</span></div>
+        <div class="archbox"><div class="archwire">
+          <i class="txt" style="left:8%;top:26%;width:76%;height:15%"></i>
+          <i class="txt" style="left:8%;top:46%;width:44%;height:5%"></i>
+          <i class="cta" style="left:8%;top:58%;width:16%;height:6%"></i>
+          <i style="left:8%;bottom:9%;width:84%;height:1px"></i></div>
+          <b>Type-first</b><span>Enormous headline, no hero image at all. The correct answer when their photography is unusable — and it reads as confident rather than as a gap.</span></div>
+        <div class="archbox"><div class="archwire">
+          <i class="img" style="left:5%;top:12%;width:42%;height:50%"></i>
+          <i class="img" style="left:50%;top:12%;width:22%;height:24%"></i>
+          <i class="img" style="left:74%;top:12%;width:21%;height:24%"></i>
+          <i class="txt" style="left:50%;top:39%;width:45%;height:10%"></i>
+          <i class="cta" style="left:50%;top:52%;width:16%;height:6%"></i>
+          <i class="img" style="left:5%;top:66%;width:90%;height:22%"></i></div>
+          <b>Bento</b><span>Tiled grid of unequal cells. Dominant 2026 pattern and it ships. Ideal when they have <em>many</em> mediocre photos rather than one good one.</span></div>
+        <div class="archbox"><div class="archwire">
+          <i class="txt" style="left:10%;top:20%;width:80%;height:12%"></i>
+          <i class="txt" style="left:24%;top:37%;width:52%;height:5%"></i>
+          <i class="cta" style="left:42%;top:48%;width:16%;height:6%"></i>
+          <i class="img" style="left:14%;top:63%;width:72%;height:30%"></i></div>
+          <b>Centred classic</b><span>Symmetrical, calm, low risk. Right for clinical and luxury registers where restraint is the signal.</span></div>
+      </div>
+    </div>
+
+    <div class="kitcard">
+      <h4>Section rhythm</h4>
+      <p>After the hero, alternate <b>wide → narrow → wide</b>. Never run three full-width sections
+      in a row — the page stops having a pulse and starts feeling like a scroll. Content column caps
+      at <b>1120px</b>; prose caps at <b>68ch</b> regardless of container.</p>
+      <p><b>Six to eight sections total.</b> Fewer reads thin, more reads like a template. Every
+      section earns its place by answering one question the visitor actually has.</p>
+    </div>
+  </section>
+
+  <!-- ============ COMPONENTS ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 03</span><h3>Utility components</h3>
+      <p>The functional furniture. Which of these are <em>required</em> is decided by the business
+      pattern — see the Patterns tab.</p></div>
+
+    <div class="kitgrid">
+      <div class="kitcard"><h4>Hours · pattern A B C</h4>
+        <div class="uc">
+          <div class="uc-open"><i></i>Open now · closes 6pm</div>
+          <div class="uc-hours">
+            <div class="today"><span class="day">Monday</span><span class="hrs">7:00 — 18:00</span></div>
+            <div><span class="day">Tuesday</span><span class="hrs">7:00 — 18:00</span></div>
+            <div><span class="day">Saturday</span><span class="hrs">8:00 — 16:00</span></div>
+            <div><span class="day">Sunday</span><span class="hrs">Closed</span></div>
+          </div>
+        </div>
+        <p style="margin-top:12px"><b>Today's row is highlighted and the open/closed state is
+        computed.</b> That one detail reads as a real site rather than a mockup, and it costs four
+        lines.</p></div>
+
+      <div class="kitcard"><h4>Menu — live text · pattern B</h4>
+        <div class="uc"><div class="uc-menu">
+          <div class="mi"><b>Velvet Blaze</b><s>4.50</s><span>Balanced house blend, oak-roasted<em>vegan</em></span></div>
+          <div class="mi"><b>Inferno</b><s>4.75</s><span>Toasted dark roast, a hint of smoke</span></div>
+          <div class="mi"><b>Cold brew</b><s>5.25</s><span>Sixteen-hour steep, served over ice<em>gf</em></span></div>
+        </div></div>
+        <p style="margin-top:12px"><b>Never a PDF.</b> 85% of café visitors check the menu on a phone,
+        and a PDF menu is the single most common failure in this category. Live text, categorised,
+        with prices and dietary marks.</p></div>
+
+      <div class="kitcard"><h4>Schedule · pattern A C H</h4>
+        <div class="uc"><div class="uc-sched">
+          <div class="sl"><span class="t">06:30</span><span class="cl">Reformer 50</span><span class="who">Maya</span><span class="sp">4 left</span></div>
+          <div class="sl"><span class="t">09:00</span><span class="cl">Foundations</span><span class="who">Théo</span><span class="sp">open</span></div>
+          <div class="sl"><span class="t">17:45</span><span class="cl">Power Flow</span><span class="who">Maya</span><span class="sp full">waitlist</span></div>
+        </div></div>
+        <p style="margin-top:12px">Time, class, instructor, spots. <b>Must be readable without a
+        login</b> — a timetable behind a login is a conversion blocker, and showing scarcity is what
+        makes it feel live.</p></div>
+
+      <div class="kitcard"><h4>Review proof · all patterns</h4>
+        <div class="uc"><div class="uc-stars">
+          <span class="st">★★★★★</span><span class="num">4.9</span>
+          <span class="src">312 Google reviews</span>
+        </div>
+        <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.55">
+        "I drive across town for this. Genuinely the best in the city."</p>
+        <p style="margin:6px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+        text-transform:uppercase;color:var(--ink-faint)">— verified Google review</p></div>
+        <p style="margin-top:12px"><b>Above the fold, and again beside the CTA.</b> A rating next to
+        the action outperforms the same rating in the header. Reviews are the highest-weight trust
+        signal there is — if only one gets used, use this.</p></div>
+
+      <div class="kitcard"><h4>Before / after · pattern C D</h4>
+        <div class="uc"><div class="uc-ba" id="baDemo">
+          <div class="before"></div>
+          <div class="after" id="baAfter"></div>
+          <div class="hnd" id="baHandle"></div>
+          <span style="left:10px">before</span><span style="right:10px">after</span>
+        </div></div>
+        <p style="margin-top:12px">Drag it. <b>Before/after and named client stories outperform
+        written testimonials</b> for gyms, trainers and trades. If they have any pair of images at
+        all, this is worth a section.</p></div>
+
+      <div class="kitcard"><h4>Pricing tiers · pattern C E H</h4>
+        <div class="uc"><div class="uc-price">
+          <div class="tier"><span class="nm">Drop-in</span><span class="pr">28<sub>/class</sub></span>
+            <ul><li>Any class</li><li>No commitment</li></ul></div>
+          <div class="tier hot"><span class="nm">Unlimited</span><span class="pr">189<sub>/mo</sub></span>
+            <ul><li>All classes</li><li>Guest passes</li><li>Priority booking</li></ul></div>
+        </div></div>
+        <p style="margin-top:12px"><b>Lead with the low-commitment option</b> — a trial or drop-in
+        converts far better than asking for a monthly commitment from someone who has never walked in.
+        Mark one tier, never two.</p></div>
+
+      <div class="kitcard"><h4>Staff / practitioners · pattern A E H</h4>
+        <div class="uc"><div class="uc-staff">
+          <div class="pf"><div class="av"></div><span class="nm">Maya Ortiz</span><span class="rl">Lead instructor</span></div>
+          <div class="pf"><div class="av"></div><span class="nm">Théo Marsh</span><span class="rl">Rehab specialist</span></div>
+        </div></div>
+        <p style="margin-top:12px">For any business where you're buying <b>a person's competence</b>,
+        faces and credentials do the converting. Name, role, one credential. Never a stock portrait —
+        an obviously fake face costs more trust than an empty slot.</p></div>
+
+      <div class="kitcard"><h4>Location · pattern A B C G</h4>
+        <div class="uc"><div class="uc-map">
+          <i class="rd" style="left:0;top:38%;width:100%;height:3px"></i>
+          <i class="rd" style="left:0;top:70%;width:100%;height:2px"></i>
+          <i class="rd" style="left:31%;top:0;width:3px;height:100%"></i>
+          <i class="rd" style="left:68%;top:0;width:2px;height:100%"></i>
+          <span class="pin"></span>
+          <span class="addr">3115 S 1st St<br>Austin, TX 78704</span>
+        </div></div>
+        <p style="margin-top:12px">Address as <b>live text, not baked into an image</b>, plus
+        neighbourhood name in the copy. "Where is it" is one of the three reasons anyone opens a
+        local business site.</p></div>
+
+      <div class="kitcard"><h4>Sticky action bar · all patterns</h4>
+        <div class="uc"><div class="uc-cta">
+          <div><b>Book your first class</b><br><span>free · no card required</span></div>
+          <i>Book now →</i>
+        </div></div>
+        <p style="margin-top:12px"><b>One action, one colour, used nowhere else on the page.</b>
+        Persistent at the bottom. The most common failure on a small-business site is a booking link
+        that's three clicks deep and invisible — fixing that alone changes how the site feels.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ PHOTO ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 04</span><h3>Photo treatment</h3>
+      <p>Client photography arrives inconsistent. Treatment is what turns a mixed bag into a set.</p></div>
+    <div class="kitcard">
+      <h4>Four recipes, in order of how much they rescue</h4>
+      <div class="treatgrid">
+        <div class="treatcell"><div class="treatimg"></div><b>Untreated</b><span>Mixed white balance, no relationship to any other image on the page.</span></div>
+        <div class="treatcell"><div class="treatimg t-grade"></div><b>Grade</b><span>Contrast up, saturation down, soft-light gradient in brand colours. Keeps it photographic. <b>Use first.</b></span></div>
+        <div class="treatcell"><div class="treatimg t-duo"></div><b>Duotone</b><span>Desaturate, then map shadows and highlights to two brand colours. Forces any set into one palette. <b>Use when photos clash badly.</b></span></div>
+        <div class="treatcell"><div class="treatimg t-wash"></div><b>Gradient wash</b><span>Darken the lower third so type sits on it. Not a rescue — a legibility requirement for full-bleed heroes.</span></div>
+      </div>
+      <p style="margin-top:16px"><b>The recipe.</b> Desaturate → fix levels and contrast →
+      gradient-map shadows to the brand's dark and highlights to its light → set the map to
+      soft-light or colour → pull opacity back until it stops looking like a filter.</p>
+      <p><b>Crop discipline.</b> Three ratios only — <b>16:9</b> wide, <b>4:3</b> standard,
+      <b>3:4</b> portrait. Mixed arbitrary ratios are the second-biggest tell of an amateur page after
+      inconsistent spacing.</p>
+      <p><b>The rejection rule.</b> Under 1200px wide, visibly blurry, or watermarked → don't rescue
+      it, drop it and change archetype. <b>Type-first hero exists precisely for this case.</b> And
+      generated imagery must never depict the actual business — no invented storefronts, no invented
+      staff. Abstract, textural or product-adjacent only.</p>
+    </div>
+  </section>
+
+  <!-- ============ EDGES ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 05</span><h3>Edge language</h3>
+      <p>How things are separated. Small decision, disproportionate effect on perceived cost.</p></div>
+    <div class="kitcard">
+      <div class="edgegrid">
+        <div class="edgebox hair">1px hairline</div>
+        <div class="edgebox soft">blur shadow</div>
+        <div class="edgebox inset">inset highlight</div>
+        <div class="edgebox none">tonal step</div>
+      </div>
+      <p style="margin-top:16px"><b>Default to the hairline.</b> 1px at 15–20% opacity, 2px radius.
+      2026 premium reads as engineered precision — sharp geometry and thin rules. <b>The soft blurred
+      shadow with a 16px radius is the most dated thing you can put on a page</b>; it reads as 2019
+      and it reads as a template.</p>
+      <p>Use <b>tonal steps</b> — a surface one shade lighter than its ground — where a border would
+      be too much. Use <b>inset highlights</b> only on interactive elements, where the 1px light line
+      along the top edge reads as a real physical control.</p>
+    </div>
+  </section>
+
+  <!-- ============ TEXTURE ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 06</span><h3>Texture</h3>
+      <p>What stops large flat areas reading as unfinished.</p></div>
+    <div class="kitcard">
+      <p><b>Grain</b> — <code>AMB-01</code>, at 3–5% opacity, <code>mix-blend-mode: overlay</code>.
+      Kills gradient banding and makes a flat field read as a surface. <b>Nearly always worth it on a
+      dark page.</b></p>
+      <p><b>Gradient mesh</b> — <code>AMB-02</code>, blurred blobs behind content. Fills empty regions
+      without adding content. Keep blur above 40px or the blobs become visible shapes.</p>
+      <p><b>Hairline grid</b> — a 1px rule every 96px at 4% opacity. Almost invisible, but it makes the
+      layout feel engineered rather than floated. <b>Cheapest premium signal in the kit.</b></p>
+      <p><b>Never:</b> visible noise PNGs, paper textures at high opacity, gradient meshes bright
+      enough to read as blobs, or texture on top of body text.</p>
+    </div>
+  </section>
+</div><!-- /panel-kit -->
+
 <div class="panel" id="panel-standards" role="tabpanel" aria-labelledby="tab-standards" hidden>
   <div class="panel-intro">
     <p class="role">The tolerances</p>
@@ -4179,6 +4641,29 @@ void main(){
     gl.drawElements(gl.TRIANGLES, idx.length, gl.UNSIGNED_SHORT, 0);
   }}));
 });
+
+
+/* ================= KIT · before/after slider ================= */
+(() => {
+  const wrap = document.getElementById('baDemo');
+  if (!wrap) return;
+  const after = document.getElementById('baAfter'), hnd = document.getElementById('baHandle');
+  let pos = 0.5, dragging = false;
+  const apply = () => {
+    after.style.clipPath = `inset(0 0 0 ${pos*100}%)`;
+    hnd.style.left = (pos*100) + '%';
+  };
+  const set = e => {
+    const r = wrap.getBoundingClientRect();
+    pos = clamp((e.clientX - r.left) / r.width, 0, 1);
+    apply();
+  };
+  wrap.addEventListener('pointerdown', e => { dragging = true; wrap.setPointerCapture(e.pointerId); set(e); });
+  wrap.addEventListener('pointermove', e => { if (dragging) set(e); });
+  wrap.addEventListener('pointerup', () => { dragging = false; });
+  wrap.addEventListener('pointerleave', () => { dragging = false; });
+  apply();
+})();
 
 /* ================= tabs + group filter ================= */
 (() => {

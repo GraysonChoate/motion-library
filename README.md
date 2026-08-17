@@ -14,6 +14,7 @@ consistently good.
 |---|---|
 | **[`research/`](research/)** | how to find out what's actually true about a client, and prove it — the **gauge** |
 | **[`effects/`](effects/)** | working, debugged interaction code you can lift — the **fixtures** |
+| **Kit** *(in the library page)* | tokens, layout archetypes, utility components, photo treatment, edge language — the **furniture** |
 | **[`standards/`](standards/)** | accessibility, performance, and demo-vs-ship values — the **tolerances** |
 
 **New here?** Open **[`effects/effects-library.html`](effects/effects-library.html)** in a
