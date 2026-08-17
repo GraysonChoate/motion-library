@@ -266,6 +266,19 @@ footer b{color:var(--ink-dim); font-weight:500}
 .velread u{text-decoration:none; color:var(--slate)}
 
 
+/* ---- group brief ---- */
+.brief{border:1px solid var(--edge-soft); border-left:2px solid var(--gold); border-radius:2px;
+  background:linear-gradient(180deg,rgba(201,164,92,.045),transparent);
+  padding:26px clamp(20px,3vw,32px) 24px; margin:22px 0 8px}
+.brief .def{font-family:var(--serif); font-size:clamp(18px,2.5vw,26px); line-height:1.35;
+  color:var(--cream); margin:0 0 20px; letter-spacing:-.01em; max-width:60ch}
+.brief-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px 34px}
+.brief-grid h6{font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--teal); margin:0 0 7px; font-weight:400}
+.brief-grid p{margin:0; font-size:14px; line-height:1.6; color:var(--ink-dim)}
+.brief-grid p b{color:var(--ink); font-weight:500}
+.brief-grid .warn h6{color:var(--ember)}
+
 /* ---- SYS demos ---- */
 .sysrail{position:absolute; left:8%; right:8%; top:50%; height:3px; background:var(--edge-soft); border-radius:2px}
 .sysrail i{display:block; height:100%; background:var(--gold); transform-origin:0 50%; transform:scaleX(0); border-radius:2px}
@@ -488,6 +501,16 @@ footer b{color:var(--ink-dim); font-weight:500}
     <h2>Architecture</h2>
     <p>Read first. These change how everything after them is built.</p>
   </div>
+  <div class="brief">
+    <p class="def">Architecture is <em>how</em> motion is produced — not what it looks like.</p>
+    <div class="brief-grid">
+    <div><h6>What it actually is</h6><p>The decisions underneath every effect: where the animation loop lives, what drives progress, how layout change is animated, what physical model your easing uses. None of it is visible. All of it is load-bearing.</p></div>
+    <div><h6>Why it decides quality</h6><p>This is the difference between a site running twenty effects at a steady 60fps and one that stutters on a two-year-old laptop. <b>Every other group on this page depends on choices made here.</b> Get it wrong and the fix is a rewrite, not a tweak.</p></div>
+    <div class="warn"><h6>What separates good from bad</h6><p>The common failure is reaching for a library and adding an animation per component — twenty independent loops, each unaware of the others. Architecture-first means <b>one loop, one source of scroll truth, and layout change animated through transforms</b>.</p></div>
+    <div><h6>Reach for it</h6><p>Before writing a single line of scroll code. If you are already three components deep and adding a fourth <code>requestAnimationFrame</code>, stop and read this group.</p></div>
+    </div>
+  </div>
+
 
   <div class="bench">
     <div class="stage" data-demo="scrolltimeline">
@@ -605,6 +628,16 @@ function frame(){
     <h2>Depth</h2>
     <p>Turning flat surfaces into space you move through, rather than pictures you scroll past.</p>
   </div>
+  <div class="brief">
+    <p class="def">Depth is making a flat plane read as space you could walk into.</p>
+    <div class="brief-grid">
+    <div><h6>What it actually is</h6><p>Relative motion between layers, occlusion, perspective, and focus falling off with distance. Four cues the eye trusts automatically, because they are how real lenses and real rooms behave.</p></div>
+    <div><h6>Why it decides quality</h6><p>The largest single contributor to a site feeling <b>crafted rather than assembled</b>. When someone says a site feels premium without being able to say why, they are almost always responding to depth.</p></div>
+    <div class="warn"><h6>The mistake almost everyone makes</h6><p><b>Depth is not arrival.</b> Elements fading up as you scroll is not dimension — it is a queue. Real depth needs planes moving at different rates <i>and</i> silhouettes that cross each other <i>and</i> blur on the nearest layer. Two out of three still reads flat.</p></div>
+    <div><h6>Reach for it</h6><p>Heroes, product ranges, anything built from still images. It is the honest answer when a client has beautiful photography and a site that wastes it.</p></div>
+    </div>
+  </div>
+
 
   <!-- DEP-01 -->
   <div class="bench">
@@ -780,6 +813,16 @@ function frame(){
     <h2>Reactivity</h2>
     <p>The page answering the pointer. This is the category video physically cannot compete in.</p>
   </div>
+  <div class="brief">
+    <p class="def">Reactivity is the page answering you inside the same frame.</p>
+    <div class="brief-grid">
+    <div><h6>What it actually is</h6><p>Reading pointer position, velocity or proximity and responding immediately — light that follows the cursor, controls that lean toward it, particles that scatter and settle.</p></div>
+    <div><h6>Why it decides quality</h6><p><b>This is the one category video physically cannot compete in.</b> A film plays back identically for everyone; a reactive page acknowledges that a specific person is present. That acknowledgement is the difference between a site that feels alive and one that is merely well-produced.</p></div>
+    <div class="warn"><h6>The danger</h6><p>Reactivity is addictive and trivially overdone. If everything responds, nothing means anything and the page becomes noise that fights the content. <b>One, maybe two reactive moments per page.</b> Everything else stays still.</p></div>
+    <div><h6>Reach for it</h6><p>The hero, and the single most important control. It also needs a touch story — every technique here does nothing on a phone unless you design the fallback.</p></div>
+    </div>
+  </div>
+
 
   <!-- REA-01 -->
   <div class="bench">
@@ -931,6 +974,16 @@ if (isTouch || reducedMotion) lit.style.maskImage = 'none';
     <h2>Typography</h2>
     <p>Type as the subject. Movement carries hierarchy and consequence — never to be seen moving.</p>
   </div>
+  <div class="brief">
+    <p class="def">Typography here means type as the subject of the motion, not the passenger.</p>
+    <div class="brief-grid">
+    <div><h6>What it actually is</h6><p>Animating the letterforms themselves — weight along a variable axis, tracking, per-line masking, per-character response — rather than animating a box that happens to contain words.</p></div>
+    <div><h6>Why it decides quality</h6><p>Most sites animate <i>containers</i> and let text ride along. Moving the type itself is where editorial quality lives, and it is the clearest signal that someone who understands typesetting worked on the page rather than someone who only understands CSS.</p></div>
+    <div class="warn"><h6>The rule that governs all of it</h6><p>Text exists to be read, so this is the highest-risk group here. <b>Motion must carry hierarchy, sequence or consequence.</b> If a reader cannot tell why a word moved, the movement cost legibility and bought nothing. Character stagger on body copy is the classic version of that mistake.</p></div>
+    <div><h6>Reach for it</h6><p>Headlines — once per page. Statistics, which should roll rather than appear. Section transitions where sequence carries meaning.</p></div>
+    </div>
+  </div>
+
 
   <!-- COP-01 -->
   <div class="bench">
@@ -1328,6 +1381,16 @@ function frame(){
     <h2>Reveal</h2>
     <p>How content arrives. Wipes and apertures instead of the universal fade-up.</p>
   </div>
+  <div class="brief">
+    <p class="def">Reveal is the choreography of arrival — how content enters the frame.</p>
+    <div class="brief-grid">
+    <div><h6>What it actually is</h6><p>Masks, apertures, wipes and clips that <b>uncover</b> content, versus opacity that fades it in. Same moment, entirely different character.</p></div>
+    <div><h6>Why it decides quality</h6><p>The reveal is frequently the <b>only</b> motion a visitor consciously registers. That makes it the highest-leverage category and the most-defaulted one — everyone fades up twenty pixels on a delay. A default reveal makes an otherwise considered site feel default.</p></div>
+    <div class="warn"><h6>What separates good from bad</h6><p>Uncovering instead of fading. Apertures instead of opacity. Sequence following reading order rather than DOM order. And restraint — <b>this is the group most likely to get applied to every section on the page</b>, which is exactly how a site starts feeling busy.</p></div>
+    <div><h6>Reach for it</h6><p>Sparingly. Pick the two or three moments that deserve a real entrance and let everything else simply be there.</p></div>
+    </div>
+  </div>
+
 
   <!-- REV-01 -->
   <div class="bench">
@@ -1554,6 +1617,16 @@ cards.forEach((c, i) => {
     <h2>Ambient</h2>
     <p>Atmosphere and idle life. The quietest group — everything here should be noticed only in its absence.</p>
   </div>
+  <div class="brief">
+    <p class="def">Ambient is continuous atmosphere that never asks for attention.</p>
+    <div class="brief-grid">
+    <div><h6>What it actually is</h6><p>Low-amplitude, always-running texture: film grain, slow drift, a barely-moving noise field. Nothing here is triggered, and nothing here is a moment.</p></div>
+    <div><h6>Why it decides quality</h6><p>It is what makes a page feel like a <b>surface</b> rather than a screen. Large flat colour fields band and look digital; grain kills banding and gives the eye something to read as material. It is also the cheapest way to make a dark design feel photographic instead of empty.</p></div>
+    <div class="warn"><h6>The rule</h6><p><b>It should be noticed only in its absence.</b> If a visitor can describe the ambient layer, it is too strong. The correct test is to switch it off — the page should feel slightly worse without anyone being able to say why.</p></div>
+    <div><h6>Reach for it</h6><p>Large flat areas, dark designs prone to gradient banding, and any page that feels sterile without you being able to name what is missing.</p></div>
+    </div>
+  </div>
+
 
   <div class="bench">
     <div class="stage" data-demo="grain">
