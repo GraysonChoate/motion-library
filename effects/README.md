@@ -48,7 +48,25 @@ can describe what the animation did, it's too strong.
 | REV-01 | Mask wipe | lead % | 130% | **130%** | ✅ must exceed 100% to fully clear |
 | REV-01 | | edge softness | 15% / 20% mobile | **same** | ✅ ship as-is |
 | REV-02 | Aperture open | ease | cubic(.65,0,.35,1) | **same** | ✅ ship as-is |
-| REV-03 | The Ratio | cream lerp | 0.08 | **0.08** | ✅ ship as-is — the pour should feel slow |
+| REV-03 | Proportional fill | fill lerp | 0.08 | **0.08** | ✅ ship as-is — the pour should feel slow |
+| REV-04 | Sticky stacking | buried scale-down | 0.10 | **0.06–0.08** | too much and buried cards vanish |
+| REV-04 | | buried dim | 0.55 | **0.35–0.45** | ✅ near ship |
+| REV-05 | Progressive blur | max layer blur | 26px | **14–18px** | 26px eats the content behind it |
+| REV-05 | | layer count | 4 | **3–4** | ✅ fewer than 3 and the seam shows |
+| SYS-01 | CSS scroll timeline | animation-range | entry 10% cover 55% | **same** | ✅ tune to content, not to taste |
+| SYS-02 | FLIP | transition | .55s cubic(.2,.8,.2,1) | **.35–.45s** | layout moves should feel quick |
+| SYS-03 | Spring | stiffness K | 0.10 | **0.08–0.12** | ✅ ship as-is |
+| SYS-03 | | damping D | 0.72 | **0.75–0.80** | 0.72 overshoots visibly; fine for a demo |
+| TYP-02 | Line mask | per-line stagger | 0.07s | **0.05–0.08s** | ✅ ship as-is |
+| TYP-03 | Tracking open | final tracking | 0.22em | **0.12–0.18em** | past 0.25em it stops being a word |
+| TYP-04 | Weight response | falloff radius | 190px | **130–160px** | wide radius makes the whole line move |
+| TYP-04 | | weight travel | 300→700 | **300→600** | ✅ near ship |
+| TYP-05 | Scramble | duration | 1400ms | **900–1200ms** | long scrambles delay reading |
+| TYP-06 | Counter roll | per-digit delay | 0.06s | **0.04–0.06s** | ✅ ship as-is |
+| TYP-09 | Velocity marquee | idle drift | 0.4px/f | **0.25–0.4** | ✅ ship as-is |
+| TYP-09 | | scroll coupling | 0.35 | **0.15–0.25** | 0.35 whips hard on trackpads |
+| AMB-01 | Animated grain | regen interval | 80ms | **80–120ms** | ✅ ship as-is — faster is invisible |
+| AMB-01 | | opacity | .09 (demo) | **.03–.05** | demo is 2× so it reads in a screenshot |
 
 **Read the ✅ rows as the useful signal:** reveals and staggers were already tuned
 for production. It's **depth, velocity and force** that got cranked for the demo —
@@ -58,6 +76,17 @@ ones to dial back before shipping.
 ---
 
 ## Index
+
+### Group 00 — Architecture (`SYS-`)
+Read first. These change how everything after them is built.
+
+- **SYS-01 · Native CSS scroll timelines** — `animation-timeline: view()`. Zero JS, runs
+  off the main thread, physically cannot jank. **Reach for this before writing any scroll
+  JS.** Wrap in `@supports`; degrades to no animation.
+- **SYS-02 · FLIP** — measure, mutate, invert, release. The only way to animate real layout
+  change at 60fps. **The most important technique here and the one fewest people know.**
+- **SYS-03 · Spring physics** — no duration; integrates position and velocity, so
+  interruptions carry momentum. Tune stiffness and damping, not duration.
 
 ### Group 01 — Depth
 Making flat surfaces into space you move through.
@@ -86,14 +115,22 @@ The category video cannot compete in.
 ### Group 03 — Copy in motion
 Type moves to carry hierarchy and consequence, never to be seen moving.
 
-- **COP-01 · Character blur-stagger** — split to chars, animate from
+- **TYP-02 · Line mask reveal** — clip per line, rise it in. **The correct reveal for
+  anything longer than a headline** — char stagger on body copy delays legibility.
+- **TYP-03 · Tracking open** — letter-spacing as the animation; nothing translates.
+- **TYP-04 · Weight response** — per-character weight by pointer distance. With a real
+  variable font this drives `font-variation-settings: 'wght'` continuously.
+- **TYP-05 · Text scramble** — glyphs resolve left to right. Set `aria-label`.
+- **TYP-06 · Counter roll** — digit strips translated by `-Nem`. Requires `tabular-nums`.
+- **TYP-09 · Velocity marquee** — speed *and direction* follow scroll velocity.
+- **TYP-01 · Character blur-stagger** — split to chars, animate from
   `blur + brightness(0) + translateY`. **Set `aria-label` on the parent** — splitting
   destroys the accessible string. Use CSS transitions, not rAF; the GPU handles it.
-- **COP-02 · Velocity skew & settle** — reads scroll velocity, each line chases at its own
+- **TYP-07 · Velocity skew & settle** — reads scroll velocity, each line chases at its own
   rate. ⚠️ **The bug worth knowing: never lerp toward an already-decaying value.**
   Double-damping cost ~80% of amplitude. Accumulate, decay once.
   The effect lives in the **per-line rate difference**, not the skew.
-- **COP-03 · Sticky set swap** — four-stop `mapStops` interpolation, top half drifts up
+- **TYP-08 · Sticky set swap** — four-stop `mapStops` interpolation, top half drifts up
   while bottom drifts down. Move both the same way and it's just a slide.
 
 ### Group 04 — Reveal
@@ -104,9 +141,18 @@ How content arrives. Wipes and apertures instead of the universal fade-up.
 - **REV-02 · Aperture open** — `clip-path: inset(50%)` → `0` on a Newton-Raphson-solved
   bezier. Clips a *container*, so parallax planes inside arrive as one world.
   `round 3px` stops the edge looking laser-cut.
-- **REV-03 · The Ratio** — client-specific signature interaction. Cream floods via
-  gradient mask; stage colour temperature travels with it. Built from `<button>`s, so it's
-  keyboard-operable and announces state.
+- **REV-03 · Proportional fill** — a discrete control floods a fill and travels the stage's
+  colour temperature. Signature-interaction slot. Built from real `<button>`s.
+- **REV-04 · Sticky stacking cards** — cards pile in one sticky viewport; buried ones scale
+  down and dim. The scale-down is what sells depth.
+- **REV-05 · Progressive blur** — layered `backdrop-filter` with overlapping gradient masks.
+  **One masked blur layer produces a visible seam** — softness comes from the overlap.
+
+### Group 05 — Ambient (`AMB-`)
+Noticed only in its absence.
+
+- **AMB-01 · Animated film grain** — canvas noise regenerated at ~12fps, half resolution,
+  `mix-blend-mode: overlay`. Kills gradient banding.
 
 ---
 
@@ -138,29 +184,32 @@ demo and ship values.
 |---|---|---|
 | `DEP-` | Depth | flat surfaces into space you move through |
 | `REA-` | Reactivity | the page answering pointer and input |
-| `COP-` | Copy in motion | type carrying hierarchy and consequence |
+| `SYS-` | Architecture | motion systems that change how you build |
+| `TYP-` | Typography | type as the subject, not the vehicle |
 | `REV-` | Reveal | how content arrives |
-| `TYP-` | Typography | *open* — type as the subject, not the vehicle |
-| `AMB-` | Ambient | *open* — atmosphere, grain, idle life |
+| `AMB-` | Ambient | atmosphere, grain, idle life |
 
 ### Backlog
 
-**Architecture** — native CSS scroll timelines (`animation-timeline: view()`) ·
-View Transitions API · FLIP · spring physics instead of easing
+Built as of this version: 24 techniques across six groups. Still queued —
 
-**Typography (`TYP-`)** — variable-font axis animation · per-line mask reveal ·
-tracking open on reveal · text scramble · counter roll · text on a path ·
-knockout type · velocity-coupled marquee
+**Architecture** — View Transitions API (`view-transition-name`) for morphing between
+states and pages
 
-**Depth (`DEP-`)** — depth-map 2.5D displacement · sticky scale-through ·
-device-orientation tilt
+**Typography** — text on a curved path (SVG `textPath`) · knockout type
+(`background-clip: text`) · optical-size axis switching
 
-**Reactivity (`REA-`)** — cursor lens · spotlight mask · custom cursor with state
-morph · elastic drag · RGB split on hover
+**Depth** — depth-map 2.5D displacement · sticky scale-through · device-orientation tilt
+for mobile
 
-**Reveal (`REV-`)** — curtain and split transitions · staggered grid entrance ·
-progressive blur
+**Reactivity** — cursor lens / local magnification · custom cursor with state morph ·
+elastic drag with momentum · RGB split on hover · pointer-reactive mesh
 
-**Ambient (`AMB-`)** — animated grain · slow noise field · breathing on idle
+**Reveal** — curtain and split transitions · staggered grid entrance
+
+**Ambient** — slow noise field · breathing on idle
+
+Two of the queued items (depth-map displacement, mesh distortion) need raw WebGL. Doable
+without a library, but they'd be the heaviest things here — decide deliberately.
 
 Two constraints: **no dependencies**, and it must register through the shared loop.
