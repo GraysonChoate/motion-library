@@ -88,6 +88,37 @@ Read first. These change how everything after them is built.
 - **SYS-03 · Spring physics** — no duration; integrates position and velocity, so
   interruptions carry momentum. Tune stiffness and damping, not duration.
 
+### Group 0.5 — Rendered (`GL-`)
+The GPU tier. All **raw WebGL2 — still zero dependencies.**
+
+- **GL-01 · Raymarched SDF field** — geometry as a distance function. Domain repetition gives
+  infinite grids for free. Cost is per-pixel, not per-object. Watch DPR on mobile.
+- **GL-02 · Dispersion glass** — R/G/B refracted at different IOR, which is what makes real
+  glass fringe. Refract all three identically and it's just a blurry circle.
+- **GL-03 · Displacement transition** — two textures blended through a noise map. **The
+  character comes entirely from the noise**, not the blend.
+- **GL-04 · Fluid cursor** — ping-pong FBOs. Two framebuffers swapping roles each frame is the
+  general pattern for *any* GPU simulation.
+
+⚠️ This is **the one group permitted a library** in production (Three.js). That permission
+does not extend anywhere else. Everything here also needs a static fallback — the demos
+degrade to a printed message when WebGL2 or float framebuffers are unavailable.
+
+### Group 04.5 — Platform (`PLT-`)
+Not effects — new browser powers, several of which delete code we currently write.
+
+- **PLT-01 · `interpolate-size`** — animating height to `auto`. Kills every max-height hack.
+- **PLT-02 · `@starting-style`** — entry animations for elements that didn't exist yet.
+  Replaces the double-rAF dance. Pairs with `transition-behavior: allow-discrete`.
+- **PLT-03 · Popover + anchor positioning** — top layer, light-dismiss, Esc and focus for free.
+  **Replaces Floating UI and ends the z-index war.** Anchor positioning is Chromium-only — guard it.
+- **PLT-04 · `@property`** — typed custom properties make **gradients and angles animatable**.
+- **PLT-05 · Container queries** — components responding to their own width, not the viewport.
+- **PLT-06 · Scroll-snap events** — `scrollsnapchange` / `scrollsnapchanging`. The browser
+  already knows which item snapped.
+
+Every one needs an `@supports` guard and a **designed** fallback.
+
 ### Group 01 — Depth
 Making flat surfaces into space you move through.
 
@@ -185,19 +216,25 @@ demo and ship values.
 | `DEP-` | Depth | flat surfaces into space you move through |
 | `REA-` | Reactivity | the page answering pointer and input |
 | `SYS-` | Architecture | motion systems that change how you build |
+| `GL-` | Rendered | GPU / shader work — the one group allowed a library |
+| `PLT-` | Platform | new browser capability, not effects |
 | `TYP-` | Typography | type as the subject, not the vehicle |
 | `REV-` | Reveal | how content arrives |
 | `AMB-` | Ambient | atmosphere, grain, idle life |
 
 ### Backlog
 
-Built as of this version: 24 techniques across six groups. Still queued —
+Built as of this version: **34 techniques across eight groups.** Still queued —
 
-**Architecture** — View Transitions API (`view-transition-name`) for morphing between
-states and pages
+**Architecture** — View Transitions API (`view-transition-name`) · Speculation Rules
+(prefetch on hover intent, pairs with View Transitions for app-like navigation)
 
 **Typography** — text on a curved path (SVG `textPath`) · knockout type
 (`background-clip: text`) · optical-size axis switching
+
+**Rendered** — GPGPU particles (positions in textures) · post-processing stack (bloom, DOF,
+chromatic aberration) · mesh distortion on scroll · **Gaussian splatting** and **MSDF text**,
+both of which need real asset files and a local build rather than a single HTML page
 
 **Depth** — depth-map 2.5D displacement · sticky scale-through · device-orientation tilt
 for mobile
@@ -209,7 +246,8 @@ elastic drag with momentum · RGB split on hover · pointer-reactive mesh
 
 **Ambient** — slow noise field · breathing on idle
 
-Two of the queued items (depth-map displacement, mesh distortion) need raw WebGL. Doable
-without a library, but they'd be the heaviest things here — decide deliberately.
+Everything currently in `GL-` is raw WebGL2 with no dependencies. The queued splatting and
+MSDF items genuinely need asset files, so they belong in a local project rather than this
+single self-contained page.
 
 Two constraints: **no dependencies**, and it must register through the shared loop.

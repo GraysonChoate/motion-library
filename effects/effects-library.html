@@ -266,6 +266,63 @@ footer b{color:var(--ink-dim); font-weight:500}
 .velread u{text-decoration:none; color:var(--slate)}
 
 
+/* ---- GL ---- */
+.glcanvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+.glfail{position:absolute; inset:0; display:grid; place-items:center; padding:0 12%;
+  text-align:center; font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ember); line-height:1.9}
+.gltag{position:absolute; right:14px; top:14px; z-index:9; font-family:var(--mono);
+  font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal);
+  background:rgba(14,15,19,.8); padding:5px 9px; border-radius:2px; pointer-events:none}
+/* ---- PLT ---- */
+.pltwrap{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center;
+  gap:16px; padding:0 clamp(20px,5vw,50px)}
+.acc{border:1px solid var(--edge-soft); border-radius:2px; overflow:clip; background:var(--soot)}
+.acc summary{cursor:pointer; list-style:none; padding:14px 16px; font-family:var(--mono);
+  font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold)}
+.acc summary::-webkit-details-marker{display:none}
+.acc .body{padding:0 16px 16px; font-size:14px; color:var(--ink-dim); line-height:1.6}
+@supports (interpolate-size: allow-keywords){
+  :root{interpolate-size:allow-keywords}
+  .acc{height:auto; transition:height .5s cubic-bezier(.2,.8,.2,1)}
+}
+.chipbox{display:flex; gap:8px; flex-wrap:wrap}
+.newchip{padding:9px 14px; border:1px solid var(--edge); border-radius:2px; color:var(--gold);
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  background:rgba(201,164,92,.07)}
+@starting-style{ .newchip{opacity:0; transform:translateY(14px) scale(.94)} }
+.newchip{transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1)}
+@property --ang{syntax:"<angle>"; inherits:false; initial-value:0deg}
+@property --c1{syntax:"<color>"; inherits:false; initial-value:#B4633A}
+.gradbox{height:112px; border-radius:3px; border:1px solid var(--edge-soft);
+  background:linear-gradient(var(--ang), var(--c1), #3A4E63 60%, #16171A);
+  animation:angspin 9s linear infinite, colcycle 7s ease-in-out infinite alternate}
+@keyframes angspin{to{--ang:360deg}}
+@keyframes colcycle{to{--c1:#C9A45C}}
+.cqhost{container-type:inline-size; border:1px solid var(--edge-soft); border-radius:2px; padding:14px;
+  background:var(--soot); resize:horizontal; overflow:auto; min-width:190px; max-width:100%}
+.cqcard{display:grid; gap:10px}
+.cqcard .k{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal)}
+.cqcard .t{font-family:var(--serif); font-size:20px; color:var(--cream)}
+.cqcard .d{font-size:13px; color:var(--ink-dim)}
+@container (min-width: 420px){
+  .cqcard{grid-template-columns:auto 1fr; align-items:baseline; column-gap:20px}
+  .cqcard .t{font-size:28px}
+  .cqcard .k{color:var(--gold)}
+}
+.snapstrip{display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding-bottom:10px; scrollbar-width:thin}
+.snapstrip > div{flex:0 0 46%; scroll-snap-align:center; aspect-ratio:16/10; border-radius:3px;
+  border:1px solid var(--edge-soft); background:linear-gradient(150deg,var(--ash),var(--soot));
+  display:grid; place-items:center; font-family:var(--mono); font-size:12px; color:var(--tan)}
+.snapread{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--gold)}
+.popbtn{align-self:flex-start; anchor-name:--popsrc}
+.popcard{position:absolute; margin:0; border:1px solid var(--edge); border-radius:3px;
+  background:var(--ash); color:var(--ink); padding:14px 16px; max-width:280px; font-size:13.5px;
+  line-height:1.55; position-anchor:--popsrc; top:anchor(bottom); left:anchor(left);
+  margin-top:8px; position-try-fallbacks:flip-block}
+.popcard::backdrop{background:transparent}
+
 /* ---- group brief ---- */
 .brief{border:1px solid var(--edge-soft); border-left:2px solid var(--gold); border-radius:2px;
   background:linear-gradient(180deg,rgba(201,164,92,.045),transparent);
@@ -280,10 +337,25 @@ footer b{color:var(--ink-dim); font-weight:500}
 .brief-grid .warn h6{color:var(--ember)}
 
 /* ---- SYS demos ---- */
-.sysrail{position:absolute; left:8%; right:8%; top:50%; height:3px; background:var(--edge-soft); border-radius:2px}
-.sysrail i{display:block; height:100%; background:var(--gold); transform-origin:0 50%; transform:scaleX(0); border-radius:2px}
+.rangewrap{position:absolute; left:0; right:0; top:50%; transform:translateY(-50%);
+  padding:0 clamp(20px,5vw,54px); display:grid; gap:clamp(14px,2.4vh,26px)}
+.rangerow{display:grid; grid-template-columns:minmax(120px,190px) 1fr; gap:18px; align-items:center}
+.rangerow span{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-faint); white-space:nowrap}
+.rbar{position:relative; display:block; height:6px; border-radius:3px;
+  background:var(--edge-soft); overflow:clip}
+.rbar b{position:absolute; inset:0; display:block; border-radius:3px;
+  background:linear-gradient(90deg,var(--tan),var(--gold));
+  transform-origin:0 50%; transform:scaleX(0); will-change:transform}
 @supports (animation-timeline: view()){
-  .st-auto{animation:stgrow linear both; animation-timeline:view(); animation-range:entry 10% cover 55%}
+  .rbar b{animation:stgrow linear both; animation-timeline:--sysview}
+  .rbar b.r-entry{animation-range:entry 0% entry 100%}
+  .rbar b.r-mid{animation-range:entry 10% cover 55%}
+  .rbar b.r-cover{animation-range:cover 0% cover 100%}
+  .rbar b.r-exit{animation-range:exit 0% exit 100%}
+  .rbar b.r-contain{animation-range:contain 0% contain 100%}
+}
+@supports (animation-timeline: view()){
   .st-note::after{content:"supported — running with zero JS"; color:var(--teal)}
 }
 @supports not (animation-timeline: view()){
@@ -292,8 +364,8 @@ footer b{color:var(--ink-dim); font-weight:500}
 @keyframes stgrow{from{transform:scaleX(0)} to{transform:scaleX(1)}}
 /* overflow:hidden makes an element a SCROLL CONTAINER, which freezes view()
    progress. overflow:clip clips without creating a scrollport. */
-.stage[data-demo="scrolltimeline"]{overflow:clip}
-.st-note{position:absolute; left:8%; top:calc(50% + 22px); font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase}
+.stage[data-demo="scrolltimeline"]{overflow:clip; view-timeline-name:--sysview; view-timeline-axis:block}
+.st-note{position:absolute; left:clamp(20px,5vw,54px); bottom:44px; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase}
 .flipwrap{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; gap:18px; padding:0 clamp(20px,5vw,50px)}
 .flipgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
 .flipitem{aspect-ratio:1; border-radius:2px; border:1px solid var(--edge-soft);
@@ -500,10 +572,12 @@ footer b{color:var(--ink-dim); font-weight:500}
   <div class="chips" role="group" aria-label="Filter by group">
     <button class="chip" data-g="all" aria-pressed="true">All</button>
     <button class="chip" data-g="sys" aria-pressed="false">SYS · architecture</button>
+    <button class="chip" data-g="gl" aria-pressed="false">GL · rendered</button>
     <button class="chip" data-g="dep" aria-pressed="false">DEP · depth</button>
     <button class="chip" data-g="rea" aria-pressed="false">REA · reactivity</button>
     <button class="chip" data-g="typ" aria-pressed="false">TYP · typography</button>
     <button class="chip" data-g="rev" aria-pressed="false">REV · reveal</button>
+    <button class="chip" data-g="plt" aria-pressed="false">PLT · platform</button>
     <button class="chip" data-g="amb" aria-pressed="false">AMB · ambient</button>
   </div>
 
@@ -527,9 +601,15 @@ footer b{color:var(--ink-dim); font-weight:500}
 
   <div class="bench">
     <div class="stage" data-demo="scrolltimeline">
-      <div class="sysrail"><i class="st-auto"></i></div>
+      <div class="rangewrap">
+        <div class="rangerow"><span>entry 0% → entry 100%</span><i class="rbar"><b class="r-entry"></b></i></div>
+        <div class="rangerow"><span>entry 10% → cover 55%</span><i class="rbar"><b class="r-mid"></b></i></div>
+        <div class="rangerow"><span>cover 0% → cover 100%</span><i class="rbar"><b class="r-cover"></b></i></div>
+        <div class="rangerow"><span>exit 0% → exit 100%</span><i class="rbar"><b class="r-exit"></b></i></div>
+        <div class="rangerow"><span>contain 0% → contain 100%</span><i class="rbar"><b class="r-contain"></b></i></div>
+      </div>
       <p class="st-note"></p>
-      <p class="hint">Scroll — driven purely by CSS</p></div>
+      <p class="hint">Scroll — five ranges, zero JavaScript</p></div>
     <div class="rail">
       <div class="rail-top"><span class="id">SYS-01</span><h3>Native CSS scroll timelines</h3><span class="src">browser-native, zero JS</span></div>
       <div class="rail-grid">
@@ -650,6 +730,163 @@ function frame(){
 <i>// D &lt; 0.7  overdamped, no overshoot
 // D ≈ 0.75 one soft overshoot — usually what you want
 // D &gt; 0.85 visibly bouncy, use sparingly</i>
+</pre></details>
+    </div>
+  </div>
+</section>
+
+<section class="purpose group" data-g="gl">
+  <div class="purpose-head">
+    <span class="n">GL</span>
+    <h2>Rendered</h2>
+    <p>The GPU tier. Where the award-circuit work lives.</p>
+  </div>
+  <div class="brief">
+    <p class="def">Rendered means the pixels are computed by the GPU, per frame, from a program you wrote.</p>
+    <div class="brief-grid">
+      <div><h6>What it actually is</h6><p>A fragment shader runs once <b>per pixel, every frame</b> — a few million tiny programs in parallel. Nothing is a DOM element, nothing has a layout, and cost scales with screen area rather than element count.</p></div>
+      <div><h6>Why it decides quality</h6><p>Everything else in this library manipulates boxes. This group manipulates <b>light, matter and space directly</b> — refraction, fluid, volumetric depth, infinite procedural geometry. It is the difference between a site that looks designed and one that looks impossible.</p></div>
+      <div class="warn"><h6>The danger</h6><p>It is a different medium with different failure modes: no devtools inspector, silent black screens, wildly different mobile GPUs, and battery cost. <b>A shader you cannot debug on a client's laptop is worse than no shader.</b> Always ship a static fallback.</p></div>
+      <div><h6>The dependency exception</h6><p>Everything here is <b>raw WebGL2 — still zero dependencies</b>. Real production work usually means Three.js. <b>This is the one group permitted a library</b>, and that permission does not extend anywhere else.</p></div>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="gl-raymarch">
+      <canvas class="glcanvas" data-shader="raymarch"></canvas>
+      <span class="gltag">WebGL2 · raw</span>
+      <p class="hint">Move the cursor — camera follows</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">GL-01</span><h3>Raymarched SDF field</h3><span class="src">fragment shader, zero geometry</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Geometry defined as a <b>distance function</b> rather than vertices. Each pixel marches a ray forward until it hits a surface, so the shape is math — infinitely detailed, zero polygons, zero assets.</p></div>
+        <div><h5>When to use it</h5><p>Backgrounds that need to feel deep and endless. Cost is <b>per pixel, not per object</b>, so a hundred shapes cost the same as one. Watch resolution on mobile — this is the technique most likely to melt a phone if you render at full DPR.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// distance from point p to the nearest surface in the scene</i>
+float map(vec3 p){
+  p.xz = mod(p.xz + 2.0, 4.0) - 2.0;      <i>// domain repetition = infinite grid</i>
+  float sphere = length(p) - 0.9;
+  float ground = p.y + 1.2;
+  return <b>min(sphere, ground)</b>;               <i>// min() = union of shapes</i>
+}
+
+<i>// march the ray until we are close enough to call it a hit</i>
+float march(vec3 ro, vec3 rd){
+  float t = 0.0;
+  for (int i = 0; i &lt; <b>72</b>; i++){            <i>// step count = quality vs cost</i>
+    float d = map(ro + rd * t);
+    if (d &lt; 0.001 || t &gt; 40.0) break;
+    t += d;                               <i>// safe to step exactly d — nothing is closer</i>
+  }
+  return t;
+}
+
+<i>// normal from the gradient of the distance field</i>
+vec3 normal(vec3 p){
+  vec2 e = vec2(0.001, 0.0);
+  return normalize(vec3(map(p+e.xyy)-map(p-e.xyy),
+                        map(p+e.yxy)-map(p-e.yxy),
+                        map(p+e.yyx)-map(p-e.yyx)));
+}
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="gl-glass">
+      <canvas class="glcanvas" data-shader="glass"></canvas>
+      <span class="gltag">WebGL2 · raw</span>
+      <p class="hint">Move the cursor — the lens follows</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">GL-02</span><h3>Dispersion glass</h3><span class="src">index-of-refraction shader</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Light bent through a surface, with <b>red, green and blue refracted at slightly different angles</b> — which is what actually produces the rainbow fringing at the edges of real glass. Not <code>backdrop-filter</code>; a physical model.</p></div>
+        <div><h5>When to use it</h5><p>Hero objects, product stand-ins, anything that should read as a physical material. The chromatic split is the entire tell — <b>refract all three channels identically and it just looks like a blurry circle</b>.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// sample the background three times, one per channel, at different IOR</i>
+float ior = 1.45;
+vec3 refR = refract(rd, n, 1.0/(ior - <b>0.014</b>));   <i>// red bends least</i>
+vec3 refG = refract(rd, n, 1.0/ior);
+vec3 refB = refract(rd, n, 1.0/(ior + <b>0.014</b>));   <i>// blue bends most</i>
+
+vec3 col = vec3(
+  sampleBackground(refR).r,
+  sampleBackground(refG).g,
+  sampleBackground(refB).b
+);
+
+<i>// Fresnel — glass is mirror-like at glancing angles, clear head-on</i>
+float f = pow(1.0 - max(dot(n, -rd), 0.0), <b>5.0</b>);
+col = mix(col, reflection, f * 0.9);
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="gl-transition">
+      <canvas class="glcanvas" data-shader="transition"></canvas>
+      <span class="gltag">WebGL2 · raw</span>
+      <p class="hint">Scroll — progress drives the tear</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">GL-03</span><h3>Displacement transition</h3><span class="src">two textures, one noise map</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Two images blended by a <b>noise texture that pushes UVs apart</b> as the mix progresses. Instead of a crossfade, the first image appears to melt or tear into the second.</p></div>
+        <div><h5>When to use it</h5><p>The standard portfolio hero transition. The <b>character comes entirely from the noise map</b> — smooth noise gives liquid, ridged noise gives shattering, directional noise gives a wipe. Same twelve lines of shader either way.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+uniform float uProg;      <i>// 0 → 1</i>
+
+float n = noise(uv * <b>3.0</b>);                 <i>// the displacement map</i>
+float amt = <b>0.42</b>;                          <i>// how far UVs get pushed</i>
+
+<i>// each texture is distorted in the OPPOSITE direction</i>
+vec2 uvA = uv + vec2(n - 0.5) * amt *      uProg;
+vec2 uvB = uv - vec2(n - 0.5) * amt * (1.0-uProg);
+
+vec4 a = texture(texA, uvA);
+vec4 b = texture(texB, uvB);
+
+<i>// sharpen the blend so it tears rather than dissolves</i>
+float m = smoothstep(n - 0.15, n + 0.15, uProg);
+outColor = mix(a, b, m);
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="gl-fluid">
+      <canvas class="glcanvas" data-shader="fluid"></canvas>
+      <span class="gltag">WebGL2 · ping-pong FBO</span>
+      <p class="hint">Sweep the cursor through the dye</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">GL-04</span><h3>Fluid cursor</h3><span class="src">ping-pong advection</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>A real velocity field on the GPU. The pointer injects force and dye; every frame the field is <b>advected — each pixel samples where it came from</b> — then dissipated. Two framebuffers swap roles each frame, which is how GPU simulations hold state.</p></div>
+        <div><h5>When to use it</h5><p>One hero moment, never twice on a page. This is the most expensive thing in the library and the most impressive. <b>Ping-pong buffers are the general pattern</b> for any GPU simulation — fluid, particles, cellular automata all use it.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// the whole idea: you cannot read and write the same texture,
+// so you keep two and swap them every frame</i>
+let read = fboA, write = fboB;
+
+function step(){
+  <i>// ADVECT — trace backwards to find where this pixel's value came from</i>
+  bind(write);
+  useShader(advect, {
+    uSrc: read.texture,
+    uVel: read.texture,
+    uDissipation: <b>0.982</b>      <i>// &lt;1 or the field never settles</i>
+  });
+  drawQuad();
+
+  [read, write] = [write, read];   <i>// PING-PONG — the swap is the trick</i>
+}
+
+<i>// advect.frag — sample backwards along the velocity field</i>
+vec2 back = uv - texture(uVel, uv).xy * uDt;
+outColor = texture(uSrc, back) * uDissipation;
 </pre></details>
     </div>
   </div>
@@ -1644,6 +1881,231 @@ cards.forEach((c, i) => {
   </div>
 </section>
 
+<section class="purpose group" data-g="plt">
+  <div class="purpose-head">
+    <span class="n">PLT</span>
+    <h2>Platform</h2>
+    <p>New browser capability. Not effects — powers, several of which delete code you currently write.</p>
+  </div>
+  <div class="brief">
+    <p class="def">Platform means the browser now does natively what used to need JavaScript or a library.</p>
+    <div class="brief-grid">
+      <div><h6>What it actually is</h6><p>CSS and HTML features that shipped in the last two years and quietly solved problems the industry had accepted as permanent — animating to <code>auto</code>, positioning a tooltip, animating a gradient, entry animations for elements that did not exist yet.</p></div>
+      <div><h6>Why it decides quality</h6><p>Every one of these <b>replaces a dependency or a hack</b>. Less JavaScript means less to break, less to ship, and behaviour that survives a framework change. Native implementations are also the ones that keep working when the main thread is busy.</p></div>
+      <div class="warn"><h6>The danger</h6><p>Support is genuinely uneven and moves month to month. <b>Every one of these needs an <code>@supports</code> guard and a defined fallback</b> — and the fallback has to be a real design, not a broken layout. Check caniuse before shipping, not after.</p></div>
+      <div><h6>Reach for it</h6><p>Any time you are about to install a package for something that sounds like it should be a browser feature. It probably is one now.</p></div>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="plt-size">
+      <div class="pltwrap">
+        <details class="acc" open><summary>Open — animates to auto</summary><div class="body">No scrollHeight measurement, no max-height guess, no JavaScript. The panel eases to whatever height its content needs, and it eases back.</div></details>
+        <details class="acc"><summary>Second panel</summary><div class="body">Different content length, same two lines of CSS. This is the case max-height always got wrong — the easing curve applied to a ceiling you guessed rather than to the real height.</div></details>
+      </div>
+      <p class="hint">Click to open and close</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">PLT-01</span><h3>Animating height to auto</h3><span class="src">interpolate-size</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>One line makes <code>auto</code>, <code>min-content</code> and <code>fit-content</code> animatable. Accordions, disclosure panels and anything that grows to fit its content <b>simply transition</b>.</p></div>
+        <div><h5>When to use it</h5><p>Everywhere you currently measure <code>scrollHeight</code> and animate a pixel value, or fake it with <code>max-height</code> and a guessed ceiling. <b>A twenty-year-old impossibility, solved by two declarations</b> — and the max-height hack always either clipped or eased wrong.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>/* the whole fix */</i>
+:root { <b>interpolate-size: allow-keywords;</b> }
+
+details {
+  height: auto;
+  transition: height .5s cubic-bezier(.2,.8,.2,1);
+}
+details:not([open]) { height: 2.75rem; }   <i>/* collapsed = header only */</i>
+
+<i>/* or use calc-size() directly for one-off cases: */</i>
+.panel { height: <b>calc-size(auto, size)</b>; }
+
+<i>/* guard it — without support this silently does nothing, which is a
+   safe failure: the panel just snaps instead of easing */</i>
+@supports (interpolate-size: allow-keywords) { ... }
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="plt-start">
+      <div class="pltwrap">
+        <div class="chipbox" id="chipBox"></div>
+        <div class="btnrow"><button class="tbtn" id="chipAdd">Add element</button><button class="tbtn" id="chipClear">Clear</button></div>
+      </div>
+      <p class="hint">Each element animates from its starting style</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">PLT-02</span><h3>Entry animations</h3><span class="src">@starting-style</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Defines the styles an element animates <b>from</b> at the moment it is inserted into the DOM. Before this, an element appearing had no previous state to transition out of, so entry animation required a JavaScript double-rAF dance.</p></div>
+        <div><h5>When to use it</h5><p>Anything that appears — toasts, popovers, dialogs, items added to a list, elements returning from <code>display: none</code>. Pairs with <code>transition-behavior: allow-discrete</code> so you can animate <i>out</i> to <code>display: none</code> as well.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>/* the state the element animates FROM, on insertion */</i>
+<b>@starting-style</b> {
+  .chip { opacity: 0; transform: translateY(14px) scale(.94); }
+}
+.chip { transition: opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1); }
+
+<i>/* animating OUT to display:none — also newly possible */</i>
+.panel {
+  transition: opacity .3s, <b>display .3s allow-discrete</b>;
+}
+.panel[hidden] { opacity: 0; display: none; }
+
+<i>/* what this replaces:
+   el.style.opacity = 0;
+   requestAnimationFrame(() => requestAnimationFrame(() => {
+     el.style.opacity = 1;   // the infamous double-rAF
+   }));                                                        */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="plt-pop">
+      <div class="pltwrap">
+        <button class="tbtn popbtn" popovertarget="popcard1">Open popover</button>
+        <div id="popcard1" popover class="popcard">Top layer, light-dismiss, Esc to close, focus handled — all native. Anchored to the button with <code>anchor()</code>, and it flips if it would clip.</div>
+        <p class="snapread" id="popsupport"></p>
+      </div>
+      <p class="hint">Click, then click away or press Esc</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">PLT-03</span><h3>Native tooltips and menus</h3><span class="src">Popover API + anchor positioning</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p><code>popover</code> gives top-layer rendering, light-dismiss and focus management with no JavaScript. CSS anchor positioning then pins it to its trigger with <code>anchor()</code>, and <code>position-try-fallbacks</code> flips it automatically when it would overflow.</p></div>
+        <div><h5>When to use it</h5><p>Every dropdown, tooltip and menu. <b>This replaces Floating UI, and it ends the z-index war permanently</b> — the top layer sits above everything regardless of stacking context. Anchor positioning is Chromium-only for now, so guard it.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+&lt;button popovertarget="card"&gt;Show&lt;/button&gt;
+&lt;div id="card" <b>popover</b>&gt;…&lt;/div&gt;
+
+<i>/* no JS: top layer, light-dismiss, Esc, focus handling — all free */</i>
+
+button { <b>anchor-name: --src;</b> }
+[popover] {
+  <b>position-anchor: --src;</b>
+  top:  anchor(bottom);
+  left: anchor(left);
+  margin-top: 8px;
+  <b>position-try-fallbacks: flip-block;</b>   <i>/* auto-flip when it would clip */</i>
+}
+
+<i>/* what this replaces: a positioning library, a portal, a z-index
+   escalation, an outside-click handler, and an Esc listener      */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="plt-prop">
+      <div class="pltwrap">
+        <div class="gradbox"></div>
+        <p class="snapread">Both the angle and the colour stop are animating — pure CSS</p>
+      </div>
+      <p class="hint">No canvas, no JS, no layered elements</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">PLT-04</span><h3>Animatable gradients</h3><span class="src">@property</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Registering a custom property with a <b>type</b> makes it interpolable. An untyped <code>--angle</code> is just a string and jumps; a typed <code>&lt;angle&gt;</code> animates smoothly — which finally makes gradient angles and gradient colour stops animatable in pure CSS.</p></div>
+        <div><h5>When to use it</h5><p>Animated borders, conic loaders, hero backgrounds that drift. <b>Previously impossible without canvas or a stack of overlaid layers.</b> Also gives custom properties real defaults and inheritance control, which is worth it on its own.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<b>@property</b> --ang {
+  <b>syntax: "&lt;angle&gt;";</b>          <i>/* the type is what makes it animate */</i>
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --c1 {
+  syntax: "&lt;color&gt;";
+  inherits: false;
+  initial-value: #B4633A;
+}
+
+.box {
+  background: linear-gradient(var(--ang), var(--c1), #3A4E63 60%, #16171A);
+  animation: spin 9s linear infinite, cycle 7s ease-in-out infinite alternate;
+}
+@keyframes spin  { to { --ang: 360deg; } }
+@keyframes cycle { to { --c1: #C9A45C; } }
+
+<i>/* without @property, --ang is an unparsed string: the browser has no
+   idea it is an angle, so it swaps at 50% instead of interpolating */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="plt-cq">
+      <div class="pltwrap">
+        <div class="cqhost" style="width:56%">
+          <div class="cqcard"><div class="k">Container query</div><div class="t">Resizes itself</div><div class="d">Drag the handle at the bottom-right. The layout changes at 420px of container width — the window never moves.</div></div>
+        </div>
+        <p class="snapread">↘ drag the corner handle</p>
+      </div>
+      <p class="hint">Component responds to its own width</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">PLT-05</span><h3>Component-level responsive</h3><span class="src">container queries</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>A component queries <b>its own width</b> rather than the viewport's. The same card can be one column in a sidebar and two columns in a main area, with no viewport breakpoint and no knowledge of where it was placed.</p></div>
+        <div><h5>When to use it</h5><p>Any component reused at more than one width — which is nearly all of them. <b>Viewport breakpoints have always been a proxy for the question you actually wanted to ask</b>, and the proxy breaks the moment a component moves.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+.host  { <b>container-type: inline-size;</b> }
+
+<i>/* the card asks about its CONTAINER, not the window */</i>
+<b>@container (min-width: 420px)</b> {
+  .card       { grid-template-columns: auto 1fr; column-gap: 20px; }
+  .card .title{ font-size: 28px; }
+}
+
+<i>/* name containers when nesting: */</i>
+.sidebar { container: side / inline-size; }
+@container side (min-width: 300px) { … }
+
+<i>/* pairs with @scope to stop styles leaking between components:
+   @scope (.card) to (.card .slot) { … }                        */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="plt-snap">
+      <div class="pltwrap">
+        <div class="snapstrip" id="snapStrip"></div>
+        <p class="snapread" id="snapRead">snapped: —</p>
+      </div>
+      <p class="hint">Scroll the strip sideways</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">PLT-06</span><h3>Carousels that know where they are</h3><span class="src">scroll-snap events</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p><code>scrollsnapchange</code> and <code>scrollsnapchanging</code> fire when the snap target changes, so a carousel can update dots, labels and state <b>without a scroll listener doing distance maths</b>.</p></div>
+        <div><h5>When to use it</h5><p>Any snapping carousel or gallery. Previously this meant a throttled scroll handler comparing offsets against every child every frame. <b>The browser already knows which item snapped</b> — this just tells you.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+strip.addEventListener('<b>scrollsnapchange</b>', e => {
+  <i>// e.snapTargetInline / e.snapTargetBlock = the element that snapped</i>
+  setActive(e.snapTargetInline);
+});
+
+<i>// fires DURING the gesture, before it settles — good for live labels</i>
+strip.addEventListener('<b>scrollsnapchanging</b>', e => {
+  preview(e.snapTargetInline);
+});
+
+.strip { scroll-snap-type: x mandatory; overflow-x: auto; }
+.strip &gt; * { scroll-snap-align: center; }
+
+<i>// what this replaces: a passive scroll listener, a rAF throttle,
+// getBoundingClientRect on every child, and an off-by-one bug</i>
+</pre></details>
+    </div>
+  </div>
+</section>
+
 <section class="purpose group" data-g="amb">
   <div class="purpose-head">
     <span class="n">AMB</span>
@@ -2566,6 +3028,314 @@ qa('[data-demo="grain"]').forEach(stage => {
     }
     ctx.putImageData(d,0,0);
   }}));
+});
+
+
+/* ================= GL — raw WebGL2 runner ================= */
+const VS = `#version 300 es
+in vec2 p; out vec2 uv;
+void main(){ uv = p*0.5+0.5; gl_Position = vec4(p,0.,1.); }`;
+
+const HEAD = `#version 300 es
+precision highp float;
+in vec2 uv; out vec4 o;
+uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform float uProg;
+float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+float noise(vec2 p){ vec2 i=floor(p),f=fract(p); f=f*f*(3.-2.*f);
+  return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y); }
+float fbm(vec2 p){ float v=0.,a=.5; for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.03; a*=.5; } return v; }
+`;
+
+const SHADERS = {
+raymarch: HEAD + `
+float map(vec3 p){
+  vec2 id = floor((p.xz + 2.0) / 4.0);          // cell id BEFORE folding — no seam
+  vec3 q = p; q.xz = mod(q.xz + 2.0, 4.0) - 2.0;
+  float bob = sin(uTime*0.55 + id.x*1.7 + id.y*2.3) * 0.22;
+  float sp = length(q - vec3(0.0, bob, 0.0)) - 0.72;
+  float gr = p.y + 1.15 + fbm(p.xz*0.35)*0.12;
+  return min(sp, gr);
+}
+vec3 nrm(vec3 p){ vec2 e=vec2(.001,0.);
+  return normalize(vec3(map(p+e.xyy)-map(p-e.xyy),map(p+e.yxy)-map(p-e.yxy),map(p+e.yyx)-map(p-e.yyx))); }
+void main(){
+  vec2 sc = (gl_FragCoord.xy - 0.5*uRes)/uRes.y;
+  vec3 ro = vec3(uMouse.x*0.7, 1.15 + uMouse.y*0.28, uTime*0.75);
+  vec3 rd = normalize(vec3(sc, 1.45) + vec3(0.0,-0.13,0.0));
+  float t=0.; int hit=0;
+  for(int i=0;i<72;i++){ float d=map(ro+rd*t); if(d<0.002){hit=1;break;} t+=d; if(t>34.)break; }
+  vec3 sky = vec3(0.055,0.06,0.072);
+  vec3 col = sky;
+  if(hit==1){
+    vec3 p = ro+rd*t, n = nrm(p);
+    vec3 L = normalize(vec3(0.5,0.78,-0.4));
+    float dif = max(dot(n,L),0.);
+    float ao  = clamp(map(p + n*0.35)/0.35, 0.0, 1.0);
+    vec3 h = normalize(L - rd);
+    float spec = pow(max(dot(n,h),0.), 42.0);
+    float fres = pow(1.-max(dot(n,-rd),0.), 4.0);
+    vec3 warm = vec3(0.816,0.663,0.373);
+    vec3 cool = vec3(0.239,0.318,0.404);
+    col  = cool * 0.30 * ao;                    // blueprint-blue shadow
+    col += warm * dif * 0.78 * mix(0.45,1.0,ao);
+    col += spec * 0.35 * vec3(1.0,0.94,0.84);   // honey-gold highlight
+    col += fres * 0.30 * cool;
+    col = mix(col, sky, 1.0 - exp(-t*0.075));   // fog into the sky colour
+  }
+  col = pow(max(col,0.0), vec3(0.88));
+  o = vec4(col, 1.0);
+}`,
+
+glass: HEAD + `
+vec3 bg(vec2 p){
+  float g = fbm(p*2.6 + vec2(uTime*0.05, 0.0));
+  vec3 a = vec3(0.075,0.082,0.098);
+  vec3 b = vec3(0.267,0.353,0.451);
+  vec3 c = vec3(0.816,0.639,0.376);
+  vec3 col = mix(a, b, smoothstep(0.22,0.78,g));
+  col = mix(col, c, smoothstep(0.58,0.95,g)*0.8);
+  float grid = smoothstep(0.955,1.0,max(fract(p.x*7.),fract(p.y*7.)));
+  return col + grid*0.055;
+}
+void main(){
+  vec2 sc = (gl_FragCoord.xy - 0.5*uRes)/uRes.y;
+  vec2 mp = uMouse*vec2(0.62,0.42);
+  vec3 col = bg(sc);
+  float r = 0.34;
+  float d = length(sc - mp);
+  if(d < r){
+    vec3 n = normalize(vec3((sc-mp)/r, sqrt(max(0.0,1.0-(d/r)*(d/r)))));
+    vec3 rd = vec3(0.,0.,-1.);
+    float ior = 1.45;
+    vec2 rR = refract(rd, n, 1.0/(ior-0.055)).xy;
+    vec2 rG = refract(rd, n, 1.0/ior).xy;
+    vec2 rB = refract(rd, n, 1.0/(ior+0.055)).xy;
+    float k = 0.95;
+    vec3 ref = vec3(bg(sc+rR*k).r, bg(sc+rG*k).g, bg(sc+rB*k).b) * 1.45;
+    float f = pow(1.0 - abs(n.z), 4.0);
+    ref = mix(ref, bg(sc - (sc-mp)*1.6)*1.2 + 0.18, f*0.85);
+    ref += pow(max(dot(normalize(n), normalize(vec3(-0.4,0.7,0.6))),0.0), 26.0)*0.9;
+    float edge = smoothstep(r, r-0.006, d);
+    col = mix(col, ref, edge);
+    col += smoothstep(0.012,0.0,abs(d-r))*0.30*vec3(0.9,0.85,0.75);
+  }
+  o = vec4(col,1.0);
+}`,
+
+transition: HEAD + `
+vec3 texA(vec2 p){
+  float f = fbm(p*3.2);
+  return mix(vec3(0.075,0.082,0.094), vec3(0.706,0.537,0.31), smoothstep(0.35,0.8,f));
+}
+vec3 texB(vec2 p){
+  float f = fbm(p*5.0 + 11.0);
+  return mix(vec3(0.09,0.11,0.13), vec3(0.239,0.365,0.463), smoothstep(0.3,0.78,f));
+}
+void main(){
+  vec2 p = uv;
+  float n = fbm(p*3.0 + 3.7);
+  float amt = 0.42;
+  vec2 uvA = p + vec2(n-0.5)*amt*uProg;
+  vec2 uvB = p - vec2(n-0.5)*amt*(1.0-uProg);
+  vec3 a = texA(uvA*vec2(uRes.x/uRes.y,1.0));
+  vec3 b = texB(uvB*vec2(uRes.x/uRes.y,1.0));
+  float m = smoothstep(n-0.15, n+0.15, uProg);
+  vec3 col = mix(a,b,m);
+  col += smoothstep(0.06,0.0,abs(m-0.5))*0.16*vec3(0.788,0.643,0.361);
+  o = vec4(col,1.0);
+}`
+};
+
+function glStage(canvas, key){
+  const gl = canvas.getContext('webgl2', {antialias:false, alpha:false});
+  if (!gl) return null;
+  const mk = (type, src) => { const sh = gl.createShader(type); gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(sh)); return null; }
+    return sh; };
+  const vs = mk(gl.VERTEX_SHADER, VS), fs = mk(gl.FRAGMENT_SHADER, SHADERS[key]);
+  if(!vs||!fs) return null;
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog, gl.LINK_STATUS)){ console.error(gl.getProgramInfoLog(prog)); return null; }
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog,'p');
+  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const U = n => gl.getUniformLocation(prog,n);
+  const uRes=U('uRes'), uTime=U('uTime'), uMouse=U('uMouse'), uProg=U('uProg');
+  return {
+    resize(w,h){ const dpr=Math.min(devicePixelRatio||1, 1.75);
+      canvas.width=Math.max(1,(w*dpr)|0); canvas.height=Math.max(1,(h*dpr)|0);
+      gl.viewport(0,0,canvas.width,canvas.height); },
+    draw(t, mx, my, pr){
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uTime, t); gl.uniform2f(uMouse, mx, my); gl.uniform1f(uProg, pr);
+      gl.drawArrays(gl.TRIANGLES,0,3);
+    }
+  };
+}
+
+qa('canvas.glcanvas[data-shader]').forEach(cv => {
+  const stage = cv.closest('.stage'), key = cv.dataset.shader;
+  if (key === 'fluid') return;                     // handled separately
+  const ctx = glStage(cv, key);
+  if (!ctx){
+    cv.remove();
+    const f = document.createElement('div'); f.className='glfail';
+    f.textContent = 'WebGL2 unavailable — this is why a static fallback is mandatory';
+    stage.appendChild(f); return;
+  }
+  let w=0,h=0;
+  const rec = register(stage, () => ({ tick(){
+    const r = stage.getBoundingClientRect();
+    if (r.width!==w || r.height!==h){ w=r.width; h=r.height; ctx.resize(w,h); }
+    const mx = rec.pointer.inside ? rec.pointer.nx*2 : Math.sin(performance.now()*0.0004)*0.5;
+    const my = rec.pointer.inside ? -rec.pointer.ny*2 : Math.cos(performance.now()*0.0003)*0.35;
+    ctx.draw(RM ? 0 : performance.now()*0.001, mx, my, prog(stage));
+  }}));
+});
+
+/* ---- GL-04 fluid: ping-pong FBO ---- */
+qa('[data-demo="gl-fluid"]').forEach(stage => {
+  const cv = q('canvas.glcanvas', stage);
+  const gl = cv.getContext('webgl2', {antialias:false, alpha:false});
+  const ext = gl && gl.getExtension('EXT_color_buffer_float');
+  if (!gl || !ext){
+    if(cv) cv.remove();
+    const f=document.createElement('div'); f.className='glfail';
+    f.textContent = 'float framebuffers unavailable — fluid needs EXT_color_buffer_float';
+    stage.appendChild(f); return;
+  }
+  const compile=(t,src)=>{const s2=gl.createShader(t);gl.shaderSource(s2,src);gl.compileShader(s2);
+    if(!gl.getShaderParameter(s2,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(s2));return s2;};
+  const link=(f)=>{const pr=gl.createProgram();gl.attachShader(pr,compile(gl.VERTEX_SHADER,VS));
+    gl.attachShader(pr,compile(gl.FRAGMENT_SHADER,f));gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS))console.error(gl.getProgramInfoLog(pr));return pr;};
+  const H=`#version 300 es\nprecision highp float;\nin vec2 uv; out vec4 o;\n`;
+  const pAdvect = link(H+`uniform sampler2D uSrc,uVel; uniform vec2 uTexel; uniform float uDis;
+    void main(){ vec2 v = texture(uVel,uv).xy; vec2 back = uv - v*uTexel*26.0;
+      o = texture(uSrc, back) * uDis; }`);
+  const pSplat = link(H+`uniform sampler2D uSrc; uniform vec2 uPoint,uVal; uniform float uR; uniform float uAspect;
+    void main(){ vec2 d=(uv-uPoint); d.x*=uAspect; float g=exp(-dot(d,d)/uR);
+      vec4 b=texture(uSrc,uv); o=vec4(b.xy+uVal*g, b.z+g*0.9, 1.0); }`);
+  const pShow = link(H+`uniform sampler2D uSrc;
+    void main(){ vec4 s=texture(uSrc,uv); float d=clamp(s.z,0.,1.);
+      float sp=clamp(length(s.xy)*2.2,0.,1.);
+      vec3 warm=vec3(0.788,0.643,0.361), cool=vec3(0.239,0.365,0.463);
+      vec3 col=vec3(0.055,0.06,0.07)+mix(cool,warm,sp)*d*1.25;
+      o=vec4(col,1.0); }`);
+  const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  function attrib(pr){ const l=gl.getAttribLocation(pr,'p'); gl.enableVertexAttribArray(l);
+    gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0); }
+  const SIM=192;
+  function makeFBO(){ const tex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,tex);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA16F,SIM,SIM,0,gl.RGBA,gl.HALF_FLOAT,null);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    const fb=gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER,fb);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,tex,0);
+    gl.clearColor(0,0,0,1); gl.clear(gl.COLOR_BUFFER_BIT);
+    return {tex,fb}; }
+  let A=makeFBO(), B=makeFBO();
+  let last=null;
+  const rec = register(stage, () => ({ tick(){
+    const r = stage.getBoundingClientRect();
+    const dpr=Math.min(devicePixelRatio||1,1.5);
+    if (cv.width !== (r.width*dpr|0)){ cv.width=r.width*dpr|0; cv.height=r.height*dpr|0; }
+    if (rec.pointer.inside && !RM){
+      const px = rec.pointer.x/r.width, py = 1 - rec.pointer.y/r.height;
+      if (last){
+        const dx=(px-last[0])*11.0, dy=(py-last[1])*11.0;
+        if (Math.abs(dx)+Math.abs(dy) > 0.0005){
+          gl.bindFramebuffer(gl.FRAMEBUFFER,B.fb); gl.viewport(0,0,SIM,SIM);
+          gl.useProgram(pSplat); attrib(pSplat);
+          gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,A.tex);
+          gl.uniform1i(gl.getUniformLocation(pSplat,'uSrc'),0);
+          gl.uniform2f(gl.getUniformLocation(pSplat,'uPoint'),px,py);
+          gl.uniform2f(gl.getUniformLocation(pSplat,'uVal'),dx,dy);
+          gl.uniform1f(gl.getUniformLocation(pSplat,'uR'),0.0016);
+          gl.uniform1f(gl.getUniformLocation(pSplat,'uAspect'),r.width/r.height);
+          gl.drawArrays(gl.TRIANGLES,0,3);
+          [A,B]=[B,A];
+        }
+      }
+      last=[px,py];
+    } else last=null;
+    if (!RM){
+      gl.bindFramebuffer(gl.FRAMEBUFFER,B.fb); gl.viewport(0,0,SIM,SIM);
+      gl.useProgram(pAdvect); attrib(pAdvect);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,A.tex);
+      gl.uniform1i(gl.getUniformLocation(pAdvect,'uSrc'),0);
+      gl.uniform1i(gl.getUniformLocation(pAdvect,'uVel'),0);
+      gl.uniform2f(gl.getUniformLocation(pAdvect,'uTexel'),1/SIM,1/SIM);
+      gl.uniform1f(gl.getUniformLocation(pAdvect,'uDis'),0.982);
+      gl.drawArrays(gl.TRIANGLES,0,3);
+      [A,B]=[B,A];
+    }
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null); gl.viewport(0,0,cv.width,cv.height);
+    gl.useProgram(pShow); attrib(pShow);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,A.tex);
+    gl.uniform1i(gl.getUniformLocation(pShow,'uSrc'),0);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+  }}));
+});
+
+
+/* ================= PLT ================= */
+qa('[data-demo="plt-start"]').forEach(stage => {
+  const box = q('#chipBox', stage);
+  const NAMES = ['@starting-style','allow-discrete','top-layer','light-dismiss','anchor()','@property','@container','calc-size()'];
+  let n = 0;
+  const add = () => { const d=document.createElement('div'); d.className='newchip';
+    d.textContent = NAMES[n++ % NAMES.length]; box.appendChild(d); };
+  q('#chipAdd', stage).addEventListener('click', add);
+  q('#chipClear', stage).addEventListener('click', () => { box.innerHTML=''; n=0; });
+  let fired=false;
+  new IntersectionObserver(es=>es.forEach(e=>{ if(e.intersectionRatio>.3 && !fired){ fired=true;
+    [0,180,360,540].forEach(t=>setTimeout(add,t)); }}),{threshold:[0,.3]}).observe(stage);
+});
+
+qa('[data-demo="plt-pop"]').forEach(stage => {
+  const el = q('#popsupport', stage);
+  const anchorOK = CSS.supports('anchor-name','--x');
+  const popOK = HTMLElement.prototype.hasOwnProperty('popover');
+  el.textContent = `popover: ${popOK?'supported':'NOT supported'} · anchor positioning: ${anchorOK?'supported':'NOT supported — falls back to static position'}`;
+  el.style.color = (popOK && anchorOK) ? 'var(--teal)' : 'var(--ember)';
+});
+
+qa('[data-demo="plt-snap"]').forEach(stage => {
+  const strip = q('#snapStrip', stage), read = q('#snapRead', stage);
+  ['Alpha','Bravo','Charlie','Delta','Echo','Foxtrot'].forEach((t,i)=>{
+    const d=document.createElement('div'); d.textContent=t; d.dataset.n=t; strip.appendChild(d);
+  });
+  if ('onscrollsnapchange' in strip){
+    strip.addEventListener('scrollsnapchange', e => {
+      read.textContent = 'snapped: ' + (e.snapTargetInline?.dataset.n ?? '—');
+      read.style.color = 'var(--gold)';
+    });
+    strip.addEventListener('scrollsnapchanging', e => {
+      read.textContent = 'changing → ' + (e.snapTargetInline?.dataset.n ?? '—');
+      read.style.color = 'var(--slate)';
+    });
+  } else {
+    read.textContent = 'scrollsnapchange NOT supported — fallback: throttled scroll listener';
+    read.style.color = 'var(--ember)';
+  }
+});
+
+qa('[data-demo="plt-size"]').forEach(stage => {
+  if (!CSS.supports('interpolate-size','allow-keywords')){
+    const n=document.createElement('p'); n.className='snapread';
+    n.style.color='var(--ember)';
+    n.textContent='interpolate-size NOT supported — panels snap instead of easing (safe fallback)';
+    q('.pltwrap',stage).appendChild(n);
+  }
 });
 
 /* ================= tabs + group filter ================= */
