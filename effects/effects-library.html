@@ -1061,11 +1061,21 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 .door > span{display:block; font-size:14.5px; color:var(--ink-dim); line-height:1.6; max-width:34ch}
 .door em{display:block; margin-top:20px; font-style:normal; font-family:var(--mono); font-size:10.5px;
   letter-spacing:.14em; text-transform:uppercase; color:var(--gold)}
-.doorminor{display:block; width:100%; margin-top:18px; appearance:none; cursor:pointer;
-  text-align:left; padding:16px 20px; border-radius:3px; background:transparent;
-  border:1px dashed var(--edge-soft); color:var(--ink-faint); font-size:13.5px;
-  transition:color .18s, border-color .18s}
-.doorminor:hover{color:var(--cream); border-color:var(--edge)}
+.doorbar{display:flex; align-items:center; gap:18px; width:100%; margin-top:18px;
+  appearance:none; cursor:pointer; text-align:left; padding:20px 24px; border-radius:3px;
+  background:var(--soot); border:1px solid var(--edge-soft); border-left:2px solid var(--edge);
+  transition:border-color .22s, background .22s, transform .22s}
+.doorbar:hover{border-left-color:var(--gold); background:rgba(201,164,92,.06); transform:translateY(-2px)}
+.doorbar:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
+.dnum3{flex:0 0 auto; font-family:var(--mono); font-size:26px; color:var(--edge); line-height:1;
+  transition:color .22s}
+.doorbar:hover .dnum3{color:rgba(201,164,92,.55)}
+.dbtext{flex:1 1 auto; min-width:0}
+.dbtext b{display:block; font-size:19px; color:var(--cream); font-weight:600; letter-spacing:-.01em}
+.dbtext span{display:block; margin-top:4px; font-size:14px; color:var(--ink-dim); line-height:1.55}
+.darrow{flex:0 0 auto; font-family:var(--mono); font-size:18px; color:var(--gold);
+  transition:transform .22s}
+.doorbar:hover .darrow{transform:translateX(4px)}
 
 .usewrap{max-width:920px; margin:0 auto; padding-bottom:90px}
 .usewrap h2{font-size:clamp(30px,4vw,46px); color:var(--cream); margin:0 0 14px; letter-spacing:-.02em}
@@ -1429,7 +1439,12 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
         <em>Look through the library &rarr;</em>
       </button>
     </div>
-    <button class="doorminor" data-mode="mode-manual">Or open the full manual &mdash; the seven chapters written for the AI &rarr;</button>
+    <button class="doorbar" data-mode="mode-manual">
+        <span class="dnum3">3</span>
+        <span class="dbtext"><b>Open the full manual</b>
+        <span>The seven chapters written for the AI. You never have to read them.</span></span>
+        <span class="darrow">&rarr;</span>
+      </button>
   </div>
 </section>
 
@@ -1469,7 +1484,12 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
         BLD 06. Nothing on the page should be inert.</code> That is the failure this document is
         built to prevent, and naming it is usually enough.</p></div>
     </div>
-    <button class="doorminor" data-mode="mode-browse">See what it can build with &mdash; browse the 53 effects &rarr;</button>
+    <button class="doorbar" data-mode="mode-browse">
+      <span class="dnum3">&rarr;</span>
+      <span class="dbtext"><b>See what it can build with</b>
+      <span>Browse all 53 effects, each with a working demo.</span></span>
+      <span class="darrow">&rarr;</span>
+    </button>
   </div>
 </section>
 
