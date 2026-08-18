@@ -1820,7 +1820,7 @@ and read BLD 09 for what additionally opens up.</pre>
       <div class="auditcol">
         <h5>Space</h5>
         <ul class="checklist">
-          <li>Every gap is on the 8pt scale</li>
+          <li>Every gap is on the 8pt scale — <b>at both clamp endpoints</b>, not at every viewport width</li>
           <li>Section padding is 96 or 128 — nothing between</li>
           <li>Space inside an element is smaller than space around it</li>
           <li>Optical alignment checked, not just numeric</li>
@@ -5200,6 +5200,13 @@ overlay.style.background =
       <p style="margin-top:14px"><b>Section rhythm.</b> Vertical padding between sections is
       <b>96px or 128px</b> and nothing else. Inside a component, gaps stay ≤ 32px. The rule that keeps
       it readable: <b>space inside an element is always smaller than space around it.</b></p>
+      <div class="warnbox"><b>The grid governs the endpoints, not the in-between.</b> These two rules
+      look like they contradict each other — every gap on an 8pt scale, and a fluid
+      <code>clamp()</code> scale with no breakpoints. At any viewport between the clamp bounds you
+      get fractional values like 86.4px, and that is correct. <b>Put scale values at both ends of
+      every clamp</b> — <code>clamp(64px, 8vw, 128px)</code> — and let the middle land where it
+      lands. Auditing the computed value at one viewport width will always show off-grid numbers;
+      audit the source, not the screen.</div>
     </div>
 
     <div class="kitcard">
