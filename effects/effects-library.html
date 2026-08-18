@@ -559,6 +559,61 @@ footer b{color:var(--ink-dim); font-weight:500}
   font-size:clamp(27px,4vw,44px); line-height:1.1; letter-spacing:-.02em}
 .tspec.community .tstext{font-family:Inter,var(--sans); font-weight:400; font-size:15.5px}
 
+/* ---- KIT logo tiles ---- */
+.logogrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(288px,1fr)); gap:14px; margin-top:16px}
+.logotile{border:1px solid var(--edge-soft); border-radius:2px; background:var(--soot); padding:0 0 16px; overflow:hidden}
+.ltstage{height:130px; display:grid; place-items:center; padding:12px;
+  background:linear-gradient(180deg,rgba(232,226,214,.03),transparent); border-bottom:1px solid var(--edge-soft)}
+.ltname{margin:14px 16px 6px; font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase}
+.ltname.good{color:var(--teal)} .ltname.bad{color:var(--ember)}
+.ltname.good::before{content:"+ "} .ltname.bad::before{content:"\2715  "}
+.ltnote{margin:0 16px; font-size:12.5px; color:var(--ink-faint); line-height:1.55}
+.ltnote code{font-size:11px}
+
+.lt-found .ltbox{display:inline-flex; align-items:center; gap:8px; background:#fff; padding:8px 12px; max-width:100%;
+  border-radius:3px; filter:drop-shadow(2px 4px 4px rgba(0,0,0,.55))}
+.lt-found .ltbox b{font-family:var(--sans); font-weight:800; font-size:17px; color:#2F3A31; letter-spacing:0; line-height:1}
+.lt-found .ltbox i{font-family:var(--sans); font-style:italic; font-size:9px; color:#6d7a6f; align-self:flex-end; margin-bottom:2px; white-space:nowrap}
+
+.lt-sized .ltclear{display:inline-flex; align-items:center; gap:11px; padding:14px;
+  outline:1px dashed rgba(201,164,92,.28); outline-offset:0}
+.lt-sized .ltclear b{font-family:Inter,var(--sans); font-weight:600; font-size:15px; color:var(--cream); letter-spacing:.02em}
+
+.lt-mono{display:inline-flex; align-items:center; gap:11px; color:var(--ink)}
+.lt-mono b{font-family:Inter,var(--sans); font-weight:600; font-size:15px; letter-spacing:.02em}
+
+.lt-plate{display:inline-flex; align-items:center; gap:11px}
+.lt-plate span{display:grid; place-items:center; width:44px; height:44px; border-radius:2px;
+  background:var(--ember); color:#16171A}
+.lt-plate b{font-family:Inter,var(--sans); font-weight:600; font-size:15px; color:var(--cream); letter-spacing:.02em}
+
+.lt-grad{display:inline-flex; align-items:center; gap:11px}
+.lt-grad .ltmask{display:block; width:30px; height:30px;
+  background:linear-gradient(158deg,#D6B978,#9A7C3E);
+  -webkit-mask:var(--markmask) center / contain no-repeat; mask:var(--markmask) center / contain no-repeat}
+.lt-grad b{font-family:Inter,var(--sans); font-weight:600; font-size:15px; letter-spacing:.02em;
+  background:linear-gradient(158deg,#D6B978,#9A7C3E); -webkit-background-clip:text; background-clip:text; color:transparent}
+
+.lt-word{font-family:"Instrument Serif",var(--serif); font-size:30px; color:var(--cream);
+  line-height:1; text-align:center; letter-spacing:.01em}
+.lt-word i{display:block; font-family:var(--mono); font-style:normal; font-size:9px;
+  letter-spacing:.26em; color:var(--ink-faint); margin-top:9px}
+
+/* ---- do / don't columns ---- */
+.dogrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:14px}
+.docol{border:1px solid var(--edge-soft); border-radius:2px; padding:16px 18px; background:var(--soot)}
+.docol.yes{border-left:2px solid var(--teal)} .docol.no{border-left:2px solid var(--ember)}
+.docol h5{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  margin:0 0 10px; font-weight:400}
+.docol.yes h5{color:var(--teal)} .docol.no h5{color:var(--ember)}
+.docol ul{margin:0; padding:0; list-style:none}
+.docol li{padding:6px 0 6px 20px; position:relative; font-size:13.5px; color:var(--ink-dim); line-height:1.55}
+.docol li b{color:var(--cream); font-weight:500}
+.docol.yes li::before{content:"+"; position:absolute; left:0; color:var(--teal); font-family:var(--mono); font-size:11px}
+.docol.no li::before{content:"\2715"; position:absolute; left:0; color:var(--ember); font-family:var(--mono); font-size:11px}
+
+:root{--markmask:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="%23000" stroke-width="3"/><circle cx="42" cy="23" r="5.5" fill="%23000"/><path d="M13 45 L26 27 L34 38.5 L40.5 31 L51 45 Z" fill="%23000"/></svg>')}
+
 /* ================= BUILD ================= */
 .trig{border:1px solid var(--edge); border-radius:2px; background:linear-gradient(180deg,rgba(201,164,92,.05),transparent);
   padding:18px clamp(16px,2.2vw,24px); margin-top:16px}
@@ -1085,7 +1140,7 @@ footer b{color:var(--ink-dim); font-weight:500}
           <code>brand 500</code>; derive the ramp and the neutrals from it, biasing greys 3–5% toward
           the brand hue) → <b>typefaces</b> (KIT 02, by register; match what they already own if they
           own something) → <b>scale and spacing</b> (KIT 01, unchanged) → <b>layout archetype</b>
-          (KIT 03, by pattern).</p>
+          (KIT 06, by pattern).</p>
           <p class="tlout"><b>Output</b> — a token block. Every value on the finished page comes from it.</p>
           <p class="tlgate"><b>Gate</b> — the brand colour is an accent: CTA, active state, one rule,
           one highlight. <b>Never a large background area.</b></p>
@@ -1123,7 +1178,7 @@ footer b{color:var(--ink-dim); font-weight:500}
           <h5>7 · Build</h5>
           <p>One self-contained HTML file. Sections in the order the pattern specifies, with the
           components the pattern requires. Their real links on every action. Their real images by URL,
-          treated per KIT 05. The concept-work label, visible and persistent.</p>
+          treated per KIT 08. The concept-work label, visible and persistent.</p>
           <p class="tlout"><b>Output</b> — the file.</p>
           <p class="tlgate"><b>Gate</b> — it opens by double-click, offline, with no build step and no
           external request except the client's own image URLs.</p>
@@ -1191,7 +1246,7 @@ footer b{color:var(--ink-dim); font-weight:500}
     <p style="margin-top:16px;font-size:14px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
     <b style="color:var(--tan)">Desktop-only has one consequence to respect ·</b> don't build a layout
     that has no obvious phone answer. A five-column feature row and a horizontally-scrolling hero
-    both look fine at 1440 and have no good mobile form. Choosing archetypes from KIT 03 avoids this
+    both look fine at 1440 and have no good mobile form. Choosing archetypes from KIT 06 avoids this
     automatically — every one of them collapses cleanly.</p>
   </section>
 
@@ -1261,7 +1316,7 @@ footer b{color:var(--ink-dim); font-weight:500}
     <table class="lentable badin">
       <tr><th>What you find</th><th>Do this</th><th>Never</th></tr>
       <tr><td>No usable images</td><td>Build a type-led page. Large display type, generous space, one rule, colour fields from their palette. Editorial layouts don't need photography and frequently beat it.</td><td>Generate images. Use stock.</td></tr>
-      <tr><td>Images exist but are tiny or low-res</td><td>Use them small and deliberately — a 400px image at 400px is sharp. Crop tight, treat per KIT 05, and let type carry the scale.</td><td>Upscale and stretch across a hero.</td></tr>
+      <tr><td>Images exist but are tiny or low-res</td><td>Use them small and deliberately — a 400px image at 400px is sharp. Crop tight, treat per KIT 08, and let type carry the scale.</td><td>Upscale and stretch across a hero.</td></tr>
       <tr><td>One good image only</td><td>Use it once, big, as the hero. Everything else is type and colour. One good photo used once beats four bad ones.</td><td>Repeat it at different crops.</td></tr>
       <tr><td>Brand colour is genuinely ugly</td><td>Keep it, shrink its area. Use it as accent only — button, active state, one hairline — against neutrals biased toward it. A bad colour in a 2% area reads as intentional.</td><td>Replace it. That's a rebrand.</td></tr>
       <tr><td>Brand colour fails contrast on text</td><td>Keep the hue, adjust lightness for the text role only, and keep the original for large fills and the CTA background. State the adjustment in the hand-over.</td><td>Ship failing contrast because it's "their colour."</td></tr>
@@ -1401,7 +1456,7 @@ footer b{color:var(--ink-dim); font-weight:500}
 
     <table class="lentable">
       <tr><th>Area</th><th>What opens up</th><th>Reference</th></tr>
-      <tr><td>Pages</td><td>Every page in the nav. Same tokens, same components, same motion vocabulary — a page that looks unrelated to the homepage is the failure mode here.</td><td>KIT 03</td></tr>
+      <tr><td>Pages</td><td>Every page in the nav. Same tokens, same components, same motion vocabulary — a page that looks unrelated to the homepage is the failure mode here.</td><td>KIT 06</td></tr>
       <tr><td>Mobile</td><td>Real layouts at 390 and 768, not a narrowed desktop. Axis-dependent effects re-checked, pointer effects given a static or tilt equivalent, particle counts and blur radii halved.</td><td>Standards §5</td></tr>
       <tr><td>Content</td><td>Their real photography, shot or supplied. Real copy from the call. Everything that was omitted in Phase 1 for lack of evidence.</td><td>CPY 06</td></tr>
       <tr><td>Motion</td><td>Budget can rise to two signatures on a long page. GL group becomes available. Page transitions and speculation rules.</td><td>CHO 01 · GL · PLT</td></tr>
@@ -1450,6 +1505,58 @@ footer b{color:var(--ink-dim); font-weight:500}
     <div class="warnbox"><b>One change at a time.</b> The failure mode with an AI editing a mockup is
     <b>drift</b> — every pass quietly restyles things nobody mentioned until the page no longer matches
     its own classification. After any tweak, re-run the Specificity group of BLD 05.</div>
+  </section>
+
+
+  <!-- ============ TENSION ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 09</span><h3>Award-winning versus effective</h3>
+      <p>The two things a Phase 1 page is asked to do, and where they genuinely pull against each
+      other.</p></div>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
+    This document keeps saying two things that sound contradictory. <b style="color:var(--cream)">Make it
+    look extraordinary</b> — because a mockup that looks like their current site with better spacing
+    gets no reaction. And <b style="color:var(--cream)">make it work</b> — because we're proposing this
+    to a business whose revenue depends on it, and a page that wins a gallery feature while losing
+    them bookings is a failure with good screenshots.</p>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:12px 0 0;max-width:74ch">
+    They are not actually opposed most of the time. Sharp typography, real hierarchy, honest
+    photography and restraint serve both. <b>The tension is narrow and specific</b>, and it lives in
+    about six places.</p>
+
+    <table class="lentable">
+      <tr><th>Where they pull apart</th><th>Award instinct</th><th>What ships</th></tr>
+      <tr><td>The first screen</td><td>A slow atmospheric reveal that establishes mood</td><td>The name of the thing and how to get it, immediately. Mood is carried by <b>how</b> that's rendered, not by delaying it.</td></tr>
+      <tr><td>Navigation</td><td>Minimal, hidden, discovered</td><td>Visible, labelled, and the action in a colour nothing else uses.</td></tr>
+      <tr><td>Motion</td><td>Continuous, everywhere, virtuosic</td><td>One signature moment and three screens of stillness around it.</td></tr>
+      <tr><td>Copy</td><td>Sparse and evocative</td><td>Sparse and <b>specific</b>. Evocative is what people write when they don't have facts.</td></tr>
+      <tr><td>Scroll behaviour</td><td>Custom, scrubbed, orchestrated</td><td>Native. The moment scroll doesn't feel like scroll, trust is spent.</td></tr>
+      <tr><td>Type size</td><td>Enormous display, tiny everything else</td><td>Enormous display, <b>readable</b> everything else. 16px minimum, always.</td></tr>
+    </table>
+
+    <p style="margin-top:18px;font-size:14.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
+    <b style="color:var(--tan)">The resolution ·</b> put the ambition into the things that cost the
+    visitor nothing. Composition, typography, colour, cropping, material quality, one exceptional
+    moment. <b style="color:var(--cream)">Never spend the visitor's time or certainty to buy
+    impressiveness.</b> Every entry in the right-hand column above is that rule applied.</p>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">TEST</span><h4>Two questions, both have to pass</h4></div>
+      <div class="egood"><span><b>Would a design director stop scrolling?</b></span><i>if no, the composition is too safe — raise contrast, crop tighter, commit to one moment</i></div>
+      <div class="egood"><span><b>Could a fifty-five-year-old customer book in under thirty seconds?</b></span><i>if no, the ambition is being paid for by someone who didn't agree to pay</i></div>
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">Passing only
+      the first is a portfolio piece. Passing only the second is the site they already have. A page
+      that fails the second question is not <i>bolder</i> than one that passes it — it's just worse,
+      and the client will feel that even if they can't name it.</p>
+    </div>
+
+    <div class="warnbox"><b>One honest caveat ·</b> Phase 1's actual job is to make a business want to
+    work with us, and the reaction it needs comes disproportionately from the first screen. That's a
+    real reason to spend the ambition budget there. It is <b>not</b> a reason to spend it on hiding
+    the navigation, delaying the content, or making the page harder to use — those cost the client
+    something after they sign, and we don't get to bill that to them.</div>
   </section>
 
   <!-- ============ NEVER ============ -->
@@ -4594,9 +4701,442 @@ overlay.style.background =
     </div>
   </section>
 
+  <!-- ============ LOGO ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 03</span><h3>Logos and marks</h3>
+      <p>You can't redraw their logo. You can change everything about how it's presented — and that
+      is usually the whole problem.</p></div>
+
+    <div class="kitcard">
+      <h4>The reframe</h4>
+      <p><b>A logo rarely looks cheap because it was badly drawn. It looks cheap because of how it's
+      being shown.</b> Too big, sitting in a white box on a dark page, crammed against the nav, at a
+      size nobody chose, carrying a drop shadow from 2009, in full colour when the page only needed
+      one ink.</p>
+      <p>An ordinary logo presented with discipline reads as a confident brand. An excellent logo
+      presented carelessly reads as a template. The gap between the two is entirely made of
+      decisions you're allowed to make.</p>
+      <div class="warnbox"><b>The line ·</b> presentation is ours — size, spacing, ground, ink,
+      placement, file quality. <b>The mark itself is theirs</b> — proportions, shapes, relationships,
+      letterforms. Change the first freely. Never touch the second.</div>
+    </div>
+
+    <div class="kitcard">
+      <h4>Step one: go find a better file</h4>
+      <p>Most "the logo looks bad" problems are a 180px JPEG problem. Before any treatment, spend two
+      minutes looking for a better source — it's the highest-value thing in this section and it's
+      almost always available.</p>
+      <table class="lentable">
+        <tr><th>Look here</th><th>What you often get</th></tr>
+        <tr><td>Inline <code>&lt;svg&gt;</code> in their homepage HTML</td><td>The actual vector, pasted straight into the markup. Check first, every time.</td></tr>
+        <tr><td><code>/logo.svg</code>, <code>/assets/logo.svg</code>, the CSS <code>background-image</code></td><td>Vector, sitting at a guessable path.</td></tr>
+        <tr><td><code>&lt;link rel="apple-touch-icon"&gt;</code></td><td>180–512px PNG, usually the cleanest raster on the site.</td></tr>
+        <tr><td>Their PDF menu or price list</td><td><b>Vector.</b> A PDF made in InDesign or Canva carries the logo as real curves. Consistently the most overlooked source there is.</td></tr>
+        <tr><td>Facebook page profile image</td><td>Served much larger than the site's header version.</td></tr>
+        <tr><td>Google Business profile, app listings, press pages</td><td>Full-resolution originals uploaded once and forgotten.</td></tr>
+        <tr><td>Anywhere they list a "media" or "press" link</td><td>A proper asset pack, including the mono version they never use on the site.</td></tr>
+      </table>
+      <p style="margin-top:14px"><b>Preference order ·</b> SVG → vector pulled from a PDF → 512px PNG →
+      anything else. <b>Ask for a one-colour version specifically</b> — a surprising number of small
+      businesses have one from their signage or their cups and have never put it on the website.</p>
+      <div class="warnbox"><b>If all you have is a small raster ·</b> use it at half its natural pixel
+      width or less, so it's still 2× on a retina screen, and set that width in whole pixels. Never
+      upscale. A 240px logo shown at 120px is crisp; the same file at 260px is visibly soft, and soft
+      is the thing people read as cheap.</div>
+    </div>
+
+    <div class="kitcard">
+      <h4>The intervention ladder</h4>
+      <p>Top to bottom: safest and most effective first. <b>Work down the list and stop as soon as it
+      looks right</b> — most logos are fixed in the first four rows without any treatment at all.</p>
+      <table class="lentable">
+        <tr><th>#</th><th>Move</th><th>Why it works</th></tr>
+        <tr><td class="w">1</td><td><b style="color:var(--cream)">Make it smaller</b></td><td>The most common single fix. Amateur sites run enormous logos; confident brands run tiny ones. Halving the size of a mediocre logo improves it more than any treatment.</td></tr>
+        <tr><td class="w">2</td><td><b style="color:var(--cream)">Give it clear space</b></td><td>Nothing within one cap-height on any side. A logo touching a nav item reads as an accident regardless of quality.</td></tr>
+        <tr><td class="w">3</td><td><b style="color:var(--cream)">Fix its ground</b></td><td>Knock out the baked-in white box, or give it a deliberate plate. A white rectangle floating on a dark page is the single most visible logo failure on the web.</td></tr>
+        <tr><td class="w">4</td><td><b style="color:var(--cream)">Improve its neighbours</b></td><td>A logo borrows credibility from the type beside it. Excellent nav typography lifts a weak mark measurably.</td></tr>
+        <tr><td class="w">5</td><td>Reduce to one ink</td><td>Monochrome removes clashing colour, muddy tints and dated colour trends in one move, and costs nothing.</td></tr>
+        <tr><td class="w">6</td><td>Set it in a brand plate</td><td>A small solid field gives a busy mark somewhere to sit and turns a liability into a deliberate element.</td></tr>
+        <tr><td class="w">7</td><td>Subtle gradient or edge light</td><td>Only on a flat single-colour mark, only in Craft or Luxury, only at low amplitude. See below.</td></tr>
+        <tr><td class="w">8</td><td>Wordmark only</td><td>When the mark itself is unusable, set the name in the display face and drop the symbol. Frequently the best-looking option available.</td></tr>
+      </table>
+    </div>
+
+    <div class="kitcard">
+      <h4>The same mark, six ways</h4>
+      <p>One invented logo — a generic badge in two colours that don't quite agree, of the kind almost
+      every local business owns. Nothing below redraws it. Every tile is presentation only.</p>
+
+      <div class="logogrid">
+        <div class="logotile">
+          <div class="ltstage">
+            <div class="lt-found">
+              <span class="ltbox">
+                <svg viewBox="0 0 64 64" width="46" height="46" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="#4A6B4F" stroke-width="3"/><circle cx="42" cy="23" r="5.5" fill="#E8722A"/><path d="M13 45 L26 27 L34 38.5 L40.5 31 L51 45 Z" fill="#4A6B4F"/></svg>
+                <b>NORTHVALE</b><i>COFFEE CO.</i>
+              </span>
+            </div>
+          </div>
+          <p class="ltname bad">As found</p>
+          <p class="ltnote">Oversized, on a white plate it never asked for, with a drop shadow. Nothing is wrong with the drawing.</p>
+        </div>
+
+        <div class="logotile">
+          <div class="ltstage">
+            <div class="lt-sized">
+              <span class="ltclear">
+                <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="#4A6B4F" stroke-width="3"/><circle cx="42" cy="23" r="5.5" fill="#E8722A"/><path d="M13 45 L26 27 L34 38.5 L40.5 31 L51 45 Z" fill="#4A6B4F"/></svg>
+                <b>NORTHVALE</b>
+              </span>
+            </div>
+          </div>
+          <p class="ltname good">Sized and spaced</p>
+          <p class="ltnote">Same colours, same drawing. 30px tall, clear space held, tagline dropped. This is usually the entire fix.</p>
+        </div>
+
+        <div class="logotile">
+          <div class="ltstage">
+            <div class="lt-mono">
+              <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="42" cy="23" r="5.5" fill="currentColor"/><path d="M13 45 L26 27 L34 38.5 L40.5 31 L51 45 Z" fill="currentColor"/></svg>
+              <b>NORTHVALE</b>
+            </div>
+          </div>
+          <p class="ltname good">One ink</p>
+          <p class="ltnote">The clashing green and orange are gone and nothing was redrawn. Works on any ground. <code>fill:currentColor</code></p>
+        </div>
+
+        <div class="logotile">
+          <div class="ltstage">
+            <div class="lt-plate">
+              <span>
+                <svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="42" cy="23" r="5.5" fill="currentColor"/><path d="M13 45 L26 27 L34 38.5 L40.5 31 L51 45 Z" fill="currentColor"/></svg>
+              </span>
+              <b>NORTHVALE</b>
+            </div>
+          </div>
+          <p class="ltname good">Mark on a plate</p>
+          <p class="ltnote">The symbol gets its own field and stops competing with the wordmark. Useful when the mark is busy.</p>
+        </div>
+
+        <div class="logotile">
+          <div class="ltstage">
+            <div class="lt-grad">
+              <i class="ltmask" aria-hidden="true"></i>
+              <b>NORTHVALE</b>
+            </div>
+          </div>
+          <p class="ltname good">Gradient fill</p>
+          <p class="ltnote">A mask filled with a 10% lightness range, lit from the same direction as the page. Craft and Luxury only.</p>
+        </div>
+
+        <div class="logotile">
+          <div class="ltstage">
+            <div class="lt-word">NORTHVALE<i>COFFEE CO. &middot; EST. 2014</i></div>
+          </div>
+          <p class="ltname good">Wordmark only</p>
+          <p class="ltnote">Mark dropped, name set in the display face with deliberate tracking. Often the best-looking option on the list.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:18px;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">The one to notice is the second tile.</b> It uses the client's exact
+      file, at their exact colours, with nothing applied. The only changes are size, clear space and
+      dropping a tagline — and it accounts for most of the distance between the first tile and the
+      last.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Recolouring a mark you can't edit</h4>
+      <p>Three techniques, in order of preference. All of them are presentation — the file is
+      untouched and every one is reversible.</p>
+      <pre><code><b>/* 1 · SVG you can reach into — the clean case */</b>
+.logo svg  { color: var(--ink) }
+.logo path,
+.logo circle { fill: currentColor; stroke: currentColor }
+
+<b>/* 2 · Any file, including a PNG — mask it and fill the fill */</b>
+.logo {
+  width: 132px; aspect-ratio: 132 / 30;
+  background: var(--ink);                    <i>/* or a gradient */</i>
+  -webkit-mask: url(logo.png) center / contain no-repeat;
+          mask: url(logo.png) center / contain no-repeat;
+}
+<i>/* Works on any single-colour artwork with a transparent background.
+   This is the workhorse — it makes any mark inherit any colour. */</i>
+
+<b>/* 3 · A logo baked onto a solid white box, no transparency */</b>
+.logo { mix-blend-mode: multiply }            <i>/* on a LIGHT ground  */</i>
+.logo { mix-blend-mode: screen }              <i>/* black box on DARK  */</i>
+<i>/* Knocks out the box. Only exact white or exact black grounds —
+   an off-white JPEG leaves a visible rectangle, so check at 400%. */</i></code></pre>
+      <p style="margin-top:4px"><b>If none of the three work</b> — a multicolour logo baked onto an
+      off-white JPEG — stop trying to rescue the file and give it a deliberate light plate with
+      generous padding. A logo sitting in an obviously intentional field reads as a decision. The same
+      logo with a ragged near-white halo reads as a mistake.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Gradients, done properly</h4>
+      <p>A restrained gradient can lift a flat mark, and an unrestrained one is the fastest way to make
+      a page look like a 2011 template. The difference is entirely amplitude.</p>
+      <div class="dogrid">
+        <div class="docol yes"><h5>Do</h5><ul>
+          <li><b>8–14% lightness range</b>, no more. It should be almost invisible as a gradient and read as light falling on a surface.</li>
+          <li><b>One hue.</b> Same colour, two lightnesses. Never a hue shift.</li>
+          <li><b>Angle matches the page's light direction</b> — whatever direction your edge highlights already run.</li>
+          <li>Flat, single-colour, geometric marks only.</li>
+          <li>Craft and Luxury registers. Occasionally Raw with a metal feel.</li>
+          <li>Test it at nav size. Most gradients that look good at 200px vanish at 30px — if it vanishes, drop it.</li>
+        </ul></div>
+        <div class="docol no"><h5>Don't</h5><ul>
+          <li>Gradient across a mark that already has more than one colour.</li>
+          <li>Chrome, bevel, emboss, or a highlight sweep.</li>
+          <li>Rainbow, duotone, or anything crossing hues.</li>
+          <li>Gradient plus drop shadow. Pick neither.</li>
+          <li>Clinical or Community registers — it reads as effort in exactly the places that need to read as plain.</li>
+          <li>Animating it. A logo that shimmers is a logo nobody trusts.</li>
+        </ul></div>
+      </div>
+      <pre><code>.logo {
+  background: linear-gradient(160deg,
+    color-mix(in oklab, var(--brand) 100%, white 8%),
+    color-mix(in oklab, var(--brand) 100%, black 6%));
+  -webkit-mask: url(logo.svg) center / contain no-repeat;
+          mask: url(logo.svg) center / contain no-repeat;
+}
+<i>/* 14% total range. If you can point at where it starts and stops,
+   it's too strong — halve it and look again. */</i></code></pre>
+    </div>
+
+    <div class="kitcard">
+      <h4>Size, spacing, placement</h4>
+      <table class="lentable">
+        <tr><th>Decision</th><th>Value</th><th>Note</th></tr>
+        <tr><td>Nav logo height</td><td class="w">28–40px</td><td>Measured on the <b>cap height of the artwork</b>, not the bounding box — files carry wildly different amounts of built-in padding.</td></tr>
+        <tr><td>Footer logo height</td><td class="w">40–64px</td><td>The one place it can be larger, because nothing is competing with it.</td></tr>
+        <tr><td>Clear space</td><td class="w">≥ 1 cap height</td><td>On all four sides. Nothing enters it — not a nav item, not a border, not a badge.</td></tr>
+        <tr><td>Times it appears</td><td class="w">2</td><td>Nav and footer. A logo repeated mid-page is a tell, not branding.</td></tr>
+        <tr><td>Alignment</td><td class="w">optical</td><td>Round and pointed shapes must overshoot to look aligned. Trust your eye over the bounding box, always.</td></tr>
+        <tr><td>Against nav items</td><td class="w">1.5–2× the nav gap</td><td>The logo needs visibly more room than the space between links, or it reads as another link.</td></tr>
+        <tr><td>Raster width</td><td class="w">whole pixels</td><td>A logo at <code>117.4px</code> is soft on every screen. Round it.</td></tr>
+        <tr><td>Favicon</td><td class="w">the mark only</td><td>Never the full lock-up. At 16px a wordmark is a smudge — and a missing favicon is a visible tell in the tab strip.</td></tr>
+      </table>
+    </div>
+
+    <div class="kitcard">
+      <h4>Difficult cases</h4>
+      <table class="lentable">
+        <tr><th>What you've got</th><th>Do this</th></tr>
+        <tr><td>Multicolour mark, no mono version</td><td>Reduce to the darkest of <b>their own</b> colours and use it as the single ink. You've chosen from their palette, not imposed one.</td></tr>
+        <tr><td>Logo with a tagline baked in</td><td>Use it at a size where the tagline is legible, or crop to the mark and set the tagline as live text. Never show illegible type.</td></tr>
+        <tr><td>Very wide horizontal lock-up</td><td>Use the stacked or mark-only version if one exists. If not, give the nav more height rather than shrinking the logo into illegibility.</td></tr>
+        <tr><td>Very tall or square lock-up</td><td>Set it beside the nav rather than above it, and let the nav bar grow. Squashing is the one thing you can't do.</td></tr>
+        <tr><td>Thin strokes that disappear at 30px</td><td>Use the mark larger in the footer and the wordmark alone in the nav. Never thicken the strokes.</td></tr>
+        <tr><td>Photographic or gradient-mesh logo</td><td>Treat it as an image, not a mark — give it a plate, keep it small, and never mask or recolour it.</td></tr>
+        <tr><td>Text-only logo in a licensed font</td><td>Use their artwork as-is. Do <b>not</b> re-set their name in a lookalike face; that's redrawing the logo with extra steps.</td></tr>
+        <tr><td>No logo anywhere on the site</td><td>Wordmark in the display face: caps or title case, tracking <code>.06–.12em</code>, one weight, at nav size. State in the hand-over that no logo file was found.</td></tr>
+      </table>
+    </div>
+
+    <div class="kitcard">
+      <h4>Never</h4>
+      <div class="crime"><b>Redraw, retrace or "clean up" the shapes</b><span>The moment you move a curve it's a rebrand, and it's not ours to do.</span></div>
+      <div class="crime"><b>Stretch, squash or change proportions</b><span>Including a 1% nudge to make it fit a container. Change the container.</span></div>
+      <div class="crime"><b>Drop shadow on a logo</b><span>The single most reliable cheap tell in this entire document.</span></div>
+      <div class="crime"><b>Bevel, emboss, outer glow, 3D, chrome</b><span>All of it, everywhere, without exception.</span></div>
+      <div class="crime"><b>Recolour a multicolour mark to new colours</b><span>Reducing to one of their own inks is presentation. Picking different colours is a redesign.</span></div>
+      <div class="crime"><b>Put it in a circle or badge it wasn't drawn for</b><span>Containing a mark changes the mark.</span></div>
+      <div class="crime"><b>Animate it on load</b><span>A drawn-on logo animation costs the first second and buys nothing. Fade the whole nav in, at most.</span></div>
+      <div class="crime"><b>Upscale a raster past its natural size</b><span>Soft edges read as cheap faster than almost anything else on a page.</span></div>
+      <div class="crime" style="border-bottom:none"><b>Replace it with something better</b><span>Even when something better is obvious. Note it in the hand-over and move on.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ COMPOSITION ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 04</span><h3>Composition</h3>
+      <p>Where things sit and how big they are. The layer most often left to defaults, and the one a
+      visitor reads before a single word.</p></div>
+
+    <div class="kitcard">
+      <h4>One dominant element per screen</h4>
+      <p>Every screenful needs an obvious <b>first thing</b> — the element the eye lands on before it
+      chooses. If three elements are competing for that role, the composition has no hierarchy and the
+      page reads as busy no matter how clean the individual parts are.</p>
+      <p><b>The mechanism is contrast, and it needs to be big.</b> A headline at 46px against body at
+      16px is a hierarchy. The same headline at 22px is a suggestion. Timid contrast is the most
+      common reason a technically-correct page still looks amateur.</p>
+      <table class="lentable">
+        <tr><th>Contrast axis</th><th>Weak</th><th>Works</th></tr>
+        <tr><td>Size</td><td class="w">1.4×</td><td class="w">2.5–4×</td></tr>
+        <tr><td>Weight</td><td class="w">400 vs 500</td><td class="w">400 vs 700, or one weight and a size jump</td></tr>
+        <tr><td>Colour</td><td class="w">two mid greys</td><td class="w">full-strength ink against a genuinely dim one</td></tr>
+        <tr><td>Space</td><td class="w">even gaps</td><td class="w">one gap three times any other</td></tr>
+        <tr><td>Area</td><td class="w">three equal columns</td><td class="w">one element taking 60%+</td></tr>
+      </table>
+    </div>
+
+    <div class="kitcard">
+      <h4>The grid, and when to break it</h4>
+      <p><b>12 columns, a gutter from the 8pt scale, and one page margin held on every section.</b>
+      The margin never changes between sections — a page whose content edge wanders is the fastest way
+      to look unfinished, and almost nobody notices the cause.</p>
+      <table class="lentable">
+        <tr><th>Container</th><th>Width</th><th>For</th></tr>
+        <tr><td>Full bleed</td><td class="w">100vw</td><td>Hero media, colour fields, one signature moment.</td></tr>
+        <tr><td>Wide</td><td class="w">1200–1320px</td><td>Galleries, component rows, anything gridded.</td></tr>
+        <tr><td>Default</td><td class="w">1040–1120px</td><td>Most sections. This is the page's real width.</td></tr>
+        <tr><td>Text</td><td class="w">62–68ch</td><td>Any paragraph. Independent of the container it sits in.</td></tr>
+        <tr><td>Narrow</td><td class="w">560–680px</td><td>A statement, a pull quote, a single centred idea.</td></tr>
+      </table>
+      <p style="margin-top:14px"><b>Asymmetry is where the interest is.</b> A page of centred, full-width,
+      evenly-spaced blocks is the default every template produces. <b>7/5 and 8/4 splits</b>, a
+      headline set against the left third with an image running past the right margin, a caption
+      hanging in the gutter — these cost nothing and are most of what "editorial" means.</p>
+      <p><b>Break the grid once.</b> One element that escapes the margin or overlaps two columns
+      creates a focal point the eye returns to. Two such elements cancel each other out.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Vertical rhythm and the fold</h4>
+      <table class="lentable">
+        <tr><th>Rule</th><th>Value</th><th>Why</th></tr>
+        <tr><td>Section padding</td><td class="w">96 or 128px</td><td>Two values only. Sections that all breathe differently read as separate documents.</td></tr>
+        <tr><td>Proximity</td><td class="w">inside &lt; outside</td><td>Space within an element is always smaller than space around it. This single rule does most of the work of grouping.</td></tr>
+        <tr><td>Above the fold</td><td class="w">4 elements</td><td>Logo, headline, sub-line, action. A fifth thing above the fold is a thing that made the first four weaker.</td></tr>
+        <tr><td>Hero height</td><td class="w">72–88vh</td><td>Not 100vh. A hero that exactly fills the viewport hides the fact that the page continues; leaving a slice of the next section visible is a deliberate, free improvement.</td></tr>
+        <tr><td>Section count</td><td class="w">5–7</td><td>For a Phase 1 homepage. More than seven and the page has stopped arguing anything.</td></tr>
+        <tr><td>Alternation</td><td class="w">never mechanical</td><td>Left / right / left image alternation reads as a template. Vary the archetype instead.</td></tr>
+      </table>
+    </div>
+
+    <div class="kitcard">
+      <h4>Optical over numeric</h4>
+      <p>Six places where the correct number is visibly wrong. Each is a one-line fix, and together
+      they're a large part of what separates typeset from typed.</p>
+      <div class="crime"><b>Circles and triangles need to overshoot</b><span>A circle set to the same height as a square looks smaller. Scale it up 2–4%.</span></div>
+      <div class="crime"><b>Text beside an icon aligns on cap height</b><span>Not on the bounding boxes, which include invisible padding.</span></div>
+      <div class="crime"><b>Centred text is rarely optically centred</b><span>Descenders and punctuation pull it down. Nudge up 1–2px.</span></div>
+      <div class="crime"><b>Quote marks hang outside the measure</b><span>Otherwise the first line looks indented.</span></div>
+      <div class="crime"><b>Buttons need less padding below than above</b><span>Uppercase and lining figures sit high in the box.</span></div>
+      <div class="crime" style="border-bottom:none"><b>A heavier weight needs more letter-spacing removed</b><span>Tracking that suits 400 is loose at 700.</span></div>
+    </div>
+
+    <div class="kitcard">
+      <h4>Cropping and image scale</h4>
+      <p><b>Crop deliberately; never fit an image into a box.</b> An image dropped into a container at
+      <code>object-fit: cover</code> with no thought about the subject is the most common photographic
+      failure in a mockup, and it's free to fix.</p>
+      <div class="dogrid">
+        <div class="docol yes"><h5>Do</h5><ul>
+          <li>Crop <b>tighter than feels comfortable</b>. Close beats wide almost every time — especially for food, product and detail shots.</li>
+          <li>Set <code>object-position</code> deliberately on every single image.</li>
+          <li>Let one image be significantly larger than the others. Equal-sized images are a catalogue, not a composition.</li>
+          <li>Use their real aspect ratios where the subject demands it — a tall room in a wide box is a lie about the space.</li>
+          <li>Break the container with one image. Full-bleed, or running past the margin.</li>
+        </ul></div>
+        <div class="docol no"><h5>Don't</h5><ul>
+          <li>Crop a face, a product or a logo at the edge of frame.</li>
+          <li>Put five images at the same size in a row.</li>
+          <li>Use a 16:9 crop for something vertical because the grid said so.</li>
+          <li>Apply a heavy filter to hide that the photo is bad. Small and sharp beats large and treated.</li>
+          <li>Add a caption unless it says something the image doesn't.</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="kitcard">
+      <h4>Composition anti-patterns</h4>
+      <div class="crime"><b>Everything centred</b><span>Centre for a statement. A whole page centred has no structure to read.</span></div>
+      <div class="crime"><b>Three icon-and-heading cards of vague benefits</b><span>"Quality · Service · Value." The most recognisable filler section on the web.</span></div>
+      <div class="crime"><b>Equal visual weight everywhere</b><span>Nothing important means nothing read.</span></div>
+      <div class="crime"><b>A full-width image with text laid over the middle</b><span>Contrast fails somewhere in the image, always. Text goes in a deliberate zone, or on a ground.</span></div>
+      <div class="crime"><b>Content edges that shift between sections</b><span>One page margin, held everywhere. No exceptions.</span></div>
+      <div class="crime"><b>Border on everything</b><span>A border should separate two things that would otherwise be confused. Most borders separate nothing.</span></div>
+      <div class="crime"><b>Sections that all look the same height</b><span>Rhythm needs variation. Two long, one short, one very long.</span></div>
+      <div class="crime" style="border-bottom:none"><b>The 100vh hero with a bouncing scroll arrow</b><span>If the composition needs an arrow to explain that the page scrolls, the composition is the problem.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ NAVIGATION ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 05</span><h3>Navigation and the money action</h3>
+      <p>The most-looked-at element on the page and the one most often copied from whatever the last
+      project used.</p></div>
+
+    <div class="kitcard">
+      <h4>One action, styled unlike anything else</h4>
+      <p>Every pattern in the classifier ends in a single action. <b>That action lives in the nav, in a
+      colour used nowhere else on the page, and it stays visible.</b> Everything else in the nav is a
+      plain link.</p>
+      <table class="lentable">
+        <tr><th>Pattern</th><th>Nav action</th><th>Where it repeats</th></tr>
+        <tr><td>A · Book a slot</td><td>Book</td><td>Hero, after services, after proof, footer</td></tr>
+        <tr><td>B · Come and consume</td><td>Menu — or Directions if they're a destination</td><td>Hero, beside hours, footer</td></tr>
+        <tr><td>C · Join</td><td>Free trial</td><td>Hero, after pricing, after results, footer</td></tr>
+        <tr><td>D · Hire for a job</td><td>The phone number itself, as a link</td><td>Every scroll position — a sticky bar is correct here</td></tr>
+        <tr><td>E · Retain a professional</td><td>Book a consultation</td><td>Hero, after credentials, footer</td></tr>
+        <tr><td>F · Buy a product</td><td>Shop</td><td>Hero, after the product story, footer</td></tr>
+        <tr><td>G · Attend an occasion</td><td>Check a date</td><td>Hero, after capacity, footer</td></tr>
+        <tr><td>H · Enrol</td><td>Enrol — or Book a trial class</td><td>Hero, after the timetable, footer</td></tr>
+      </table>
+      <p style="margin-top:14px"><b>Trust copy goes under the action, not in a badge row at the top.</b>
+      Doubt happens at the click. <i>"No card required"</i> beneath the button is worth more than three
+      trust seals in the header — and it must be a policy the client actually published.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>The bar itself</h4>
+      <table class="lentable">
+        <tr><th>Decision</th><th>Default</th><th>Note</th></tr>
+        <tr><td>Items</td><td class="w">4–6</td><td>Plus the action. More than six and the nav is doing the sitemap's job.</td></tr>
+        <tr><td>Order</td><td class="w">their busiest first</td><td>Take the order from their existing nav unless it's obviously wrong. They know which page people want.</td></tr>
+        <tr><td>Height</td><td class="w">64–80px</td><td>Enough for the logo plus clear space. Let it grow rather than shrinking the logo.</td></tr>
+        <tr><td>Sticky</td><td class="w">yes, after 1 screen</td><td>Appear on scroll-up or after the hero leaves — not glued from pixel zero, which wastes the hero.</td></tr>
+        <tr><td>Ground when stuck</td><td class="w">solid or near-solid</td><td>Heavy blur over moving content costs real frames and rarely reads better than a flat ground.</td></tr>
+        <tr><td>Height when stuck</td><td class="w">shrink 15–20%</td><td>Enough to feel responsive, not enough to be a event.</td></tr>
+        <tr><td>Hamburger on desktop</td><td class="w">never</td><td>Hiding four links behind a button costs clicks and buys a look.</td></tr>
+        <tr><td>Dropdowns</td><td class="w">avoid in Phase 1</td><td>A homepage mockup has nowhere to drop to. Flat links only.</td></tr>
+        <tr><td>Anchor links</td><td class="w">preferred</td><td>In a one-page mockup, nav items scroll to real sections. It makes the page feel built rather than drawn.</td></tr>
+      </table>
+    </div>
+
+    <div class="kitcard">
+      <h4>The footer is not a dumping ground</h4>
+      <p>It's the last thing anyone reads and the second-most-used navigation on most small business
+      sites. <b>Five blocks, in this order:</b></p>
+      <table class="lentable">
+        <tr><td class="w">1</td><td>The action, one more time</td></tr>
+        <tr><td class="w">2</td><td>Address and hours, as live text — the most-copied content on any local business site</td></tr>
+        <tr><td class="w">3</td><td>Phone and email, both as real links</td></tr>
+        <tr><td class="w">4</td><td>Social links that actually exist, verified — no icon for a platform they don't use</td></tr>
+        <tr><td class="w">5</td><td>Logo, legal line, marks with their ®</td></tr>
+      </table>
+      <p style="margin-top:14px"><b>Not in the footer ·</b> a newsletter signup nobody asked for, a
+      second nav duplicating the first, an embedded map that loads a megabyte, a "web design by" line,
+      or a sitemap of pages that don't exist.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Structural anti-patterns</h4>
+      <p>Each of these is common, each looks like a feature, and each measurably hurts. They stay out
+      in both phases unless the client insists — in which case it goes in the hand-over as their call.</p>
+      <div class="crime"><b>A hero carousel</b><span>Almost nobody sees slide two. It halves the impact of slide one and doubles the build.</span></div>
+      <div class="crime"><b>Auto-playing anything with sound</b><span>Instant back-button.</span></div>
+      <div class="crime"><b>A modal on arrival</b><span>Interrupting someone before they've seen the page is asking for a favour before saying hello.</span></div>
+      <div class="crime"><b>A cookie banner covering the hero in a mockup</b><span>Not needed in a concept. Leave it out entirely.</span></div>
+      <div class="crime"><b>Scroll-jacking or custom scroll speed</b><span>Breaks trackpads, keyboards, and every accessibility expectation at once.</span></div>
+      <div class="crime"><b>Infinite scroll on a marketing page</b><span>There's no footer any more, and the footer had the address in it.</span></div>
+      <div class="crime"><b>Hover-only content</b><span>Doesn't exist on a phone and doesn't exist for keyboards.</span></div>
+      <div class="crime"><b>A PDF for anything a visitor needs</b><span>Menus, prices, timetables. Always live text.</span></div>
+      <div class="crime"><b>Contact information only in a form</b><span>Some people want to phone. Some need to know you're twelve minutes away.</span></div>
+      <div class="crime" style="border-bottom:none"><b>A splash or "enter site" page</b><span>Still happens. Still costs everything and returns nothing.</span></div>
+    </div>
+  </section>
+
   <!-- ============ LAYOUT ============ -->
   <section class="kitsec">
-    <div class="kithead"><span class="n">KIT 03</span><h3>Layout archetypes</h3>
+    <div class="kithead"><span class="n">KIT 06</span><h3>Layout archetypes</h3>
       <p>Pick one hero and one section rhythm. Never design a layout from scratch — that is where the
       twenty minutes goes.</p></div>
 
@@ -4650,7 +5190,7 @@ overlay.style.background =
 
   <!-- ============ COMPONENTS ============ -->
   <section class="kitsec">
-    <div class="kithead"><span class="n">KIT 04</span><h3>Utility components</h3>
+    <div class="kithead"><span class="n">KIT 07</span><h3>Utility components</h3>
       <p>The functional furniture. Which of these are <em>required</em> is decided by the business
       pattern — see the Patterns tab.</p></div>
 
@@ -4759,7 +5299,7 @@ overlay.style.background =
 
   <!-- ============ PHOTO ============ -->
   <section class="kitsec">
-    <div class="kithead"><span class="n">KIT 05</span><h3>Photo treatment</h3>
+    <div class="kithead"><span class="n">KIT 08</span><h3>Photo treatment</h3>
       <p>Client photography arrives inconsistent. Treatment is what turns a mixed bag into a set.</p></div>
     <div class="kitcard">
       <h4>Four recipes, in order of how much they rescue</h4>
@@ -4784,7 +5324,7 @@ overlay.style.background =
 
   <!-- ============ EDGES ============ -->
   <section class="kitsec">
-    <div class="kithead"><span class="n">KIT 06</span><h3>Edge language</h3>
+    <div class="kithead"><span class="n">KIT 09</span><h3>Edge language</h3>
       <p>How things are separated. Small decision, disproportionate effect on perceived cost.</p></div>
     <div class="kitcard">
       <div class="edgegrid">
@@ -4805,7 +5345,7 @@ overlay.style.background =
 
   <!-- ============ TEXTURE ============ -->
   <section class="kitsec">
-    <div class="kithead"><span class="n">KIT 07</span><h3>Texture</h3>
+    <div class="kithead"><span class="n">KIT 10</span><h3>Texture</h3>
       <p>What stops large flat areas reading as unfinished.</p></div>
     <div class="kitcard">
       <p><b>Grain</b> — <code>AMB-01</code>, at 3–5% opacity, <code>mix-blend-mode: overlay</code>.
