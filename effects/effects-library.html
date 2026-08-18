@@ -2137,6 +2137,60 @@ and read BLD 09 for what additionally opens up.</pre>
   });
   ok(!/[!]/.test(ownText), &#x27;exclamation mark in your own copy — fine in a real quote, not anywhere else&#x27;);
 
+  <i>// ===== THE FLOOR (CHO 00) — every check above this line is a ceiling. These</i>
+  <i>// are the only ones that fail a page for being TIMID rather than excessive,</i>
+  <i>// which is the failure mode that survived every other check ever written here.</i>
+  <i>// &quot;Treated&quot; = the element or something inside it carries a transition or an</i>
+  <i>// animation. Mark a deliberate exception data-static-ok.</i>
+  const treated = e =&gt; {
+    if (e.hasAttribute(&#x27;data-static-ok&#x27;) || e.closest(&#x27;[data-static-ok]&#x27;)) return true;
+    const nodes = [e, ...e.querySelectorAll(&#x27;*&#x27;)];
+    return nodes.some(n =&gt; { const s = cs(n);
+      return (s.transitionDuration !== &#x27;0s&#x27; &amp;&amp; s.transitionProperty !== &#x27;none&#x27;)
+          || (s.animationName &amp;&amp; s.animationName !== &#x27;none&#x27;); });
+  };
+
+  <i>// 22 · every heading is typographically alive (CHO 00 coverage table).</i>
+  const flatHeads = $$(&#x27;h1,h2,h3&#x27;).filter(h =&gt; h.innerText.trim() &amp;&amp; !treated(h));
+  ok(!flatHeads.length, flatHeads.length + &#x27; heading(s) with no reveal or typographic treatment — &quot;&#x27;
+     + flatHeads.map(h =&gt; h.innerText.slice(0,24)).join(&#x27;&quot;, &quot;&#x27;) + &#x27;&quot; (CHO 00)&#x27;);
+
+  <i>// 23 · every control answers the pointer.</i>
+  const deadCtl = $$(&#x27;a,button&#x27;).filter(a =&gt; a.innerText.trim() &amp;&amp; !treated(a));
+  ok(!deadCtl.length, deadCtl.length + &#x27; link(s)/button(s) with no hover or focus treatment — &quot;&#x27;
+     + deadCtl.slice(0,4).map(a =&gt; a.innerText.slice(0,18)).join(&#x27;&quot;, &quot;&#x27;) + &#x27;&quot; (CHO 00)&#x27;);
+
+  <i>// 24 · every section does something on the way past.</i>
+  const deadSec = $$(&#x27;section,header,footer&#x27;).filter(s =&gt; {
+    const r = s.getBoundingClientRect();
+    return r.height &gt; 200 &amp;&amp; !treated(s);
+  });
+  ok(!deadSec.length, deadSec.length + &#x27; section(s) entirely inert — nothing inside reveals, moves or responds (CHO 00)&#x27;);
+
+  <i>// 25 · the flat-field test, computed. A very large area of one flat colour with</i>
+  <i>//      no texture, no gradient and no canvas behind it is the dead zone that</i>
+  <i>//      reads as &quot;generated&quot; in a screenshot.</i>
+  $$(&#x27;section,div&#x27;).forEach(el =&gt; {
+    if (el.hasAttribute(&#x27;data-static-ok&#x27;) || el.closest(&#x27;[data-static-ok]&#x27;)) return;
+    const r = el.getBoundingClientRect();
+    if (r.width &lt; innerWidth*0.6 || r.height &lt; 420) return;
+    const s = cs(el);
+    const plain = s.backgroundImage === &#x27;none&#x27;;
+    if (!plain) return;
+    const hasLiveKid = [...el.children].some(k =&gt; {
+      const ks = cs(k);
+      return k.tagName === &#x27;CANVAS&#x27; || ks.backgroundImage !== &#x27;none&#x27;
+          || (ks.animationName &amp;&amp; ks.animationName !== &#x27;none&#x27;);
+    });
+    const pseudo = [&#x27;::before&#x27;,&#x27;::after&#x27;].some(p =&gt; {
+      const ps = getComputedStyle(el, p);
+      return ps.content !== &#x27;none&#x27; &amp;&amp; ps.backgroundImage !== &#x27;none&#x27;;
+    });
+    if (!hasLiveKid &amp;&amp; !pseudo)
+      ok(false, &#x27;flat dead field &#x27; + Math.round(r.width) + &#x27;x&#x27; + Math.round(r.height)
+         + &#x27;px — no texture, gradient or motion on it (CHO 00 section-ground row)&#x27;);
+  });
+
   console[F.length ? &#x27;error&#x27; : &#x27;log&#x27;](F.length ? F : &#x27;self-check clean&#x27;);
 })();</code></pre>
       <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
@@ -2607,8 +2661,78 @@ and read BLD 09 for what additionally opens up.</pre>
       </div>
     </div>
 
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">CHO 00</span><h4>Coverage is not the same as budget — read this before CHO 01</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">The single most common failure of this entire document is a page
+      that passes every check and still feels dead.</b> It happened repeatedly in real builds, by a
+      model with the whole document in context, and the cause was structural rather than careless:
+      every rule below CHO 01 is a <b>ceiling</b> — no soft shadows, no off-scale radii, four effects
+      maximum, 320 words maximum. Until this card existed there was <b>no floor anywhere</b>. Nothing
+      failed a build for being timid. So the honest, rule-following outcome was systematically a
+      restrained page, and the audit then certified it as clean.</p>
+
+      <table class="lentable">
+        <tr><th></th><th>What it counts</th><th>Correct answer</th></tr>
+        <tr><td><b style="color:var(--cream)">Budget</b><br>(CHO 01)</td><td>How many distinct <b>ideas</b> the motion expresses — separate concepts a visitor could name and describe</td><td class="w">Few. The four slots below.</td></tr>
+        <tr><td><b style="color:var(--cream)">Coverage</b><br>(this card)</td><td>How much of the page is <b>touched</b> by those few ideas</td><td class="w">All of it.</td></tr>
+      </table>
+
+      <p style="margin:14px 0 0;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      These are orthogonal, and confusing them is what produces a flat page.
+      <b style="color:var(--cream)">One reveal idea applied to all fourteen headings on the page is
+      still one idea</b> — it is not fourteen effects and it does not spend fourteen slots. A page
+      where every heading arrives, every section enters, and every control answers the pointer, all
+      through the <i>same small vocabulary</i>, reads as authored. A page where four things move and
+      everything else sits still reads as a template with a plugin on it.</p>
+
+      <div class="warnbox"><b>The floor ·</b> on a Phase 1 page, <b>nothing that a visitor scrolls
+      past should be visually inert.</b> Every heading gets a typographic treatment. Every section
+      gets an entrance. Every link, button and card answers the pointer. Every number, label and rule
+      does something on arrival. This is not permission to be chaotic — it is a requirement to finish
+      the page. Chaos comes from <i>many vocabularies</i>, not from broad coverage of one.</div>
+
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">What keeps broad coverage from becoming noise ·</b> one easing
+      family, one duration scale, one shared rAF loop, everything IntersectionObserver-gated, nothing
+      re-triggering on scroll-back, amplitude falling as importance falls. Coverage is wide; the
+      vocabulary is narrow. <b>That combination is the whole difference between a premium page and a
+      page somebody generated.</b></p>
+
+      <h4 style="margin:22px 0 10px;font-size:15px;color:var(--cream)">The coverage table — every
+      element type, and what it is not allowed to be</h4>
+      <p style="margin:0 0 12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      Work down this table before hand-over. <b>Any row you skipped is a row where the page is still
+      a template.</b> Amplitude descends with importance — that descent is what keeps full coverage
+      from reading as chaos.</p>
+      <table class="lentable">
+        <tr><th>Element</th><th>Minimum treatment</th><th>Amplitude</th></tr>
+        <tr><td><b>Hero headline</b></td><td>The signature typographic moment — line-mask, per-word or per-character stagger, dissolve, weight/width shift. Layered per CHO 02.</td><td class="w">full</td></tr>
+        <tr><td><b>Every other heading</b></td><td>The <i>same</i> reveal idea, one notch quieter. A section heading that just appears is the most common dead spot on the page.</td><td class="w">60%</td></tr>
+        <tr><td><b>Body copy / lede</b></td><td>Fade-and-rise on entry, short distance, slight delay behind its heading so the pair reads as one gesture.</td><td class="w">30%</td></tr>
+        <tr><td><b>Eyebrows, labels, meta</b></td><td>Tracking-in, opacity ramp, or a rule that draws itself alongside.</td><td class="w">25%</td></tr>
+        <tr><td><b>Images</b></td><td>Reveal via mask/clip (not a bare fade), plus parallax or scale-on-scroll, plus a pointer state that changes the treatment.</td><td class="w">50–70%</td></tr>
+        <tr><td><b>Cards / grid items</b></td><td>Staggered entrance, never all at once. Pointer state that moves more than a colour — lift, crop shift, grade change, label swap.</td><td class="w">40%</td></tr>
+        <tr><td><b>Links</b></td><td>An underline that draws, a colour that travels, or a label that shifts. Never a bare colour swap.</td><td class="w">micro</td></tr>
+        <tr><td><b>Buttons / CTA</b></td><td>Sweep, fill, magnetic pull, or icon travel. The primary action gets the most considered micro-interaction on the page.</td><td class="w">micro</td></tr>
+        <tr><td><b>Numbers, prices, counts</b></td><td>Count-up or roll on entry, tabular figures so nothing reflows.</td><td class="w">35%</td></tr>
+        <tr><td><b>Rules, dividers, borders</b></td><td>Draw from one end on entry rather than existing pre-drawn.</td><td class="w">25%</td></tr>
+        <tr><td><b>Section grounds</b></td><td>Texture that <b>moves or responds</b> — a mesh that drifts, grain that breathes, a gradient that tracks scroll. A large flat colour field is the single biggest dead zone a page can have.</td><td class="w">15–25%</td></tr>
+        <tr><td><b>Quote / pull-quote</b></td><td>Word-by-word or line-by-line arrival — the one place per page where slow is correct.</td><td class="w">50%</td></tr>
+        <tr><td><b>Footer</b></td><td>Same reveal vocabulary, lowest amplitude. It is still part of the page.</td><td class="w">20%</td></tr>
+      </table>
+      <div class="warnbox"><b>The flat-field test ·</b> screenshot the page at three scroll positions
+      and ask of each: <b>if this were a still image, would anything tell me it is a live page?</b>
+      A large area of untextured, unmoving, unresponding colour fails — that is the exact frame that
+      reads as "generated." Fix it with the section-ground row above, not by adding a fifth idea.</div>
+    </div>
+
     <div class="fcard">
-      <div class="fcard-top"><span class="code">CHO 01</span><h4>The four slots</h4></div>
+      <div class="fcard-top"><span class="code">CHO 01</span><h4>The four slots — distinct ideas, not total moving elements</h4></div>
+      <p style="margin:0 0 12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      Read with CHO 00 above: these slots limit how many separate motion <b>ideas</b> the page
+      contains. They say nothing about how many elements each idea touches — that answer is
+      <b style="color:var(--cream)">every element it sensibly can</b>.</p>
       <table class="lentable">
         <tr><th>Slot</th><th>How many</th><th>Job</th><th>Amplitude</th><th>Typical</th></tr>
         <tr><td><b style="color:var(--cream)">Signature</b></td><td class="w">exactly 1</td><td>The one thing they'd describe to a friend. Tied to what this business actually does — not a generic effect applied to a generic section.</td><td class="w">full</td><td>GL-02 · REV-03 · REA-01 · TYP-04</td></tr>
