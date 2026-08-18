@@ -8654,6 +8654,12 @@ qa('[data-demo="typ-dissolve"]').forEach(stage => {
     panels.forEach(pn => { pn.hidden = pn.id !== id; });
     if (location.hash.slice(1) !== id) history.replaceState(null,'','#'+id);
     scrollTo({top:0});
+    /* every demo's canvas sizes itself once at load, while its own tab may still be
+       hidden (0×0 rect) — it only re-measures on window "resize". Switching tabs
+       never fires that event, so a canvas on any non-default tab silently stays
+       0×0 forever and paints nothing. Re-use the existing resize wiring instead of
+       building a second mechanism: fire it once the now-visible panel has laid out. */
+    requestAnimationFrame(() => dispatchEvent(new Event('resize')));
   }
   tabs.forEach(t => t.addEventListener('click', () => show(t.getAttribute('aria-controls'))));
   tabs.forEach((t,i) => t.addEventListener('keydown', e => {
