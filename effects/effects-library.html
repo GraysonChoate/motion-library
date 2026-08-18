@@ -1031,6 +1031,171 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 .chip:focus-visible{outline:2px solid var(--slate); outline-offset:2px}
 .group[hidden]{display:none}
 
+/* ===== HUMAN NAVIGATION LAYER =====================================
+   Menus and a gallery for a person. Adds no content the AI must read. */
+.mode{position:relative; z-index:2; max-width:1080px; margin:0 auto; padding:0 24px}
+.mode#mode-manual{max-width:none; padding:0}
+.mode[hidden]{display:none}
+.backhome{appearance:none; cursor:pointer; background:transparent; border:1px solid var(--edge-soft);
+  border-radius:999px; color:var(--ink-faint); font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.14em; text-transform:uppercase; padding:8px 16px; margin:0 0 30px;
+  transition:color .18s, border-color .18s}
+.backhome:hover{color:var(--gold); border-color:var(--gold)}
+
+.doorwrap{max-width:1040px; margin:0 auto; padding:12px 0 90px}
+.dooreyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--tan); margin:0 0 18px}
+.doors{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px}
+.door{position:relative; appearance:none; cursor:pointer; text-align:left; overflow:hidden;
+  padding:34px 30px 30px; border-radius:3px; background:var(--soot);
+  border:1px solid var(--edge-soft); border-left:2px solid var(--edge);
+  transition:border-color .22s, background .22s, transform .22s}
+.door:hover{border-left-color:var(--gold); background:rgba(201,164,92,.06); transform:translateY(-2px)}
+.door:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
+.dnum{position:absolute; right:22px; top:18px; font-family:var(--mono); font-size:38px;
+  color:var(--edge); line-height:1; transition:color .22s}
+.door:hover .dnum{color:rgba(201,164,92,.4)}
+.door b{display:block; font-size:26px; color:var(--cream); font-weight:600; letter-spacing:-.015em;
+  margin-bottom:10px}
+.door > span{display:block; font-size:14.5px; color:var(--ink-dim); line-height:1.6; max-width:34ch}
+.door em{display:block; margin-top:20px; font-style:normal; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--gold)}
+.doorminor{display:block; width:100%; margin-top:18px; appearance:none; cursor:pointer;
+  text-align:left; padding:16px 20px; border-radius:3px; background:transparent;
+  border:1px dashed var(--edge-soft); color:var(--ink-faint); font-size:13.5px;
+  transition:color .18s, border-color .18s}
+.doorminor:hover{color:var(--cream); border-color:var(--edge)}
+
+.usewrap{max-width:920px; margin:0 auto; padding-bottom:90px}
+.usewrap h2{font-size:clamp(30px,4vw,46px); color:var(--cream); margin:0 0 14px; letter-spacing:-.02em}
+.uselede{font-size:17px; color:var(--ink-dim); line-height:1.7; max-width:60ch; margin:0 0 34px}
+.steps{list-style:none; counter-reset:st; margin:0 0 36px; padding:0; display:grid; gap:18px}
+.steps li{counter-increment:st; position:relative; padding:22px 24px 22px 68px; border-radius:3px;
+  background:var(--soot); border:1px solid var(--edge-soft); border-left:2px solid var(--gold)}
+.steps li::before{content:counter(st); position:absolute; left:24px; top:20px; font-family:var(--mono);
+  font-size:22px; color:var(--gold)}
+.steps b{display:block; font-size:17px; color:var(--cream); margin-bottom:8px}
+.steps span{display:block; font-size:14.5px; color:var(--ink-dim); line-height:1.65; max-width:62ch}
+.trigger{display:block !important; margin:12px 0; padding:14px 18px; border-radius:2px;
+  background:#101115; border:1px solid rgba(201,164,92,.35); font-family:var(--mono);
+  font-size:15px; color:var(--gold); letter-spacing:.02em}
+.trigger i{font-style:normal; color:var(--tan)}
+.usegrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px}
+.usegrid > div{padding:20px 22px; border-radius:3px; background:var(--soot); border:1px solid var(--edge-soft)}
+.usegrid h4{margin:0 0 8px; font-family:var(--mono); font-size:10px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--tan)}
+.usegrid p{margin:0; font-size:14px; color:var(--ink-dim); line-height:1.65}
+
+.manualnote{max-width:70ch; margin:0 0 26px; font-size:13.5px; color:var(--ink-faint);
+  line-height:1.65; padding:14px 18px; border-radius:2px; border:1px dashed var(--edge-soft)}
+
+/* ---- gallery ---- */
+.gwrap{padding-bottom:90px}
+.gtop{display:flex; align-items:flex-end; gap:18px; flex-wrap:wrap; margin-bottom:34px}
+.gtop h2{font-size:clamp(26px,3.4vw,40px); color:var(--cream); margin:0 0 8px; letter-spacing:-.02em}
+.gtop p{margin:0; font-size:14.5px; color:var(--ink-dim); max-width:56ch; line-height:1.6}
+.gtop > div{flex:1 1 340px}
+#gq{flex:0 1 240px; background:#101115; color:var(--ink); border:1px solid var(--edge-soft);
+  border-radius:2px; padding:9px 12px; font-family:var(--mono); font-size:12px}
+#gq:focus{outline:none; border-color:var(--gold)}
+.gtotal{font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.1em}
+.gsection{margin:0 0 40px}
+.gsection[hidden]{display:none}
+.ghead{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding-bottom:12px;
+  border-bottom:1px solid var(--edge-soft); margin-bottom:18px}
+.ghead h3{margin:0; font-size:20px; color:var(--cream); font-weight:600}
+.gcount{font-family:var(--mono); font-size:10px; color:var(--gold); border:1px solid rgba(201,164,92,.3);
+  border-radius:999px; padding:2px 9px}
+.ghead p{margin:0; flex:1 1 320px; font-size:13px; color:var(--ink-faint)}
+.ggrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px}
+.gcard{appearance:none; cursor:pointer; text-align:left; padding:0 0 14px; border-radius:3px;
+  background:var(--soot); border:1px solid var(--edge-soft); overflow:hidden;
+  transition:border-color .2s, transform .2s, background .2s}
+.gcard[hidden]{display:none}
+.gcard:hover{border-color:var(--gold); transform:translateY(-3px); background:rgba(201,164,92,.05)}
+.gcard:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+.gprev{position:relative; display:block; height:104px; overflow:hidden; background:#0E0F13;
+  border-bottom:1px solid var(--edge-soft)}
+.gprev i{position:absolute; display:block}
+.gcard .gid{display:block; margin:12px 14px 0; font-family:var(--mono); font-size:10px;
+  color:var(--gold); letter-spacing:.06em}
+.gcard .gname{display:block; margin:5px 14px 0; font-size:14px; color:var(--ink-dim); line-height:1.35}
+.gcard:hover .gname{color:var(--cream)}
+.gcard .gsrc{display:block; margin:5px 14px 0; font-family:var(--mono); font-size:9.5px;
+  color:var(--ink-faint); line-height:1.4}
+
+/* per-group motifs — alive, cheap, no duplicated demos */
+.gp-img i:nth-child(1){inset:14% 18%; border-radius:50% 50% 3px 3px/32% 32% 3px 3px;
+  background:linear-gradient(160deg,#EBD3A6,#8a5a3c); animation:gfloat 7s ease-in-out infinite alternate}
+.gp-img i:nth-child(2){inset:30% 46% 30% 12%; border-radius:50%;
+  background:radial-gradient(circle,#9FD4C4,transparent 70%); mix-blend-mode:screen;
+  animation:gfloat 9s ease-in-out infinite alternate-reverse}
+.gp-img i:nth-child(3){display:none}
+.gp-typ i{height:9px; border-radius:2px; background:var(--edge); left:18%}
+.gp-typ i:nth-child(1){top:32%; width:46%; animation:gslide 3.4s ease-in-out infinite alternate}
+.gp-typ i:nth-child(2){top:48%; width:30%; animation:gslide 3.4s .2s ease-in-out infinite alternate}
+.gp-typ i:nth-child(3){top:64%; width:38%; animation:gslide 3.4s .4s ease-in-out infinite alternate}
+.gp-rev i{inset:26% 20%; background:linear-gradient(120deg,var(--gold),transparent);
+  border-radius:2px; animation:gwipe 4s cubic-bezier(.16,1,.3,1) infinite}
+.gp-rev i:nth-child(2),.gp-rev i:nth-child(3){display:none}
+.gp-rea i{width:12px; height:12px; border-radius:50%; background:var(--gold); top:44%;
+  animation:gtrail 3.2s ease-in-out infinite}
+.gp-rea i:nth-child(1){left:22%}
+.gp-rea i:nth-child(2){left:44%; animation-delay:.18s; opacity:.6}
+.gp-rea i:nth-child(3){left:66%; animation-delay:.36s; opacity:.3}
+.gp-dep i{inset:auto 16% 22%; height:22px; border-radius:3px; background:var(--edge)}
+.gp-dep i:nth-child(1){bottom:20%; animation:gpar 6s ease-in-out infinite alternate}
+.gp-dep i:nth-child(2){bottom:40%; inset-inline:24%; opacity:.6; animation:gpar 6s .4s ease-in-out infinite alternate-reverse}
+.gp-dep i:nth-child(3){bottom:60%; inset-inline:32%; opacity:.35; animation:gpar 6s .8s ease-in-out infinite alternate}
+.gp-gl i{inset:-20%; background:
+  radial-gradient(circle at 32% 38%,rgba(240,216,160,.55),transparent 58%),
+  radial-gradient(circle at 68% 62%,rgba(94,138,126,.55),transparent 56%);
+  filter:blur(12px); animation:gdrift 11s ease-in-out infinite alternate}
+.gp-gl i:nth-child(2),.gp-gl i:nth-child(3){display:none}
+.gp-amb i{width:5px; height:5px; border-radius:50%; background:var(--tan); opacity:.5}
+.gp-amb i:nth-child(1){left:28%; top:36%; animation:gmote 7s ease-in-out infinite alternate}
+.gp-amb i:nth-child(2){left:54%; top:58%; animation:gmote 9s .5s ease-in-out infinite alternate-reverse}
+.gp-amb i:nth-child(3){left:72%; top:30%; animation:gmote 8s 1s ease-in-out infinite alternate}
+.gp-sys i{left:18%; right:18%; height:2px; background:var(--edge)}
+.gp-sys i:nth-child(1){top:38%}
+.gp-sys i:nth-child(2){top:52%; animation:gscale 4s ease-in-out infinite alternate; transform-origin:left}
+.gp-sys i:nth-child(3){top:66%; opacity:.5}
+.gp-plt i{border:1px solid var(--edge); border-radius:2px}
+.gp-plt i:nth-child(1){inset:26% 30% 26% 20%; animation:gsize 5s ease-in-out infinite alternate}
+.gp-plt i:nth-child(2){inset:34% 20% 34% 56%; opacity:.6}
+.gp-plt i:nth-child(3){display:none}
+@keyframes gfloat{to{transform:translate(6%,-7%) scale(1.06)}}
+@keyframes gslide{from{transform:scaleX(.25); transform-origin:left} to{transform:scaleX(1); transform-origin:left}}
+@keyframes gwipe{0%{clip-path:inset(0 100% 0 0)}55%,100%{clip-path:inset(0 0 0 0)}}
+@keyframes gtrail{0%,100%{transform:translateY(0); opacity:inherit}50%{transform:translateY(-14px)}}
+@keyframes gpar{to{transform:translateX(10%)}}
+@keyframes gdrift{to{transform:translate(8%,-6%) scale(1.15)}}
+@keyframes gmote{to{transform:translate(10px,-16px); opacity:.9}}
+@keyframes gscale{from{transform:scaleX(.3)}to{transform:scaleX(1)}}
+@keyframes gsize{to{inset:20% 24% 20% 20%}}
+/* vary each card within its group so a row reads as a family, not as clones */
+.gcard:nth-child(6n+2) .gprev i{animation-delay:.4s !important}
+.gcard:nth-child(6n+3) .gprev i{animation-delay:.8s !important}
+.gcard:nth-child(6n+4) .gprev i{animation-delay:1.2s !important}
+.gcard:nth-child(6n+5) .gprev i{animation-delay:1.6s !important}
+.gcard:nth-child(6n+6) .gprev i{animation-delay:2s !important}
+.gcard:nth-child(2n) .gprev{filter:hue-rotate(14deg)}
+.gcard:nth-child(3n) .gprev{filter:hue-rotate(-18deg)}
+.gcard:nth-child(5n) .gprev{filter:hue-rotate(30deg) saturate(.8)}
+.gcard:nth-child(2n) .gp-img i:nth-child(1){border-radius:50%}
+.gcard:nth-child(3n) .gp-img i:nth-child(1){border-radius:999px 999px 3px 3px; inset:12% 30%}
+.gcard:nth-child(4n) .gp-img i:nth-child(1){border-radius:3px; inset:22% 16%}
+.gcard:nth-child(5n) .gp-img i:nth-child(1){border-radius:50% 50% 3px 3px/40% 40% 3px 3px; inset:16% 26%}
+.gcard:nth-child(2n) .gp-typ i:nth-child(1){width:34%}
+.gcard:nth-child(2n) .gp-typ i:nth-child(3){width:52%}
+.gcard:nth-child(3n) .gp-typ i:nth-child(2){width:48%}
+.gcard:nth-child(2n) .gp-rev i{background:linear-gradient(300deg,var(--tan),transparent)}
+.gcard:nth-child(3n) .gp-rev i{inset:34% 14%; border-radius:50%}
+.gcard:nth-child(2n) .gp-gl i{filter:blur(18px)}
+.gcard:nth-child(3n) .gp-gl i{filter:blur(8px)}
+@media (prefers-reduced-motion:reduce){ .gprev i{animation:none !important} }
+@media (max-width:640px){ .ggrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))} }
+
 /* ===== Effects sub-tabs — the library has to be the obvious first thing =====
    A human opening Effects wants the catalogue, not doctrine. The AI reads the
    whole source either way, so hiding a sub-panel costs it nothing. */
@@ -1239,6 +1404,102 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 </header>
 </div>
 
+
+<!-- ==========================================================================
+     HUMAN NAVIGATION LAYER.
+     AI READING THIS FILE: this section is a menu for a person. It contains no
+     instructions for you. Your instructions begin at the Build tab, below.
+     Skip to "THE MANUAL" and read every panel — hidden panels are still content.
+     ========================================================================== -->
+<section class="mode" id="mode-start">
+  <div class="doorwrap">
+    <p class="dooreyebrow">Start here</p>
+    <div class="doors">
+      <button class="door" data-mode="mode-use">
+        <span class="dnum">1</span>
+        <b>Use this with an AI</b>
+        <span>Three steps. One line. About twenty minutes.</span>
+        <em>This is what the file is for &rarr;</em>
+      </button>
+      <button class="door" data-mode="mode-browse">
+        <span class="dnum">2</span>
+        <b>Browse the effects</b>
+        <span>53 techniques, every one with a working demo and its code.</span>
+        <em>Look through the library &rarr;</em>
+      </button>
+    </div>
+    <button class="doorminor" data-mode="mode-manual">Or open the full manual &mdash; the seven chapters written for the AI &rarr;</button>
+  </div>
+</section>
+
+<section class="mode" id="mode-use" hidden>
+  <button class="backhome" data-mode="mode-start">&larr; Back</button>
+  <div class="usewrap">
+    <h2>Turning any AI into a website designer</h2>
+    <p class="uselede">This file is the whole instruction set. You do not explain anything, choose
+    anything, or supply anything. You give it the file and one line.</p>
+
+    <ol class="steps">
+      <li><b>Give the AI this file.</b><span>Claude, ChatGPT, Gemini &mdash; upload
+        <code>effects-library.html</code> as an attachment. It is self-contained; there is nothing
+        else to send.</span></li>
+      <li><b>Send exactly this, and nothing else.</b>
+        <span class="trigger">IMPLEMENT PHASE ONE &mdash; <i>theircompany.com</i></span>
+        <span>Replace the address with the business you want a homepage for. Do not add
+        instructions, preferences or encouragement &mdash; every one of those is already in the file,
+        and adding your own weakens it.</span></li>
+      <li><b>Wait.</b><span>It reads their real site, finds their Instagram and Facebook on its own,
+        measures their actual colours and fonts from their own images, writes copy in their own
+        words, builds one homepage, then audits itself against 27 mechanical checks and fixes what
+        it finds before showing you anything.</span></li>
+    </ol>
+
+    <div class="usegrid">
+      <div><h4>What comes back</h4><p>A single HTML file. Open it in a browser. It is a concept of
+        their homepage &mdash; their photography, their words, their palette &mdash; built to look like a
+        senior designer made it, not like something typed into a chatbot.</p></div>
+      <div><h4>What it will never do</h4><p>Invent a price, a review, a phone number or a social
+        handle. If it could not find something, it leaves it out and says so. Anything it claims,
+        it read somewhere.</p></div>
+      <div><h4>If it asks you a question</h4><p>Only one is legitimate: which image generator you
+        have, if any. Everything else it is supposed to find by itself. If it asks for their colours
+        or their logo, tell it to re-read the Research chapter.</p></div>
+      <div><h4>If the result is flat</h4><p>Reply: <code>Re-read CHO 00 and run the self-check in
+        BLD 06. Nothing on the page should be inert.</code> That is the failure this document is
+        built to prevent, and naming it is usually enough.</p></div>
+    </div>
+    <button class="doorminor" data-mode="mode-browse">See what it can build with &mdash; browse the 53 effects &rarr;</button>
+  </div>
+</section>
+
+<section class="mode" id="mode-browse" hidden>
+  <button class="backhome" data-mode="mode-start">&larr; Back</button>
+  <div class="gwrap">
+    <div class="gtop">
+      <div><h2>The effects library</h2>
+      <p>Every technique the AI can reach for. Click any one to see it running, read what it is for,
+      and copy its code.</p></div>
+      <input id="gq" type="search" placeholder="Filter&hellip;  (press /)" aria-label="Filter effects">
+      <span class="gtotal" id="gtotal">53</span>
+    </div>
+    <div class="gsection" data-gsec="img"><div class="ghead"><h3>Imagery</h3><span class="gcount">6</span><p>Photographs — masking, framing, grading, pointer response.</p></div><div class="ggrid"><button class="gcard" data-goto="e-IMG-01" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-01</span><span class="gname">Feathered plate</span><span class="gsrc">radial mask + blend mode</span></button><button class="gcard" data-goto="e-IMG-02" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-02</span><span class="gname">Shaped frame</span><span class="gsrc">border-radius as composition</span></button><button class="gcard" data-goto="e-IMG-03" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-03</span><span class="gname">Duotone release</span><span class="gsrc">two blend layers, dropped on hover</span></button><button class="gcard" data-goto="e-IMG-04" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-04</span><span class="gname">Chromatic split</span><span class="gsrc">channel offset by pointer velocity</span></button><button class="gcard" data-goto="e-IMG-05" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-05</span><span class="gname">Type-masked image</span><span class="gsrc">background-clip: text</span></button><button class="gcard" data-goto="e-IMG-06" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-06</span><span class="gname">Pointer image trail</span><span class="gsrc">distance-gated image queue</span></button></div></div>
+<div class="gsection" data-gsec="typ"><div class="ghead"><h3>Typography</h3><span class="gcount">10</span><p>Headlines and text that arrive instead of appearing.</p></div><div class="ggrid"><button class="gcard" data-goto="e-TYP-01" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-01</span><span class="gname">Character blur-stagger</span><span class="gsrc">split-text transition</span></button><button class="gcard" data-goto="e-TYP-02" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-02</span><span class="gname">Line mask reveal</span><span class="gsrc">clip per line, not per character</span></button><button class="gcard" data-goto="e-TYP-03" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-03</span><span class="gname">Tracking open</span><span class="gsrc">letter-spacing as the animation</span></button><button class="gcard" data-goto="e-TYP-04" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-04</span><span class="gname">Weight response</span><span class="gsrc">variable-font principle</span></button><button class="gcard" data-goto="e-TYP-05" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-05</span><span class="gname">Text scramble</span><span class="gsrc">glyph resolve</span></button><button class="gcard" data-goto="e-TYP-06" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-06</span><span class="gname">Counter roll</span><span class="gsrc">tabular digits</span></button><button class="gcard" data-goto="e-TYP-07" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-07</span><span class="gname">Velocity skew &amp; settle</span><span class="gsrc">scroll-velocity response</span></button><button class="gcard" data-goto="e-TYP-08" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-08</span><span class="gname">Sticky set swap, opposing drift</span><span class="gsrc">multi-stop scroll interpolation</span></button><button class="gcard" data-goto="e-TYP-09" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-09</span><span class="gname">Velocity marquee</span><span class="gsrc">scroll-coupled</span></button><button class="gcard" data-goto="e-TYP-10" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-10</span><span class="gname">Threshold dissolve</span><span class="gsrc">canvas 2D, noise mask</span></button></div></div>
+<div class="gsection" data-gsec="rev"><div class="ghead"><h3>Reveal</h3><span class="gcount">5</span><p>How a thing enters the page.</p></div><div class="ggrid"><button class="gcard" data-goto="e-REV-01" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-01</span><span class="gname">Gradient mask wipe</span><span class="gsrc">animated mask-image</span></button><button class="gcard" data-goto="e-REV-02" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-02</span><span class="gname">Aperture open</span><span class="gsrc">animated clip-path</span></button><button class="gcard" data-goto="e-REV-03" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-03</span><span class="gname">Proportional fill control</span><span class="gsrc">proportional state control</span></button><button class="gcard" data-goto="e-REV-04" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-04</span><span class="gname">Sticky stacking cards</span><span class="gsrc">scroll-driven pile</span></button><button class="gcard" data-goto="e-REV-05" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-05</span><span class="gname">Progressive blur</span><span class="gsrc">layered backdrop-filter</span></button></div></div>
+<div class="gsection" data-gsec="rea"><div class="ghead"><h3>Reactivity</h3><span class="gcount">3</span><p>The page answering the pointer.</p></div><div class="ggrid"><button class="gcard" data-goto="e-REA-01" data-g="rea"><span class="gprev gp-rea"><i></i><i></i><i></i></span><span class="gid">REA-01</span><span class="gname">Particle field with pointer wake</span><span class="gsrc">canvas particle system</span></button><button class="gcard" data-goto="e-REA-02" data-g="rea"><span class="gprev gp-rea"><i></i><i></i><i></i></span><span class="gid">REA-02</span><span class="gname">Velocity trail + magnetic control</span><span class="gsrc">velocity-spawned trail + magnetism</span></button><button class="gcard" data-goto="e-REA-03" data-g="rea"><span class="gprev gp-rea"><i></i><i></i><i></i></span><span class="gid">REA-03</span><span class="gname">Spotlight mask</span><span class="gsrc">reveal by proximity</span></button></div></div>
+<div class="gsection" data-gsec="dep"><div class="ghead"><h3>Depth</h3><span class="gcount">3</span><p>Layers that move at different rates so the page has space.</p></div><div class="ggrid"><button class="gcard" data-goto="e-DEP-01" data-g="dep"><span class="gprev gp-dep"><i></i><i></i><i></i></span><span class="gid">DEP-01</span><span class="gname">Multi-plane parallax</span><span class="gsrc">pointer + scroll parallax</span></button><button class="gcard" data-goto="e-DEP-02" data-g="dep"><span class="gprev gp-dep"><i></i><i></i><i></i></span><span class="gid">DEP-02</span><span class="gname">Pointer-tilted panel</span><span class="gsrc">pointer-driven 3D transform</span></button><button class="gcard" data-goto="e-DEP-03" data-g="dep"><span class="gprev gp-dep"><i></i><i></i><i></i></span><span class="gid">DEP-03</span><span class="gname">Focus falloff carousel</span><span class="gsrc">depth via blur, not position</span></button></div></div>
+<div class="gsection" data-gsec="gl"><div class="ghead"><h3>Rendered</h3><span class="gcount">9</span><p>Shader-rendered fields. The heaviest and the most striking.</p></div><div class="ggrid"><button class="gcard" data-goto="e-GL-01" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-01</span><span class="gname">Raymarched SDF field</span><span class="gsrc">fragment shader, zero geometry</span></button><button class="gcard" data-goto="e-GL-02" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-02</span><span class="gname">Dispersion glass</span><span class="gsrc">index-of-refraction shader</span></button><button class="gcard" data-goto="e-GL-03" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-03</span><span class="gname">Displacement transition</span><span class="gsrc">two textures, one noise map</span></button><button class="gcard" data-goto="e-GL-04" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-04</span><span class="gname">Fluid cursor</span><span class="gsrc">ping-pong advection</span></button><button class="gcard" data-goto="e-GL-05" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-05</span><span class="gname">GPGPU particles</span><span class="gsrc">positions stored in a texture</span></button><button class="gcard" data-goto="e-GL-06" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-06</span><span class="gname">Post-processing stack</span><span class="gsrc">render to texture, then treat it</span></button><button class="gcard" data-goto="e-GL-07" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-07</span><span class="gname">Mesh distortion on scroll</span><span class="gsrc">vertex displacement</span></button><button class="gcard" data-goto="e-GL-08" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-08</span><span class="gname">Domain-warped field</span><span class="gsrc">noise sampled through noise</span></button><button class="gcard" data-goto="e-GL-09" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-09</span><span class="gname">Ordered dithering</span><span class="gsrc">post-pass, any source</span></button></div></div>
+<div class="gsection" data-gsec="amb"><div class="ghead"><h3>Ambient</h3><span class="gcount">6</span><p>Atmosphere you notice only when it is gone.</p></div><div class="ggrid"><button class="gcard" data-goto="e-AMB-01" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-01</span><span class="gname">Animated film grain</span><span class="gsrc">canvas noise, throttled</span></button><button class="gcard" data-goto="e-AMB-02" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-02</span><span class="gname">Aurora drift</span><span class="gsrc">blurred blobs, pure CSS</span></button><button class="gcard" data-goto="e-AMB-03" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-03</span><span class="gname">Dust motes with depth</span><span class="gsrc">three parallax layers</span></button><button class="gcard" data-goto="e-AMB-04" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-04</span><span class="gname">Breathing on idle</span><span class="gsrc">idle detection + micro-motion</span></button><button class="gcard" data-goto="e-AMB-05" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-05</span><span class="gname">Caustics</span><span class="gsrc">low-res canvas, upscaled</span></button><button class="gcard" data-goto="e-AMB-06" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-06</span><span class="gname">Colour temperature drift</span><span class="gsrc">scroll-mapped white balance</span></button></div></div>
+<div class="gsection" data-gsec="sys"><div class="ghead"><h3>Architecture</h3><span class="gcount">5</span><p>How motion is produced. Read first — changes everything after.</p></div><div class="ggrid"><button class="gcard" data-goto="e-SYS-01" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-01</span><span class="gname">Native CSS scroll timelines</span><span class="gsrc">browser-native, zero JS</span></button><button class="gcard" data-goto="e-SYS-02" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-02</span><span class="gname">FLIP layout animation</span><span class="gsrc">First, Last, Invert, Play</span></button><button class="gcard" data-goto="e-SYS-03" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-03</span><span class="gname">Spring physics vs easing</span><span class="gsrc">velocity-aware motion</span></button><button class="gcard" data-goto="e-SYS-04" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-04</span><span class="gname">View Transitions</span><span class="gsrc">browser-native morphing</span></button><button class="gcard" data-goto="e-SYS-05" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-05</span><span class="gname">Speculation Rules</span><span class="gsrc">prefetch and prerender on intent</span></button></div></div>
+<div class="gsection" data-gsec="plt"><div class="ghead"><h3>Platform</h3><span class="gcount">6</span><p>Browser features that replace JavaScript you would have written.</p></div><div class="ggrid"><button class="gcard" data-goto="e-PLT-01" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-01</span><span class="gname">Animating height to auto</span><span class="gsrc">interpolate-size</span></button><button class="gcard" data-goto="e-PLT-02" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-02</span><span class="gname">Entry animations</span><span class="gsrc">@starting-style</span></button><button class="gcard" data-goto="e-PLT-03" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-03</span><span class="gname">Native tooltips and menus</span><span class="gsrc">Popover API + anchor positioning</span></button><button class="gcard" data-goto="e-PLT-04" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-04</span><span class="gname">Animatable gradients</span><span class="gsrc">@property</span></button><button class="gcard" data-goto="e-PLT-05" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-05</span><span class="gname">Component-level responsive</span><span class="gsrc">container queries</span></button><button class="gcard" data-goto="e-PLT-06" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-06</span><span class="gname">Carousels that know where they are</span><span class="gsrc">scroll-snap events</span></button></div></div>
+    <p class="ixnote" id="gempty" hidden>Nothing matches that.</p>
+  </div>
+</section>
+
+<section class="mode" id="mode-manual" hidden>
+  <button class="backhome" data-mode="mode-start">&larr; Back</button>
+  <p class="manualnote">These seven chapters are written for the AI, not for you. Everything in them
+  is instruction it follows. You are welcome to read it &mdash; nothing here is secret &mdash; but you
+  never have to.</p>
 <nav class="tabbar" role="tablist" aria-label="Toolroom sections">
   <div class="tabbar-inner">
     <button class="tab" role="tab" id="tab-build" aria-controls="panel-build" aria-selected="true">Build</button>
@@ -7887,6 +8148,7 @@ dot.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;</code>
     </ul>
   </div>
 </div><!-- /panel-standards -->
+</section>
 
 <footer>
   <p><b>How to use this.</b> Each bench is independent — lift the snippet, keep the constants,
@@ -9599,6 +9861,64 @@ qa('[data-demo="typ-dissolve"]').forEach(stage => {
     /* keep the index in step with the chip filter so the two never disagree */
     ixgroups.forEach(gr => { gr.hidden = !(g==='all' || gr.dataset.ixg===g); });
   }));
+
+  /* ---- top-level modes: the human's front door ---- */
+  const modes = qa('.mode');
+  function goMode(id){
+    modes.forEach(m => { m.hidden = m.id !== id; });
+    scrollTo({top:0});
+    /* demos size on resize only; a panel that was hidden has never had a layout */
+    requestAnimationFrame(() => dispatchEvent(new Event('resize')));
+  }
+  qa('[data-mode]').forEach(b => b.addEventListener('click', () => goMode(b.dataset.mode)));
+
+  /* a gallery card opens the real demo: manual -> Effects -> library -> anchor */
+  function openEffect(anchorId){
+    goMode('mode-manual');
+    const t = document.getElementById('tab-effects'); if (t) t.click();
+    const lib = document.getElementById('st-library');
+    if (lib && document.getElementById('sub-library')?.hidden) lib.click();
+    requestAnimationFrame(() => {
+      const el = document.getElementById(anchorId);
+      if (el) { el.scrollIntoView({block:'start'}); location.hash = anchorId; }
+    });
+  }
+  qa('.gcard').forEach(c => c.addEventListener('click', () => openEffect(c.dataset.goto)));
+
+  /* gallery filter */
+  (() => {
+    const gq = document.getElementById('gq');
+    if (!gq) return;
+    const cards = qa('.gcard'), total = document.getElementById('gtotal');
+    const empty = document.getElementById('gempty');
+    const apply = () => {
+      const v = gq.value.trim().toLowerCase();
+      let n = 0;
+      cards.forEach(c => {
+        const hay = (c.dataset.goto + ' ' + c.textContent).toLowerCase();
+        const hit = !v || hay.includes(v);
+        c.hidden = !hit; if (hit) n++;
+      });
+      qa('.gsection').forEach(sec => {
+        sec.hidden = ![...sec.querySelectorAll('.gcard')].some(c => !c.hidden);
+      });
+      total.textContent = n;
+      empty.hidden = n > 0;
+    };
+    gq.addEventListener('input', apply);
+    gq.addEventListener('keydown', e => {
+      if (e.key === 'Escape'){ gq.value=''; apply(); gq.blur(); }
+      if (e.key === 'Enter'){ const f = cards.find(c => !c.hidden); if (f) f.click(); }
+    });
+    /* "/" focuses whichever search is on screen */
+    addEventListener('keydown', e => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target.tagName;
+      if (t === 'INPUT' || t === 'TEXTAREA') return;
+      if (document.getElementById('mode-browse').hidden) return;
+      e.preventDefault(); gq.focus(); gq.select();
+    });
+  })();
 
   /* ---- Effects sub-tabs ---- */
   (() => {
