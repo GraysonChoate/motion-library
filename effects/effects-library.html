@@ -2033,14 +2033,23 @@ and read BLD 09 for what additionally opens up.</pre>
     }
   });
 
+  <i>// colour normaliser used by 17 and 18 — getComputedStyle returns oklch()/lch()</i>
+  <i>// literally when that&#x27;s how a colour was authored (KIT 01&#x27;s own recommended</i>
+  <i>// method), not converted to rgb(). Regex-matching for rgb numbers against an</i>
+  <i>// oklch string silently reads L/C/H as R/G/B, which is wrong in every case that</i>
+  <i>// matters here. A 1x1 canvas swatch resolves ANY valid CSS colour — rgb, hsl,</i>
+  <i>// oklch, lab, named — to real sRGB bytes, so that&#x27;s the only parser used below.</i>
+  const _sw = document.createElement(&#x27;canvas&#x27;); _sw.width = 1; _sw.height = 1;
+  const _swctx = _sw.getContext(&#x27;2d&#x27;, { willReadFrequently: true });
+  const toRGBA = c =&gt; { _swctx.clearRect(0,0,1,1); _swctx.fillStyle = c; _swctx.fillRect(0,0,1,1);
+    return _swctx.getImageData(0,0,1,1).data; };
+
   <i>// 17 · no pure black, no pure white — anywhere, on anything with real area or</i>
   <i>//      text. Canvas/SVG/img content and data-tone-ok are exempt.</i>
-  const isPure = v =&gt; { const m = v.match(/rgba?\(([\d.]+), ?([\d.]+), ?([\d.]+)(?:, ?([\d.]+))?\)/);
-    if (!m) return null;
-    const [, red, g, b, a] = m;
-    if (a !== undefined &amp;&amp; parseFloat(a) &lt; 1) return null;
-    if (+red===0 &amp;&amp; +g===0 &amp;&amp; +b===0) return &#x27;black&#x27;;
-    if (+red===255 &amp;&amp; +g===255 &amp;&amp; +b===255) return &#x27;white&#x27;;
+  const isPure = v =&gt; { const [red,g,b,a] = toRGBA(v);
+    if (a &lt; 255) return null;
+    if (red===0 &amp;&amp; g===0 &amp;&amp; b===0) return &#x27;black&#x27;;
+    if (red===255 &amp;&amp; g===255 &amp;&amp; b===255) return &#x27;white&#x27;;
     return null; };
   const toneExempt = e =&gt; e.hasAttribute(&#x27;data-tone-ok&#x27;) || e.closest(&#x27;[data-tone-ok]&#x27;)
     || e.tagName === &#x27;CANVAS&#x27; || e.tagName === &#x27;SVG&#x27; || e.tagName === &#x27;IMG&#x27; || e.closest(&#x27;svg&#x27;);
@@ -2060,9 +2069,8 @@ and read BLD 09 for what additionally opens up.</pre>
   <i>// 18 · WCAG contrast: 4.5:1 body text, 3:1 for 24px+/19px+bold. Walks up for</i>
   <i>//      the nearest opaque background. Mark data-contrast-ok to exempt (e.g. text</i>
   <i>//      over a busy photo where a scrim was already checked by eye).</i>
-  const relLum = rgb =&gt; {
-    const m = rgb.match(/[\d.]+/g).map(Number);
-    const [r,g,b] = m.slice(0,3).map(c =&gt; { c/=255; return c&lt;=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4); });
+  const relLum = rgba =&gt; {
+    const [r,g,b] = [...rgba].slice(0,3).map(c =&gt; { c/=255; return c&lt;=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4); });
     return 0.2126*r+0.7152*g+0.0722*b;
   };
   <i>// bgOf walks up for a real CSS background; falls back to white when none is set,</i>
@@ -2070,8 +2078,8 @@ and read BLD 09 for what additionally opens up.</pre>
   <i>// &lt;canvas&gt; (WebGL, grain, gradient loop) is what&#x27;s actually painted behind the</i>
   <i>// text instead. elementsFromPoint sees the real paint stack at the text&#x27;s own</i>
   <i>// centre, canvas included, so that case is caught precisely instead of guessed.</i>
-  const bgOf = e =&gt; { let n=e; while(n){ const c=cs(n).backgroundColor; const m=c.match(/[\d.]+/g);
-    if (m &amp;&amp; (m.length&lt;4 || parseFloat(m[3])&gt;0.5)) return c; n=n.parentElement; } return &#x27;rgb(255,255,255)&#x27;; };
+  const bgOf = e =&gt; { let n=e; while(n){ const rgba=toRGBA(cs(n).backgroundColor);
+    if (rgba[3] &gt; 128) return rgba; n=n.parentElement; } return new Uint8ClampedArray([255,255,255,255]); };
   $$(&#x27;p,span,a,li,h1,h2,h3,h4,h5,label,button,td,th&#x27;).forEach(e =&gt; {
     if (!e.innerText || !e.innerText.trim() || e.children.length) return;
     if (e.closest(&#x27;[data-contrast-ok]&#x27;)) return;
@@ -2083,7 +2091,7 @@ and read BLD 09 for what additionally opens up.</pre>
         return;
       }
     }
-    const fg = cs(e).color, bg = bgOf(e);
+    const fg = toRGBA(cs(e).color), bg = bgOf(e);
     const L1 = relLum(fg), L2 = relLum(bg);
     const ratio = (Math.max(L1,L2)+0.05) / (Math.min(L1,L2)+0.05);
     const fs = parseFloat(cs(e).fontSize), bold = parseInt(cs(e).fontWeight) &gt;= 700;
