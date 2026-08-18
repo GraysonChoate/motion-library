@@ -1031,6 +1031,47 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 .chip:focus-visible{outline:2px solid var(--slate); outline-offset:2px}
 .group[hidden]{display:none}
 
+/* ===== effect index — the human's fast path into the catalogue =====
+   Purely navigational. It reorders nothing and rewords nothing, so the AI reads
+   the same content it always did; it just gains a table of contents, which is
+   exactly the lookup BLD 02 step 6 asks for. */
+.efind{border:1px solid var(--edge-soft); border-left:2px solid var(--gold); border-radius:2px;
+  background:var(--soot); padding:18px 20px 8px; margin:0 0 34px}
+.efind-top{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:6px}
+.efind-top h4{margin:0; font-size:15px; color:var(--cream); font-weight:600; flex:0 0 auto}
+#ixq{flex:1 1 240px; min-width:180px; background:#101115; color:var(--ink);
+  border:1px solid var(--edge-soft); border-radius:2px; padding:8px 11px;
+  font-family:var(--mono); font-size:12px; transition:border-color .18s}
+#ixq:focus{outline:none; border-color:var(--gold)}
+.ixcount{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-faint); flex:0 0 auto}
+.ixnote{margin:0 0 14px; font-size:12.5px; color:var(--ink-faint); line-height:1.6}
+.ixgroup{margin:0 0 14px}
+.ixgroup[hidden]{display:none}
+.ixgroup h5{margin:0 0 8px; font-family:var(--mono); font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--tan); display:flex; align-items:center; gap:8px}
+.ixgroup h5 em{font-style:normal; color:var(--ink-faint); font-size:9.5px}
+.ixgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:6px}
+.ix{display:grid; grid-template-columns:auto 1fr; column-gap:9px; align-items:baseline;
+  padding:7px 9px; border:1px solid transparent; border-radius:2px; text-decoration:none;
+  transition:background .16s, border-color .16s}
+.ix[hidden]{display:none}
+.ix:hover{background:rgba(201,164,92,.07); border-color:var(--edge-soft)}
+.ix:focus-visible{outline:2px solid var(--gold); outline-offset:1px}
+.ix b{font-family:var(--mono); font-size:10.5px; color:var(--gold); letter-spacing:.05em}
+.ix span{font-size:13px; color:var(--ink-dim); line-height:1.35}
+.ix i{grid-column:2; font-style:normal; font-family:var(--mono); font-size:9.5px;
+  color:var(--ink-faint); letter-spacing:.06em}
+.ix:hover span{color:var(--cream)}
+.bench:target{box-shadow:0 0 0 1px var(--gold); border-radius:2px}
+.backtop{position:fixed; right:18px; bottom:64px; z-index:70; display:none;
+  font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  padding:9px 14px; border-radius:999px; border:1px solid var(--edge);
+  background:rgba(22,23,26,.94); color:var(--gold); text-decoration:none}
+.backtop.on{display:block}
+.backtop:hover{border-color:var(--gold)}
+@media (max-width:640px){ .ixgrid{grid-template-columns:1fr} }
+
 /* sequenced doc content (research / standards panels) */
 .doc{max-width:74ch}
 .doc h3{font-family:var(--serif); font-weight:400; font-size:clamp(21px,3vw,29px);
@@ -2745,6 +2786,24 @@ and read BLD 09 for what additionally opens up.</pre>
 </div><!-- /panel-build -->
 
 <div class="panel" id="panel-effects" role="tabpanel" aria-labelledby="tab-effects" hidden>
+<div class="efind" id="efind">
+  <div class="efind-top">
+    <h4>All 47 effects &mdash; jump straight to one</h4>
+    <input id="ixq" type="search" placeholder="Filter by ID, name or technique&hellip;  (press /)" aria-label="Filter effects">
+    <span class="ixcount" id="ixcount">47 shown</span>
+  </div>
+  <p class="ixnote">This is the catalogue <b>BLD 02 step 6</b> requires you to choose from. Pick by ID. Every entry links to its live demo and code below.</p>
+<div class="ixgroup" data-ixg="sys"><h5>SYS · architecture <em>5</em></h5><div class="ixgrid"><a class="ix" href="#e-SYS-01" data-ix="SYS-01 Native CSS scroll timelines browser-native, zero JS"><b>SYS-01</b><span>Native CSS scroll timelines</span><i>browser-native, zero JS</i></a><a class="ix" href="#e-SYS-02" data-ix="SYS-02 FLIP layout animation First, Last, Invert, Play"><b>SYS-02</b><span>FLIP layout animation</span><i>First, Last, Invert, Play</i></a><a class="ix" href="#e-SYS-03" data-ix="SYS-03 Spring physics vs easing velocity-aware motion"><b>SYS-03</b><span>Spring physics vs easing</span><i>velocity-aware motion</i></a><a class="ix" href="#e-SYS-04" data-ix="SYS-04 View Transitions browser-native morphing"><b>SYS-04</b><span>View Transitions</span><i>browser-native morphing</i></a><a class="ix" href="#e-SYS-05" data-ix="SYS-05 Speculation Rules prefetch and prerender on intent"><b>SYS-05</b><span>Speculation Rules</span><i>prefetch and prerender on intent</i></a></div></div>
+<div class="ixgroup" data-ixg="gl"><h5>GL · rendered <em>9</em></h5><div class="ixgrid"><a class="ix" href="#e-GL-01" data-ix="GL-01 Raymarched SDF field fragment shader, zero geometry"><b>GL-01</b><span>Raymarched SDF field</span><i>fragment shader, zero geometry</i></a><a class="ix" href="#e-GL-02" data-ix="GL-02 Dispersion glass index-of-refraction shader"><b>GL-02</b><span>Dispersion glass</span><i>index-of-refraction shader</i></a><a class="ix" href="#e-GL-03" data-ix="GL-03 Displacement transition two textures, one noise map"><b>GL-03</b><span>Displacement transition</span><i>two textures, one noise map</i></a><a class="ix" href="#e-GL-04" data-ix="GL-04 Fluid cursor ping-pong advection"><b>GL-04</b><span>Fluid cursor</span><i>ping-pong advection</i></a><a class="ix" href="#e-GL-05" data-ix="GL-05 GPGPU particles positions stored in a texture"><b>GL-05</b><span>GPGPU particles</span><i>positions stored in a texture</i></a><a class="ix" href="#e-GL-06" data-ix="GL-06 Post-processing stack render to texture, then treat it"><b>GL-06</b><span>Post-processing stack</span><i>render to texture, then treat it</i></a><a class="ix" href="#e-GL-07" data-ix="GL-07 Mesh distortion on scroll vertex displacement"><b>GL-07</b><span>Mesh distortion on scroll</span><i>vertex displacement</i></a><a class="ix" href="#e-GL-08" data-ix="GL-08 Domain-warped field noise sampled through noise"><b>GL-08</b><span>Domain-warped field</span><i>noise sampled through noise</i></a><a class="ix" href="#e-GL-09" data-ix="GL-09 Ordered dithering post-pass, any source"><b>GL-09</b><span>Ordered dithering</span><i>post-pass, any source</i></a></div></div>
+<div class="ixgroup" data-ixg="dep"><h5>DEP · depth <em>3</em></h5><div class="ixgrid"><a class="ix" href="#e-DEP-01" data-ix="DEP-01 Multi-plane parallax pointer + scroll parallax"><b>DEP-01</b><span>Multi-plane parallax</span><i>pointer + scroll parallax</i></a><a class="ix" href="#e-DEP-02" data-ix="DEP-02 Pointer-tilted panel pointer-driven 3D transform"><b>DEP-02</b><span>Pointer-tilted panel</span><i>pointer-driven 3D transform</i></a><a class="ix" href="#e-DEP-03" data-ix="DEP-03 Focus falloff carousel depth via blur, not position"><b>DEP-03</b><span>Focus falloff carousel</span><i>depth via blur, not position</i></a></div></div>
+<div class="ixgroup" data-ixg="rea"><h5>REA · reactivity <em>3</em></h5><div class="ixgrid"><a class="ix" href="#e-REA-01" data-ix="REA-01 Particle field with pointer wake canvas particle system"><b>REA-01</b><span>Particle field with pointer wake</span><i>canvas particle system</i></a><a class="ix" href="#e-REA-02" data-ix="REA-02 Velocity trail + magnetic control velocity-spawned trail + magnetism"><b>REA-02</b><span>Velocity trail + magnetic control</span><i>velocity-spawned trail + magnetism</i></a><a class="ix" href="#e-REA-03" data-ix="REA-03 Spotlight mask reveal by proximity"><b>REA-03</b><span>Spotlight mask</span><i>reveal by proximity</i></a></div></div>
+<div class="ixgroup" data-ixg="typ"><h5>TYP · typography <em>10</em></h5><div class="ixgrid"><a class="ix" href="#e-TYP-01" data-ix="TYP-01 Character blur-stagger split-text transition"><b>TYP-01</b><span>Character blur-stagger</span><i>split-text transition</i></a><a class="ix" href="#e-TYP-02" data-ix="TYP-02 Line mask reveal clip per line, not per character"><b>TYP-02</b><span>Line mask reveal</span><i>clip per line, not per character</i></a><a class="ix" href="#e-TYP-03" data-ix="TYP-03 Tracking open letter-spacing as the animation"><b>TYP-03</b><span>Tracking open</span><i>letter-spacing as the animation</i></a><a class="ix" href="#e-TYP-04" data-ix="TYP-04 Weight response variable-font principle"><b>TYP-04</b><span>Weight response</span><i>variable-font principle</i></a><a class="ix" href="#e-TYP-05" data-ix="TYP-05 Text scramble glyph resolve"><b>TYP-05</b><span>Text scramble</span><i>glyph resolve</i></a><a class="ix" href="#e-TYP-06" data-ix="TYP-06 Counter roll tabular digits"><b>TYP-06</b><span>Counter roll</span><i>tabular digits</i></a><a class="ix" href="#e-TYP-07" data-ix="TYP-07 Velocity skew &amp; settle scroll-velocity response"><b>TYP-07</b><span>Velocity skew &amp; settle</span><i>scroll-velocity response</i></a><a class="ix" href="#e-TYP-08" data-ix="TYP-08 Sticky set swap, opposing drift multi-stop scroll interpolation"><b>TYP-08</b><span>Sticky set swap, opposing drift</span><i>multi-stop scroll interpolation</i></a><a class="ix" href="#e-TYP-09" data-ix="TYP-09 Velocity marquee scroll-coupled"><b>TYP-09</b><span>Velocity marquee</span><i>scroll-coupled</i></a><a class="ix" href="#e-TYP-10" data-ix="TYP-10 Threshold dissolve canvas 2D, noise mask"><b>TYP-10</b><span>Threshold dissolve</span><i>canvas 2D, noise mask</i></a></div></div>
+<div class="ixgroup" data-ixg="rev"><h5>REV · reveal <em>5</em></h5><div class="ixgrid"><a class="ix" href="#e-REV-01" data-ix="REV-01 Gradient mask wipe animated mask-image"><b>REV-01</b><span>Gradient mask wipe</span><i>animated mask-image</i></a><a class="ix" href="#e-REV-02" data-ix="REV-02 Aperture open animated clip-path"><b>REV-02</b><span>Aperture open</span><i>animated clip-path</i></a><a class="ix" href="#e-REV-03" data-ix="REV-03 Proportional fill control proportional state control"><b>REV-03</b><span>Proportional fill control</span><i>proportional state control</i></a><a class="ix" href="#e-REV-04" data-ix="REV-04 Sticky stacking cards scroll-driven pile"><b>REV-04</b><span>Sticky stacking cards</span><i>scroll-driven pile</i></a><a class="ix" href="#e-REV-05" data-ix="REV-05 Progressive blur layered backdrop-filter"><b>REV-05</b><span>Progressive blur</span><i>layered backdrop-filter</i></a></div></div>
+<div class="ixgroup" data-ixg="plt"><h5>PLT · platform <em>6</em></h5><div class="ixgrid"><a class="ix" href="#e-PLT-01" data-ix="PLT-01 Animating height to auto interpolate-size"><b>PLT-01</b><span>Animating height to auto</span><i>interpolate-size</i></a><a class="ix" href="#e-PLT-02" data-ix="PLT-02 Entry animations @starting-style"><b>PLT-02</b><span>Entry animations</span><i>@starting-style</i></a><a class="ix" href="#e-PLT-03" data-ix="PLT-03 Native tooltips and menus Popover API + anchor positioning"><b>PLT-03</b><span>Native tooltips and menus</span><i>Popover API + anchor positioning</i></a><a class="ix" href="#e-PLT-04" data-ix="PLT-04 Animatable gradients @property"><b>PLT-04</b><span>Animatable gradients</span><i>@property</i></a><a class="ix" href="#e-PLT-05" data-ix="PLT-05 Component-level responsive container queries"><b>PLT-05</b><span>Component-level responsive</span><i>container queries</i></a><a class="ix" href="#e-PLT-06" data-ix="PLT-06 Carousels that know where they are scroll-snap events"><b>PLT-06</b><span>Carousels that know where they are</span><i>scroll-snap events</i></a></div></div>
+<div class="ixgroup" data-ixg="amb"><h5>AMB · ambient <em>6</em></h5><div class="ixgrid"><a class="ix" href="#e-AMB-01" data-ix="AMB-01 Animated film grain canvas noise, throttled"><b>AMB-01</b><span>Animated film grain</span><i>canvas noise, throttled</i></a><a class="ix" href="#e-AMB-02" data-ix="AMB-02 Aurora drift blurred blobs, pure CSS"><b>AMB-02</b><span>Aurora drift</span><i>blurred blobs, pure CSS</i></a><a class="ix" href="#e-AMB-03" data-ix="AMB-03 Dust motes with depth three parallax layers"><b>AMB-03</b><span>Dust motes with depth</span><i>three parallax layers</i></a><a class="ix" href="#e-AMB-04" data-ix="AMB-04 Breathing on idle idle detection + micro-motion"><b>AMB-04</b><span>Breathing on idle</span><i>idle detection + micro-motion</i></a><a class="ix" href="#e-AMB-05" data-ix="AMB-05 Caustics low-res canvas, upscaled"><b>AMB-05</b><span>Caustics</span><i>low-res canvas, upscaled</i></a><a class="ix" href="#e-AMB-06" data-ix="AMB-06 Colour temperature drift scroll-mapped white balance"><b>AMB-06</b><span>Colour temperature drift</span><i>scroll-mapped white balance</i></a></div></div>
+  <p class="ixnote" id="ixempty" hidden>Nothing matches that.</p>
+</div>
+
   <div class="panel-intro">
     <p class="role">The fixtures</p>
     <h2>Working parts, already debugged</h2>
@@ -3065,7 +3124,7 @@ and read BLD 09 for what additionally opens up.</pre>
   </div>
 
 
-  <div class="bench">
+  <div class="bench" id="e-SYS-01">
     <div class="stage" data-demo="scrolltimeline">
       <div class="rangewrap">
         <div class="rangerow"><span>entry 0% → entry 100%</span><i class="rbar"><b class="r-entry"></b></i></div>
@@ -3121,7 +3180,7 @@ body   { overflow-x: <b>clip</b>; }   <i>/* NOT hidden. Per spec, overflow-x:hid
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-SYS-02">
     <div class="stage" data-demo="flip">
       <div class="flipwrap">
         <div class="flipgrid" id="flipGrid"></div>
@@ -3166,7 +3225,7 @@ requestAnimationFrame(() => {
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-SYS-03">
     <div class="stage" data-demo="spring">
       <div class="springwrap">
         <div class="springlane"><span>Easing · fixed duration</span><i class="springdot b" id="dotEase"></i></div>
@@ -3200,7 +3259,7 @@ function frame(){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-SYS-04">
     <div class="stage" data-demo="sys-vt">
       <div class="vtwrap" id="vtWrap"></div>
       <p class="hint">Click a cell — it morphs, then click again</p></div>
@@ -3233,7 +3292,7 @@ document.<b>startViewTransition</b>(() =&gt; {
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-SYS-05">
     <div class="stage" data-demo="sys-spec">
       <div class="specwrap">
         <div class="speclist">
@@ -3295,7 +3354,7 @@ document.<b>startViewTransition</b>(() =&gt; {
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-GL-01">
     <div class="stage" data-demo="gl-raymarch">
       <canvas class="glcanvas" data-shader="raymarch"></canvas>
       <span class="gltag">WebGL2 · raw</span>
@@ -3337,7 +3396,7 @@ vec3 normal(vec3 p){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-GL-02">
     <div class="stage" data-demo="gl-glass">
       <canvas class="glcanvas" data-shader="glass"></canvas>
       <span class="gltag">WebGL2 · raw</span>
@@ -3368,7 +3427,7 @@ col = mix(col, reflection, f * 0.9);
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-GL-03">
     <div class="stage" data-demo="gl-transition">
       <canvas class="glcanvas" data-shader="transition"></canvas>
       <span class="gltag">WebGL2 · raw</span>
@@ -3399,7 +3458,7 @@ outColor = mix(a, b, m);
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-GL-04">
     <div class="stage" data-demo="gl-fluid">
       <canvas class="glcanvas" data-shader="fluid"></canvas>
       <span class="gltag">WebGL2 · ping-pong FBO</span>
@@ -3435,7 +3494,7 @@ outColor = texture(uSrc, back) * uDissipation;
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-GL-05">
     <div class="stage" data-demo="gl-gpgpu">
       <canvas class="glcanvas" data-gpgpu="1"></canvas>
       <span class="gltag" id="gpgpuTag">WebGL2 · GPGPU</span>
@@ -3470,7 +3529,7 @@ gl_PointSize = 2.0 + length(s.zw) * 40.0;
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-GL-06">
     <div class="stage" data-demo="gl-post">
       <canvas class="glcanvas" data-post="1"></canvas>
       <span class="gltag">WebGL2 · multi-pass</span>
@@ -3510,7 +3569,7 @@ col += (hash(uv*uTime) - 0.5) * 0.035;
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-GL-07">
     <div class="stage" data-demo="gl-mesh">
       <canvas class="glcanvas" data-mesh="1"></canvas>
       <span class="gltag">WebGL2 · 40×40 grid</span>
@@ -3543,7 +3602,7 @@ gl_Position = uProj * vec4(pos, 1.0);
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-GL-08">
     <div class="stage" data-demo="gl-warp">
       <canvas class="glcanvas" data-warp="1"></canvas>
       <span class="gltag">WebGL2 · domain-warped fbm</span>
@@ -3574,7 +3633,7 @@ float pattern(vec2 p){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-GL-09">
     <div class="stage" data-demo="gl-dither">
       <canvas class="glcanvas" data-dither="1"></canvas>
       <span class="gltag">WebGL2 · 8×8 Bayer, 4 tones</span>
@@ -3635,7 +3694,7 @@ vec3  out_  = palette(step_);                <i>// their inks, not greys</i>
 
 
   <!-- DEP-01 -->
-  <div class="bench">
+  <div class="bench" id="e-DEP-01">
     <div class="stage" data-demo="parallax">
       <div class="plane p-wall"    data-depth="0.05" data-label="Far wall"></div>
       <div class="plane p-arch"    data-depth="0.20" data-label="Lit aperture"></div>
@@ -3697,7 +3756,7 @@ function frame(){
   </div>
 
   <!-- DEP-02 -->
-  <div class="bench">
+  <div class="bench" id="e-DEP-02">
     <div class="stage" data-demo="tilt">
       <div class="plane plate-sky" style="opacity:.8"></div>
       <div class="tiltwrap">
@@ -3750,7 +3809,7 @@ function frame(){
   </div>
 
   <!-- DEP-03 -->
-  <div class="bench">
+  <div class="bench" id="e-DEP-03">
     <div class="stage" data-demo="dof">
       <div class="plane plate-sky" style="opacity:.7"></div>
       <div class="dofset">
@@ -3820,7 +3879,7 @@ function frame(){
 
 
   <!-- REA-01 -->
-  <div class="bench">
+  <div class="bench" id="e-REA-01">
     <div class="stage" data-demo="embers">
       <canvas class="fill" id="emberCanvas"></canvas>
       <p class="hint">Sweep cursor through the field</p>
@@ -3879,7 +3938,7 @@ function frame(){
   </div>
 
   <!-- REA-02 -->
-  <div class="bench">
+  <div class="bench" id="e-REA-02">
     <div class="stage" data-demo="trail">
       <div class="plane plate-sky" style="opacity:.55"></div>
       <canvas class="fill" id="trailCanvas"></canvas>
@@ -3935,7 +3994,7 @@ btn.style.transform = `translate(${dx*pull*.28}px, ${dy*pull*.28}px)`;
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-REA-03">
     <div class="stage" data-demo="spotlight">
       <div class="spotwrap">
         <div class="spotbase">Most of what a small business already owns is sitting on a page nobody links to.</div>
@@ -3981,7 +4040,7 @@ if (isTouch || reducedMotion) lit.style.maskImage = 'none';
 
 
   <!-- TYP-01 -->
-  <div class="bench">
+  <div class="bench" id="e-TYP-01">
     <div class="stage" data-demo="stagger">
       <div class="typestage">
         <p class="eyebrow">Split-text reveal</p>
@@ -4035,7 +4094,7 @@ function reveal(chars, show){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-TYP-02">
     <div class="stage" data-demo="linemask">
       <div class="typestage">
         <p class="eyebrow">Line mask reveal</p>
@@ -4069,7 +4128,7 @@ lines.forEach((inner, i) => {
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-TYP-03">
     <div class="stage" data-demo="tracking">
       <div class="typestage">
         <p class="eyebrow">Tracking open</p>
@@ -4097,7 +4156,7 @@ el.style.opacity       = show ? '1' : '0';
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-TYP-04">
     <div class="stage" data-demo="weight">
       <div class="typestage">
         <p class="eyebrow">Weight response · pointer distance</p>
@@ -4130,7 +4189,7 @@ chars.forEach(c => {
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-TYP-05">
     <div class="stage" data-demo="scramble">
       <div class="typestage">
         <p class="eyebrow">Text scramble</p>
@@ -4169,7 +4228,7 @@ function scramble(el, text, ms = 1400){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-TYP-06">
     <div class="stage" data-demo="counter">
       <div class="typestage">
         <p class="eyebrow">Counter roll</p>
@@ -4204,7 +4263,7 @@ function setValue(n){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-TYP-07">
     <div class="stage" data-demo="skew">
       <div class="typestage">
         <p class="eyebrow">Scroll-velocity response</p>
@@ -4270,7 +4329,7 @@ function frame(){
 </pre></details>
     </div>
   </div>
-<div class="bench">
+<div class="bench" id="e-TYP-08">
     <div class="stage" data-demo="swap">
       <div class="swapstage">
         <div class="swapset" data-set="0">
@@ -4333,7 +4392,7 @@ sets.forEach((set, i) => {
 </pre></details>
     </div>
   </div>
-<div class="bench">
+<div class="bench" id="e-TYP-09">
     <div class="stage" data-demo="marquee">
       <div class="mqwrap">
         <div class="mqrow" id="mqA"></div>
@@ -4364,7 +4423,7 @@ function frame(){
   </div>
 
 
-  <div class="bench">
+  <div class="bench" id="e-TYP-10">
     <div class="stage" data-demo="typ-dissolve">
       <canvas class="dscanvas"></canvas>
       <p class="hint">Move across the line — it dissolves where you are</p></div>
@@ -4417,7 +4476,7 @@ ctx.putImageData(img, 0, 0);
 
 
   <!-- REV-01 -->
-  <div class="bench">
+  <div class="bench" id="e-REV-01">
     <div class="stage" data-demo="wipe">
       <div class="plane plate-sky" style="opacity:.6"></div>
       <div class="wipegrid" id="wipeGrid">
@@ -4458,7 +4517,7 @@ grid.style.webkitMaskImage = mask;               <i>// Safari still wants the pr
   </div>
 
   <!-- REV-02 -->
-  <div class="bench">
+  <div class="bench" id="e-REV-02">
     <div class="stage" data-demo="clip">
       <div class="clipwrap" id="clipWrap">
         <div class="plane plate-sky"></div>
@@ -4506,7 +4565,7 @@ wrap.style.clipPath = `inset(${inset}% ${inset}% round 3px)`;
   </div>
 
   <!-- REV-03 -->
-  <div class="bench">
+  <div class="bench" id="e-REV-03">
     <div class="stage" data-demo="ratio">
       <div class="ratiostage">
         <div class="cup">
@@ -4565,7 +4624,7 @@ buttons.forEach(b => b.addEventListener('click', () => {
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-REV-04">
     <div class="stage" data-demo="stack">
       <div class="stackwrap">
         <div class="stackcard"><h6>Measure</h6><p>Hex frequency in their HTML ranks brand importance. The most-repeated colour is the brand colour.</p></div>
@@ -4597,7 +4656,7 @@ cards.forEach((c, i) => {
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-REV-05">
     <div class="stage" data-demo="pblur">
       <div class="pbwrap">
         <div class="plane p-wall" style="opacity:.9"></div>
@@ -4651,7 +4710,7 @@ cards.forEach((c, i) => {
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-PLT-01">
     <div class="stage" data-demo="plt-size">
       <div class="pltwrap">
         <details class="acc" open><summary>Open — animates to auto</summary><div class="body">No scrollHeight measurement, no max-height guess, no JavaScript. The panel eases to whatever height its content needs, and it eases back.</div></details>
@@ -4684,7 +4743,7 @@ details:not([open]) { height: 2.75rem; }   <i>/* collapsed = header only */</i>
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-PLT-02">
     <div class="stage" data-demo="plt-start">
       <div class="pltwrap">
         <div class="chipbox" id="chipBox"></div>
@@ -4719,7 +4778,7 @@ details:not([open]) { height: 2.75rem; }   <i>/* collapsed = header only */</i>
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-PLT-03">
     <div class="stage" data-demo="plt-pop">
       <div class="pltwrap">
         <button class="tbtn popbtn" popovertarget="popcard1">Open popover</button>
@@ -4754,7 +4813,7 @@ button { <b>anchor-name: --src;</b> }
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-PLT-04">
     <div class="stage" data-demo="plt-prop">
       <div class="pltwrap">
         <div class="gradbox"></div>
@@ -4792,7 +4851,7 @@ button { <b>anchor-name: --src;</b> }
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-PLT-05">
     <div class="stage" data-demo="plt-cq">
       <div class="pltwrap">
         <div class="cqhost" style="width:56%">
@@ -4826,7 +4885,7 @@ button { <b>anchor-name: --src;</b> }
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-PLT-06">
     <div class="stage" data-demo="plt-snap">
       <div class="pltwrap">
         <div class="snapstrip" id="snapStrip"></div>
@@ -4877,7 +4936,7 @@ strip.addEventListener('<b>scrollsnapchanging</b>', e => {
   </div>
 
 
-  <div class="bench">
+  <div class="bench" id="e-AMB-01">
     <div class="stage" data-demo="grain">
       <div class="grainstage"></div>
       <canvas class="fill" id="grainDemo" style="opacity:.09;mix-blend-mode:overlay"></canvas>
@@ -4914,7 +4973,7 @@ function frame(now){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-AMB-02">
     <div class="stage" data-demo="amb-aurora">
       <div class="aurora" id="auroraBox"></div>
       <div class="ambcap">Life without content</div>
@@ -4943,7 +5002,7 @@ function frame(now){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-AMB-03">
     <div class="stage" data-demo="amb-dust">
       <canvas class="fill" id="dustCv"></canvas>
       <div class="ambcap">Air, not vacuum</div>
@@ -4977,7 +5036,7 @@ for (const L of LAYERS){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-AMB-04">
     <div class="stage" data-demo="amb-breathe">
       <div class="breathe">
         <div class="breathecard" id="breatheCard"><h6>Still while you work</h6><p>Stop moving for a few seconds and this begins to breathe. Move the cursor and it stops immediately.</p></div>
@@ -5011,7 +5070,7 @@ function frame(now){
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-AMB-05">
     <div class="stage" data-demo="amb-caustic">
       <div class="plane p-wall" style="opacity:.85"></div>
       <canvas class="causticcv" id="causticCv"></canvas>
@@ -5044,7 +5103,7 @@ canvas { filter: blur(<b>9px</b>) contrast(1.5); mix-blend-mode: screen; opacity
     </div>
   </div>
 
-  <div class="bench">
+  <div class="bench" id="e-AMB-06">
     <div class="stage" data-demo="amb-temp">
       <div class="plane p-wall" style="opacity:.9"></div>
       <div class="tempbar" id="tempBar"></div>
@@ -8980,11 +9039,61 @@ qa('[data-demo="typ-dissolve"]').forEach(stage => {
   if (h && document.getElementById(h)) show(h);
 
   const chips = qa('.chip'), groups = qa('.group');
+  const ixgroups = qa('.ixgroup');
   chips.forEach(c => c.addEventListener('click', () => {
     const g = c.dataset.g;
     chips.forEach(o => o.setAttribute('aria-pressed', String(o===c)));
     groups.forEach(gr => { gr.hidden = !(g==='all' || gr.dataset.g===g); });
+    /* keep the index in step with the chip filter so the two never disagree */
+    ixgroups.forEach(gr => { gr.hidden = !(g==='all' || gr.dataset.ixg===g); });
   }));
+
+  /* ---- effect index: live filter, keyboard jump, back-to-index ---- */
+  (() => {
+    const q = document.getElementById('ixq');
+    if (!q) return;
+    const items = qa('.ix'), count = document.getElementById('ixcount');
+    const empty = document.getElementById('ixempty');
+    const apply = () => {
+      const v = q.value.trim().toLowerCase();
+      let shown = 0;
+      items.forEach(a => {
+        const hit = !v || a.dataset.ix.toLowerCase().includes(v);
+        a.hidden = !hit; if (hit) shown++;
+      });
+      qa('.ixgroup').forEach(g => {
+        const any = [...g.querySelectorAll('.ix')].some(a => !a.hidden);
+        g.hidden = !any;
+      });
+      count.textContent = shown + (shown === 1 ? ' shown' : ' shown');
+      empty.hidden = shown > 0;
+    };
+    q.addEventListener('input', apply);
+    /* Enter jumps to the first match — type "gl-08", hit Enter, you are there */
+    q.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { q.value = ''; apply(); q.blur(); }
+      if (e.key !== 'Enter') return;
+      const first = items.find(a => !a.hidden);
+      if (first) { first.click(); q.blur(); }
+    });
+    /* "/" focuses the filter from anywhere in the document */
+    addEventListener('keydown', e => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target.tagName;
+      if (t === 'INPUT' || t === 'TEXTAREA') return;
+      const panel = document.getElementById('panel-effects');
+      if (panel && panel.hidden) document.getElementById('tab-effects').click();
+      e.preventDefault(); q.focus(); q.select();
+    });
+
+    const back = document.createElement('a');
+    back.className = 'backtop'; back.href = '#efind'; back.textContent = '\u2191 index';
+    document.body.appendChild(back);
+    addEventListener('scroll', () => {
+      const panel = document.getElementById('panel-effects');
+      back.classList.toggle('on', !!panel && !panel.hidden && scrollY > 900);
+    }, {passive:true});
+  })();
 })();
 
 /* ================= one loop ================= */
