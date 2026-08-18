@@ -995,7 +995,8 @@ footer b{color:var(--ink-dim); font-weight:500}
       <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">The load
       sequence is the only choreography every visitor sees. It runs on a timer, not on scroll —
       <b style="color:var(--cream)">nothing above the fold may wait for a scroll event</b>, because a
-      hero element that fades in on scroll is invisible to the 40% who never scroll.</p>
+      hero element that waits on a scroll event never appears at all for anyone who reads the
+      hero and leaves.</p>
       <table class="lentable">
         <tr><th>At</th><th>Element</th><th>From</th><th>Duration</th></tr>
         <tr><td class="w">0ms</td><td>Hero media / background</td><td>opacity 0 → 1, scale 1.04 → 1</td><td class="w">900ms</td></tr>
