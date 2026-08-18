@@ -1031,6 +1031,24 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 .chip:focus-visible{outline:2px solid var(--slate); outline-offset:2px}
 .group[hidden]{display:none}
 
+/* ===== Effects sub-tabs — the library has to be the obvious first thing =====
+   A human opening Effects wants the catalogue, not doctrine. The AI reads the
+   whole source either way, so hiding a sub-panel costs it nothing. */
+.subtabs{display:flex; gap:10px; flex-wrap:wrap; margin:0 0 26px}
+.subtab{appearance:none; cursor:pointer; text-align:left; flex:1 1 260px;
+  padding:14px 18px; border-radius:2px; background:var(--soot);
+  border:1px solid var(--edge-soft); border-left:2px solid var(--edge);
+  transition:border-color .18s, background .18s}
+.subtab b{display:block; font-size:15.5px; color:var(--ink-dim); font-weight:600; letter-spacing:-.01em}
+.subtab span{display:block; margin-top:3px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint)}
+.subtab:hover{border-color:var(--edge); background:rgba(201,164,92,.04)}
+.subtab:hover b{color:var(--cream)}
+.subtab[aria-selected="true"]{border-left-color:var(--gold); background:rgba(201,164,92,.07)}
+.subtab[aria-selected="true"] b{color:var(--gold)}
+.subtab:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+.subpanel[hidden]{display:none}
+
 /* ================= IMG group demos ================= */
 .plateA,.plateB{position:absolute; inset:-14%; background-size:cover; background-position:center;
   pointer-events:none; will-change:transform}
@@ -2883,13 +2901,22 @@ and read BLD 09 for what additionally opens up.</pre>
 </div><!-- /panel-build -->
 
 <div class="panel" id="panel-effects" role="tabpanel" aria-labelledby="tab-effects" hidden>
+<div class="subtabs" role="tablist" aria-label="Effects sections">
+  <button class="subtab" role="tab" id="st-library" aria-controls="sub-library" aria-selected="true">
+    <b>The library</b><span>53 effects &middot; live demos &middot; code</span></button>
+  <button class="subtab" role="tab" id="st-doctrine" aria-controls="sub-doctrine" aria-selected="false">
+    <b>Choosing &amp; choreography</b><span>which effect, how many, how to layer</span></button>
+</div>
+
+<div class="subpanel" id="sub-library" role="tabpanel" aria-labelledby="st-library">
+
 <div class="efind" id="efind">
   <div class="efind-top">
     <h4>All 53 effects &mdash; jump straight to one</h4>
     <input id="ixq" type="search" placeholder="Filter by ID, name or technique&hellip;  (press /)" aria-label="Filter effects">
     <span class="ixcount" id="ixcount">53 shown</span>
   </div>
-  <p class="ixnote">This is the catalogue <b>BLD 02 step 6</b> requires you to choose from. Pick by ID. Every entry links to its live demo and code below.</p>
+  <p class="ixnote">This is the catalogue <b>BLD 02 step 6</b> requires you to choose from. Pick by ID. Every entry links to its live demo and code below. <b style="color:var(--tan)">Not sure which to pick?</b> The <a href="#sub-doctrine" id="toDoctrine" style="color:var(--gold)">Choosing &amp; choreography</a> tab has the register&rarr;effect map, how many to use, and how to layer them.</p>
 <div class="ixgroup" data-ixg="sys"><h5>SYS · architecture <em>5</em></h5><div class="ixgrid"><a class="ix" href="#e-SYS-01" data-ix="SYS-01 Native CSS scroll timelines browser-native, zero JS"><b>SYS-01</b><span>Native CSS scroll timelines</span><i>browser-native, zero JS</i></a><a class="ix" href="#e-SYS-02" data-ix="SYS-02 FLIP layout animation First, Last, Invert, Play"><b>SYS-02</b><span>FLIP layout animation</span><i>First, Last, Invert, Play</i></a><a class="ix" href="#e-SYS-03" data-ix="SYS-03 Spring physics vs easing velocity-aware motion"><b>SYS-03</b><span>Spring physics vs easing</span><i>velocity-aware motion</i></a><a class="ix" href="#e-SYS-04" data-ix="SYS-04 View Transitions browser-native morphing"><b>SYS-04</b><span>View Transitions</span><i>browser-native morphing</i></a><a class="ix" href="#e-SYS-05" data-ix="SYS-05 Speculation Rules prefetch and prerender on intent"><b>SYS-05</b><span>Speculation Rules</span><i>prefetch and prerender on intent</i></a></div></div>
 <div class="ixgroup" data-ixg="gl"><h5>GL · rendered <em>9</em></h5><div class="ixgrid"><a class="ix" href="#e-GL-01" data-ix="GL-01 Raymarched SDF field fragment shader, zero geometry"><b>GL-01</b><span>Raymarched SDF field</span><i>fragment shader, zero geometry</i></a><a class="ix" href="#e-GL-02" data-ix="GL-02 Dispersion glass index-of-refraction shader"><b>GL-02</b><span>Dispersion glass</span><i>index-of-refraction shader</i></a><a class="ix" href="#e-GL-03" data-ix="GL-03 Displacement transition two textures, one noise map"><b>GL-03</b><span>Displacement transition</span><i>two textures, one noise map</i></a><a class="ix" href="#e-GL-04" data-ix="GL-04 Fluid cursor ping-pong advection"><b>GL-04</b><span>Fluid cursor</span><i>ping-pong advection</i></a><a class="ix" href="#e-GL-05" data-ix="GL-05 GPGPU particles positions stored in a texture"><b>GL-05</b><span>GPGPU particles</span><i>positions stored in a texture</i></a><a class="ix" href="#e-GL-06" data-ix="GL-06 Post-processing stack render to texture, then treat it"><b>GL-06</b><span>Post-processing stack</span><i>render to texture, then treat it</i></a><a class="ix" href="#e-GL-07" data-ix="GL-07 Mesh distortion on scroll vertex displacement"><b>GL-07</b><span>Mesh distortion on scroll</span><i>vertex displacement</i></a><a class="ix" href="#e-GL-08" data-ix="GL-08 Domain-warped field noise sampled through noise"><b>GL-08</b><span>Domain-warped field</span><i>noise sampled through noise</i></a><a class="ix" href="#e-GL-09" data-ix="GL-09 Ordered dithering post-pass, any source"><b>GL-09</b><span>Ordered dithering</span><i>post-pass, any source</i></a></div></div>
 <div class="ixgroup" data-ixg="img"><h5>IMG · imagery <em>6</em></h5><div class="ixgrid"><a class="ix" href="#e-IMG-01" data-ix="IMG-01 Feathered plate radial mask + blend mode"><b>IMG-01</b><span>Feathered plate</span><i>radial mask + blend mode</i></a><a class="ix" href="#e-IMG-02" data-ix="IMG-02 Shaped frame border-radius as composition"><b>IMG-02</b><span>Shaped frame</span><i>border-radius as composition</i></a><a class="ix" href="#e-IMG-03" data-ix="IMG-03 Duotone release two blend layers, dropped on hover"><b>IMG-03</b><span>Duotone release</span><i>two blend layers, dropped on hover</i></a><a class="ix" href="#e-IMG-04" data-ix="IMG-04 Chromatic split channel offset by pointer velocity"><b>IMG-04</b><span>Chromatic split</span><i>channel offset by pointer velocity</i></a><a class="ix" href="#e-IMG-05" data-ix="IMG-05 Type-masked image background-clip: text"><b>IMG-05</b><span>Type-masked image</span><i>background-clip: text</i></a><a class="ix" href="#e-IMG-06" data-ix="IMG-06 Pointer image trail distance-gated image queue"><b>IMG-06</b><span>Pointer image trail</span><i>distance-gated image queue</i></a></div></div>
@@ -2901,396 +2928,7 @@ and read BLD 09 for what additionally opens up.</pre>
 <div class="ixgroup" data-ixg="amb"><h5>AMB · ambient <em>6</em></h5><div class="ixgrid"><a class="ix" href="#e-AMB-01" data-ix="AMB-01 Animated film grain canvas noise, throttled"><b>AMB-01</b><span>Animated film grain</span><i>canvas noise, throttled</i></a><a class="ix" href="#e-AMB-02" data-ix="AMB-02 Aurora drift blurred blobs, pure CSS"><b>AMB-02</b><span>Aurora drift</span><i>blurred blobs, pure CSS</i></a><a class="ix" href="#e-AMB-03" data-ix="AMB-03 Dust motes with depth three parallax layers"><b>AMB-03</b><span>Dust motes with depth</span><i>three parallax layers</i></a><a class="ix" href="#e-AMB-04" data-ix="AMB-04 Breathing on idle idle detection + micro-motion"><b>AMB-04</b><span>Breathing on idle</span><i>idle detection + micro-motion</i></a><a class="ix" href="#e-AMB-05" data-ix="AMB-05 Caustics low-res canvas, upscaled"><b>AMB-05</b><span>Caustics</span><i>low-res canvas, upscaled</i></a><a class="ix" href="#e-AMB-06" data-ix="AMB-06 Colour temperature drift scroll-mapped white balance"><b>AMB-06</b><span>Colour temperature drift</span><i>scroll-mapped white balance</i></a></div></div>
   <p class="ixnote" id="ixempty" hidden>Nothing matches that.</p>
 </div>
-
-<div class="fcard" style="border-left-color:var(--ember)" id="pickmap">
-  <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">PICK</span><h4>Register &rarr; candidate effects &mdash; stop choosing motion from memory</h4></div>
-  <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
-  <b style="color:var(--cream)">Register decides treatment, so Register decides the shortlist.</b>
-  Find your row, take the signature from that row, then one or two supporting, one ambient and one
-  pointer. <b>These are candidates, not commands</b> &mdash; the signature must still trace to a fact
-  about this business (BLD 02 step 6). What this table removes is the blank page, which is where the
-  fade-up default creeps in.</p>
-  <table class="lentable">
-    <tr><th>Register</th><th>Signature &mdash; pick 1, layer it</th><th>Supporting &mdash; pick 2</th><th>Ambient</th><th>Pointer</th></tr>
-    <tr><td><b style="color:var(--cream)">Raw</b></td><td>REA-02 velocity trail &middot; TYP-07 velocity skew &middot; GL-09 dithering</td><td>REV-02 aperture &middot; TYP-09 velocity marquee</td><td>AMB-01 film grain</td><td>REA-02 magnetic</td></tr>
-    <tr><td><b style="color:var(--cream)">Calm</b></td><td>TYP-02 line mask &middot; REV-01 gradient wipe &middot; GL-08 domain warp</td><td>DEP-01 parallax &middot; TYP-03 tracking open</td><td>AMB-02 aurora drift</td><td>REA-03 spotlight</td></tr>
-    <tr><td><b style="color:var(--cream)">Clinical</b></td><td>REV-02 aperture &middot; SYS-04 view transitions &middot; TYP-06 counter roll</td><td>SYS-01 scroll timelines &middot; PLT-05 container queries</td><td>&mdash; <i>none; grain reads as dirt here</i></td><td>DEP-02 pointer tilt <i>(restrained)</i></td></tr>
-    <tr><td><b style="color:var(--cream)">Craft</b></td><td>TYP-10 threshold dissolve &middot; REV-01 gradient wipe &middot; GL-08 domain warp</td><td>DEP-01 parallax &middot; TYP-02 line mask</td><td>AMB-01 grain &middot; AMB-06 temperature drift</td><td>REA-03 spotlight</td></tr>
-    <tr><td><b style="color:var(--cream)">Luxury</b></td><td>GL-02 dispersion glass &middot; TYP-03 tracking open &middot; REV-05 progressive blur</td><td>DEP-03 focus falloff &middot; TYP-01 character stagger</td><td>AMB-05 caustics &middot; AMB-02 aurora</td><td>GL-04 fluid cursor <i>(low amplitude)</i></td></tr>
-    <tr><td><b style="color:var(--cream)">Community</b></td><td>REA-01 particle field &middot; TYP-01 character stagger &middot; REV-04 stacking cards</td><td>DEP-01 parallax &middot; TYP-09 marquee</td><td>AMB-03 dust motes</td><td>REA-01 pointer wake</td></tr>
-  </table>
-  <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
-  <b style="color:var(--tan)">Pattern adjusts the emphasis, not the shortlist ·</b>
-  <b>A</b> book a slot and <b>E</b> retain a professional lean calmer &mdash; drop one amplitude notch and
-  keep motion away from the booking control. <b>B</b> come and consume and <b>G</b> attend an occasion
-  can carry the most atmosphere. <b>C</b> join and <b>H</b> enrol want REV-03 proportional fill or
-  TYP-06 counter roll somewhere, because progress is the thing being sold.
-  <b>D</b> hire for a job and <b>F</b> buy a product want DEP-01 or DEP-03 on the proof &mdash; the work,
-  or the product.</p>
-  <div class="warnbox"><b>Universal, every register ·</b> SYS-01/02/03 and PLT-01&ndash;06 are
-  infrastructure, not flavour &mdash; they never count against the budget and never appear in the
-  shortlist above. Use them freely wherever they fit.</div>
-</div>
-
-<div class="fcard" style="border-left-color:var(--teal)" id="porting">
-  <div class="fcard-top"><span class="code" style="color:var(--teal);border-color:rgba(94,138,126,.4)">PORT</span><h4>How to lift a demo into a client build &mdash; the part that was missing</h4></div>
-  <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
-  Every code block below is an <b>excerpt from a demo on this page</b>, wired to this document's own
-  classes, tokens and dark theme. <b style="color:var(--cream)">That friction is why effects go
-  unused:</b> under time pressure a model that has to reverse-engineer a fragment writes its own
-  simpler thing instead &mdash; and its own simpler thing is a fade-up. Porting is four mechanical
-  substitutions. Do them, don't improvise.</p>
-  <table class="lentable">
-    <tr><th>In the demo</th><th>In a client build</th></tr>
-    <tr><td>Document tokens &mdash; <code>var(--gold)</code>, <code>var(--char)</code>, <code>var(--ink-dim)</code></td><td><b>The measured client ramp</b> from KIT 01. Never carry a document colour into a build.</td></tr>
-    <tr><td>Demo classes &mdash; <code>.bench</code>, <code>.stage</code>, <code>.rail</code>, <code>.fill</code></td><td>Your own semantic classes. The demo shell is scaffolding for the page you are reading, not structure.</td></tr>
-    <tr><td>Its own <code>requestAnimationFrame</code> loop</td><td><b>Register into the ONE shared loop.</b> A second loop is the most common performance defect in these builds.</td></tr>
-    <tr><td>Always-on, full amplitude</td><td><b>IntersectionObserver-gated</b>, amplitude per the CHO 00 coverage table, and it must not re-trigger on scroll back up.</td></tr>
-  </table>
-  <p style="margin:14px 0 0;font-size:14px;color:var(--ink-dim);line-height:1.65">
-  <b style="color:var(--tan)">Paste this scaffold first, then hang effects off it.</b> It is the same
-  in every build, it satisfies the shared-loop and reduced-motion rules by construction, and it is
-  what checks 22&ndash;26 are measuring.</p>
-  <pre><code><i>/* ---- the scaffold every Phase 1 build starts from ---- */</i>
-:root{
-  --e:cubic-bezier(.16,1,.3,1);          <i>/* ONE easing family        */</i>
-  --d1:1s; --d2:.7s; --d3:.45s; --micro:.2s;  <i>/* ONE duration scale  */</i>
-  --rvd:0ms;                             <i>/* stagger delay, MUST be on :root */</i>
-}
-<i>/* one reveal vocabulary, reused at descending amplitude (CHO 00) */</i>
-.w,.ln{display:inline-block; overflow:hidden; vertical-align:top}
-.w &gt; span{display:inline-block; transform:translateY(110%);
-  transition:transform var(--d1) var(--e) var(--rvd)}
-.on .w &gt; span{transform:translateY(0)}
-[data-rv="fade"]{opacity:0; transform:translateY(20px);
-  transition:opacity var(--d2) var(--e) var(--rvd), transform var(--d2) var(--e) var(--rvd)}
-[data-rv="fade"].on{opacity:1; transform:none}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none !important; transition:none !important}
-  [data-rv],.w &gt; span{opacity:1 !important; transform:none !important}
-}
-
-<i>/* ONE observer drives every reveal; nothing re-runs on scroll back */</i>
-const io = new IntersectionObserver(es =&gt; es.forEach(en =&gt; {
-  if (!en.isIntersecting) return;
-  en.target.classList.add('on');
-  io.unobserve(en.target);
-}), { threshold:.15, rootMargin:'0px 0px -6% 0px' });
-$$('[data-rv],[data-split],h1,h2,h3,.card').forEach(el =&gt; io.observe(el));
-
-<i>/* ONE rAF loop. Every continuous behaviour lives in here — never a second one. */</i>
-let mx = innerWidth/2, my = innerHeight/2, running = true, visible = true;
-addEventListener('pointermove', e =&gt; { mx = e.clientX; my = e.clientY; }, {passive:true});
-new IntersectionObserver(es =&gt; es.forEach(e =&gt; visible = e.isIntersecting)).observe(hero);
-function tick(now){
-  if (!running) return;
-  if (visible) { <i>/* shader uniforms · parallax · magnetic CTA · cursor */</i> }
-  requestAnimationFrame(tick);
-}
-requestAnimationFrame(tick);
-document.addEventListener('visibilitychange', () =&gt; {
-  running = document.visibilityState === 'visible';
-  if (running) requestAnimationFrame(tick);
-});</code></pre>
-  <div class="warnbox"><b>Three traps that have actually broken builds ·</b>
-  <code>--rvd</code> declared on <code>[data-rv]</code> instead of <code>:root</code> makes
-  <code>var(--rvd)</code> invalid inside a shared rule and <b>silently kills the whole transition</b> &middot;
-  an oversized texture pseudo-element needs <code>overflow:clip</code> on its parent or it pushes the
-  page sideways &middot; <code>backdrop-filter</code> over a live canvas forces a GPU readback every
-  frame (CHO 04).</div>
-</div>
-
-  <div class="panel-intro">
-    <p class="role">The fixtures</p>
-    <h2>Working parts, already debugged</h2>
-    <p>Every demo is live — move your cursor into it, scroll through it, drag it. Code sits
-    underneath each one with the tuned constants marked.</p>
-    <p><strong>These are demo values, not ship values.</strong> Constants here are cranked so each
-    effect is obvious at a glance. Production wants the opposite — ship roughly 40–50% of these
-    numbers. The full dial table is in the repo, and the rule is in Standards.</p>
-    <p>Groups run from most fundamental to most decorative. <strong>Architecture first</strong> —
-    it changes how you build everything after it.</p>
-    <p><strong>Read Choreography below before browsing the catalogue.</strong> It sets the budget —
-    one signature effect, two supporting, one ambient — and browsing first is how a page ends up
-    with nine.</p>
-  </div>
-  <section class="purpose" id="choreography">
-    <div class="purpose-head">
-      <span class="n">CHO</span>
-      <h2>Choreography</h2>
-      <p>How much motion, where it goes, and what fights what. Read before picking a single effect.</p>
-    </div>
-    <div class="brief">
-      <p class="def">A page with four well-chosen effects beats a page with twelve, every time.</p>
-      <div class="brief-grid">
-        <div><h6>The problem this solves</h6><p>Given a library this size, the default failure is
-        using it. Every effect is individually good and the page ends up looking like a demo reel —
-        busy, unfocused, and clearly built by someone showing off rather than someone deciding.</p></div>
-        <div><h6>The budget</h6><p><b>One signature, two supporting, one ambient.</b> Plus
-        micro-interactions, which don't count. That's the whole page. If a fifth idea is genuinely
-        better than one already in, it replaces it — the number doesn't move.</p></div>
-        <div class="warn"><h6>What separates good from bad</h6><p>Amateur pages animate
-        <b>everything, equally</b>. There's no hierarchy, so nothing reads as important. Designed
-        pages spend almost all their motion on one moment and stay nearly still everywhere else —
-        which is what makes that one moment land.</p></div>
-        <div><h6>Reach for it</h6><p>Before opening the group index below. Choose the four slots
-        first, then go find the effects that fill them. Browsing the catalogue first is how pages
-        end up with nine.</p></div>
-      </div>
-    </div>
-
-    <div class="fcard" style="border-left-color:var(--ember)">
-      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">CHO 00</span><h4>Coverage is not the same as budget — read this before CHO 01</h4></div>
-      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
-      <b style="color:var(--cream)">The single most common failure of this entire document is a page
-      that passes every check and still feels dead.</b> It happened repeatedly in real builds, by a
-      model with the whole document in context, and the cause was structural rather than careless:
-      every rule below CHO 01 is a <b>ceiling</b> — no soft shadows, no off-scale radii, four effects
-      maximum, 320 words maximum. Until this card existed there was <b>no floor anywhere</b>. Nothing
-      failed a build for being timid. So the honest, rule-following outcome was systematically a
-      restrained page, and the audit then certified it as clean.</p>
-
-      <table class="lentable">
-        <tr><th></th><th>What it counts</th><th>Correct answer</th></tr>
-        <tr><td><b style="color:var(--cream)">Budget</b><br>(CHO 01)</td><td>How many distinct <b>ideas</b> the motion expresses — separate concepts a visitor could name and describe</td><td class="w">Few. The four slots below.</td></tr>
-        <tr><td><b style="color:var(--cream)">Coverage</b><br>(this card)</td><td>How much of the page is <b>touched</b> by those few ideas</td><td class="w">All of it.</td></tr>
-      </table>
-
-      <p style="margin:14px 0 0;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
-      These are orthogonal, and confusing them is what produces a flat page.
-      <b style="color:var(--cream)">One reveal idea applied to all fourteen headings on the page is
-      still one idea</b> — it is not fourteen effects and it does not spend fourteen slots. A page
-      where every heading arrives, every section enters, and every control answers the pointer, all
-      through the <i>same small vocabulary</i>, reads as authored. A page where four things move and
-      everything else sits still reads as a template with a plugin on it.</p>
-
-      <div class="warnbox"><b>The floor ·</b> on a Phase 1 page, <b>nothing that a visitor scrolls
-      past should be visually inert.</b> Every heading gets a typographic treatment. Every section
-      gets an entrance. Every link, button and card answers the pointer. Every number, label and rule
-      does something on arrival. This is not permission to be chaotic — it is a requirement to finish
-      the page. Chaos comes from <i>many vocabularies</i>, not from broad coverage of one.</div>
-
-      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
-      <b style="color:var(--tan)">What keeps broad coverage from becoming noise ·</b> one easing
-      family, one duration scale, one shared rAF loop, everything IntersectionObserver-gated, nothing
-      re-triggering on scroll-back, amplitude falling as importance falls. Coverage is wide; the
-      vocabulary is narrow. <b>That combination is the whole difference between a premium page and a
-      page somebody generated.</b></p>
-
-      <h4 style="margin:22px 0 10px;font-size:15px;color:var(--cream)">The coverage table — every
-      element type, and what it is not allowed to be</h4>
-      <p style="margin:0 0 12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
-      Work down this table before hand-over. <b>Any row you skipped is a row where the page is still
-      a template.</b> Amplitude descends with importance — that descent is what keeps full coverage
-      from reading as chaos.</p>
-      <table class="lentable">
-        <tr><th>Element</th><th>Minimum treatment</th><th>Amplitude</th></tr>
-        <tr><td><b>Hero headline</b></td><td>The signature typographic moment — line-mask, per-word or per-character stagger, dissolve, weight/width shift. Layered per CHO 02.</td><td class="w">full</td></tr>
-        <tr><td><b>Every other heading</b></td><td>The <i>same</i> reveal idea, one notch quieter. A section heading that just appears is the most common dead spot on the page.</td><td class="w">60%</td></tr>
-        <tr><td><b>Body copy / lede</b></td><td>Fade-and-rise on entry, short distance, slight delay behind its heading so the pair reads as one gesture.</td><td class="w">30%</td></tr>
-        <tr><td><b>Eyebrows, labels, meta</b></td><td>Tracking-in, opacity ramp, or a rule that draws itself alongside.</td><td class="w">25%</td></tr>
-        <tr><td><b>Images</b></td><td>Reveal via mask/clip (not a bare fade), plus parallax or scale-on-scroll, plus a pointer state that changes the treatment.</td><td class="w">50–70%</td></tr>
-        <tr><td><b>Cards / grid items</b></td><td>Staggered entrance, never all at once. Pointer state that moves more than a colour — lift, crop shift, grade change, label swap.</td><td class="w">40%</td></tr>
-        <tr><td><b>Links</b></td><td>An underline that draws, a colour that travels, or a label that shifts. Never a bare colour swap.</td><td class="w">micro</td></tr>
-        <tr><td><b>Buttons / CTA</b></td><td>Sweep, fill, magnetic pull, or icon travel. The primary action gets the most considered micro-interaction on the page.</td><td class="w">micro</td></tr>
-        <tr><td><b>Numbers, prices, counts</b></td><td>Count-up or roll on entry, tabular figures so nothing reflows.</td><td class="w">35%</td></tr>
-        <tr><td><b>Rules, dividers, borders</b></td><td>Draw from one end on entry rather than existing pre-drawn.</td><td class="w">25%</td></tr>
-        <tr><td><b>Section grounds</b></td><td>Texture that <b>moves or responds</b> — a mesh that drifts, grain that breathes, a gradient that tracks scroll. A large flat colour field is the single biggest dead zone a page can have.</td><td class="w">15–25%</td></tr>
-        <tr><td><b>Quote / pull-quote</b></td><td>Word-by-word or line-by-line arrival — the one place per page where slow is correct.</td><td class="w">50%</td></tr>
-        <tr><td><b>Footer</b></td><td>Same reveal vocabulary, lowest amplitude. It is still part of the page.</td><td class="w">20%</td></tr>
-      </table>
-      <div class="warnbox"><b>The flat-field test ·</b> screenshot the page at three scroll positions
-      and ask of each: <b>if this were a still image, would anything tell me it is a live page?</b>
-      A large area of untextured, unmoving, unresponding colour fails — that is the exact frame that
-      reads as "generated." Fix it with the section-ground row above, not by adding a fifth idea.</div>
-    </div>
-
-    <div class="fcard">
-      <div class="fcard-top"><span class="code">CHO 01</span><h4>The four slots — distinct ideas, not total moving elements</h4></div>
-      <p style="margin:0 0 12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
-      Read with CHO 00 above: these slots limit how many separate motion <b>ideas</b> the page
-      contains. They say nothing about how many elements each idea touches — that answer is
-      <b style="color:var(--cream)">every element it sensibly can</b>.</p>
-      <table class="lentable">
-        <tr><th>Slot</th><th>How many</th><th>Job</th><th>Amplitude</th><th>Typical</th></tr>
-        <tr><td><b style="color:var(--cream)">Signature</b></td><td class="w">exactly 1</td><td>The one thing they'd describe to a friend. Tied to what this business actually does — not a generic effect applied to a generic section.</td><td class="w">full</td><td>GL-02 · REV-03 · REA-01 · TYP-04</td></tr>
-        <tr><td><b style="color:var(--cream)">Supporting</b></td><td class="w">2</td><td>Structural, repeatable, invisible. One reveal that every section uses, one depth or scroll behaviour that holds the page together.</td><td class="w">ship values</td><td>REV-01 · DEP-01 · SYS-01 · TYP-01</td></tr>
-        <tr><td><b style="color:var(--cream)">Ambient</b></td><td class="w">1</td><td>Continuous, very low amplitude, never near reading text. Makes the page feel alive while nothing is happening.</td><td class="w">30–40% of demo</td><td>AMB-01 · AMB-03 · AMB-06</td></tr>
-        <tr><td><b style="color:var(--cream)">Micro</b></td><td class="w">unlimited</td><td>Hover, focus, press, and state change on real controls. Not part of the budget — but every one on the page uses the same duration and the same curve.</td><td class="w">120–200ms</td><td>—</td></tr>
-      </table>
-      <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65;
-        border-top:1px solid var(--edge-soft);padding-top:14px">
-      <b style="color:var(--tan)">The signature is chosen from the business, not from this library ·</b>
-      A roaster whose menu sells coffee by cream ratio should get an interaction built on that ratio.
-      A gym whose proof is transformation should get one built on before-and-after. Ask
-      <i>what does this business own that no competitor does</i>, and build the signature on the
-      answer. An effect picked because it looked good in the catalogue is decoration; the same effect
-      picked because it expresses the product is design.</p>
-      <div class="warnbox"><b>The signature appears once.</b> Used twice it becomes a pattern, and a
-      pattern is a supporting effect with the amplitude turned up too far. The second appearance is
-      also the moment a visitor stops being impressed and starts being able to describe it.</div>
-    </div>
-
-    <div class="fcard" style="border-left-color:var(--ember)">
-      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">CHO 02</span><h4>Layer the signature — Phase 1 is not Phase 2</h4></div>
-      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
-      <b style="color:var(--cream)">CHO 01's amplitude column says "ship values" for supporting effects
-      and low percentages for ambient. That's correct for a site people use every day — restraint is
-      what reads premium when someone visits fifty times.</b> A Phase 1 mockup is visited once, by a
-      person deciding whether to hire us, and it is being judged against "I could have typed this into
-      an AI myself." Those are different jobs. <b style="color:var(--cream)">A page that is
-      appropriately restrained for daily use will look merely competent for that one decisive
-      visit</b> — and merely competent is the thing that loses the deal.</p>
-
-      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
-      The fix is <b style="color:var(--cream)">not more effects — it's more depth in the one you
-      already chose.</b> Award-winning sites don't scatter five separate ideas down the page; they
-      layer two or three techniques into <b>one authored moment</b>, synced to one trigger, serving one
-      idea. Three things happening at once, on purpose, reads as craft. Three things happening in three
-      different places reads as a demo reel.</p>
-
-      <div class="warnbox"><b>The rule ·</b> the signature moment from CHO 01 is not one effect. It is
-      a <b>base treatment</b> (almost always the photo, colour-graded so it can't be generic) plus
-      <b>one to two effects layered on top</b>, all keyed to the same scroll position or the same
-      interaction. Pick the combination from the table below by register — don't invent one from
-      scratch, and don't add a fourth layer.</p></div>
-
-      <table class="lentable">
-        <tr><th>Register</th><th>Base treatment</th><th>Layer on top</th><th>Reads as</th></tr>
-        <tr><td>Raw</td><td>High-contrast duotone (KIT 08), crushed blacks</td><td>Velocity skew on the headline + one REA spark tied to the CTA</td><td>kinetic, physical, unpolished on purpose</td></tr>
-        <tr><td>Calm</td><td>Soft grade (KIT 08), lifted blacks</td><td>Gentle DEP-01 parallax + slow fade-reveal, longer easing</td><td>unhurried, spacious</td></tr>
-        <tr><td>Clinical</td><td>Near-neutral grade, true colour</td><td>TYP-06 counter-roll on one real credential number — no parallax, keep it flat</td><td>precise, evidence-led</td></tr>
-        <tr><td>Craft</td><td>Warm duotone (KIT 08) in the measured brand ramp</td><td>DEP-01 parallax + TYP-02 line-mask reveal on the headline, synced to the same scroll range</td><td>handmade, considered</td></tr>
-        <tr><td>Luxury</td><td>Near-monochrome duotone, minimal separation</td><td>One slow REV reveal only — resist adding a second layer here</td><td>restraint as the whole message</td></tr>
-        <tr><td>Community</td><td>Warm grade, natural skin/wood tones preserved</td><td>REV-01 wipe + a friendly word-stagger on the headline</td><td>welcoming, alive</td></tr>
-      </table>
-
-      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
-      <b style="color:var(--tan)">Amplitude, for the signature ·</b> run it at <b>65–75% of demo
-      value</b>, not the 40–50% production floor. It stays the loudest thing on the page and the only
-      thing built from three layers — that hierarchy is what stops the page reading as noise.</p>
-
-      <div class="warnbox"><b>Phase 1's floor for everything else is not the production floor
-      either.</b> This is a one-time pitch artifact judged in a single look, not a product visited
-      fifty times — so <b>every heading reveals on scroll, every photo carries a treatment, every
-      link and button has a crafted hover, not just the ones near the signature.</b> "Ship values
-      everywhere except one moment" was the wrong instinct: it produces a page with one good part and
-      a lot of flat template around it, which reads as competent, not spectacular. The signature stays
-      structurally distinct — three layers, one trigger, loudest amplitude — everything else still
-      gets a real treatment, just a smaller one. <b>The failure mode to hold the line against is not
-      "too restrained," it's incoherent</b>: one shared easing vocabulary (CHO 05), one rAF loop,
-      every effect gated so nothing runs off-screen. Density is fine. Randomness is not.</p></div>
-
-      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
-      <b style="color:var(--tan)">The duotone/grade base is not optional when a hero photo exists ·</b>
-      an untreated photo under a headline is the single fastest way to make a page look assembled
-      rather than art-directed. See KIT 08 for the CSS — it derives its two colours from the same
-      OKLCH ramp as the rest of the page, so it can't drift off-brand the way a manually-picked filter
-      would.</p>
-    </div>
-
-    <div class="fcard">
-      <div class="fcard-top"><span class="code">CHO 03</span><h4>Entrance — the first 1200ms</h4></div>
-      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">The load
-      sequence is the only choreography every visitor sees. It runs on a timer, not on scroll —
-      <b style="color:var(--cream)">nothing above the fold may wait for a scroll event</b>, because a
-      hero element that waits on a scroll event never appears at all for anyone who reads the
-      hero and leaves.</p>
-      <table class="lentable">
-        <tr><th>At</th><th>Element</th><th>From</th><th>Duration</th></tr>
-        <tr><td class="w">0ms</td><td>Hero media / background</td><td>opacity 0 → 1, scale 1.04 → 1</td><td class="w">900ms</td></tr>
-        <tr><td class="w">80ms</td><td>Eyebrow / kicker</td><td>opacity 0, y +8px</td><td class="w">500ms</td></tr>
-        <tr><td class="w">140ms</td><td>Headline</td><td>opacity 0, y +14px — or per-word stagger at 22ms</td><td class="w">600ms</td></tr>
-        <tr><td class="w">280ms</td><td>Sub-line</td><td>opacity 0, y +10px</td><td class="w">500ms</td></tr>
-        <tr><td class="w">380ms</td><td>Primary action</td><td>opacity 0, y +8px</td><td class="w">450ms</td></tr>
-        <tr><td class="w">460ms</td><td>Nav and secondary chrome</td><td>opacity 0</td><td class="w">400ms</td></tr>
-        <tr><td class="w">900ms</td><td>Ambient loop starts</td><td>fades up to its running amplitude</td><td class="w">1200ms</td></tr>
-      </table>
-      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
-      <b style="color:var(--tan)">Rules ·</b> Total entrance under <b>1.2s</b> — past that it reads as
-      a slow site rather than a considered one. Travel distances stay small: <b>8–16px</b>, never the
-      40px+ that template builders use. And the nav arrives <b>last</b>, not first — leading with
-      chrome tells the visitor the site is about itself.</p>
-      <div class="warnbox"><b>Never animate a full-screen overlay or a progress counter on load.</b>
-      A preloader on a five-section marketing page adds real seconds to the only moment that counts.
-      Google's judgment window is roughly <b>50 milliseconds</b> — a loader spends all of it on itself.</div>
-    </div>
-
-    <div class="fcard">
-      <div class="fcard-top"><span class="code">CHO 04</span><h4>Scroll pacing</h4></div>
-      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
-      <b style="color:var(--cream)">One animated moment per screen.</b> Not one per component — one
-      per screenful of scroll. If two things move as the visitor passes a section, one of them is
-      noise.</p>
-      <table class="lentable">
-        <tr><th>Screen</th><th>What moves</th><th>Why</th></tr>
-        <tr><td>1 — Hero</td><td>Entrance, then the ambient only</td><td>Establish. Let them read.</td></tr>
-        <tr><td>2</td><td>Supporting reveal, once</td><td>Teach the page's vocabulary with a small move.</td></tr>
-        <tr><td>3</td><td><b style="color:var(--cream)">Nothing</b></td><td>The rest beat. Non-negotiable — a page that moves continuously has no emphasis left to spend.</td></tr>
-        <tr><td>4 — the moment</td><td><b style="color:var(--cream)">Signature</b></td><td>Lands hardest because three screens of restraint came before it.</td></tr>
-        <tr><td>5</td><td>Supporting reveal</td><td>Back to the vocabulary.</td></tr>
-        <tr><td>6</td><td>Nothing</td><td>Practical information wants stillness.</td></tr>
-        <tr><td>7 — Close</td><td>One small move on the action</td><td>Direct attention to the one thing left to do.</td></tr>
-      </table>
-      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
-      <b style="color:var(--tan)">Scroll-driven ranges ·</b> An element should finish its animation
-      by the time it is <b>halfway up the viewport</b> — <code>animation-range: entry 0% cover 40%</code>.
-      Animations still running when the element is centred force the reader to wait for the page,
-      which is the most irritating thing motion can do.</p>
-      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
-      <b style="color:var(--tan)">Reveal once ·</b> Scroll up and back down and nothing re-animates.
-      Re-triggering reveals is the single most common scroll-animation mistake, and it makes a page
-      feel unstable rather than alive.</p>
-    </div>
-
-    <div class="fcard">
-      <div class="fcard-top"><span class="code">CHO 05</span><h4>Effects that fight each other</h4></div>
-      <p style="margin:0 0 6px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Each pair below
-      is individually fine and jointly broken. Most of them fail as <i>looks slightly wrong</i> rather
-      than as an error, which is why they survive to launch.</p>
-      <div class="crime"><b>Velocity skew + parallax, same element</b><span>Two transforms competing for one matrix. The element wobbles and neither effect reads.</span></div>
-      <div class="crime"><b>Sticky section + scroll-driven mask inside it</b><span>Position sticky changes what the scroll timeline resolves against. The mask freezes partway.</span></div>
-      <div class="crime"><b>WebGL background + backdrop-filter above it</b><span>Forces a readback of the GPU surface every frame. Reliably the heaviest thing you can accidentally do.</span></div>
-      <div class="crime"><b>View Transitions + FLIP on the same element</b><span>Both animate the same layout change. You get a double move.</span></div>
-      <div class="crime"><b>Tilt + magnetic pull on one card</b><span>The pointer is driving two models with different centres. Feels loose and slightly nauseating.</span></div>
-      <div class="crime"><b>Ambient grain + grain in the photo treatment</b><span>Moiré, and the images look dirty rather than filmic.</span></div>
-      <div class="crime"><b>Two easing families on one page</b><span>A bouncy spring on the buttons and a smooth ease on the sections reads as two sites stitched together.</span></div>
-      <div class="crime"><b>Character stagger on more than one heading</b><span>The first is a flourish. The second makes both look automated.</span></div>
-      <div class="crime"><b>Ambient motion behind body copy</b><span>Anything moving under text makes the text feel unstable, whatever the contrast ratio says.</span></div>
-      <div class="crime" style="border-bottom:none"><b>Scroll-jacking anything</b><span>Custom scroll speed, snap on a long page, or a hijacked wheel. It breaks trackpads, keyboards and every accessibility expectation at once.</span></div>
-    </div>
-
-    <div class="fcard">
-      <div class="fcard-top"><span class="code">CHO 06</span><h4>One easing vocabulary</h4></div>
-      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Pick these
-      once and use nothing else. A page with a consistent curve feels like one object; a page with
-      five feels assembled.</p>
-      <table class="lentable">
-        <tr><th>Use</th><th>Curve</th><th>Duration</th><th>Notes</th></tr>
-        <tr><td>Entrance</td><td class="w">cubic-bezier(.16,1,.3,1)</td><td class="w">450–600ms</td><td>Fast out of the gate, long settle. The workhorse.</td></tr>
-        <tr><td>Exit</td><td class="w">cubic-bezier(.4,0,1,1)</td><td class="w">180–250ms</td><td>Leaving should be quicker than arriving, always.</td></tr>
-        <tr><td>Hover / press</td><td class="w">cubic-bezier(.2,0,0,1)</td><td class="w">120–180ms</td><td>Under 200ms or it feels laggy under the finger.</td></tr>
-        <tr><td>Layout change</td><td class="w">FLIP + entrance curve</td><td class="w">320–420ms</td><td>Never animate width or height directly.</td></tr>
-        <tr><td>Anything pointer-driven</td><td class="w">spring, no duration</td><td class="w">—</td><td>Stiffness 170 / damping 26 as a start. Duration-based easing on a pointer always feels dead.</td></tr>
-        <tr><td>Continuous / ambient</td><td class="w">linear</td><td class="w">—</td><td>Eased loops visibly pulse at the seam.</td></tr>
-      </table>
-      <div class="warnbox"><b>Never <code>ease-in-out</code> on an entrance.</b> The slow start reads
-      as lag — the element appears to hesitate before moving. It is the default in most tools and it
-      is wrong for almost everything on a marketing page.</div>
-    </div>
-
-    <div class="fcard" style="border-left-color:var(--ember)">
-      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">CHECK</span><h4>Before the motion is done</h4></div>
-      <div class="egood"><span>Count the effects. One signature, two supporting, one ambient — no more.</span></div>
-      <div class="egood"><span>Name the signature out loud and say which fact about the business it comes from.</span><i>if you can't, it's decoration</i></div>
-      <div class="egood"><span>Scroll the whole page at normal speed. More than one thing moving per screen?</span></div>
-      <div class="egood"><span>Scroll back up. Anything re-animate?</span></div>
-      <div class="egood"><span>Turn on reduced motion. Is the page a designed still composition, or is it dead?</span></div>
-      <div class="egood"><span>Throttle to 4× slower CPU. Does the entrance still finish under 1.2s?</span></div>
-    </div>
-  </section>
-
-  <div class="chips" role="group" aria-label="Filter by group">
+<div class="chips" role="group" aria-label="Filter by group">
     <button class="chip" data-g="all" aria-pressed="true">All</button>
     <button class="chip" data-g="sys" aria-pressed="false">SYS · architecture</button>
     <button class="chip" data-g="gl" aria-pressed="false">GL · rendered</button>
@@ -5543,6 +5181,399 @@ overlay.style.background =
 
 
 
+</div>
+
+<div class="subpanel" id="sub-doctrine" role="tabpanel" aria-labelledby="st-doctrine" hidden>
+
+<div class="fcard" style="border-left-color:var(--ember)" id="pickmap">
+  <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">PICK</span><h4>Register &rarr; candidate effects &mdash; stop choosing motion from memory</h4></div>
+  <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+  <b style="color:var(--cream)">Register decides treatment, so Register decides the shortlist.</b>
+  Find your row, take the signature from that row, then one or two supporting, one ambient and one
+  pointer. <b>These are candidates, not commands</b> &mdash; the signature must still trace to a fact
+  about this business (BLD 02 step 6). What this table removes is the blank page, which is where the
+  fade-up default creeps in.</p>
+  <table class="lentable">
+    <tr><th>Register</th><th>Signature &mdash; pick 1, layer it</th><th>Supporting &mdash; pick 2</th><th>Ambient</th><th>Pointer</th></tr>
+    <tr><td><b style="color:var(--cream)">Raw</b></td><td>REA-02 velocity trail &middot; TYP-07 velocity skew &middot; GL-09 dithering</td><td>REV-02 aperture &middot; TYP-09 velocity marquee</td><td>AMB-01 film grain</td><td>REA-02 magnetic</td></tr>
+    <tr><td><b style="color:var(--cream)">Calm</b></td><td>TYP-02 line mask &middot; REV-01 gradient wipe &middot; GL-08 domain warp</td><td>DEP-01 parallax &middot; TYP-03 tracking open</td><td>AMB-02 aurora drift</td><td>REA-03 spotlight</td></tr>
+    <tr><td><b style="color:var(--cream)">Clinical</b></td><td>REV-02 aperture &middot; SYS-04 view transitions &middot; TYP-06 counter roll</td><td>SYS-01 scroll timelines &middot; PLT-05 container queries</td><td>&mdash; <i>none; grain reads as dirt here</i></td><td>DEP-02 pointer tilt <i>(restrained)</i></td></tr>
+    <tr><td><b style="color:var(--cream)">Craft</b></td><td>TYP-10 threshold dissolve &middot; REV-01 gradient wipe &middot; GL-08 domain warp</td><td>DEP-01 parallax &middot; TYP-02 line mask</td><td>AMB-01 grain &middot; AMB-06 temperature drift</td><td>REA-03 spotlight</td></tr>
+    <tr><td><b style="color:var(--cream)">Luxury</b></td><td>GL-02 dispersion glass &middot; TYP-03 tracking open &middot; REV-05 progressive blur</td><td>DEP-03 focus falloff &middot; TYP-01 character stagger</td><td>AMB-05 caustics &middot; AMB-02 aurora</td><td>GL-04 fluid cursor <i>(low amplitude)</i></td></tr>
+    <tr><td><b style="color:var(--cream)">Community</b></td><td>REA-01 particle field &middot; TYP-01 character stagger &middot; REV-04 stacking cards</td><td>DEP-01 parallax &middot; TYP-09 marquee</td><td>AMB-03 dust motes</td><td>REA-01 pointer wake</td></tr>
+  </table>
+  <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+  <b style="color:var(--tan)">Pattern adjusts the emphasis, not the shortlist ·</b>
+  <b>A</b> book a slot and <b>E</b> retain a professional lean calmer &mdash; drop one amplitude notch and
+  keep motion away from the booking control. <b>B</b> come and consume and <b>G</b> attend an occasion
+  can carry the most atmosphere. <b>C</b> join and <b>H</b> enrol want REV-03 proportional fill or
+  TYP-06 counter roll somewhere, because progress is the thing being sold.
+  <b>D</b> hire for a job and <b>F</b> buy a product want DEP-01 or DEP-03 on the proof &mdash; the work,
+  or the product.</p>
+  <div class="warnbox"><b>Universal, every register ·</b> SYS-01/02/03 and PLT-01&ndash;06 are
+  infrastructure, not flavour &mdash; they never count against the budget and never appear in the
+  shortlist above. Use them freely wherever they fit.</div>
+</div>
+
+<div class="fcard" style="border-left-color:var(--teal)" id="porting">
+  <div class="fcard-top"><span class="code" style="color:var(--teal);border-color:rgba(94,138,126,.4)">PORT</span><h4>How to lift a demo into a client build &mdash; the part that was missing</h4></div>
+  <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+  Every code block below is an <b>excerpt from a demo on this page</b>, wired to this document's own
+  classes, tokens and dark theme. <b style="color:var(--cream)">That friction is why effects go
+  unused:</b> under time pressure a model that has to reverse-engineer a fragment writes its own
+  simpler thing instead &mdash; and its own simpler thing is a fade-up. Porting is four mechanical
+  substitutions. Do them, don't improvise.</p>
+  <table class="lentable">
+    <tr><th>In the demo</th><th>In a client build</th></tr>
+    <tr><td>Document tokens &mdash; <code>var(--gold)</code>, <code>var(--char)</code>, <code>var(--ink-dim)</code></td><td><b>The measured client ramp</b> from KIT 01. Never carry a document colour into a build.</td></tr>
+    <tr><td>Demo classes &mdash; <code>.bench</code>, <code>.stage</code>, <code>.rail</code>, <code>.fill</code></td><td>Your own semantic classes. The demo shell is scaffolding for the page you are reading, not structure.</td></tr>
+    <tr><td>Its own <code>requestAnimationFrame</code> loop</td><td><b>Register into the ONE shared loop.</b> A second loop is the most common performance defect in these builds.</td></tr>
+    <tr><td>Always-on, full amplitude</td><td><b>IntersectionObserver-gated</b>, amplitude per the CHO 00 coverage table, and it must not re-trigger on scroll back up.</td></tr>
+  </table>
+  <p style="margin:14px 0 0;font-size:14px;color:var(--ink-dim);line-height:1.65">
+  <b style="color:var(--tan)">Paste this scaffold first, then hang effects off it.</b> It is the same
+  in every build, it satisfies the shared-loop and reduced-motion rules by construction, and it is
+  what checks 22&ndash;26 are measuring.</p>
+  <pre><code><i>/* ---- the scaffold every Phase 1 build starts from ---- */</i>
+:root{
+  --e:cubic-bezier(.16,1,.3,1);          <i>/* ONE easing family        */</i>
+  --d1:1s; --d2:.7s; --d3:.45s; --micro:.2s;  <i>/* ONE duration scale  */</i>
+  --rvd:0ms;                             <i>/* stagger delay, MUST be on :root */</i>
+}
+<i>/* one reveal vocabulary, reused at descending amplitude (CHO 00) */</i>
+.w,.ln{display:inline-block; overflow:hidden; vertical-align:top}
+.w &gt; span{display:inline-block; transform:translateY(110%);
+  transition:transform var(--d1) var(--e) var(--rvd)}
+.on .w &gt; span{transform:translateY(0)}
+[data-rv="fade"]{opacity:0; transform:translateY(20px);
+  transition:opacity var(--d2) var(--e) var(--rvd), transform var(--d2) var(--e) var(--rvd)}
+[data-rv="fade"].on{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important; transition:none !important}
+  [data-rv],.w &gt; span{opacity:1 !important; transform:none !important}
+}
+
+<i>/* ONE observer drives every reveal; nothing re-runs on scroll back */</i>
+const io = new IntersectionObserver(es =&gt; es.forEach(en =&gt; {
+  if (!en.isIntersecting) return;
+  en.target.classList.add('on');
+  io.unobserve(en.target);
+}), { threshold:.15, rootMargin:'0px 0px -6% 0px' });
+$$('[data-rv],[data-split],h1,h2,h3,.card').forEach(el =&gt; io.observe(el));
+
+<i>/* ONE rAF loop. Every continuous behaviour lives in here — never a second one. */</i>
+let mx = innerWidth/2, my = innerHeight/2, running = true, visible = true;
+addEventListener('pointermove', e =&gt; { mx = e.clientX; my = e.clientY; }, {passive:true});
+new IntersectionObserver(es =&gt; es.forEach(e =&gt; visible = e.isIntersecting)).observe(hero);
+function tick(now){
+  if (!running) return;
+  if (visible) { <i>/* shader uniforms · parallax · magnetic CTA · cursor */</i> }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+document.addEventListener('visibilitychange', () =&gt; {
+  running = document.visibilityState === 'visible';
+  if (running) requestAnimationFrame(tick);
+});</code></pre>
+  <div class="warnbox"><b>Three traps that have actually broken builds ·</b>
+  <code>--rvd</code> declared on <code>[data-rv]</code> instead of <code>:root</code> makes
+  <code>var(--rvd)</code> invalid inside a shared rule and <b>silently kills the whole transition</b> &middot;
+  an oversized texture pseudo-element needs <code>overflow:clip</code> on its parent or it pushes the
+  page sideways &middot; <code>backdrop-filter</code> over a live canvas forces a GPU readback every
+  frame (CHO 04).</div>
+</div>
+
+  <div class="panel-intro">
+    <p class="role">The fixtures</p>
+    <h2>Working parts, already debugged</h2>
+    <p>Every demo is live — move your cursor into it, scroll through it, drag it. Code sits
+    underneath each one with the tuned constants marked.</p>
+    <p><strong>These are demo values, not ship values.</strong> Constants here are cranked so each
+    effect is obvious at a glance. Production wants the opposite — ship roughly 40–50% of these
+    numbers. The full dial table is in the repo, and the rule is in Standards.</p>
+    <p>Groups run from most fundamental to most decorative. <strong>Architecture first</strong> —
+    it changes how you build everything after it.</p>
+    <p><strong>Read Choreography below before browsing the catalogue.</strong> It sets the budget —
+    one signature effect, two supporting, one ambient — and browsing first is how a page ends up
+    with nine.</p>
+  </div>
+  <section class="purpose" id="choreography">
+    <div class="purpose-head">
+      <span class="n">CHO</span>
+      <h2>Choreography</h2>
+      <p>How much motion, where it goes, and what fights what. Read before picking a single effect.</p>
+    </div>
+    <div class="brief">
+      <p class="def">A page with four well-chosen effects beats a page with twelve, every time.</p>
+      <div class="brief-grid">
+        <div><h6>The problem this solves</h6><p>Given a library this size, the default failure is
+        using it. Every effect is individually good and the page ends up looking like a demo reel —
+        busy, unfocused, and clearly built by someone showing off rather than someone deciding.</p></div>
+        <div><h6>The budget</h6><p><b>One signature, two supporting, one ambient.</b> Plus
+        micro-interactions, which don't count. That's the whole page. If a fifth idea is genuinely
+        better than one already in, it replaces it — the number doesn't move.</p></div>
+        <div class="warn"><h6>What separates good from bad</h6><p>Amateur pages animate
+        <b>everything, equally</b>. There's no hierarchy, so nothing reads as important. Designed
+        pages spend almost all their motion on one moment and stay nearly still everywhere else —
+        which is what makes that one moment land.</p></div>
+        <div><h6>Reach for it</h6><p>Before opening the group index below. Choose the four slots
+        first, then go find the effects that fill them. Browsing the catalogue first is how pages
+        end up with nine.</p></div>
+      </div>
+    </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">CHO 00</span><h4>Coverage is not the same as budget — read this before CHO 01</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">The single most common failure of this entire document is a page
+      that passes every check and still feels dead.</b> It happened repeatedly in real builds, by a
+      model with the whole document in context, and the cause was structural rather than careless:
+      every rule below CHO 01 is a <b>ceiling</b> — no soft shadows, no off-scale radii, four effects
+      maximum, 320 words maximum. Until this card existed there was <b>no floor anywhere</b>. Nothing
+      failed a build for being timid. So the honest, rule-following outcome was systematically a
+      restrained page, and the audit then certified it as clean.</p>
+
+      <table class="lentable">
+        <tr><th></th><th>What it counts</th><th>Correct answer</th></tr>
+        <tr><td><b style="color:var(--cream)">Budget</b><br>(CHO 01)</td><td>How many distinct <b>ideas</b> the motion expresses — separate concepts a visitor could name and describe</td><td class="w">Few. The four slots below.</td></tr>
+        <tr><td><b style="color:var(--cream)">Coverage</b><br>(this card)</td><td>How much of the page is <b>touched</b> by those few ideas</td><td class="w">All of it.</td></tr>
+      </table>
+
+      <p style="margin:14px 0 0;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      These are orthogonal, and confusing them is what produces a flat page.
+      <b style="color:var(--cream)">One reveal idea applied to all fourteen headings on the page is
+      still one idea</b> — it is not fourteen effects and it does not spend fourteen slots. A page
+      where every heading arrives, every section enters, and every control answers the pointer, all
+      through the <i>same small vocabulary</i>, reads as authored. A page where four things move and
+      everything else sits still reads as a template with a plugin on it.</p>
+
+      <div class="warnbox"><b>The floor ·</b> on a Phase 1 page, <b>nothing that a visitor scrolls
+      past should be visually inert.</b> Every heading gets a typographic treatment. Every section
+      gets an entrance. Every link, button and card answers the pointer. Every number, label and rule
+      does something on arrival. This is not permission to be chaotic — it is a requirement to finish
+      the page. Chaos comes from <i>many vocabularies</i>, not from broad coverage of one.</div>
+
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">What keeps broad coverage from becoming noise ·</b> one easing
+      family, one duration scale, one shared rAF loop, everything IntersectionObserver-gated, nothing
+      re-triggering on scroll-back, amplitude falling as importance falls. Coverage is wide; the
+      vocabulary is narrow. <b>That combination is the whole difference between a premium page and a
+      page somebody generated.</b></p>
+
+      <h4 style="margin:22px 0 10px;font-size:15px;color:var(--cream)">The coverage table — every
+      element type, and what it is not allowed to be</h4>
+      <p style="margin:0 0 12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      Work down this table before hand-over. <b>Any row you skipped is a row where the page is still
+      a template.</b> Amplitude descends with importance — that descent is what keeps full coverage
+      from reading as chaos.</p>
+      <table class="lentable">
+        <tr><th>Element</th><th>Minimum treatment</th><th>Amplitude</th></tr>
+        <tr><td><b>Hero headline</b></td><td>The signature typographic moment — line-mask, per-word or per-character stagger, dissolve, weight/width shift. Layered per CHO 02.</td><td class="w">full</td></tr>
+        <tr><td><b>Every other heading</b></td><td>The <i>same</i> reveal idea, one notch quieter. A section heading that just appears is the most common dead spot on the page.</td><td class="w">60%</td></tr>
+        <tr><td><b>Body copy / lede</b></td><td>Fade-and-rise on entry, short distance, slight delay behind its heading so the pair reads as one gesture.</td><td class="w">30%</td></tr>
+        <tr><td><b>Eyebrows, labels, meta</b></td><td>Tracking-in, opacity ramp, or a rule that draws itself alongside.</td><td class="w">25%</td></tr>
+        <tr><td><b>Images</b></td><td>Reveal via mask/clip (not a bare fade), plus parallax or scale-on-scroll, plus a pointer state that changes the treatment.</td><td class="w">50–70%</td></tr>
+        <tr><td><b>Cards / grid items</b></td><td>Staggered entrance, never all at once. Pointer state that moves more than a colour — lift, crop shift, grade change, label swap.</td><td class="w">40%</td></tr>
+        <tr><td><b>Links</b></td><td>An underline that draws, a colour that travels, or a label that shifts. Never a bare colour swap.</td><td class="w">micro</td></tr>
+        <tr><td><b>Buttons / CTA</b></td><td>Sweep, fill, magnetic pull, or icon travel. The primary action gets the most considered micro-interaction on the page.</td><td class="w">micro</td></tr>
+        <tr><td><b>Numbers, prices, counts</b></td><td>Count-up or roll on entry, tabular figures so nothing reflows.</td><td class="w">35%</td></tr>
+        <tr><td><b>Rules, dividers, borders</b></td><td>Draw from one end on entry rather than existing pre-drawn.</td><td class="w">25%</td></tr>
+        <tr><td><b>Section grounds</b></td><td>Texture that <b>moves or responds</b> — a mesh that drifts, grain that breathes, a gradient that tracks scroll. A large flat colour field is the single biggest dead zone a page can have.</td><td class="w">15–25%</td></tr>
+        <tr><td><b>Quote / pull-quote</b></td><td>Word-by-word or line-by-line arrival — the one place per page where slow is correct.</td><td class="w">50%</td></tr>
+        <tr><td><b>Footer</b></td><td>Same reveal vocabulary, lowest amplitude. It is still part of the page.</td><td class="w">20%</td></tr>
+      </table>
+      <div class="warnbox"><b>The flat-field test ·</b> screenshot the page at three scroll positions
+      and ask of each: <b>if this were a still image, would anything tell me it is a live page?</b>
+      A large area of untextured, unmoving, unresponding colour fails — that is the exact frame that
+      reads as "generated." Fix it with the section-ground row above, not by adding a fifth idea.</div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 01</span><h4>The four slots — distinct ideas, not total moving elements</h4></div>
+      <p style="margin:0 0 12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      Read with CHO 00 above: these slots limit how many separate motion <b>ideas</b> the page
+      contains. They say nothing about how many elements each idea touches — that answer is
+      <b style="color:var(--cream)">every element it sensibly can</b>.</p>
+      <table class="lentable">
+        <tr><th>Slot</th><th>How many</th><th>Job</th><th>Amplitude</th><th>Typical</th></tr>
+        <tr><td><b style="color:var(--cream)">Signature</b></td><td class="w">exactly 1</td><td>The one thing they'd describe to a friend. Tied to what this business actually does — not a generic effect applied to a generic section.</td><td class="w">full</td><td>GL-02 · REV-03 · REA-01 · TYP-04</td></tr>
+        <tr><td><b style="color:var(--cream)">Supporting</b></td><td class="w">2</td><td>Structural, repeatable, invisible. One reveal that every section uses, one depth or scroll behaviour that holds the page together.</td><td class="w">ship values</td><td>REV-01 · DEP-01 · SYS-01 · TYP-01</td></tr>
+        <tr><td><b style="color:var(--cream)">Ambient</b></td><td class="w">1</td><td>Continuous, very low amplitude, never near reading text. Makes the page feel alive while nothing is happening.</td><td class="w">30–40% of demo</td><td>AMB-01 · AMB-03 · AMB-06</td></tr>
+        <tr><td><b style="color:var(--cream)">Micro</b></td><td class="w">unlimited</td><td>Hover, focus, press, and state change on real controls. Not part of the budget — but every one on the page uses the same duration and the same curve.</td><td class="w">120–200ms</td><td>—</td></tr>
+      </table>
+      <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65;
+        border-top:1px solid var(--edge-soft);padding-top:14px">
+      <b style="color:var(--tan)">The signature is chosen from the business, not from this library ·</b>
+      A roaster whose menu sells coffee by cream ratio should get an interaction built on that ratio.
+      A gym whose proof is transformation should get one built on before-and-after. Ask
+      <i>what does this business own that no competitor does</i>, and build the signature on the
+      answer. An effect picked because it looked good in the catalogue is decoration; the same effect
+      picked because it expresses the product is design.</p>
+      <div class="warnbox"><b>The signature appears once.</b> Used twice it becomes a pattern, and a
+      pattern is a supporting effect with the amplitude turned up too far. The second appearance is
+      also the moment a visitor stops being impressed and starts being able to describe it.</div>
+    </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">CHO 02</span><h4>Layer the signature — Phase 1 is not Phase 2</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">CHO 01's amplitude column says "ship values" for supporting effects
+      and low percentages for ambient. That's correct for a site people use every day — restraint is
+      what reads premium when someone visits fifty times.</b> A Phase 1 mockup is visited once, by a
+      person deciding whether to hire us, and it is being judged against "I could have typed this into
+      an AI myself." Those are different jobs. <b style="color:var(--cream)">A page that is
+      appropriately restrained for daily use will look merely competent for that one decisive
+      visit</b> — and merely competent is the thing that loses the deal.</p>
+
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      The fix is <b style="color:var(--cream)">not more effects — it's more depth in the one you
+      already chose.</b> Award-winning sites don't scatter five separate ideas down the page; they
+      layer two or three techniques into <b>one authored moment</b>, synced to one trigger, serving one
+      idea. Three things happening at once, on purpose, reads as craft. Three things happening in three
+      different places reads as a demo reel.</p>
+
+      <div class="warnbox"><b>The rule ·</b> the signature moment from CHO 01 is not one effect. It is
+      a <b>base treatment</b> (almost always the photo, colour-graded so it can't be generic) plus
+      <b>one to two effects layered on top</b>, all keyed to the same scroll position or the same
+      interaction. Pick the combination from the table below by register — don't invent one from
+      scratch, and don't add a fourth layer.</p></div>
+
+      <table class="lentable">
+        <tr><th>Register</th><th>Base treatment</th><th>Layer on top</th><th>Reads as</th></tr>
+        <tr><td>Raw</td><td>High-contrast duotone (KIT 08), crushed blacks</td><td>Velocity skew on the headline + one REA spark tied to the CTA</td><td>kinetic, physical, unpolished on purpose</td></tr>
+        <tr><td>Calm</td><td>Soft grade (KIT 08), lifted blacks</td><td>Gentle DEP-01 parallax + slow fade-reveal, longer easing</td><td>unhurried, spacious</td></tr>
+        <tr><td>Clinical</td><td>Near-neutral grade, true colour</td><td>TYP-06 counter-roll on one real credential number — no parallax, keep it flat</td><td>precise, evidence-led</td></tr>
+        <tr><td>Craft</td><td>Warm duotone (KIT 08) in the measured brand ramp</td><td>DEP-01 parallax + TYP-02 line-mask reveal on the headline, synced to the same scroll range</td><td>handmade, considered</td></tr>
+        <tr><td>Luxury</td><td>Near-monochrome duotone, minimal separation</td><td>One slow REV reveal only — resist adding a second layer here</td><td>restraint as the whole message</td></tr>
+        <tr><td>Community</td><td>Warm grade, natural skin/wood tones preserved</td><td>REV-01 wipe + a friendly word-stagger on the headline</td><td>welcoming, alive</td></tr>
+      </table>
+
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Amplitude, for the signature ·</b> run it at <b>65–75% of demo
+      value</b>, not the 40–50% production floor. It stays the loudest thing on the page and the only
+      thing built from three layers — that hierarchy is what stops the page reading as noise.</p>
+
+      <div class="warnbox"><b>Phase 1's floor for everything else is not the production floor
+      either.</b> This is a one-time pitch artifact judged in a single look, not a product visited
+      fifty times — so <b>every heading reveals on scroll, every photo carries a treatment, every
+      link and button has a crafted hover, not just the ones near the signature.</b> "Ship values
+      everywhere except one moment" was the wrong instinct: it produces a page with one good part and
+      a lot of flat template around it, which reads as competent, not spectacular. The signature stays
+      structurally distinct — three layers, one trigger, loudest amplitude — everything else still
+      gets a real treatment, just a smaller one. <b>The failure mode to hold the line against is not
+      "too restrained," it's incoherent</b>: one shared easing vocabulary (CHO 05), one rAF loop,
+      every effect gated so nothing runs off-screen. Density is fine. Randomness is not.</p></div>
+
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">The duotone/grade base is not optional when a hero photo exists ·</b>
+      an untreated photo under a headline is the single fastest way to make a page look assembled
+      rather than art-directed. See KIT 08 for the CSS — it derives its two colours from the same
+      OKLCH ramp as the rest of the page, so it can't drift off-brand the way a manually-picked filter
+      would.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 03</span><h4>Entrance — the first 1200ms</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">The load
+      sequence is the only choreography every visitor sees. It runs on a timer, not on scroll —
+      <b style="color:var(--cream)">nothing above the fold may wait for a scroll event</b>, because a
+      hero element that waits on a scroll event never appears at all for anyone who reads the
+      hero and leaves.</p>
+      <table class="lentable">
+        <tr><th>At</th><th>Element</th><th>From</th><th>Duration</th></tr>
+        <tr><td class="w">0ms</td><td>Hero media / background</td><td>opacity 0 → 1, scale 1.04 → 1</td><td class="w">900ms</td></tr>
+        <tr><td class="w">80ms</td><td>Eyebrow / kicker</td><td>opacity 0, y +8px</td><td class="w">500ms</td></tr>
+        <tr><td class="w">140ms</td><td>Headline</td><td>opacity 0, y +14px — or per-word stagger at 22ms</td><td class="w">600ms</td></tr>
+        <tr><td class="w">280ms</td><td>Sub-line</td><td>opacity 0, y +10px</td><td class="w">500ms</td></tr>
+        <tr><td class="w">380ms</td><td>Primary action</td><td>opacity 0, y +8px</td><td class="w">450ms</td></tr>
+        <tr><td class="w">460ms</td><td>Nav and secondary chrome</td><td>opacity 0</td><td class="w">400ms</td></tr>
+        <tr><td class="w">900ms</td><td>Ambient loop starts</td><td>fades up to its running amplitude</td><td class="w">1200ms</td></tr>
+      </table>
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Rules ·</b> Total entrance under <b>1.2s</b> — past that it reads as
+      a slow site rather than a considered one. Travel distances stay small: <b>8–16px</b>, never the
+      40px+ that template builders use. And the nav arrives <b>last</b>, not first — leading with
+      chrome tells the visitor the site is about itself.</p>
+      <div class="warnbox"><b>Never animate a full-screen overlay or a progress counter on load.</b>
+      A preloader on a five-section marketing page adds real seconds to the only moment that counts.
+      Google's judgment window is roughly <b>50 milliseconds</b> — a loader spends all of it on itself.</div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 04</span><h4>Scroll pacing</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">One animated moment per screen.</b> Not one per component — one
+      per screenful of scroll. If two things move as the visitor passes a section, one of them is
+      noise.</p>
+      <table class="lentable">
+        <tr><th>Screen</th><th>What moves</th><th>Why</th></tr>
+        <tr><td>1 — Hero</td><td>Entrance, then the ambient only</td><td>Establish. Let them read.</td></tr>
+        <tr><td>2</td><td>Supporting reveal, once</td><td>Teach the page's vocabulary with a small move.</td></tr>
+        <tr><td>3</td><td><b style="color:var(--cream)">Nothing</b></td><td>The rest beat. Non-negotiable — a page that moves continuously has no emphasis left to spend.</td></tr>
+        <tr><td>4 — the moment</td><td><b style="color:var(--cream)">Signature</b></td><td>Lands hardest because three screens of restraint came before it.</td></tr>
+        <tr><td>5</td><td>Supporting reveal</td><td>Back to the vocabulary.</td></tr>
+        <tr><td>6</td><td>Nothing</td><td>Practical information wants stillness.</td></tr>
+        <tr><td>7 — Close</td><td>One small move on the action</td><td>Direct attention to the one thing left to do.</td></tr>
+      </table>
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Scroll-driven ranges ·</b> An element should finish its animation
+      by the time it is <b>halfway up the viewport</b> — <code>animation-range: entry 0% cover 40%</code>.
+      Animations still running when the element is centred force the reader to wait for the page,
+      which is the most irritating thing motion can do.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Reveal once ·</b> Scroll up and back down and nothing re-animates.
+      Re-triggering reveals is the single most common scroll-animation mistake, and it makes a page
+      feel unstable rather than alive.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 05</span><h4>Effects that fight each other</h4></div>
+      <p style="margin:0 0 6px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Each pair below
+      is individually fine and jointly broken. Most of them fail as <i>looks slightly wrong</i> rather
+      than as an error, which is why they survive to launch.</p>
+      <div class="crime"><b>Velocity skew + parallax, same element</b><span>Two transforms competing for one matrix. The element wobbles and neither effect reads.</span></div>
+      <div class="crime"><b>Sticky section + scroll-driven mask inside it</b><span>Position sticky changes what the scroll timeline resolves against. The mask freezes partway.</span></div>
+      <div class="crime"><b>WebGL background + backdrop-filter above it</b><span>Forces a readback of the GPU surface every frame. Reliably the heaviest thing you can accidentally do.</span></div>
+      <div class="crime"><b>View Transitions + FLIP on the same element</b><span>Both animate the same layout change. You get a double move.</span></div>
+      <div class="crime"><b>Tilt + magnetic pull on one card</b><span>The pointer is driving two models with different centres. Feels loose and slightly nauseating.</span></div>
+      <div class="crime"><b>Ambient grain + grain in the photo treatment</b><span>Moiré, and the images look dirty rather than filmic.</span></div>
+      <div class="crime"><b>Two easing families on one page</b><span>A bouncy spring on the buttons and a smooth ease on the sections reads as two sites stitched together.</span></div>
+      <div class="crime"><b>Character stagger on more than one heading</b><span>The first is a flourish. The second makes both look automated.</span></div>
+      <div class="crime"><b>Ambient motion behind body copy</b><span>Anything moving under text makes the text feel unstable, whatever the contrast ratio says.</span></div>
+      <div class="crime" style="border-bottom:none"><b>Scroll-jacking anything</b><span>Custom scroll speed, snap on a long page, or a hijacked wheel. It breaks trackpads, keyboards and every accessibility expectation at once.</span></div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 06</span><h4>One easing vocabulary</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Pick these
+      once and use nothing else. A page with a consistent curve feels like one object; a page with
+      five feels assembled.</p>
+      <table class="lentable">
+        <tr><th>Use</th><th>Curve</th><th>Duration</th><th>Notes</th></tr>
+        <tr><td>Entrance</td><td class="w">cubic-bezier(.16,1,.3,1)</td><td class="w">450–600ms</td><td>Fast out of the gate, long settle. The workhorse.</td></tr>
+        <tr><td>Exit</td><td class="w">cubic-bezier(.4,0,1,1)</td><td class="w">180–250ms</td><td>Leaving should be quicker than arriving, always.</td></tr>
+        <tr><td>Hover / press</td><td class="w">cubic-bezier(.2,0,0,1)</td><td class="w">120–180ms</td><td>Under 200ms or it feels laggy under the finger.</td></tr>
+        <tr><td>Layout change</td><td class="w">FLIP + entrance curve</td><td class="w">320–420ms</td><td>Never animate width or height directly.</td></tr>
+        <tr><td>Anything pointer-driven</td><td class="w">spring, no duration</td><td class="w">—</td><td>Stiffness 170 / damping 26 as a start. Duration-based easing on a pointer always feels dead.</td></tr>
+        <tr><td>Continuous / ambient</td><td class="w">linear</td><td class="w">—</td><td>Eased loops visibly pulse at the seam.</td></tr>
+      </table>
+      <div class="warnbox"><b>Never <code>ease-in-out</code> on an entrance.</b> The slow start reads
+      as lag — the element appears to hesitate before moving. It is the default in most tools and it
+      is wrong for almost everything on a marketing page.</div>
+    </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">CHECK</span><h4>Before the motion is done</h4></div>
+      <div class="egood"><span>Count the effects. One signature, two supporting, one ambient — no more.</span></div>
+      <div class="egood"><span>Name the signature out loud and say which fact about the business it comes from.</span><i>if you can't, it's decoration</i></div>
+      <div class="egood"><span>Scroll the whole page at normal speed. More than one thing moving per screen?</span></div>
+      <div class="egood"><span>Scroll back up. Anything re-animate?</span></div>
+      <div class="egood"><span>Turn on reduced motion. Is the page a designed still composition, or is it dead?</span></div>
+      <div class="egood"><span>Throttle to 4× slower CPU. Does the entrance still finish under 1.2s?</span></div>
+    </div>
+  </section>
+
+  </div>
 </div><!-- /panel-effects -->
 
 <div class="panel" id="panel-research" role="tabpanel" aria-labelledby="tab-research" hidden>
@@ -9569,6 +9600,29 @@ qa('[data-demo="typ-dissolve"]').forEach(stage => {
     ixgroups.forEach(gr => { gr.hidden = !(g==='all' || gr.dataset.ixg===g); });
   }));
 
+  /* ---- Effects sub-tabs ---- */
+  (() => {
+    const subs = qa('.subtab');
+    if (!subs.length) return;
+    const show = id => {
+      subs.forEach(t => t.setAttribute('aria-selected', String(t.getAttribute('aria-controls') === id)));
+      qa('.subpanel').forEach(pn => { pn.hidden = pn.id !== id; });
+      /* canvas demos size themselves on resize only — a newly shown panel has
+         never had a layout, so nudge them the same way the main tabs do */
+      requestAnimationFrame(() => dispatchEvent(new Event('resize')));
+    };
+    subs.forEach(t => t.addEventListener('click', () => show(t.getAttribute('aria-controls'))));
+    subs.forEach((t,i) => t.addEventListener('keydown', e => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      const nx = subs[(i + d + subs.length) % subs.length];
+      nx.focus(); show(nx.getAttribute('aria-controls'));
+    }));
+    const link = document.getElementById('toDoctrine');
+    if (link) link.addEventListener('click', e => { e.preventDefault(); show('sub-doctrine'); scrollTo({top:0}); });
+  })();
+
   /* ---- effect index: live filter, keyboard jump, back-to-index ---- */
   (() => {
     const q = document.getElementById('ixq');
@@ -9604,6 +9658,8 @@ qa('[data-demo="typ-dissolve"]').forEach(stage => {
       if (t === 'INPUT' || t === 'TEXTAREA') return;
       const panel = document.getElementById('panel-effects');
       if (panel && panel.hidden) document.getElementById('tab-effects').click();
+      const lib = document.getElementById('sub-library');
+      if (lib && lib.hidden) document.getElementById('st-library').click();
       e.preventDefault(); q.focus(); q.select();
     });
 
