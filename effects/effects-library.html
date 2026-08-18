@@ -1150,8 +1150,13 @@ open the two or three sections a step needs, not the whole document.
               a job · <b>E</b> retain a professional · <b>F</b> buy a product · <b>G</b> attend
               an occasion · <b>H</b> enrol.   Register <b>Raw · Calm · Clinical ·
               Craft · Luxury · Community</b>, taken from their colours, type
-              and photography — never from their industry.
-              Say it out loud: "Pattern B × Register Craft".
+              and photography — never from their industry. Then name the
+              ONE feeling this specific page should produce (not the
+              register's default mood — theirs: quiet confidence, warm
+              belonging, urgent competence, calm assurance). This feeling
+              is what texture, motion amplitude and copy tone all serve —
+              say it out loud: "Pattern B x Register Craft x Feeling:
+              unhurried warmth".
  3  INVENTORY List every job the current homepage does — every action,
               every piece of practical info, every embed. Every one of
               them survives into your page, or you write down why not.
@@ -1509,9 +1514,12 @@ and read BLD 09 for what additionally opens up.</pre>
           <h5>2 · Classify</h5>
           <p>Run the Patterns tab. <b>Pattern</b> from what the customer is deciding — the money action
           is usually written on their busiest button. <b>Register</b> from their palette, type weight
-          and photography, <i>not</i> from their industry.</p>
+          and photography, <i>not</i> from their industry. Then name <b>the one feeling</b> this page
+          should produce — not the register's generic mood, this business's specific version of it.
+          A Calm yoga studio and a Calm med-spa are not the same feeling. This is what texture (KIT 10),
+          motion amplitude and copy tone all get chosen to serve.</p>
           <p class="tlout"><b>Output</b> — one line, stated out loud:
-          <code>Pattern B × Register Craft · confidence high</code>.</p>
+          <code>Pattern B × Register Craft · Feeling: unhurried warmth · confidence high</code>.</p>
           <p class="tlgate"><b>Gate</b> — low confidence resolves to the closest pattern in the
           <b>Community</b> register. Never stop to ask.</p>
         </div>
@@ -6489,18 +6497,221 @@ overlay.style.background =
 
   <!-- ============ TEXTURE ============ -->
   <section class="kitsec">
-    <div class="kithead"><span class="n">KIT 10</span><h3>Texture</h3>
-      <p>What stops large flat areas reading as unfinished.</p></div>
+    <div class="kithead"><span class="n">KIT 10</span><h3>Texture &amp; material</h3>
+      <p>What stops large flat areas reading as unfinished — and the layer that makes a coffee shop
+      feel like burlap and scorched wood instead of a generic warm gradient.</p></div>
     <div class="kitcard">
-      <p><b>Grain</b> — <code>AMB-01</code>, at 3–5% opacity, <code>mix-blend-mode: overlay</code>.
-      Kills gradient banding and makes a flat field read as a surface. <b>Nearly always worth it on a
-      dark page.</b></p>
-      <p><b>Gradient mesh</b> — <code>AMB-02</code>, blurred blobs behind content. Fills empty regions
-      without adding content. Keep blur above 40px or the blobs become visible shapes.</p>
-      <p><b>Hairline grid</b> — a 1px rule every 96px at 4% opacity. Almost invisible, but it makes the
-      layout feel engineered rather than floated. <b>Cheapest premium signal in the kit.</b></p>
-      <p><b>Never:</b> visible noise PNGs, paper textures at high opacity, gradient meshes bright
-      enough to read as blobs, or texture on top of body text.</p>
+      <h4>Two mechanisms. Everything below is built from these two.</h4>
+      <p><b>Mesh gradient</b> — several soft radial blobs stacked in one <code>background</code>,
+      each colour drawn from the OKLCH ramp in KIT 01. Real, native CSS — no image, no canvas.</p>
+      <pre><code>.mesh {
+  background:
+    radial-gradient(circle at 18% 22%, var(--brand-300) 0%, transparent 55%),
+    radial-gradient(circle at 82% 15%, var(--cool-500)  0%, transparent 50%),
+    radial-gradient(circle at 60% 78%, var(--brand-700) 0%, transparent 60%),
+    var(--paper);
+}
+<i>// 3-6 blobs. Fewer reads as a plain gradient; more turns muddy.
+// Every stop comes from the ramp — never a colour typed by eye.</i></code></pre>
+      <p><b>Grain</b> — an inline SVG <code>feTurbulence</code> filter, encoded once as a data URI,
+      layered as the top <code>background-image</code>. No JS, no canvas, no external file.</p>
+      <pre><code>.grain::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image: url('data:image/svg+xml;utf8,\\
+    &lt;svg xmlns=%22http://www.w3.org/2000/svg%22&gt;\\
+    &lt;filter id=%22n%22&gt;&lt;feTurbulence type=%22fractalNoise%22 \\
+      baseFrequency=%22<b>0.9</b>%22 numOctaves=%222%22/&gt;&lt;/filter&gt;\\
+    &lt;rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/&gt;&lt;/svg&gt;');
+  opacity: <b>.05</b>; mix-blend-mode: overlay;
+}
+<i>// baseFrequency sets grain SIZE — 0.9 is fine sand, 0.15 is coarse weave.
+// opacity sets grain VISIBILITY — 25-40% opacity is where noise stops
+// being seasoning and starts being the point. Stay under it.</i></code></pre>
+    </div>
+
+    <div class="kitcard">
+      <h4>Six materials, one per register — mix ratios, not new colours</h4>
+      <p>Every material below is the <b>same two mechanisms</b>, tuned. Nothing here introduces a
+      colour that isn't already in the OKLCH ramp — a material is a <i>recipe</i>, not a new palette.</p>
+
+      <table class="lentable">
+        <tr><th>Register</th><th>Material</th><th>Mesh blobs</th><th>Grain baseFrequency</th><th>Grain opacity</th><th>Feel</th></tr>
+        <tr><td>Raw</td><td><b style="color:var(--cream)">Worn metal / concrete</b></td><td>2, hard-edged (short transparent falloff), high contrast between them</td><td class="w">0.65 (coarse)</td><td class="w">8–10%</td><td>gritty, unpolished on purpose</td></tr>
+        <tr><td>Calm</td><td><b style="color:var(--cream)">Cream / linen</b></td><td>4, wide soft falloff, low contrast between stops</td><td class="w">1.1 (fine)</td><td class="w">3–4%</td><td>unhurried, barely there</td></tr>
+        <tr><td>Clinical</td><td><b style="color:var(--cream)">Frost / glass</b></td><td>1–2, one cool accent bloom only</td><td class="w">— (no grain)</td><td class="w">0%</td><td>precise; grain would read as dirt here</td></tr>
+        <tr><td>Craft</td><td><b style="color:var(--cream)">Wood / suede</b></td><td>3, elongated on one axis (directional, like grain running one way)</td><td class="w">0.35 x / 1.2 y (directional)</td><td class="w">6–7%</td><td>handmade, warm</td></tr>
+        <tr><td>Luxury</td><td><b style="color:var(--cream)">Velvet / smoke</b></td><td>3, very low contrast, almost imperceptible falloff — light on dark fabric, not colour blocks</td><td class="w">1.4 (very fine)</td><td class="w">2–3%</td><td>restraint reads as the material</td></tr>
+        <tr><td>Community</td><td><b style="color:var(--cream)">Sand / canvas</b></td><td>4-5, warm, medium contrast, slightly uneven spacing (organic, not gridded)</td><td class="w">0.5 (visible weave)</td><td class="w">7–9%</td><td>welcoming, textural, alive</td></tr>
+      </table>
+
+      <div class="warnbox"><b>"Dirty" is Raw with the grain opacity pushed toward 10% and one blob
+      made deliberately uneven</b> — not a seventh material. Every register-appropriate texture is a
+      dial on these two mechanisms, not a new technique to learn. That's what keeps six very different
+      moods from needing six different implementations.</div>
+    </div>
+
+    <div class="kitcard">
+      <h4>Where texture goes, and where it never does</h4>
+      <table class="lentable">
+        <tr><th>Placement</th><th>Rule</th></tr>
+        <tr><td>Hero background</td><td>Mesh + grain together, full opacity from the table above. This is the one place texture is allowed to be noticed.</td></tr>
+        <tr><td>Section dividers / empty bands</td><td>Grain only, mesh optional at half the hero's contrast. Fills without competing.</td></tr>
+        <tr><td>Card / panel surfaces</td><td>Grain only, half the hero's opacity. Enough to feel like a surface, not enough to fight the content on it.</td></tr>
+        <tr><td>Behind body text</td><td class="w">Never at readable density.</td></tr>
+        <tr><td>On top of a duotone photo (KIT 08)</td><td class="w">Pick one, never both.</td></tr>
+      </table>
+      <p style="margin-top:12px"><b>The test that matters ·</b> squint at the section. If the texture
+      is the first thing you see, it's too strong — a material should feel like the surface content
+      sits on, never like content sitting on top of a graphic.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Material references by trade — what Register alone doesn't know</h4>
+      <p>Register sets the <b>mix ratios</b> — contrast, grain size, opacity. It doesn't know that a
+      coffee shop's real surfaces are burlap and scorched wood, or that a dental office's are frosted
+      glass and brushed steel. <b>This table is that missing layer</b>, organised against the same
+      Pattern letters already in the classifier so it's one system, not two.</p>
+
+      <table class="lentable">
+        <tr><th>Pattern</th><th>Trade</th><th>Real material references</th></tr>
+        <tr><td rowspan="4" class="w">A · book a slot</td><td>Yoga studio</td><td>raw linen · pale ash or bamboo wood · morning mist · unglazed ceramic</td></tr>
+        <tr><td>Pilates / reformer studio</td><td>brushed aluminium (springs, frame) · pale wood flooring · chalk-white plaster</td></tr>
+        <tr><td>Barber / tattoo</td><td>dark aged leather · brushed steel · aged brick · warm steam</td></tr>
+        <tr><td>Spa · med-spa · massage · salon · nails</td><td>frosted glass · warm stone · still water · pale linen · soft lacquer sheen</td></tr>
+
+        <tr><td rowspan="6" class="w">B · come and consume</td><td>Coffee shop / café</td><td>burlap weave · roasted or scorched wood · brushed steel (the machine) · rising steam</td></tr>
+        <tr><td>Mexican restaurant</td><td>terracotta · hand-painted tile · woven textile · lime-washed plaster</td></tr>
+        <tr><td>Italian restaurant</td><td>marble · olive wood · linen · aged plaster</td></tr>
+        <tr><td>Bar / cocktail lounge</td><td>dark aged wood · brushed brass · low amber light · smoked glass</td></tr>
+        <tr><td>Bakery</td><td>flour dust · wood-fired crust texture · linen cloth</td></tr>
+        <tr><td>Brewery / juice bar / deli</td><td>raw steel tanks · reclaimed wood · butcher paper · condensation on cold glass</td></tr>
+
+        <tr><td rowspan="2" class="w">C · join</td><td>Gym / crossfit / climbing</td><td>raw steel · rubber flooring · chalk dust · unfinished concrete · rope fibre</td></tr>
+        <tr><td>Coworking / recovery club</td><td>brushed concrete · warm wood desks · frosted glass · still water</td></tr>
+
+        <tr><td rowspan="3" class="w">D · hire for a job</td><td>General trades (plumber, electrician, HVAC)</td><td>galvanised steel · painted metal · work-worn canvas · clean concrete</td></tr>
+        <tr><td>Landscaper / roofer</td><td>raw soil · cut wood grain · weathered shingle · morning dew</td></tr>
+        <tr><td>Trucking / logistics / national franchise</td><td>diesel-stained asphalt · chromed or galvanised steel · heavy canvas tarp · road grit</td></tr>
+
+        <tr><td rowspan="2" class="w">E · retain a professional</td><td>Law / accounting / financial advisory / insurance</td><td>brushed titanium · frosted glass · dark walnut · fine paper grain</td></tr>
+        <tr><td>Oil, energy, industrial-professional</td><td>rig-grade brushed steel · dark earth · heavy canvas · weathered metal</td></tr>
+
+        <tr><td rowspan="2" class="w">F · buy a product</td><td>Boutique apparel</td><td>raw linen or canvas · soft cotton weave · brushed brass fixtures</td></tr>
+        <tr><td>Jewellery / furniture / home goods</td><td>polished metal · velvet (display, not the whole page) · raw wood grain · natural stone</td></tr>
+
+        <tr><td class="w">G · attend an occasion</td><td>Wedding / event venue</td><td>raw linen · aged wood beams · warm candlelit plaster · dried floral texture</td></tr>
+
+        <tr><td class="w">H · enrol</td><td>Music, swim, martial arts, tutoring</td><td>chalk and paper grain · pale wood · woven mat texture · chlorine-blue water shimmer</td></tr>
+      </table>
+
+      <div class="warnbox"><b>This is a menu to check against evidence, not a rule to apply blindly —
+      same discipline as the regional-bias note in Patterns.</b> A minimalist modern Mexican
+      restaurant that never touches terracotta in its own photography doesn't get terracotta because
+      it's Mexican; it gets whatever its <i>own</i> interior actually shows. The table exists so you
+      recognise the right reference when you see it in their evidence, not so you invent one they
+      never had.</p></div>
+
+      <p style="margin-top:12px"><b>How a reference becomes CSS ·</b> pick the closest colour and
+      contrast character from the six-material table above (a coffee shop's burlap and scorched wood
+      is Craft's directional-grain wood recipe; a med-spa's frosted glass is Clinical's near-grainless
+      frost). <b>The trade tells you which reference is true. Register tells you how hard to turn the
+      dial.</b> Nothing here adds a third mechanism — it's still only mesh and grain.</p>
+    </div>
+
+    <div class="kitcard">
+      <p><b>Hairline grid</b> — a 1px rule every 96px at 4% opacity. Almost invisible, but makes the
+      layout feel engineered rather than floated. <b>Cheapest premium signal in the kit</b>, and it
+      layers under any material above without conflict.</p>
+      <p><b>Never:</b> a visible noise PNG, a paper texture at high opacity, a mesh gradient bright
+      enough to read as coloured blobs, or any material sitting under body text.</p>
+    </div>
+  </section>
+
+  <!-- ============ ICONS ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 11</span><h3>Icons</h3>
+      <p>Every page needs some — nav, features, contact, social. Left undecided, the AI reaches for
+      whatever generic set it defaults to, which is the same unconsidered choice this whole document
+      exists to prevent.</p></div>
+
+    <div class="kitcard">
+      <h4>One source, one style, one stroke weight</h4>
+      <p><b>Pick a single icon set for the whole page.</b> Mixing icon libraries is as visible as
+      mixing type families — different corner radii, different stroke weights, different visual
+      density sit next to each other and read as assembled, not designed.</p>
+      <table class="lentable">
+        <tr><th>Register</th><th>Icon style</th><th>Weight</th></tr>
+        <tr><td>Raw</td><td>Solid / filled, geometric</td><td>heavy</td></tr>
+        <tr><td>Calm · Community</td><td>Line, rounded joins</td><td>1.5–1.75px</td></tr>
+        <tr><td>Clinical</td><td>Line, sharp joins, no decoration</td><td>1.5px, consistent</td></tr>
+        <tr><td>Craft</td><td>Line, slightly irregular joins (hand-drawn character, not wobbly)</td><td>1.5–2px</td></tr>
+        <tr><td>Luxury</td><td>Line only, extremely thin, generous padding around each glyph</td><td>1px</td></tr>
+      </table>
+      <p style="margin-top:12px"><b>Real sources, not invented SVGs.</b> Lucide, Phosphor, Heroicons —
+      all free, all consistent internally, all cover the common set (phone, mail, map pin, clock,
+      social marks, arrow, check, star). <b>Never hand-draw a path from scratch</b> when a mature set
+      already solved it; a slightly-off hand-built icon is a more visible tell than most typography
+      mistakes, because icons are small enough that any inconsistency reads immediately.</p>
+      <p><b>Sizing.</b> On the 8pt scale from KIT 01 — 16, 20, 24px for inline/label icons, 32–40px for
+      a standalone feature icon. Stroke width scales with size; a 1.5px stroke at 40px looks thin, not
+      refined.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Colour and containment</h4>
+      <p><b>Icons take ink, not accent, by default.</b> <code>currentColor</code> inheriting from
+      the surrounding text is correct almost everywhere. The brand accent is reserved for the same
+      ≤5%-of-the-page budget as everywhere else — one active-state icon, one icon inside the CTA,
+      never a whole row of accent-coloured feature icons.</p>
+      <p><b>Containment, if any, follows KIT 09.</b> A tonal circle behind a feature icon (not a
+      bordered box, not a drop-shadowed badge) reads as considered. A hard-bordered square around
+      every icon in a row is the fastest way to make a feature grid look like a template's default
+      component.</p>
+      <div class="warnbox"><b>Never mix filled and line icons on one page.</b> A filled social-media
+      icon set next to a line-style feature icon set is the icon equivalent of mixing two unrelated
+      type families — it reads as two different people built two different sections.</div>
+    </div>
+  </section>
+
+  <!-- ============ CURSOR ============ -->
+  <section class="kitsec">
+    <div class="kithead"><span class="n">KIT 12</span><h3>Cursor &amp; pointer</h3>
+      <p>The cursor is the one element present on every single pixel of the page and almost never
+      designed. It's also one of the fastest tells that separates an agency build from a template —
+      because a default arrow is what every template ships with.</p></div>
+
+    <div class="kitcard">
+      <h4>Three moves, pick at most two</h4>
+      <table class="lentable">
+        <tr><th>Move</th><th>What it is</th><th>Where</th></tr>
+        <tr><td>Following dot</td><td>A small circle that trails the real cursor with a slight lag, scales up over interactive elements</td><td>Registers with room for personality — Raw, Craft, Community. Skip in Clinical.</td></tr>
+        <tr><td>Label swap</td><td>The cursor becomes a small pill of text — "View", "Play", "Order" — when over a specific element</td><td>Image cards, the origin-run photos, anything that would otherwise need a visible button overlay</td></tr>
+        <tr><td>Magnetic pull</td><td>A button or icon shifts a few px toward the cursor as it approaches, snapping back on leave</td><td>The one primary CTA only. Applied to every button on the page it stops reading as attention and starts reading as a UI bug.</td></tr>
+      </table>
+      <p style="margin-top:12px"><b>This is a signature-moment-tier decision, not a free add-on.</b>
+      Treat it like anything else in CHO 02 — pick what serves the one feeling from BLD 02 step 2, not
+      every trick available. A following dot AND a label swap AND magnetic pull on everything is the
+      cursor equivalent of the effect-scatter CHO 02 already warns against.</p>
+      <pre><code>.cursor-dot {
+  position: fixed; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--brand); pointer-events: none; z-index: 200;
+  transform: translate(-50%,-50%); transition: width .2s, height .2s;
+  will-change: transform;
+}
+<i>// position via rAF-smoothed pointer coords — the SAME shared loop
+// from Standards, never a second listener-driven loop of its own.</i>
+document.addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; });
+<i>// in the shared tick():</i>
+cx = lerp(cx, tx, 0.18); cy = lerp(cy, ty, 0.18);
+dot.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;</code></pre>
+    </div>
+
+    <div class="kitcard">
+      <h4>Never</h4>
+      <div class="crime"><b>A custom cursor with no touch fallback</b><span>It does nothing on a phone. Design the tap state, don't just let it silently not exist.</span></div>
+      <div class="crime"><b>Hiding the real cursor without replacing it fast enough</b><span>A gap between the native cursor disappearing and the custom one rendering reads as a bug, not a feature.</span></div>
+      <div class="crime"><b>Custom cursor over form fields or text</b><span>Native text-select and native form cursors exist for a reason — restore the system cursor over anything editable or selectable.</span></div>
+      <div class="crime" style="border-bottom:none"><b>A second animation loop for it</b><span>Same rule as everything else in Standards — one shared rAF, IntersectionObserver-gated, or it doesn't ship.</span></div>
     </div>
   </section>
 </div><!-- /panel-kit -->
