@@ -95,7 +95,7 @@ ships its own `requestAnimationFrame` doesn't go in.
 
 - **Font loading must not shift layout.** `font-display: swap` plus `size-adjust`,
   `ascent-override` and `descent-override` on the fallback so metrics match.
-- Running text near **65 characters**; `text-wrap: balance` on headings.
+- Running text at **62–68 characters**; `text-wrap: balance` on headings.
 - Uppercase labels get letter-spacing; tabular figures (`font-variant-numeric:
   tabular-nums`) wherever digits line up in columns.
 

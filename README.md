@@ -10,9 +10,12 @@ A toolroom isn't where product gets made — it's where the jigs, fixtures and g
 made. That's this. Not client work; the tooling that makes client work come out
 consistently good.
 
+**The whole system is fifteen rules.** They're listed at the top of the Build tab as *The Spine*;
+every other tab is one of those fifteen worked out in detail. Read those first.
+
 | | |
 |---|---|
-| **Build** *(in the library page)* | the trigger phrase, the twenty-minute procedure, the bad-input playbook and the audit — the **procedure** |
+| **Build** *(in the library page)* | the spine, the trigger phrase, the twenty-minute procedure, the bad-input playbook and the audit — the **procedure** |
 | **[`research/`](research/)** | how to find out what's actually true about a client, and prove it — the **gauge** |
 | **[`effects/`](effects/)** | working, debugged interaction code you can lift — the **fixtures** |
 | **Patterns** *(in the library page)* | the two questions that place any business — the **classifier** |

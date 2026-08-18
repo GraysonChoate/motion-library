@@ -289,7 +289,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   padding:3px 8px; border-radius:2px; font-variant-numeric:tabular-nums}
 .stage.showplanes .legend{opacity:1}
 
-/* ---- COP-02: per-line velocity lag ---- */
+/* ---- per-line velocity lag ---- */
 .vline{display:block; will-change:transform,filter}
 .velread{position:absolute; right:16px; top:14px; z-index:9; pointer-events:none;
   font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--gold);
@@ -508,6 +508,7 @@ footer b{color:var(--ink-dim); font-weight:500}
 .pbbar{position:absolute; left:0; right:0; bottom:0; height:34%;
   background:linear-gradient(180deg,transparent,rgba(22,23,26,.82))}
 
+.dscanvas{position:absolute; inset:0; width:100%; height:100%; display:block}
 /* ---- AMB ---- */
 .grainstage{position:absolute; inset:0; background:linear-gradient(160deg,#20242A,#131418)}
 .grainlabel{position:absolute; inset:0; display:grid; place-items:center; font-family:var(--serif);
@@ -613,6 +614,25 @@ footer b{color:var(--ink-dim); font-weight:500}
 .docol.no li::before{content:"\2715"; position:absolute; left:0; color:var(--ember); font-family:var(--mono); font-size:11px}
 
 :root{--markmask:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="%23000" stroke-width="3"/><circle cx="42" cy="23" r="5.5" fill="%23000"/><path d="M13 45 L26 27 L34 38.5 L40.5 31 L51 45 Z" fill="%23000"/></svg>')}
+
+/* ---- the spine ---- */
+.spine{counter-reset:sp; list-style:none; margin:18px 0 0; padding:0;
+  border-top:1px solid var(--edge-soft)}
+.spine li{counter-increment:sp; display:grid;
+  grid-template-columns:34px minmax(0,1fr) auto; gap:6px 14px;
+  align-items:baseline; padding:13px 0; border-bottom:1px solid var(--edge-soft)}
+.spine li::before{content:counter(sp,decimal-leading-zero);
+  font-family:var(--mono); font-size:11px; color:var(--ember);
+  font-variant-numeric:tabular-nums}
+.spine b{font-family:var(--serif); font-weight:400; font-size:clamp(17px,2.1vw,20px);
+  color:var(--cream); line-height:1.3}
+.spine span{grid-column:2; font-size:13.5px; color:var(--ink-faint); line-height:1.55}
+.spine i{grid-row:1; grid-column:3; font-style:normal; font-family:var(--mono);
+  font-size:10px; letter-spacing:.1em; color:var(--tan); white-space:nowrap}
+@media(max-width:620px){
+  .spine li{grid-template-columns:26px minmax(0,1fr); gap:4px 10px}
+  .spine i{grid-row:auto; grid-column:2; margin-top:2px}
+}
 
 /* ================= BUILD ================= */
 .trig{border:1px solid var(--edge); border-radius:2px; background:linear-gradient(180deg,rgba(201,164,92,.05),transparent);
@@ -1045,8 +1065,36 @@ footer b{color:var(--ink-dim); font-weight:500}
     tab is the <strong>procedure</strong>: the trigger, the ordered steps, the time budget, and the
     audit that runs before anything is handed over.</p>
     <p>Written for the AI to execute, not for a person to interpret. If you're a person, the only two
-    things you need are the trigger phrase in BLD 00 and the hand-over rule in BLD 03.</p>
+    things you need are the trigger phrase in BLD 00 and the hand-over rule in BLD 04.</p>
   </div>
+
+  <section class="cpsec" id="spine">
+    <div class="cphead"><span class="n">THE SPINE</span><h3>The whole system, in fifteen lines</h3>
+      <p>If you retain nothing else, retain this. Everything in every tab is one of these fifteen
+      rules worked out in detail.</p></div>
+
+    <ol class="spine">
+      <li><b>Elevate the execution. Never the brand.</b><span>If the output could be a rebrand, it's wrong.</span><i>README</i></li>
+      <li><b>Classify before you build.</b><span>Pattern decides structure, register decides treatment. State both out loud.</span><i>Patterns</i></li>
+      <li><b>Diagnose in one sentence.</b><span>About their execution, never about their taste. If it needs a paragraph you don't have it.</span><i>BLD 02</i></li>
+      <li><b>Keep every job the old page was doing.</b><span>Improve how a job is done; don't delete the job.</span><i>BLD 02 · BLD 07</i></li>
+      <li><b>Measure, never guess.</b><span>Palette from their CSS, brightness from their photographs, ramp derived in OKLCH.</span><i>KIT 01</i></li>
+      <li><b>Their words first. Yours last. Invented never.</b><span>Every string carries an evidence tier. Empty beats fabricated.</span><i>Copy · CPY 06</i></li>
+      <li><b>180–320 words on the whole page.</b><span>You are writing two sentences and then supporting them.</span><i>CPY 04</i></li>
+      <li><b>Two type families. Four weights. All used.</b><span>A distinctive display face; a text face nobody notices.</span><i>KIT 02</i></li>
+      <li><b>One accent colour, on 5% of the page.</b><span>The brand colour is the CTA and one rule. Never a background.</span><i>KIT 01</i></li>
+      <li><b>Every gap on the 8pt scale.</b><span>One page margin, held on every section. Sections at 96 or 128.</span><i>KIT 01 · KIT 04</i></li>
+      <li><b>One dominant element per screen.</b><span>When a section isn't working, remove something. Premium is a subtraction.</span><i>KIT 04</i></li>
+      <li><b>One signature, two supporting, one ambient.</b><span>The signature comes from a fact about the business, and appears once.</span><i>CHO 01</i></li>
+      <li><b>Ship values, not demo values.</b><span>If a colleague can describe what the animation did, it's too strong.</span><i>Standards</i></li>
+      <li><b>Your own defaults are the enemy.</b><span>Ask of every decision: would I have produced this for any other client?</span><i>BLD 01</i></li>
+      <li><b>Audit in eight passes, then re-anchor.</b><span>Re-read your diagnosis, look at the page, check it still argues it. Two rounds, then stop.</span><i>BLD 06</i></li>
+    </ol>
+
+    <div class="warnbox" style="margin-top:20px"><b>The one test underneath all fifteen ·</b>
+    swap the client's name for a competitor's. If the page still works, it isn't theirs yet — and
+    every rule above is a different way of making sure it can't.</div>
+  </section>
 
   <!-- ============ TRIGGER ============ -->
   <section class="cpsec">
@@ -1057,7 +1105,7 @@ footer b{color:var(--ink-dim); font-weight:500}
       <p class="tlab">Phase 1 — the mockup</p>
       <pre class="tcmd">IMPLEMENT PHASE ONE — https://theirsite.com</pre>
       <p class="tnote">Nothing else is required. No brief, no answers, no assets. The AI reads this
-      document, runs BLD 01, and returns one self-contained HTML file in 15–20 minutes.</p>
+      document, runs BLD 02, and returns one self-contained HTML file in 15–20 minutes.</p>
     </div>
 
     <div class="trig">
@@ -1065,24 +1113,124 @@ footer b{color:var(--ink-dim); font-weight:500}
       <pre class="tcmd">IMPLEMENT PHASE TWO — https://theirsite.com
 &lt;paste anything learned since: what they liked, what they didn't,
  real photography, page list, brand assets, corrections&gt;</pre>
-      <p class="tnote">Same document, same classification, different permissions. See BLD 06.</p>
+      <p class="tnote">Same document, same classification, different permissions. See BLD 09.</p>
     </div>
 
     <div class="fcard" style="border-left-color:var(--ember)">
       <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">AI</span><h4>Standing instructions for whichever model is reading this</h4></div>
-      <div class="egood"><span><b>Do not ask clarifying questions.</b> Every ambiguity in this process has a stated default. Find it and proceed.</span><i>the one exception is a hard blocker in BLD 04</i></div>
+      <div class="egood"><span><b>Do not ask clarifying questions.</b> Every ambiguity in this process has a stated default. Find it and proceed.</span><i>the one exception is a hard blocker in BLD 05</i></div>
       <div class="egood"><span><b>State your classification before building.</b> One line: <code>Pattern C × Register Raw · confidence high</code>. It's the single highest-leverage decision and it must be visible.</span></div>
       <div class="egood"><span><b>Tag every fact with its evidence tier.</b> Nothing at tier E or F appears on the page.</span></div>
       <div class="egood"><span><b>Invent nothing.</b> No prices, reviews, testimonials, awards, credentials, years, counts, or links you did not read from a source.</span></div>
       <div class="egood"><span><b>Take defaults from this document, not from your own habits.</b> Where the Kit has a token, use it. Where Choreography has a budget, keep it. Where Copy has a word count, hold it.</span></div>
-      <div class="egood"><span><b>If a fetch fails, say so in plain words</b> and continue under BLD 04. Never describe a source you could not read as though you read it.</span></div>
+      <div class="egood"><span><b>If a fetch fails, say so in plain words</b> and continue under BLD 05. Never describe a source you could not read as though you read it.</span></div>
       <div class="egood"><span><b>Report what you skipped.</b> The hand-over ends with what you couldn't verify and what you left out.</span></div>
+    </div>
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">MAP</span><h4>How to read this document — don't read all of it</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">This file is
+      large. <b style="color:var(--cream)">Load the two or three sections a step actually needs and
+      ignore the rest.</b> Holding the whole document at once is how instructions get partially
+      followed — the sections below are addressed so you never have to.</p>
+      <table class="lentable">
+        <tr><th>When you are…</th><th>Read</th></tr>
+        <tr><td>About to start anything</td><td><b style="color:var(--cream)">BLD 01</b> — your own defaults. Non-optional, every time.</td></tr>
+        <tr><td>Reading the site</td><td>Research tab</td></tr>
+        <tr><td>Deciding what kind of business this is</td><td>Patterns</td></tr>
+        <tr><td>Choosing colours, type, spacing, layout</td><td>Kit &mdash; KIT 01, 02, 06</td></tr>
+        <tr><td>Handling their logo</td><td>KIT 03</td></tr>
+        <tr><td>Laying out a section</td><td>KIT 04, 05</td></tr>
+        <tr><td>Choosing what moves</td><td>Effects &mdash; Choreography first, then the group index</td></tr>
+        <tr><td>Writing any text</td><td>Copy</td></tr>
+        <tr><td>Stuck with bad source material</td><td>BLD 05</td></tr>
+        <tr><td>Finishing</td><td>BLD 06, then BLD 08</td></tr>
+        <tr><td>Being given vague feedback</td><td>BLD 10</td></tr>
+      </table>
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Where a section shows a paired example — good against bad, before
+      against after — that pair is the instruction.</b> The prose around it is explanation. If the two
+      ever disagree, follow the example.</p>
+    </div>
+  </section>
+
+<!-- ============ SLOP ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 01</span><h3>Your own defaults are the enemy</h3>
+      <p>Written for the model reading this. Left alone, you will produce a specific, recognisable
+      page — and everyone has already seen it.</p></div>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
+    A language model generates by reaching for the most probable next token. Applied to design, that
+    means reaching for the most common pattern in the training data — which is the SaaS landing page,
+    because there are hundreds of thousands of them. The result has a name now:
+    <b style="color:var(--cream)">AI slop</b>, and it is recognisable on sight to anyone who spends
+    time on the web.</p>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:12px 0 0;max-width:74ch">
+    <b style="color:var(--cream)">This is the most important section in the document</b>, because
+    everything else here can be followed correctly and the page can still come out looking generated.
+    The defaults below are not preferences you might have — they are the statistical centre of gravity
+    you will drift toward unless you actively steer away from it, on every single decision.</p>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">TELLS</span><h4>The signature of a generated page</h4></div>
+      <div class="ebad"><span>A violet-to-blue or purple-to-cyan gradient</span><i>the single most reported tell</i></div>
+      <div class="ebad"><span>Inter, or the system stack, used for absolutely everything</span><i>see the note below — this one has a nuance</i></div>
+      <div class="ebad"><span>Glassmorphism with a neon edge glow</span></div>
+      <div class="ebad"><span>Six identical cards in a row, each an icon, a heading and two lines</span></div>
+      <div class="ebad"><span>Three-column icon feature grids of vague benefits</span></div>
+      <div class="ebad"><span>16px border radius on every card, with a soft drop shadow</span></div>
+      <div class="ebad"><span>An oversized hero with a vague abstract headline</span><i>"Build the future", "Elevate your everything"</i></div>
+      <div class="ebad"><span>A bounce on every hover and a fade-up on every scroll</span></div>
+      <div class="ebad"><span>Seamless · innovative · leverage · empower · transform · curated</span></div>
+      <div class="ebad"><span>Stock team photography, or a generated image of people</span></div>
+      <div class="ebad"><span>Dark mode with a saturated accent, applied to a business that isn't a tech company</span></div>
+      <div class="ebad"><span>Emoji as icons</span></div>
+      <div class="ebad"><span>A gradient on text</span><i>except the one deliberate case in KIT 03</i></div>
+      <div class="ebad" style="border-bottom:none"><span>Perfectly even spacing everywhere, with no dominant element</span></div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">FIX</span><h4>What to do instead — mechanically</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Not
+      "be more creative." Creativity isn't the missing input — <b style="color:var(--cream)">constraint
+      is</b>. Every row below replaces a probable default with a decision sourced from the client.</p>
+      <table class="lentable">
+        <tr><th>Instead of the default</th><th>Do this</th><th>Where it comes from</th></tr>
+        <tr><td>Any gradient you chose</td><td>Their measured brand hex as a flat accent, on ≤5% of the page</td><td>their CSS</td></tr>
+        <tr><td>Inter everywhere</td><td>A distinctive display face by register, with a quiet text face under it</td><td>KIT 02</td></tr>
+        <tr><td>A row of six equal cards</td><td>One dominant element and a subordinate list</td><td>KIT 04</td></tr>
+        <tr><td>16px radius, soft shadow</td><td>2px radius, 1px hairline, no shadow</td><td>KIT 01 · KIT 09</td></tr>
+        <tr><td>An abstract headline</td><td>A sentence containing a number, a material, a method, a place or a duration</td><td>CPY 02</td></tr>
+        <tr><td>Fade-up on everything</td><td>One signature, two supporting, one ambient — counted</td><td>CHO 01</td></tr>
+        <tr><td>Stock or generated imagery</td><td>Their photographs, or no photographs and a type-led page</td><td>BLD 05</td></tr>
+        <tr><td>Dark mode by reflex</td><td>The ground their own photography implies — measure its brightness</td><td>Research</td></tr>
+        <tr><td>Even spacing throughout</td><td>One gap three times larger than any other</td><td>KIT 04</td></tr>
+        <tr><td>Copy you wrote</td><td>Copy they wrote</td><td>CPY 06</td></tr>
+      </table>
+      <div class="warnbox"><b>The one-line test ·</b> at every decision, ask <i>would I have produced
+      this for any other client?</i> If yes, you took a default. Go back to the research and find the
+      constraint that makes the decision for you. <b>A page assembled from constraints cannot come out
+      generic, because the constraints are unique to the business.</b></div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">NOTE</span><h4>On Inter, honestly</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      KIT 02 recommends Inter as the <b>text</b> face in several registers, and Inter is also the most
+      reported single tell of a generated page. Both are true, and the resolution is precise:</p>
+      <div class="egood"><span><b>Inter as the quiet text face, under a display face nobody would call default</b> — Fraunces, Instrument Serif, Anton, Cormorant, Bricolage.</span><i>fine, and deliberate</i></div>
+      <div class="ebad"><span><b>Inter as the display face too</b>, at 600 weight, for the headline and everything else.</span><i>this is the tell</i></div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">The tell isn't
+      the face. It's <b>the absence of a typographic decision</b>, and Inter-on-everything is what that
+      absence looks like. If you're unsure, use a system stack for body and spend the entire type
+      budget on the display face — one strong decision beats two safe ones.</p>
     </div>
   </section>
 
   <!-- ============ PHASE ONE ============ -->
   <section class="cpsec">
-    <div class="cphead"><span class="n">BLD 01</span><h3>Phase 1 — the procedure</h3>
+    <div class="cphead"><span class="n">BLD 02</span><h3>Phase 1 — the procedure</h3>
       <p>Eight steps, time-boxed to twenty minutes. Each has an output and a gate. Do not start a step
       until the previous gate passes.</p></div>
 
@@ -1120,7 +1268,26 @@ footer b{color:var(--ink-dim); font-weight:500}
       <div class="tlrow">
         <div class="tlt">5–7<i>min</i></div>
         <div class="tlb">
-          <h5>3 · Diagnose</h5>
+          <h5>3 · Inventory what already works</h5>
+          <p>Before deciding anything, write down <b>every job the current homepage is doing</b>.
+          Not how well — just what. This is the step that keeps a better-looking page from being a
+          worse-performing one.</p>
+          <p class="tlex"><b>List:</b> every action a visitor can take · every piece of practical
+          information above the fold · anything that looks like it exists for a commercial reason
+          (a promo bar, an offer, a phone number in large type) · every third-party embed
+          (booking, ordering, reviews, maps) · whatever their busiest button does.</p>
+          <p class="tlout"><b>Output</b> — a list of jobs, each marked <b>keep</b> or
+          <b>deliberately dropping, because…</b></p>
+          <p class="tlgate"><b>Gate</b> — every job on the list survives into the new page in some
+          form, or its removal is written down with a reason. <b>Improve how a job is done; don't
+          delete the job.</b> See BLD 07 for the 43% that went missing when someone did.</p>
+        </div>
+      </div>
+
+      <div class="tlrow">
+        <div class="tlt">7–9<i>min</i></div>
+        <div class="tlb">
+          <h5>4 · Diagnose</h5>
           <p><b>One sentence</b> naming what is wrong with the current site. Not a list. If it needs a
           paragraph, you don't have it yet.</p>
           <p class="tlex"><b>Shapes that work:</b> "The homepage is a coupon and the story is in the
@@ -1133,9 +1300,9 @@ footer b{color:var(--ink-dim); font-weight:500}
       </div>
 
       <div class="tlrow">
-        <div class="tlt">7–9<i>min</i></div>
+        <div class="tlt">9–11<i>min</i></div>
         <div class="tlb">
-          <h5>4 · Set the system</h5>
+          <h5>5 · Set the system</h5>
           <p>From the Kit tab, in this order: <b>palette</b> (their most-frequent hex is
           <code>brand 500</code>; derive the ramp and the neutrals from it, biasing greys 3–5% toward
           the brand hue) → <b>typefaces</b> (KIT 02, by register; match what they already own if they
@@ -1148,9 +1315,9 @@ footer b{color:var(--ink-dim); font-weight:500}
       </div>
 
       <div class="tlrow">
-        <div class="tlt">9–10<i>min</i></div>
+        <div class="tlt">11–12<i>min</i></div>
         <div class="tlb">
-          <h5>5 · Choose the motion</h5>
+          <h5>6 · Choose the motion</h5>
           <p>From Choreography: <b>one signature, two supporting, one ambient.</b> Pick the signature
           from something this business owns, then find the effect that expresses it — not the other
           way round.</p>
@@ -1161,9 +1328,9 @@ footer b{color:var(--ink-dim); font-weight:500}
       </div>
 
       <div class="tlrow">
-        <div class="tlt">10–12<i>min</i></div>
+        <div class="tlt">12–14<i>min</i></div>
         <div class="tlb">
-          <h5>6 · Write the copy</h5>
+          <h5>7 · Write the copy</h5>
           <p>From the Copy tab: headline formula for the pattern, voice for the register, word budget
           per slot. <b>Their verbatim sentences first</b>, rearranged second, yours only for things you
           verified.</p>
@@ -1173,9 +1340,9 @@ footer b{color:var(--ink-dim); font-weight:500}
       </div>
 
       <div class="tlrow">
-        <div class="tlt">12–18<i>min</i></div>
+        <div class="tlt">14–19<i>min</i></div>
         <div class="tlb">
-          <h5>7 · Build</h5>
+          <h5>8 · Build</h5>
           <p>One self-contained HTML file. Sections in the order the pattern specifies, with the
           components the pattern requires. Their real links on every action. Their real images by URL,
           treated per KIT 08. The concept-work label, visible and persistent.</p>
@@ -1186,11 +1353,11 @@ footer b{color:var(--ink-dim); font-weight:500}
       </div>
 
       <div class="tlrow">
-        <div class="tlt">18–20<i>min</i></div>
+        <div class="tlt">19–22<i>min</i></div>
         <div class="tlb">
-          <h5>8 · Audit and hand over</h5>
-          <p>Run BLD 05 in full. Fix what it catches — don't report it. Then write the hand-over note
-          from BLD 03.</p>
+          <h5>9 · Audit and hand over</h5>
+          <p>Run BLD 06 in full. Fix what it catches — don't report it. Then write the hand-over note
+          from BLD 04.</p>
           <p class="tlout"><b>Output</b> — the file plus a short note: classification, diagnosis,
           signature effect, what you couldn't verify, what you left out.</p>
           <p class="tlgate"><b>Gate</b> — every line of the audit passes, or the failure is named in
@@ -1202,7 +1369,7 @@ footer b{color:var(--ink-dim); font-weight:500}
 
   <!-- ============ SCOPE ============ -->
   <section class="cpsec">
-    <div class="cphead"><span class="n">BLD 02</span><h3>What Phase 1 is</h3>
+    <div class="cphead"><span class="n">BLD 03</span><h3>What Phase 1 is</h3>
       <p>The scope is narrow on purpose. Everything cut here exists in Phase 2 — nothing is being
       abandoned, only sequenced.</p></div>
 
@@ -1252,7 +1419,7 @@ footer b{color:var(--ink-dim); font-weight:500}
 
   <!-- ============ DELIVERABLE ============ -->
   <section class="cpsec">
-    <div class="cphead"><span class="n">BLD 03</span><h3>The deliverable</h3>
+    <div class="cphead"><span class="n">BLD 04</span><h3>The deliverable</h3>
       <p>One file and one short note. Nothing else is produced or expected.</p></div>
 
     <div class="fcard">
@@ -1288,6 +1455,28 @@ footer b{color:var(--ink-dim); font-weight:500}
     </div>
 
     <div class="fcard">
+      <h4 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 10px;color:var(--cream)">One thing in scope that looks like it shouldn't be</h4>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">A JSON-LD <code>LocalBusiness</code> block.</b> It costs about
+      fifteen lines, it needs no functionality, and in 2026 it's how AI answer engines and voice
+      assistants find out that a business exists, where it is and when it's open. For a local business
+      it is one of the highest-value things on the page and it is invisible.</p>
+      <pre><code>&lt;script type="application/ld+json"&gt;
+{ "@context":"https://schema.org", "@type":"CafeOrCoffeeShop",
+  "name":"…", "url":"…", "telephone":"…",
+  "address":{"@type":"PostalAddress","streetAddress":"…",
+             "addressLocality":"…","addressRegion":"…","postalCode":"…"},
+  "openingHours":"Tu-Su 07:00-15:00" }
+&lt;/script&gt;</code></pre>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Two rules ·</b> every value must be a fact you read from their site
+      — this is structured data, so an invented hour is a machine-readable lie. And it
+      <b>must match what's visible on the page</b>; answer engines check for that agreement and
+      discount pages where it fails. Which is a second reason hours and addresses are live text, not
+      an image.</p>
+    </div>
+
+    <div class="fcard">
       <h4 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 10px;color:var(--cream)">The note</h4>
       <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Six lines.
       Not a document.</p>
@@ -1304,7 +1493,7 @@ footer b{color:var(--ink-dim); font-weight:500}
 
   <!-- ============ BAD INPUT ============ -->
   <section class="cpsec">
-    <div class="cphead"><span class="n">BLD 04</span><h3>When the input is bad</h3>
+    <div class="cphead"><span class="n">BLD 05</span><h3>When the input is bad</h3>
       <p>It usually is. Every row has a stated default so nothing here stops the run.</p></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
@@ -1336,12 +1525,48 @@ footer b{color:var(--ink-dim); font-weight:500}
 
   <!-- ============ AUDIT ============ -->
   <section class="cpsec">
-    <div class="cphead"><span class="n">BLD 05</span><h3>The cheap-tells audit</h3>
+    <div class="cphead"><span class="n">BLD 06</span><h3>The cheap-tells audit</h3>
       <p>Mechanical. Run every line before hand-over. Fix what it catches — don't report it.</p></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
     Nothing here is a matter of taste. Each line is a yes-or-no check on something that reliably makes
     a page read as generated, templated or rushed — the differences a client can feel but not name.</p>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">HOW</span><h4>Run it as eight separate passes, not one read-through</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      This matters more than it looks. Work on agent reliability keeps finding the same thing:
+      <b style="color:var(--cream)">one general "check your work" pass catches very little, and several
+      narrow passes each looking for one class of problem catch most of it.</b> A reader looking only
+      for spacing errors finds spacing errors. The same reader looking for everything finds whatever
+      it noticed first and stops.</p>
+      <table class="lentable">
+        <tr><th>#</th><th>Pass</th><th>Looking only for</th></tr>
+        <tr><td class="w">1</td><td>Honesty</td><td>Any fact that can't be traced to something you read</td></tr>
+        <tr><td class="w">2</td><td>Type</td><td>Families, weights, orphans, tracking, punctuation</td></tr>
+        <tr><td class="w">3</td><td>Space</td><td>Off-scale gaps, wandering margins, proximity errors</td></tr>
+        <tr><td class="w">4</td><td>Colour</td><td>Accent area, contrast, pure black or white</td></tr>
+        <tr><td class="w">5</td><td>Form</td><td>Radii, hairlines, shadows, crops, icons</td></tr>
+        <tr><td class="w">6</td><td>Motion</td><td>Count, amplitude, re-triggering, easing</td></tr>
+        <tr><td class="w">7</td><td>Copy</td><td>Word count, banned words, button labels</td></tr>
+        <tr><td class="w">8</td><td>Specificity</td><td>Whether this page could belong to anyone else</td></tr>
+        <tr style="border-top:2px solid var(--edge)"><td class="w">9</td><td><b style="color:var(--cream)">Re-anchor</b></td><td><b style="color:var(--cream)">Re-read your own classification and diagnosis from steps 2 and 4, then look at the page. Does it still argue that diagnosis?</b></td></tr>
+      </table>
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Pass 9 is the one that catches drift ·</b> the failure mode of a long
+      multi-step build isn't a wrong answer, it's a slow slide away from the original decision. By the
+      time a page is finished it often argues something subtly different from what the diagnosis said.
+      Re-reading the one sentence you wrote at the start, then looking at the page, catches that in
+      about fifteen seconds.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Prefer checks you can actually count ·</b> most of the lines below
+      resolve to a number — words, effects, families, weights, radius values, gap values. Count them.
+      A check you can run beats a check you can only feel, and the countable ones are where the real
+      failures hide.</p>
+      <div class="warnbox"><b>Two rounds, then stop.</b> Fix what the passes find, run them once more,
+      and hand over. A third round is where a page starts getting quietly restyled in ways nobody
+      asked for — the same drift, arriving through the fix instead of the build.</div>
+    </div>
 
     <div class="auditgrid">
       <div class="auditcol">
@@ -1365,7 +1590,7 @@ footer b{color:var(--ink-dim); font-weight:500}
           <li>Curly quotes, em dashes, real middots</li>
           <li>Prices and times in tabular figures</li>
           <li>No centred paragraphs, no justified text</li>
-          <li>Body measure under 70 characters</li>
+          <li>Body measure is 62–68 characters</li>
         </ul>
       </div>
       <div class="auditcol">
@@ -1442,9 +1667,135 @@ footer b{color:var(--ink-dim); font-weight:500}
     matter how clean the spacing is — start over.</div>
   </section>
 
+<!-- ============ TRAPS ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 07</span><h3>Traps other people already fell into</h3>
+      <p>Everything here is somebody else's expensive lesson. Reading it is cheaper than repeating it.</p></div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">01</span><h4>The redesign that lost them money</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">The most
+      documented failure in this whole field, and the one we are structurally most exposed to.
+      <b style="color:var(--cream)">Redesigns routinely reduce conversion</b>, because the redesign
+      optimises for appearance and conversion comes from clarity, trust and removed friction.
+      Full "big bang" rebuilds are reported to drop traffic or conversion by double digits and take
+      months to recover.</p>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">The example
+      worth remembering, widely cited in conversion writing: an HVAC company replaced the plain
+      <i>Get a Quote</i> form on its homepage with a sleek image slider.
+      <b style="color:var(--flame)">Leads fell 43% in a quarter.</b> The new page was better looking
+      by every visual measure and worse at the only thing the page existed to do.</p>
+      <div class="warnbox"><b>The rule this produces ·</b> before removing anything, write down what
+      the current page is doing. Then keep every one of those jobs, and improve how they're done. See
+      the inventory step in the procedure — it's a gate, not a suggestion.</div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">02</span><h4>Constraints you cannot see from outside</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">We are looking
+      at the outside of a business we know nothing about. Almost everything that looks like a mistake
+      has a chance of being a decision, and the people who made it know things we don't.</p>
+      <table class="lentable">
+        <tr><th>What it looks like</th><th>What it might actually be</th></tr>
+        <tr><td>An ugly promo bar at the top</td><td>The highest-revenue element on the site. Somebody is probably measuring it.</td></tr>
+        <tr><td>A clunky third-party booking widget</td><td>The only one their point-of-sale system supports.</td></tr>
+        <tr><td>An off-brand colour</td><td>Their signage, their cups, their van, or a franchise requirement.</td></tr>
+        <tr><td>A busy, overloaded homepage</td><td>Seasonal operations. Six things genuinely matter in December.</td></tr>
+        <tr><td>A phone number in enormous type</td><td>Their customers are older, or the job is urgent, and they know it.</td></tr>
+        <tr><td>An odd nav order</td><td>Their analytics.</td></tr>
+        <tr><td>No prices anywhere</td><td>A deliberate call, right or wrong, and often a competitive one.</td></tr>
+      </table>
+      <p style="margin:14px 0 0;font-size:14px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">This does not mean don't change anything.</b> It means change the
+      <b>execution</b> and keep the <b>function</b> — the promo bar becomes a beautifully set promo
+      bar, not a deleted one. And when you do drop something deliberately, say so in the hand-over
+      with your reasoning, so a person can overrule you.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">03</span><h4>Unsolicited work reads as criticism unless you're careful</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Designers have
+      been doing unsolicited redesigns for twenty years, and the recurring lesson from the receiving
+      end is that it lands as <i>here's what you did wrong</i> — arrogant, and blind to every
+      constraint, compromise and good idea that had to be cut. Somebody made that site. Sometimes it
+      was the owner, at night, and they were proud of it.</p>
+      <div class="egood"><span>The diagnosis is <b>internal</b>. It goes in the hand-over note, never printed on the page.</span></div>
+      <div class="egood"><span>Nothing in the page compares itself to their current site. No before-and-after, no "problems we found."</span></div>
+      <div class="egood"><span>The framing is <b>their material, shown properly</b> — which is also literally what we did.</span></div>
+      <div class="egood"><span>Keep their words, their colours, their marks. The more of the page that is visibly theirs, the less it reads as a correction.</span></div>
+      <div class="ebad"><span>A page captioned with what was wrong with the original</span></div>
+      <div class="ebad" style="border-bottom:none"><span>Anything implying the previous work was incompetent</span></div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">04</span><h4>What a giant document does to an AI</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Research on
+      agent context files is consistent and unflattering to documents like this one: a large manual of
+      rules becomes <b style="color:var(--cream)">a graveyard of stale rules that crowds out the actual
+      task</b>. Long instruction lists get partially followed. Concrete examples get followed.</p>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Three
+      mitigations are built into this document, and they only work if they're used:</p>
+      <div class="egood"><span><b>The router in BLD 00.</b> Read the two or three sections a step needs, not the whole file.</span></div>
+      <div class="egood"><span><b>Worked examples over rules.</b> Where a section shows a before and after, or a good and bad pair, that pair is the instruction — the prose around it is commentary.</span></div>
+      <div class="egood" style="border-bottom:none"><span><b>Every rule is executable.</b> A number, a check, or a named source. Anything that reads as an opinion with no test attached should be deleted rather than kept.</span></div>
+      <div class="warnbox"><b>Maintenance ·</b> a rule contradicted by real output is worse than no rule,
+      because it teaches the reader to skim. When something here turns out to be wrong, change it —
+      don't add a second rule beside it.</div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">05</span><h4>What already exists, and where this is actually different</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Being honest
+      about prior art, because pretending nothing exists is how you rebuild a solved problem badly.</p>
+      <table class="lentable">
+        <tr><th>Already exists</th><th>What it does</th><th>What it doesn't</th></tr>
+        <tr><td>Design-token extractors</td><td>Pull palette, type, spacing and components from any URL into tokens or a markdown brief — genuinely good, and faster than doing it by hand.</td><td>Decide what the business is, what to keep, or what the page should argue.</td></tr>
+        <tr><td>AI app builders</td><td>Turn a prompt into working code fast.</td><td>Research a real business, or resist their own defaults — this is where the slop in BLD 01 comes from.</td></tr>
+        <tr><td>Template marketplaces</td><td>A finished-looking page in minutes.</td><td>Belong to the client. A template output could be any business in the category.</td></tr>
+      </table>
+      <p style="margin:14px 0 0;font-size:14px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">So what's ours ·</b> the extraction is the commodity part.
+      <b>The classification, the diagnosis, the restraint, and the refusal to invent</b> are the parts
+      no tool does — and they're the parts that decide whether the page could only belong to this one
+      business. If a token extractor gets you through step 1 faster, use it and spend the time you
+      saved on steps 2 and 3.</p>
+    </div>
+
+  </section>
+
+  <!-- ============ REVERSIBILITY ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 08</span><h3>The reversibility floor</h3>
+      <p>Eight decisions that cost nothing now and cost a redesign later. This is a speed section,
+      not a compliance one.</p></div>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
+    The phase split works because implementation can be added later — forms get wired, mobile gets
+    built, performance gets measured. <b style="color:var(--cream)">What can't be added later is a
+    decision the design is built on.</b> Everything below is free in Phase 1 and forces a redesign in
+    Phase 2 if you skip it, which is the definition of a bad trade. Several of these happen to be
+    accessibility wins; that is a side effect, not the reason.</p>
+
+    <table class="lentable">
+      <tr><th>Decide now</th><th>Cost in Phase 1</th><th>Cost if deferred</th></tr>
+      <tr><td>Body text meets 4.5:1, large text 3:1</td><td>Pick a lightness. Zero.</td><td>The palette changes, so every surface changes.</td></tr>
+      <tr><td>The CTA colour passes contrast against its own background</td><td>Zero.</td><td>The brand accent gets replaced — the one thing we promised not to touch.</td></tr>
+      <tr><td>No text baked into an image</td><td>Zero — it's less work.</td><td>Every image gets re-made, and it was invisible to search and screen readers the whole time.</td></tr>
+      <tr><td>Nothing important is hover-only</td><td>Zero.</td><td>The interaction model changes, which changes the layout.</td></tr>
+      <tr><td>Real semantic elements — <code>button</code>, <code>nav</code>, <code>h1</code>–<code>h3</code> in order</td><td>Zero — it's the same amount of typing.</td><td>A rebuild of the markup, and the CSS that hung off it.</td></tr>
+      <tr><td>A layout with an obvious phone answer</td><td>Choose from KIT 06.</td><td>Mobile becomes a second design, not a adaptation.</td></tr>
+      <tr><td>Motion that a still composition can replace</td><td>Zero — you designed the static state anyway.</td><td>Reduced-motion is a blank page, and the section has to be redesigned.</td></tr>
+      <tr><td>Live text for hours, address, phone, prices</td><td>Zero.</td><td>Invisible to search, to AI answers, and to anyone copying an address.</td></tr>
+    </table>
+
+    <div class="warnbox"><b>That's the whole floor.</b> Eight items, none of which costs time in Phase 1.
+    Full keyboard paths, screen-reader labelling, focus order, contrast under motion and real device
+    testing all stay in Phase 2 where they belong.</div>
+  </section>
+
   <!-- ============ PHASE TWO ============ -->
   <section class="cpsec">
-    <div class="cphead"><span class="n">BLD 06</span><h3>Phase 2 — after they sign</h3>
+    <div class="cphead"><span class="n">BLD 09</span><h3>Phase 2 — after they sign</h3>
       <p>Same document, same classification, wider permissions. This is where everything Phase 1
       excluded comes back.</p></div>
 
@@ -1476,7 +1827,7 @@ footer b{color:var(--ink-dim); font-weight:500}
 
   <!-- ============ TWEAKS ============ -->
   <section class="cpsec">
-    <div class="cphead"><span class="n">BLD 07</span><h3>Tweak vocabulary</h3>
+    <div class="cphead"><span class="n">BLD 10</span><h3>Tweak vocabulary</h3>
       <p>What a person means when they say a vague thing, and what the AI should actually change.</p></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
@@ -1504,13 +1855,13 @@ footer b{color:var(--ink-dim); font-weight:500}
 
     <div class="warnbox"><b>One change at a time.</b> The failure mode with an AI editing a mockup is
     <b>drift</b> — every pass quietly restyles things nobody mentioned until the page no longer matches
-    its own classification. After any tweak, re-run the Specificity group of BLD 05.</div>
+    its own classification. After any tweak, re-run the Specificity group of BLD 06.</div>
   </section>
 
 
   <!-- ============ TENSION ============ -->
   <section class="cpsec">
-    <div class="cphead"><span class="n">BLD 09</span><h3>Award-winning versus effective</h3>
+    <div class="cphead"><span class="n">BLD 11</span><h3>Award-winning versus effective</h3>
       <p>The two things a Phase 1 page is asked to do, and where they genuinely pull against each
       other.</p></div>
 
@@ -1561,7 +1912,7 @@ footer b{color:var(--ink-dim); font-weight:500}
 
   <!-- ============ NEVER ============ -->
   <section class="cpsec">
-    <div class="cphead"><span class="n">BLD 08</span><h3>Hard stops</h3>
+    <div class="cphead"><span class="n">BLD 12</span><h3>Hard stops</h3>
       <p>Not preferences. Any one of these makes the output worse than sending nothing.</p></div>
 
     <div class="fcard" style="border-left-color:var(--ember)">
@@ -2249,6 +2600,79 @@ gl_Position = uProj * vec4(pos, 1.0);
 </pre></details>
     </div>
   </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="gl-warp">
+      <canvas class="glcanvas" data-warp="1"></canvas>
+      <span class="gltag">WebGL2 · domain-warped fbm</span>
+      <p class="hint">Move the cursor — the field warps around it</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">GL-08</span><h3>Domain-warped field</h3><span class="src">noise sampled through noise</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Fractal noise whose <b>input coordinates are themselves displaced by more noise</b>. Two levels of warp turn an even, cloudy field into something with currents, folds and eddies — structure that looks observed rather than generated. The cursor adds a third, local warp.</p></div>
+        <div><h5>When to use it</h5><p>The honest answer to "we want an interesting background." It replaces the mesh-gradient blob that every AI-assisted page reaches for, and because <b>the palette is a hard-coded ramp of the client's measured colours</b>, it cannot drift into the violet-and-cyan default. Behind copy: run it at a third of this amplitude and drop the contrast.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// the whole idea in three lines — Iñigo Quílez's domain warping</i>
+float pattern(vec2 p){
+  vec2 q = vec2(fbm(p), fbm(p + vec2(5.2, 1.3)));           <i>// warp 1</i>
+  vec2 r = vec2(fbm(p + <b>4.0</b>*q + vec2(1.7,9.2)),
+                fbm(p + <b>4.0</b>*q + vec2(8.3,2.8)));          <i>// warp 2</i>
+  return fbm(p + <b>4.0</b>*r);
+}
+
+<i>// the two constants that matter</i>
+<b>4.0</b>   warp strength   <i>// 1.0 = gentle marble, 6.0 = violent turbulence</i>
+<b>0.06</b>  time speed      <i>// ship at 0.02 — this is a background, not an event</i>
+
+<i>// palette is a ramp through MEASURED brand colours, never a hue rotation.
+// This single decision is what stops it looking like every other
+// generated gradient on the web.                                    */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench">
+    <div class="stage" data-demo="gl-dither">
+      <canvas class="glcanvas" data-dither="1"></canvas>
+      <span class="gltag">WebGL2 · 8×8 Bayer, 4 tones</span>
+      <p class="hint">Move across it — the threshold follows the cursor</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">GL-09</span><h3>Ordered dithering</h3><span class="src">post-pass, any source</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Quantises a smooth image to a <b>tiny palette</b>, using an 8×8 Bayer matrix to decide which way each pixel rounds. Gradients become structured dot patterns instead of banding. It is the visual language of early bitmap displays and dot-matrix printing, and it reads as deliberate craft rather than as an effect.</p></div>
+        <div><h5>When to use it</h5><p>Over photography in the Craft or Raw registers, over an ambient field, or as a hover state on one image. <b>It is also the cheapest way to make procedural artwork look authored</b> — quantising to four of the client's own inks makes the result unmistakably theirs. Never behind text: the dot structure destroys legibility.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// the 8x8 Bayer threshold matrix, stored flat</i>
+const float BAYER[64] = float[64](
+   0.,32., 8.,40., 2.,34.,10.,42.,
+  48.,16.,56.,24.,50.,18.,58.,26.,
+  12.,44., 4.,36.,14.,46., 6.,38.,
+  60.,28.,52.,20.,62.,30.,54.,22.,
+   3.,35.,11.,43., 1.,33., 9.,41.,
+  51.,19.,59.,27.,49.,17.,57.,25.,
+  15.,47., 7.,39.,13.,45., 5.,37.,
+  63.,31.,55.,23.,61.,29.,53.,21.);
+
+float bayer8(vec2 p){
+  int x=int(mod(p.x,8.0)), y=int(mod(p.y,8.0));
+  return BAYER[y*8+x]/64.0;
+}
+<i>// The bit-interleave one-liner you will find online is easy to get
+// subtly wrong, and a wrong matrix gives hard edges with no dots —
+// which looks like posterisation, not dithering. Store the table.  */</i>
+
+float lum   = dot(colour, vec3(0.299,0.587,0.114));
+float th    = bayer8(gl_FragCoord.xy / <b>2.0</b>);   <i>// &gt;1.0 = chunkier dots</i>
+float step_ = floor(lum*<b>4.0</b> + th) / <b>4.0</b>;      <i>// 4 tone levels</i>
+vec3  out_  = palette(step_);                <i>// their inks, not greys</i>
+
+<i>// Ship values: 4-6 levels and a 1.0-2.0 dot scale. Two levels is a
+// statement; eight is invisible and you wasted the pass.            */</i>
+</pre></details>
+    </div>
+  </div>
 </section>
 
 <section class="purpose group" data-g="dep">
@@ -2614,7 +3038,7 @@ if (isTouch || reducedMotion) lit.style.maskImage = 'none';
   </div>
 
 
-  <!-- COP-01 -->
+  <!-- TYP-01 -->
   <div class="bench">
     <div class="stage" data-demo="stagger">
       <div class="typestage">
@@ -2669,10 +3093,6 @@ function reveal(chars, show){
     </div>
   </div>
 
-  <!-- COP-02 -->
-  
-  <!-- COP-03 -->
-  
   <div class="bench">
     <div class="stage" data-demo="linemask">
       <div class="typestage">
@@ -3001,6 +3421,39 @@ function frame(){
     </div>
   </div>
 
+
+  <div class="bench">
+    <div class="stage" data-demo="typ-dissolve">
+      <canvas class="dscanvas"></canvas>
+      <p class="hint">Move across the line — it dissolves where you are</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">TYP-10</span><h3>Threshold dissolve</h3><span class="src">canvas 2D, noise mask</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Text rendered to a canvas, then erased through a <b>value-noise threshold</b> that sweeps across it. Letters don't fade — they break up into grain and disappear, the way an emulsion burns. The threshold is driven by pointer distance here; on a page it's driven by scroll.</p></div>
+        <div><h5>When to use it</h5><p>One transition, once, on a headline that changes — a set swap, a word cycling through the things a business makes. <b>It is the most expensive-looking thing in the TYP group and the easiest to overuse</b>; a second dissolve on the same page makes the first one look automatic. The three-dimensional version of this is a noise-driven alpha cutoff on MSDF text in a shader — same idea, more machinery.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>// draw the type once, then eat it with noise</i>
+ctx.fillText(word, x, y);
+const img = ctx.getImageData(0,0,w,h), d = img.data;
+
+for (let i=0, px=0; i&lt;d.length; i+=4, px++){
+  const nx = (px % w), ny = (px / w) | 0;
+  const n  = valueNoise(nx*<b>0.22</b>, ny*<b>0.22</b>);    <i>// grain size</i>
+  const edge = threshold - n*<b>0.16</b>;              <i>// noise bites in</i>
+  if (nx/w &gt; edge) d[i+3] = 0;                <i>// erase alpha only</i>
+}
+ctx.putImageData(img, 0, 0);
+
+<b>0.22</b>   noise frequency  <i>// lower = coarse ash, higher = fine grain</i>
+<b>0.16</b>   bite depth       <i>// 0 = a hard wipe, 1 = a very ragged edge</i>
+
+<i>// Ship: drive `threshold` from a scroll timeline, not the pointer, and
+// keep the whole dissolve inside 400ms. Set aria-label on the canvas —
+// canvas text is invisible to a screen reader.                       */</i>
+</pre></details>
+    </div>
+  </div>
 </section>
 
 <!-- ============ REVEAL ============ -->
@@ -4090,6 +4543,12 @@ overlay.style.background =
       <p>One idea per section. One action per screen. Every section that carries two ideas carries none.</p></div>
 
     <div class="fcard">
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">Copy research consistently finds that most visitors read the
+      headline and the first line of the sub-head, and nothing else, before deciding whether to
+      continue.</b> Everything below the hero is read by the minority who already decided to stay.
+      That is the entire argument for the word budgets in CPY 04 — you are not writing a page, you are
+      writing two sentences and then supporting them.</p>
       <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">The test for
       any section: <b style="color:var(--cream)">say what it does in one sentence with no "and."</b>
       If the sentence needs an "and," it's two sections, or one of the two ideas is decoration.</p>
@@ -4230,7 +4689,7 @@ overlay.style.background =
       <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">ALL</span><h4>Four mechanical checks before any headline ships</h4></div>
       <div class="egood"><span>Swap in a competitor's name — does it still work?</span><i>if yes, rewrite</i></div>
       <div class="egood"><span>Is there a number, a material, a method, a place or a duration in it?</span><i>at least one</i></div>
-      <div class="egood"><span>Under 9 words, or a deliberate two-line sentence?</span></div>
+      <div class="egood"><span>Twelve words or fewer, on no more than two lines?</span></div>
       <div class="egood"><span>Would the owner say it out loud to a customer?</span><i>the fastest test there is</i></div>
     </div>
   </section>
@@ -4286,7 +4745,7 @@ overlay.style.background =
     <table class="lentable">
       <tr><th>Slot</th><th>Words</th><th>Rule</th></tr>
       <tr><td>Eyebrow / kicker</td><td class="w">2–5</td><td>Optional. Cut it before cutting anything else.</td></tr>
-      <tr><td>Hero headline</td><td class="w">4–9</td><td>Under 9, or a deliberate two-line sentence. Never three lines.</td></tr>
+      <tr><td>Hero headline</td><td class="w">4–12</td><td>One line, or a deliberate two. Never three. <b>Short is not the goal — specific is</b>: Unbounce’s 2026 benchmark reports benefit-led headlines beating feature-led ones by roughly a quarter, and a concrete number adding as much again. A nine-word sentence with a number in it beats a four-word slogan.</td></tr>
       <tr><td>Hero sub-line</td><td class="w">10–22</td><td>Carries the credential, the proof or the constraint — not a restatement.</td></tr>
       <tr><td>Primary button</td><td class="w">2–4</td><td>Verb + object. Never one abstract word.</td></tr>
       <tr><td>Section heading</td><td class="w">2–7</td><td>Says what's below, not what it means.</td></tr>
@@ -4295,7 +4754,7 @@ overlay.style.background =
       <tr><td>Pull quote</td><td class="w">8–20</td><td>Verbatim, attributed, real. Otherwise omit the section.</td></tr>
       <tr><td>Practical block</td><td class="w">15–35</td><td>Hours, address, phone — live text, never in an image.</td></tr>
       <tr><td>Closing line</td><td class="w">3–10</td><td>Repeats the hero's promise in different words.</td></tr>
-      <tr style="border-top:2px solid var(--edge)"><td><b style="color:var(--cream)">Whole Phase 1 page</b></td><td class="w"><b>180–320</b></td><td><b style="color:var(--cream)">Over 400 and you are padding. Go back and cut a section, not a sentence.</b></td></tr>
+      <tr style="border-top:2px solid var(--edge)"><td><b style="color:var(--cream)">Whole Phase 1 page</b></td><td class="w"><b>180–320</b></td><td><b style="color:var(--cream)">Over 320 and you are padding. Go back and cut a section, not a sentence.</b></td></tr>
     </table>
 
     <p style="margin-top:18px;font-size:13.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
@@ -4304,7 +4763,7 @@ overlay.style.background =
     as an accident. Write the shortest one first and hold the other two to it.</p>
 
     <p style="margin-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
-    <b style="color:var(--tan)">Line length ·</b> Running text stays near <b>65 characters</b>. Headlines
+    <b style="color:var(--tan)">Line length ·</b> Running text stays at <b>62–68 characters</b>. Headlines
     take <code>text-wrap:balance</code>; body takes <code>text-wrap:pretty</code>. A headline that
     breaks with one orphan word on line two is the single most common reason a mockup looks amateur at
     a glance.</p>
@@ -4429,7 +4888,7 @@ overlay.style.background =
       <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">FINAL</span><h4>The one-minute copy pass, before anything is shown</h4></div>
       <div class="egood"><span>Read every sentence aloud. Any you wouldn't say to a customer gets cut.</span></div>
       <div class="egood"><span>Search the page for: journey, passionate, believe, elevate, unleash, seamless, curated, experience, solutions.</span><i>each hit is a rewrite</i></div>
-      <div class="egood"><span>Count the words. Over 400 in Phase 1 means cut a whole section.</span></div>
+      <div class="egood"><span>Count the words. Over 320 in Phase 1 means cut a whole section.</span></div>
       <div class="egood"><span>Point at each fact and name its tier. Anything at E or F comes off the page.</span></div>
       <div class="egood"><span>Swap the client's name for a competitor's. Anything still true gets rewritten.</span></div>
     </div>
@@ -4466,7 +4925,7 @@ overlay.style.background =
       <div class="scaleRow"><b>small</b><span style="font-size:13.5px;font-family:var(--sans)">Roasted over oak in handmade brick ovens</span><i>13.5px / 1.55</i></div>
       <div class="scaleRow"><b>label</b><span style="font-size:10.5px;font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase">Roasted over oak</span><i>10.5px · .16em · upper</i></div>
       <p style="margin-top:14px"><b>Rules.</b> Line-height 1.05–1.15 on display and headings, 1.6 on body.
-      <code>text-wrap: balance</code> on every heading. Body measure capped at <b>68 characters</b>.
+      <code>text-wrap: balance</code> on every heading. Body measure capped at <b>62–68 characters</b>.
       Labels always uppercase with tracking — that contrast is most of what makes type look art-directed.</p>
     </div>
 
@@ -4516,6 +4975,46 @@ overlay.style.background =
       saturated brand colour.</p>
       <p><b>Neutrals get a hue bias toward the brand.</b> A pure grey reads as unconsidered; a grey
       with 3–5% of the brand hue in it reads as chosen.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Deriving the whole palette from one hex</h4>
+      <p>Their most-frequent colour is <code>brand 500</code>. Everything else is generated from it in
+      <b>OKLCH</b>, which is perceptually uniform — a fixed lightness step looks like a fixed step,
+      instead of the ramp going muddy in the middle the way HSL does. <b>This is a two-minute
+      mechanical operation with no taste involved</b>, which is exactly why it belongs here.</p>
+      <pre><code>:root{
+  <i>/* 1 · convert their measured hex once */</i>
+  --brand:      oklch(62% 0.14 42);        <i>/* L  C  H  from #B4633A */</i>
+
+  <i>/* 2 · the ramp: hold H, step L, taper C at both ends */</i>
+  --brand-100:  oklch(94% 0.03 42);
+  --brand-300:  oklch(80% 0.09 42);
+  --brand-500:  oklch(62% 0.14 42);        <i>/* the measured colour  */</i>
+  --brand-700:  oklch(46% 0.11 42);
+  --brand-900:  oklch(30% 0.06 42);
+
+  <i>/* 3 · neutrals carry 8-12% of the brand chroma — never pure grey */</i>
+  --ink-900:    oklch(18% 0.012 42);
+  --ink-100:    oklch(93% 0.008 42);
+
+  <i>/* 4 · the cool counterpoint sits 150-190° away */</i>
+  --cool-500:   oklch(58% 0.07 215);
+}</code></pre>
+      <p style="margin-top:12px"><b>Three rules that make it work.</b>
+      <b style="color:var(--cream)">Hold the hue</b> — the whole ramp is one H value, so nothing drifts
+      off-brand. <b style="color:var(--cream)">Taper the chroma</b> at 90%+ and 25%− lightness, because
+      display gamuts narrow at the extremes and un-tapered ends look radioactive.
+      <b style="color:var(--cream)">Pin lightness to roles</b> — body text, borders and surfaces get a
+      fixed L, so contrast stays stable no matter which brand hue you dropped in.</p>
+      <p><b>Why this matters more than it sounds.</b> Palette is the decision most likely to be made by
+      taste, and taste is where a page starts looking like every other page you've made. Deriving it
+      arithmetically from a measured value means the palette <b>could not have come out any other
+      way</b> — and that is the whole difference between their page and a template.</p>
+      <div class="warnbox"><b>Fallback ·</b> <code>oklch()</code> is supported everywhere that matters
+      in 2026, but if you need a floor, ship hex values alongside and let
+      <code>@supports (color: oklch(0% 0 0))</code> upgrade. Do the maths in OKLCH either way —
+      converting at the end is fine, guessing in hex is not.</div>
     </div>
 
     <div class="kitcard">
@@ -4624,6 +5123,14 @@ overlay.style.background =
         <b>The tell to avoid ·</b> rounded or handwritten faces. They read as a children's brand
         regardless of the business, and they cap how good the page can look.</div>
       </div>
+
+      <div class="warnbox"><b>Inter appears four times above, and that needs a caveat.</b> Inter used
+      for <i>everything</i> is the most reported single signal that a page was generated — see
+      <b>BLD 01</b>. As the quiet text face beneath a display face nobody would call a default, it's a
+      deliberate choice and it's fine. As the display face as well, it's the absence of a decision.
+      If you want distance from it, the text-face alternates are <b>Schibsted Grotesk</b>,
+      <b>Public Sans</b>, <b>Source Sans 3</b>, or the plain system stack — all invisible in the same
+      useful way.</div>
     </div>
 
     <div class="kitcard">
@@ -4684,6 +5191,10 @@ overlay.style.background =
       typically one weight of the display face — and let everything else swap in.</p>
       <p><b>Subset.</b> Latin only, unless the client's copy needs otherwise. A full Google Fonts
       variable face can be 300KB; the Latin subset of the weights you actually use is usually under 30.</p>
+      <p><b>Everything named above is SIL Open Font License</b> — free, embeddable, no seat counting.
+      Staying inside that set means the font question never costs you a minute. The one thing worth
+      <i>noticing</i> is a client running trial-licensed faces in production, because it's a genuinely
+      useful thing to be able to tell them.</p>
     </div>
 
     <div class="kitcard">
@@ -4959,6 +5470,40 @@ overlay.style.background =
       visitor reads before a single word.</p></div>
 
     <div class="kitcard">
+      <h4>Premium is a subtraction</h4>
+      <p>The most consistent finding in perceived-quality research, and the one most often ignored
+      because it feels like doing less work. <b>Large amounts of empty space measurably raise how
+      expensive and how high-quality something is judged to be</b> — a 2025 study in the Journal of
+      Sensory Studies tested it on 1,193 participants and found exactly that, and consumer research
+      has put the effect on perceived value in the same direction and about as large as anything else
+      you can do to a layout.</p>
+      <p>The mechanism is a signal: <b>space says you don't need to justify yourself.</b> A page that
+      fills every region with a reason to buy reads as a page that expects an argument.</p>
+      <div class="dogrid">
+        <div class="docol yes"><h5>What buys perceived quality</h5><ul>
+          <li><b>Space</b> — the single strongest lever. Section padding at the top of the range, not the bottom.</li>
+          <li><b>Fewer type families</b> — two, and use both properly.</li>
+          <li><b>One strong visual per section</b> doing all the work.</li>
+          <li><b>A restrained palette</b> — one accent, small area.</li>
+          <li><b>Consistency</b> — the same decisions repeated without variation.</li>
+          <li><b>Size contrast</b> between hierarchy levels, and plenty of it.</li>
+        </ul></div>
+        <div class="docol no"><h5>What doesn't</h5><ul>
+          <li>More animation.</li>
+          <li>Custom illustration bolted onto a weak layout.</li>
+          <li>Additional sections.</li>
+          <li>Gradients, glows, shadows, glass.</li>
+          <li>More adjectives.</li>
+          <li>A second accent colour.</li>
+        </ul></div>
+      </div>
+      <p style="margin-top:14px"><b style="color:var(--tan)">The practical version ·</b> when a section
+      isn't working, the productive move is almost always <b>remove an element</b>, not add one.
+      And when a page feels cheap and you can't say why, take the two largest gaps and double them
+      before you touch anything else.</p>
+    </div>
+
+    <div class="kitcard">
       <h4>One dominant element per screen</h4>
       <p>Every screenful needs an obvious <b>first thing</b> — the element the eye lands on before it
       chooses. If three elements are competing for that role, the composition has no hierarchy and the
@@ -5080,9 +5625,9 @@ overlay.style.background =
         <tr><td>G · Attend an occasion</td><td>Check a date</td><td>Hero, after capacity, footer</td></tr>
         <tr><td>H · Enrol</td><td>Enrol — or Book a trial class</td><td>Hero, after the timetable, footer</td></tr>
       </table>
-      <p style="margin-top:14px"><b>Trust copy goes under the action, not in a badge row at the top.</b>
-      Doubt happens at the click. <i>"No card required"</i> beneath the button is worth more than three
-      trust seals in the header — and it must be a policy the client actually published.</p>
+      <p style="margin-top:14px"><b>Trust copy goes under the action, not in a badge row at the top</b>
+      — doubt happens at the click, not at the top of the page. The wording per pattern is in
+      <b>CPY 05</b>; the only rule that belongs here is that it sits <i>beside the button</i>.</p>
     </div>
 
     <div class="kitcard">
@@ -5683,7 +6228,7 @@ qa('[data-demo="trail"]').forEach(stage => {
   }}));
 });
 
-/* ================= COP-01 char stagger ================= */
+/* ================= TYP-01 char stagger ================= */
 qa('[data-split="char"]').forEach(el => {
   const html = el.innerHTML;
   const plain = el.textContent;
@@ -5724,7 +6269,7 @@ qa('[data-split="char"]').forEach(el => {
     {threshold:[0,.25,.6]}).observe(el);
 });
 
-/* ================= COP-02 velocity skew ================= */
+/* ================= velocity skew (shared helper) ================= */
 (() => {
   const el = document.getElementById('skewTarget');
   if (!el) return;
@@ -5755,7 +6300,7 @@ qa('[data-split="char"]').forEach(el => {
   }}));
 })();
 
-/* ================= COP-03 sticky swap ================= */
+/* ================= sticky set swap (shared helper) ================= */
 function mapStops(v, inS, outS){
   if (v <= inS[0]) return outS[0];
   if (v >= inS[inS.length-1]) return outS[outS.length-1];
@@ -6845,6 +7390,208 @@ void main(){
   }}));
 });
 
+
+/* ================= GL-08 domain-warped field ================= */
+qa('[data-demo="gl-warp"]').forEach(stage => {
+  const cv = q('canvas.glcanvas', stage);
+  const gl = cv.getContext('webgl2', {antialias:false, alpha:false});
+  if (!gl){ cv.remove(); const f=document.createElement('div'); f.className='glfail';
+    f.textContent='WebGL2 unavailable'; stage.appendChild(f); return; }
+  const cc=(t,src)=>{const sh=gl.createShader(t);gl.shaderSource(sh,src);gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))console.error('GL08',gl.getShaderInfoLog(sh));return sh;};
+  const pr=gl.createProgram();
+  gl.attachShader(pr,cc(gl.VERTEX_SHADER,`#version 300 es
+in vec2 a; out vec2 uv; void main(){ uv=a*0.5+0.5; gl_Position=vec4(a,0.0,1.0); }`));
+  gl.attachShader(pr,cc(gl.FRAGMENT_SHADER,`#version 300 es
+precision highp float; in vec2 uv; out vec4 o;
+uniform float uT, uAspect; uniform vec2 uM;
+float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+float vnoise(vec2 p){
+  vec2 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f);
+  return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),
+             mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x), f.y);
+}
+float fbm(vec2 p){
+  float v=0.0, a=0.5;
+  for(int i=0;i<5;i++){ v+=a*vnoise(p); p*=2.02; a*=0.5; }
+  return v;
+}
+vec3 ramp(float t){
+  t=clamp(t,0.0,1.0);
+  vec3 c0=vec3(0.086,0.090,0.102);
+  vec3 c1=vec3(0.227,0.306,0.388);
+  vec3 c2=vec3(0.706,0.388,0.229);
+  vec3 c3=vec3(0.788,0.643,0.361);
+  vec3 c4=vec3(0.949,0.933,0.894);
+  if(t<0.42) return mix(c0,c1,t/0.42);
+  if(t<0.70) return mix(c1,c2,(t-0.42)/0.28);
+  if(t<0.89) return mix(c2,c3,(t-0.70)/0.19);
+  return mix(c3,c4,(t-0.89)/0.11);
+}
+void main(){
+  vec2 p=(uv-0.5)*vec2(uAspect,1.0)*3.0;
+  float t=uT*0.06;
+  vec2 md=(uM-0.5)*vec2(uAspect,1.0)*3.0;
+  p += 0.55/(1.0+dot(p-md,p-md)*3.0) * normalize(p-md+1e-4);
+  vec2 qv=vec2(fbm(p+vec2(0.0,t)), fbm(p+vec2(5.2,1.3)-t));
+  vec2 r =vec2(fbm(p+4.0*qv+vec2(1.7,9.2)+t*0.5),
+               fbm(p+4.0*qv+vec2(8.3,2.8)-t*0.5));
+  float f=fbm(p+4.0*r);
+  float band=f*0.86+length(r)*0.16;
+  vec3 col=ramp(band);
+  col*=0.72+0.42*fbm(p*2.0+r);
+  o=vec4(col,1.0);
+}`));
+  gl.linkProgram(pr);
+  if(!gl.getProgramParameter(pr,gl.LINK_STATUS))console.error('GL08',gl.getProgramInfoLog(pr));
+  const vb=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,vb);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const l=gl.getAttribLocation(pr,'a'); gl.enableVertexAttribArray(l);
+  gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+  let mx=0.5,my=0.5,tx=0.5,ty=0.5;
+  stage.addEventListener('pointermove', e=>{
+    const r=stage.getBoundingClientRect();
+    tx=(e.clientX-r.left)/r.width; ty=1-(e.clientY-r.top)/r.height;
+  });
+  register(stage, () => ({ tick(){
+    const r=stage.getBoundingClientRect(), dpr=Math.min(devicePixelRatio||1,1.4);
+    if (cv.width!==(r.width*dpr|0)){ cv.width=r.width*dpr|0; cv.height=r.height*dpr|0; }
+    mx=lerp(mx,tx,0.08); my=lerp(my,ty,0.08);
+    gl.viewport(0,0,cv.width,cv.height);
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER,vb);
+    gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+    gl.uniform1f(gl.getUniformLocation(pr,'uT'), RM?0:performance.now()*0.001);
+    gl.uniform1f(gl.getUniformLocation(pr,'uAspect'), cv.width/cv.height);
+    gl.uniform2f(gl.getUniformLocation(pr,'uM'), mx, my);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+  }}));
+});
+
+/* ================= GL-09 ordered dithering ================= */
+qa('[data-demo="gl-dither"]').forEach(stage => {
+  const cv = q('canvas.glcanvas', stage);
+  const gl = cv.getContext('webgl2', {antialias:false, alpha:false});
+  if (!gl){ cv.remove(); const f=document.createElement('div'); f.className='glfail';
+    f.textContent='WebGL2 unavailable'; stage.appendChild(f); return; }
+  const cc=(t,src)=>{const sh=gl.createShader(t);gl.shaderSource(sh,src);gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))console.error('GL09',gl.getShaderInfoLog(sh));return sh;};
+  const pr=gl.createProgram();
+  gl.attachShader(pr,cc(gl.VERTEX_SHADER,`#version 300 es
+in vec2 a; out vec2 uv; void main(){ uv=a*0.5+0.5; gl_Position=vec4(a,0.0,1.0); }`));
+  gl.attachShader(pr,cc(gl.FRAGMENT_SHADER,`#version 300 es
+precision highp float; in vec2 uv; out vec4 o;
+uniform float uT, uAspect; uniform vec2 uM;
+float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+float vnoise(vec2 p){
+  vec2 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f);
+  return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),
+             mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x), f.y);
+}
+float fbm(vec2 p){ float v=0.0,a=0.5; for(int i=0;i<4;i++){ v+=a*vnoise(p); p*=2.03; a*=0.5; } return v; }
+const float BAYER[64] = float[64](
+  0.,32., 8.,40., 2.,34.,10.,42.,
+ 48.,16.,56.,24.,50.,18.,58.,26.,
+ 12.,44., 4.,36.,14.,46., 6.,38.,
+ 60.,28.,52.,20.,62.,30.,54.,22.,
+  3.,35.,11.,43., 1.,33., 9.,41.,
+ 51.,19.,59.,27.,49.,17.,57.,25.,
+ 15.,47., 7.,39.,13.,45., 5.,37.,
+ 63.,31.,55.,23.,61.,29.,53.,21.);
+float bayer8(vec2 pf){
+  int x=int(mod(pf.x,8.0)), y=int(mod(pf.y,8.0));
+  return BAYER[y*8+x]/64.0;
+}
+vec3 ink(float s){
+  if(s<0.26) return vec3(0.086,0.090,0.102);
+  if(s<0.52) return vec3(0.227,0.306,0.388);
+  if(s<0.78) return vec3(0.706,0.388,0.229);
+  return vec3(0.949,0.933,0.894);
+}
+void main(){
+  vec2 p=(uv-0.5)*vec2(uAspect,1.0)*2.4;
+  float t=uT*0.05;
+  float base=fbm(p*1.6+vec2(t,-t*0.6));
+  vec2 md=(uM-0.5)*vec2(uAspect,1.0)*2.4;
+  float d=length(p-md);
+  base += 0.34*exp(-d*d*3.0);
+  base = clamp(base*1.25-0.08, 0.0, 1.0);
+  float th=bayer8(gl_FragCoord.xy/2.0);
+  float lv=floor(base*4.0+th)/4.0;
+  o=vec4(ink(lv+0.02),1.0);
+}`));
+  gl.linkProgram(pr);
+  if(!gl.getProgramParameter(pr,gl.LINK_STATUS))console.error('GL09',gl.getProgramInfoLog(pr));
+  const vb=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,vb);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const l=gl.getAttribLocation(pr,'a');
+  let mx=0.5,my=0.5,tx=0.5,ty=0.5;
+  stage.addEventListener('pointermove', e=>{
+    const r=stage.getBoundingClientRect();
+    tx=(e.clientX-r.left)/r.width; ty=1-(e.clientY-r.top)/r.height;
+  });
+  register(stage, () => ({ tick(){
+    const r=stage.getBoundingClientRect(), dpr=1;
+    if (cv.width!==(r.width*dpr|0)){ cv.width=r.width*dpr|0; cv.height=r.height*dpr|0; }
+    mx=lerp(mx,tx,0.1); my=lerp(my,ty,0.1);
+    gl.viewport(0,0,cv.width,cv.height);
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER,vb);
+    gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+    gl.uniform1f(gl.getUniformLocation(pr,'uT'), RM?0:performance.now()*0.001);
+    gl.uniform1f(gl.getUniformLocation(pr,'uAspect'), cv.width/cv.height);
+    gl.uniform2f(gl.getUniformLocation(pr,'uM'), mx, my);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+  }}));
+});
+
+/* ================= TYP-10 threshold dissolve ================= */
+qa('[data-demo="typ-dissolve"]').forEach(stage => {
+  const cv = q('canvas.dscanvas', stage);
+  const ctx = cv.getContext('2d', {willReadFrequently:true});
+  cv.setAttribute('role','img');
+  cv.setAttribute('aria-label','Roasted over oak');
+  const H = new Float32Array(512);
+  for (let i=0;i<512;i++) H[i]=Math.random();
+  const hash = (x,y)=>H[((x*73+y*151)%512+512)%512];
+  const vn = (x,y)=>{
+    const ix=Math.floor(x), iy=Math.floor(y);
+    let fx=x-ix, fy=y-iy;
+    fx=fx*fx*(3-2*fx); fy=fy*fy*(3-2*fy);
+    const a=hash(ix,iy), b=hash(ix+1,iy), c=hash(ix,iy+1), d=hash(ix+1,iy+1);
+    return (a+(b-a)*fx) + ((c+(d-c)*fx)-(a+(b-a)*fx))*fy;
+  };
+  let tx=0.88, cur=0.88;
+  stage.addEventListener('pointermove', e=>{
+    const r=stage.getBoundingClientRect();
+    tx=clamp((e.clientX-r.left)/r.width, 0, 1);
+  });
+  stage.addEventListener('pointerleave', ()=>{ tx=0.88; });
+  register(stage, () => ({ tick(){
+    const r=stage.getBoundingClientRect(), dpr=1;
+    const w=r.width*dpr|0, h=r.height*dpr|0;
+    if (!w||!h) return;
+    if (cv.width!==w){ cv.width=w; cv.height=h; }
+    cur = lerp(cur, RM?1:tx, 0.11);
+    ctx.clearRect(0,0,w,h);
+    const size = Math.min(w*0.115, h*0.30);
+    ctx.font = '400 '+size+'px "Instrument Serif", Georgia, serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillStyle='#F2EEE4';
+    ctx.fillText('Roasted over oak', w/2, h/2);
+    const img = ctx.getImageData(0,0,w,h), d = img.data;
+    for (let y=0; y<h; y++){
+      const ny = y*0.22;
+      for (let x=0; x<w; x++){
+        const i=(y*w+x)*4;
+        if (d[i+3]===0) continue;
+        const n = vn(x*0.22, ny);
+        if (x/w > cur - n*0.16 + 0.06) d[i+3]=0;
+      }
+    }
+    ctx.putImageData(img,0,0);
+  }}));
+});
 
 /* ================= KIT · before/after slider ================= */
 (() => {
