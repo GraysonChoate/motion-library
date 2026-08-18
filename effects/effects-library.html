@@ -1567,8 +1567,10 @@ and read BLD 09 for what additionally opens up.</pre>
           components the pattern requires. Their real links on every action. Their real images by URL,
           treated per KIT 08. The concept-work label, visible and persistent.</p>
           <p class="tlout"><b>Output</b> — the file.</p>
-          <p class="tlgate"><b>Gate</b> — it opens by double-click, offline, with no build step and no
-          external request except the client's own image URLs.</p>
+          <p class="tlgate"><b>Gate</b> — it opens by double-click with no build step. Two external
+          requests are allowed and nothing else: <b>the client's own image URLs</b>, and <b>one Google
+          Fonts stylesheet</b>. Offline it falls back to system faces and still reads correctly, so
+          give every face a real fallback stack.</p>
         </div>
       </div>
 
@@ -1606,6 +1608,7 @@ and read BLD 09 for what additionally opens up.</pre>
           <li>Their real links on every action</li>
           <li>Four motion slots, at ship values</li>
           <li>CSS and vanilla JS only</li>
+          <li>One Google Fonts link, with fallbacks</li>
           <li>The concept-work label</li>
         </ul>
       </div>
@@ -1798,6 +1801,7 @@ and read BLD 09 for what additionally opens up.</pre>
           <li>Every link goes to a URL you actually saw</li>
           <li>Registered marks carry ®</li>
           <li>The concept-work label is visible and persistent</li>
+          <li><b>and covers nothing</b> — a fixed bar needs matching body padding</li>
         </ul>
       </div>
       <div class="auditcol">
@@ -1861,7 +1865,7 @@ and read BLD 09 for what additionally opens up.</pre>
       <div class="auditcol">
         <h5>Copy</h5>
         <ul class="checklist">
-          <li>Under 320 words total</li>
+          <li>Under 320 words of your own writing</li>
           <li>No journey, passionate, believe, elevate, unleash, seamless, curated, solutions</li>
           <li>Headline stops working if you swap in a competitor&rsquo;s name</li>
           <li>One primary action, styled unlike anything else</li>
@@ -5003,6 +5007,7 @@ overlay.style.background =
       <tr><td>Practical block</td><td class="w">15–35</td><td>Hours, address, phone — live text, never in an image.</td></tr>
       <tr><td>Closing line</td><td class="w">3–10</td><td>Repeats the hero's promise in different words.</td></tr>
       <tr style="border-top:2px solid var(--edge)"><td><b style="color:var(--cream)">Whole Phase 1 page</b></td><td class="w"><b>180–320</b></td><td><b style="color:var(--cream)">Over 320 and you are padding. Go back and cut a section, not a sentence.</b></td></tr>
+      <tr><td>Verbatim item descriptions</td><td class="w">exempt</td><td>Their own menu or product copy, quoted unchanged, does not count against the budget — a six-item menu is the page's substance, not padding. <b>The 320 governs the words you wrote, not the words they wrote.</b> Everything else still counts.</td></tr>
     </table>
 
     <p style="margin-top:18px;font-size:13.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
@@ -5136,7 +5141,7 @@ overlay.style.background =
       <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">FINAL</span><h4>The one-minute copy pass, before anything is shown</h4></div>
       <div class="egood"><span>Read every sentence aloud. Any you wouldn't say to a customer gets cut.</span></div>
       <div class="egood"><span>Search the page for: journey, passionate, believe, elevate, unleash, seamless, curated, experience, solutions.</span><i>each hit is a rewrite</i></div>
-      <div class="egood"><span>Count the words. Over 320 in Phase 1 means cut a whole section.</span></div>
+      <div class="egood"><span>Count the words you wrote. Over 320 means cut a whole section. Their verbatim menu copy is exempt.</span></div>
       <div class="egood"><span>Point at each fact and name its tier. Anything at E or F comes off the page.</span></div>
       <div class="egood"><span>Swap the client's name for a competitor's. Anything still true gets rewritten.</span></div>
     </div>
