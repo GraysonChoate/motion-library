@@ -1962,12 +1962,15 @@ and read BLD 09 for what additionally opens up.</pre>
   });
 
   <i>// 12 · nothing renders smaller than it can actually be read. Mark real fine</i>
-  <i>//      print (legal, disclaimers) data-fine to allow it down to 11px — every</i>
-  <i>//      other leaf of text has a 13px floor, logo/nav labels included.</i>
+  <i>//      print (legal, disclaimers) data-fine to allow it down to 11px. KIT 01&#x27;s</i>
+  <i>//      own label token is uppercase + tracked at 10.5px by design — that isn&#x27;t</i>
+  <i>//      a mistake, so uppercase text with real positive tracking gets a 9px</i>
+  <i>//      floor instead of flagging the document&#x27;s own prescribed scale.</i>
   $$(&#x27;p,span,a,li,h1,h2,h3,h4,h5,label,button,td,th&#x27;).forEach(e =&gt; {
     if (!e.innerText || !e.innerText.trim() || e.children.length) return;
     const fs = parseFloat(cs(e).fontSize);
-    const floor = e.closest(&#x27;[data-fine]&#x27;) ? 11 : 13;
+    const isLabel = cs(e).textTransform === &#x27;uppercase&#x27; &amp;&amp; parseFloat(cs(e).letterSpacing) &gt; 0;
+    const floor = e.closest(&#x27;[data-fine]&#x27;) ? 11 : (isLabel ? 9 : 13);
     if (fs &gt; 0 &amp;&amp; fs &lt; floor)
       ok(false, &#x27;font-size &#x27; + fs + &#x27;px is under the &#x27; + floor + &#x27;px floor — &quot;&#x27; + e.innerText.slice(0,30) + &#x27;&quot;&#x27;);
   });
@@ -2062,11 +2065,24 @@ and read BLD 09 for what additionally opens up.</pre>
     const [r,g,b] = m.slice(0,3).map(c =&gt; { c/=255; return c&lt;=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4); });
     return 0.2126*r+0.7152*g+0.0722*b;
   };
+  <i>// bgOf walks up for a real CSS background; falls back to white when none is set,</i>
+  <i>// which is the true rendered default. That fallback is wrong exactly once: when a</i>
+  <i>// &lt;canvas&gt; (WebGL, grain, gradient loop) is what&#x27;s actually painted behind the</i>
+  <i>// text instead. elementsFromPoint sees the real paint stack at the text&#x27;s own</i>
+  <i>// centre, canvas included, so that case is caught precisely instead of guessed.</i>
   const bgOf = e =&gt; { let n=e; while(n){ const c=cs(n).backgroundColor; const m=c.match(/[\d.]+/g);
     if (m &amp;&amp; (m.length&lt;4 || parseFloat(m[3])&gt;0.5)) return c; n=n.parentElement; } return &#x27;rgb(255,255,255)&#x27;; };
   $$(&#x27;p,span,a,li,h1,h2,h3,h4,h5,label,button,td,th&#x27;).forEach(e =&gt; {
     if (!e.innerText || !e.innerText.trim() || e.children.length) return;
     if (e.closest(&#x27;[data-contrast-ok]&#x27;)) return;
+    const r = e.getBoundingClientRect();
+    if (r.width &gt; 0 &amp;&amp; r.height &gt; 0) {
+      const stack = document.elementsFromPoint(r.left + r.width/2, r.top + r.height/2);
+      if (stack.some(el =&gt; el.tagName === &#x27;CANVAS&#x27;)) {
+        console.warn(&#x27;ADVISORY — can\&#x27;t compute contrast on &quot;&#x27; + e.innerText.slice(0,30) + &#x27;&quot;, a canvas is painted behind it — check by eye or mark data-contrast-ok&#x27;);
+        return;
+      }
+    }
     const fg = cs(e).color, bg = bgOf(e);
     const L1 = relLum(fg), L2 = relLum(bg);
     const ratio = (Math.max(L1,L2)+0.05) / (Math.min(L1,L2)+0.05);
@@ -2140,7 +2156,9 @@ and read BLD 09 for what additionally opens up.</pre>
       and what it actually verifies ·</b> small type, blurry images and dead space were always
       covered by prose — the Type, Space and Colour checklists below, and KIT 02 and KIT 08 — but
       <b style="color:var(--cream)">prose is a thing an AI is trusted to apply, not a thing that
-      fails.</b> Check 12 catches type rendered under a real floor. Check 13 catches an image asked
+      fails.</b> Check 12 catches type rendered under a real floor — 13px for running text, 9px for
+      a genuine uppercase-and-tracked label in KIT 01's own style, so it doesn't cry wolf on the
+      10.5px label token the document itself prescribes. Check 13 catches an image asked
       to render past its own native pixels — the actual mechanism behind "blurry," measured instead
       of eyeballed, and the same rule KIT 08's rejection line describes, now enforced where it
       matters: after layout, not at sourcing. Check 14 catches a lone element stranded in a box far
@@ -2152,7 +2170,16 @@ and read BLD 09 for what additionally opens up.</pre>
       random accent weight), pure black or white anywhere on the page (KIT 01: neutrals always carry
       the brand hue), and WCAG contrast itself — 4.5:1 body, 3:1 large — computed against the actual
       nearest background instead of assumed. All four were already checklist lines below. None of
-      them were ever things that could fail. Now they are.</p>
+      them were ever things that could fail. Now they are. <b style="color:var(--cream)">Contrast has
+      one blind spot worth naming</b> — <code>getComputedStyle</code> can't see what a
+      <code>&lt;canvas&gt;</code> actually painted, only a declared CSS colour. A first version of
+      this check walked up for a CSS background and, finding none, assumed white — which produced a
+      real false failure against a real hero built over a WebGL background, text that was in fact
+      perfectly legible sitting on the canvas's own dark gradient. The fix uses
+      <code>elementsFromPoint</code> at the text's own centre to read the actual paint stack; when a
+      canvas turns up in it, the check stands down to a console advisory instead of guessing. Text
+      elsewhere on the same page, with no canvas behind it, still gets the real number — which is
+      exactly what caught the genuinely low-contrast footer labels in that same build.</p>
       <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
       <b style="color:var(--tan)">Check 19 turns check 11 from an advisory into a real detector,
       when it can ·</b> it samples the logo's own corner pixels — opaque and identical at all four
