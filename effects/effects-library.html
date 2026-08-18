@@ -480,6 +480,57 @@ footer b{color:var(--ink-dim); font-weight:500}
 .grainlabel{position:absolute; inset:0; display:grid; place-items:center; font-family:var(--serif);
   font-size:clamp(22px,4vw,44px); color:var(--cream)}
 
+/* ================= COPY ================= */
+.cpsec{padding:clamp(36px,6vh,64px) 0 0}
+.cphead{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
+  padding-bottom:12px; border-bottom:1px solid var(--edge-soft); margin-bottom:4px}
+.cphead h3{font-family:var(--serif); font-weight:400; font-size:clamp(24px,3.6vw,36px); margin:0; color:var(--cream)}
+.cphead .n{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--ember)}
+.cphead p{margin:0; flex:1 1 240px; min-width:200px; font-size:14px; color:var(--ink-faint)}
+.fcard{border:1px solid var(--edge-soft); border-left:2px solid var(--gold); border-radius:2px;
+  background:linear-gradient(180deg,rgba(201,164,92,.03),transparent);
+  padding:18px clamp(16px,2.2vw,24px); margin-top:14px}
+.fcard-top{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:10px}
+.fcard-top .code{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--gold);
+  border:1px solid var(--edge); padding:2px 8px; border-radius:2px}
+.fcard-top h4{font-family:var(--serif); font-weight:400; font-size:19px; margin:0; color:var(--cream)}
+.formula{font-family:var(--mono); font-size:12.5px; color:var(--teal); background:rgba(94,138,126,.10);
+  border:1px solid rgba(94,138,126,.22); border-radius:2px; padding:9px 12px; margin:0 0 12px; line-height:1.6}
+.formula b{color:var(--tan); font-weight:400}
+.egood,.ebad{display:flex; gap:10px; align-items:flex-start; padding:6px 0; font-size:14.5px; line-height:1.5}
+.egood::before{content:"✓"; color:var(--teal); font-family:var(--mono); font-size:12px; flex:none; margin-top:3px}
+.ebad::before{content:"✕"; color:var(--ember); font-family:var(--mono); font-size:12px; flex:none; margin-top:3px}
+.egood span{color:var(--cream)} .ebad span{color:var(--ink-faint); text-decoration:line-through; text-decoration-color:rgba(180,99,58,.5)}
+.egood i,.ebad i{font-style:normal; color:var(--ink-faint); font-size:12.5px; margin-left:6px}
+.voicegrid{display:grid; gap:10px; margin-top:12px}
+.voicerow{display:grid; grid-template-columns:104px 1fr; gap:16px; align-items:baseline;
+  padding:12px 14px; border:1px solid var(--edge-soft); border-radius:2px; background:var(--soot)}
+.voicerow b{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--gold); font-weight:400}
+.voicerow span{font-family:var(--serif); font-size:clamp(16px,2.1vw,21px); color:var(--cream); line-height:1.35}
+.voicerow.raw span{font-family:var(--sans); font-weight:700; letter-spacing:-.01em; text-transform:uppercase; font-size:17px}
+.voicerow.clinical span{font-family:var(--sans); font-weight:400; font-size:16px}
+.voicerow.community span{font-family:var(--sans); font-weight:400; font-size:16.5px}
+.lentable{width:100%; border-collapse:collapse; font-size:13.5px; margin-top:10px}
+.lentable th{text-align:left; font-family:var(--mono); font-size:9.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--teal); font-weight:400; padding:8px 12px 8px 0; border-bottom:1px solid var(--edge)}
+.lentable td{padding:9px 12px 9px 0; border-bottom:1px solid var(--edge-soft); color:var(--ink-dim); vertical-align:top}
+.lentable td:first-child{color:var(--ink); white-space:nowrap}
+.lentable td.w{font-family:var(--mono); color:var(--gold); font-variant-numeric:tabular-nums; white-space:nowrap}
+.swap{display:grid; grid-template-columns:1fr auto 1fr; gap:14px; align-items:center; padding:10px 0;
+  border-bottom:1px solid var(--edge-soft)}
+.swap .from{font-size:14px; color:var(--ink-faint); text-align:right}
+.swap .arw{font-family:var(--mono); font-size:11px; color:var(--ember)}
+.swap .to{font-size:14px; color:var(--cream)}
+@media(max-width:600px){.swap{grid-template-columns:1fr; gap:4px}.swap .from{text-align:left}}
+@media(max-width:760px){.lentable{display:block; overflow-x:auto; -webkit-overflow-scrolling:touch}
+  .lentable td,.lentable th{white-space:normal; min-width:88px}
+  .lentable td:first-child,.lentable td.w{white-space:nowrap}}
+.crime{display:flex; gap:12px; align-items:flex-start; padding:9px 0; border-bottom:1px solid var(--edge-soft)}
+.crime b{font-size:14.5px; color:var(--cream); font-weight:400; font-family:var(--serif); flex:0 0 auto; min-width:0}
+.crime span{font-size:13px; color:var(--ink-faint); margin-left:auto; text-align:right; line-height:1.5; max-width:56%}
+@media(max-width:640px){.crime{flex-direction:column;gap:3px}.crime span{margin-left:0;text-align:left;max-width:100%}}
+
 /* ================= PATTERNS ================= */
 .axhead{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin:clamp(36px,6vh,64px) 0 6px;
   padding-bottom:12px; border-bottom:1px solid var(--edge-soft)}
@@ -670,11 +721,13 @@ footer b{color:var(--ink-dim); font-weight:500}
 .tabbar{position:sticky; top:0; z-index:60; background:rgba(22,23,26,.93);
   backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--edge); margin-bottom:8px}
-.tabbar-inner{max-width:1080px; margin:0 auto; padding:0 24px; display:flex; gap:2px; align-items:stretch}
+.tabbar-inner{max-width:1080px; margin:0 auto; padding:0 24px; display:flex; gap:2px; align-items:stretch;
+  overflow-x:auto; scrollbar-width:none}
+.tabbar-inner::-webkit-scrollbar{display:none}
 .tab{appearance:none; background:transparent; border:none; cursor:pointer;
-  padding:16px 20px 14px; font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
+  padding:16px 13px 14px; font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
   text-transform:uppercase; color:var(--ink-faint); border-bottom:2px solid transparent;
-  transition:color .2s,border-color .2s; white-space:nowrap; display:flex; align-items:center; gap:9px}
+  transition:color .2s,border-color .2s; white-space:nowrap; display:flex; align-items:center; gap:6px}
 .tab:hover{color:var(--ink-dim)}
 .tab[aria-selected="true"]{color:var(--gold); border-bottom-color:var(--gold)}
 .tab:focus-visible{outline:2px solid var(--slate); outline-offset:-4px}
@@ -786,11 +839,12 @@ footer b{color:var(--ink-dim); font-weight:500}
 
 <nav class="tabbar" role="tablist" aria-label="Toolroom sections">
   <div class="tabbar-inner">
-    <button class="tab" role="tab" id="tab-research" aria-controls="panel-research" aria-selected="false">Research <span class="n">the gauge</span></button>
-    <button class="tab" role="tab" id="tab-effects"  aria-controls="panel-effects"  aria-selected="true">Effects <span class="n">the fixtures</span></button>
-    <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns <span class="n">the classifier</span></button>
-    <button class="tab" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false">Kit <span class="n">the furniture</span></button>
-    <button class="tab" role="tab" id="tab-standards" aria-controls="panel-standards" aria-selected="false">Standards <span class="n">the tolerances</span></button>
+    <button class="tab" role="tab" id="tab-research" aria-controls="panel-research" aria-selected="false">Research <span class="n">gauge</span></button>
+    <button class="tab" role="tab" id="tab-effects"  aria-controls="panel-effects"  aria-selected="true">Effects <span class="n">fixtures</span></button>
+    <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns <span class="n">classifier</span></button>
+    <button class="tab" role="tab" id="tab-copy" aria-controls="panel-copy" aria-selected="false">Copy <span class="n">words</span></button>
+    <button class="tab" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false">Kit <span class="n">furniture</span></button>
+    <button class="tab" role="tab" id="tab-standards" aria-controls="panel-standards" aria-selected="false">Standards <span class="n">tolerances</span></button>
   </div>
 </nav>
 
@@ -3131,6 +3185,375 @@ overlay.style.background =
     reason someone books it.</p>
   </div>
 </div><!-- /panel-patterns -->
+
+<div class="panel" id="panel-copy" role="tabpanel" aria-labelledby="tab-copy" hidden>
+  <div class="panel-intro">
+    <p class="role">The words</p>
+    <h2>Where a mockup becomes theirs or becomes a template</h2>
+    <p>Two pages can share a layout, a palette and every effect in this library and still land
+    completely differently, because <strong>copy is the only element that can't be reused.</strong>
+    Structure decides where words go. Register decides how they sound. The client decides what
+    they say.</p>
+    <p><strong>Source priority, never violated:</strong> their verbatim words → their words
+    rearranged → your words describing something you verified → <em>nothing</em>. There is no fifth
+    option. Inventing a sentence is the same failure as inventing a price, and it's the one most
+    likely to survive to the client's eyes because it reads well.</p>
+    <p><strong>Phase 1 target: 180–320 words on the whole page.</strong> A mockup that reads short
+    looks confident. A mockup padded to look finished looks like a template with the placeholder
+    text swapped.</p>
+  </div>
+
+  <!-- ============ RULE OF ONE ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">CPY 01</span><h3>The rule of one</h3>
+      <p>One idea per section. One action per screen. Every section that carries two ideas carries none.</p></div>
+
+    <div class="fcard">
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">The test for
+      any section: <b style="color:var(--cream)">say what it does in one sentence with no "and."</b>
+      If the sentence needs an "and," it's two sections, or one of the two ideas is decoration.</p>
+      <table class="lentable">
+        <tr><th>Section</th><th>Its one job</th><th>Everything else</th></tr>
+        <tr><td>Hero</td><td>Make them believe this place is good, and show them where to act</td><td class="w">cut</td></tr>
+        <tr><td>Second screen</td><td>Answer the single biggest doubt for this pattern</td><td class="w">cut</td></tr>
+        <tr><td>Offer / menu / services</td><td>Show what it costs and what you get</td><td class="w">cut</td></tr>
+        <tr><td>Proof</td><td>Show someone else already did this</td><td class="w">cut</td></tr>
+        <tr><td>Practical</td><td>Where, when, how to reach you</td><td class="w">cut</td></tr>
+        <tr><td>Close</td><td>Repeat the one action</td><td class="w">cut</td></tr>
+      </table>
+      <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.6;
+        border-top:1px solid var(--edge-soft);padding-top:14px"><b style="color:var(--tan)">One action, not three.</b>
+      A hero with <i>Book</i>, <i>See classes</i> and <i>Join the newsletter</i> has no primary action —
+      it has three equal-weight ways to leave. Pick the money action from the pattern, make it the only
+      thing that looks like a button, and demote the rest to plain links.</p>
+    </div>
+  </section>
+
+  <!-- ============ HEADLINE FORMULAS ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">CPY 02</span><h3>Headline formulas</h3>
+      <p>One per pattern. The formula is a starting shape, not a template to fill mechanically — but a
+      filled formula beats an invented headline every time.</p></div>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
+    The hero headline is the highest-leverage sentence on the page and the one most often wasted on the
+    business's own name — which is already in the logo two inches above it.
+    <b style="color:var(--cream)">A headline should say something a competitor could not say.</b>
+    If you can swap in a rival's name and the sentence still works, it's a slogan, not a headline.</p>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">A</span><h4>Book a slot</h4></div>
+      <p class="formula"><b>[what changes for them]</b> + <b>[the specific practice]</b> — competence stated, not claimed</p>
+      <div class="egood"><span>Strength that shows up in the rest of your week.</span><i>outcome, not activity</i></div>
+      <div class="egood"><span>Twelve reformers. Six people. One instructor watching all of them.</span><i>specificity is the proof</i></div>
+      <div class="egood"><span>The haircut you have to explain once.</span></div>
+      <div class="ebad"><span>Welcome to Elevate Pilates</span><i>the logo already said it</i></div>
+      <div class="ebad"><span>Your journey to wellness starts here</span><i>works for 400,000 businesses</i></div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Note ·</b>
+      For anything aesthetic or clinical, the sub-line carries the credential — years, certification,
+      technique name. The headline sells the outcome; the sub-line makes it believable.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">B</span><h4>Come and consume</h4></div>
+      <p class="formula"><b>[the specific thing]</b> + <b>[how it's made or where it's from]</b> — never the category noun alone</p>
+      <div class="egood"><span>Roasted over an oak fire since 2002.</span><i>method + duration, both verifiable</i></div>
+      <div class="egood"><span>Bread that was flour at four this morning.</span></div>
+      <div class="egood"><span>Sixteen taps. Nothing travels more than forty miles.</span></div>
+      <div class="ebad"><span>Great coffee, great vibes</span><i>two adjectives, zero facts</i></div>
+      <div class="ebad"><span>Your neighbourhood coffee destination</span><i>"destination" is a tell</i></div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Note ·</b>
+      This pattern's visitors are not reading — they want menu, hours, address. The headline earns
+      about two seconds. Spend them on the one thing that's true here and nowhere else on the street.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">C</span><h4>Join</h4></div>
+      <p class="formula"><b>[address the real fear]</b> or <b>[name who it's for]</b> + a low-commitment first step</p>
+      <div class="egood"><span>Train like an athlete. No contract.</span><i>the fear is commitment, not price</i></div>
+      <div class="egood"><span>For people who quit every other gym.</span></div>
+      <div class="egood"><span>Your first week is free. Decide after.</span></div>
+      <div class="ebad"><span>Unleash your potential</span></div>
+      <div class="ebad"><span>The ultimate fitness experience</span><i>"ultimate" and "experience" in one line</i></div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Note ·</b>
+      The dominant fear is paying monthly for something they'll stop attending. A headline that names
+      that fear out-converts one that promises transformation — and the trial CTA must sit directly
+      under it, not three screens down.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">D</span><h4>Hire for a job</h4></div>
+      <p class="formula"><b>[the job]</b> + <b>[the thing that goes wrong when someone else does it]</b> + response speed</p>
+      <div class="egood"><span>Leaks fixed today, not Tuesday.</span><i>speed is the entire differentiator</i></div>
+      <div class="egood"><span>Licensed, insured, and we clean up.</span></div>
+      <div class="egood"><span>We quote the job, not the hour.</span></div>
+      <div class="ebad"><span>Quality service you can trust</span><i>the words of someone with nothing specific</i></div>
+      <div class="ebad"><span>Serving the area for over 20 years</span><i>true but not a reason — put it in the sub-line</i></div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Note ·</b>
+      Urgency is the context — something is broken. Phone number visible at every scroll position, in
+      live text. The headline should reduce risk, not build brand.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">E</span><h4>Retain a professional</h4></div>
+      <p class="formula"><b>[who you represent]</b> + <b>[the situation]</b> — plain language, no Latin, no grandeur</p>
+      <div class="egood"><span>When the other side has a lawyer, you should too.</span></div>
+      <div class="egood"><span>We handle the paperwork you've been avoiding since March.</span></div>
+      <div class="egood"><span>Small firms. Real accounts. No surprises in April.</span></div>
+      <div class="ebad"><span>Excellence in legal representation</span></div>
+      <div class="ebad"><span>Trusted advisors since 1998</span><i>"trusted advisors" is category wallpaper</i></div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Note ·</b>
+      The visitor is often anxious and comparing three firms. Calm and concrete beats impressive.
+      Credentials belong in a bar under the hero, not inside the headline.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">F</span><h4>Buy a product</h4></div>
+      <p class="formula"><b>[the product]</b> + <b>[the material, the maker, or the constraint]</b></p>
+      <div class="egood"><span>One knife. Made to be sharpened for thirty years.</span></div>
+      <div class="egood"><span>Cut and sewn in a room above the shop.</span></div>
+      <div class="egood"><span>Forty pairs a month. That's the whole output.</span><i>scarcity that's a fact, not a countdown</i></div>
+      <div class="ebad"><span>Shop our latest collection</span><i>an instruction, not a reason</i></div>
+      <div class="ebad"><span>Premium quality products for the modern lifestyle</span></div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Note ·</b>
+      The headline's job is to make the price make sense before the price appears. Material, process
+      and constraint all do that. "Premium" does not.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">G</span><h4>Attend an occasion</h4></div>
+      <p class="formula"><b>[the day]</b> from the guest's or host's point of view + <b>[the place]</b></p>
+      <div class="egood"><span>A barn, a long table, and a hundred and forty people.</span></div>
+      <div class="egood"><span>The room stays yours until midnight.</span><i>a constraint that answers a real question</i></div>
+      <div class="ebad"><span>Your dream day awaits</span></div>
+      <div class="ebad"><span>Creating unforgettable memories</span></div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Note ·</b>
+      Capacity, availability and price band are the three things every visitor is hunting for. If the
+      client has published them, they go above the fold — that alone beats most competitors in this
+      category.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">H</span><h4>Enrol</h4></div>
+      <p class="formula"><b>[what the student can do afterwards]</b> + <b>[how long it takes]</b></p>
+      <div class="egood"><span>Read music by Christmas.</span><i>capability plus deadline</i></div>
+      <div class="egood"><span>Eight weeks. Then you can actually swim.</span></div>
+      <div class="ebad"><span>Nurturing young minds</span></div>
+      <div class="ebad"><span>Excellence in education since 1994</span></div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Note ·</b>
+      The buyer is frequently not the student. Write the headline for whoever pays, and let the
+      photography speak to whoever attends.</p>
+    </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">ALL</span><h4>Four mechanical checks before any headline ships</h4></div>
+      <div class="egood"><span>Swap in a competitor's name — does it still work?</span><i>if yes, rewrite</i></div>
+      <div class="egood"><span>Is there a number, a material, a method, a place or a duration in it?</span><i>at least one</i></div>
+      <div class="egood"><span>Under 9 words, or a deliberate two-line sentence?</span></div>
+      <div class="egood"><span>Would the owner say it out loud to a customer?</span><i>the fastest test there is</i></div>
+    </div>
+  </section>
+
+  <!-- ============ VOICE BY REGISTER ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">CPY 03</span><h3>Voice by register</h3>
+      <p>Register isn't only palette and type — it's sentence length, vocabulary and punctuation.
+      One fact, six ways.</p></div>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
+    The fact, held constant: <i style="color:var(--cream)">they roast coffee over an oak fire, in brick
+    ovens they built themselves.</i> Nothing below adds information. Every version says exactly this
+    and nothing more — the difference is entirely voice.</p>
+
+    <div class="voicegrid">
+      <div class="voicerow raw"><b>Raw</b><span>Oak fire. Brick ovens. Built by hand.</span></div>
+      <div class="voicerow"><b>Calm</b><span>We roast slowly, over oak, in ovens we built ourselves.</span></div>
+      <div class="voicerow clinical"><b>Clinical</b><span>Oak-fired roasting in purpose-built brick ovens. Constructed on site.</span></div>
+      <div class="voicerow"><b>Craft</b><span>Every bean passes over an oak fire, in brick ovens we laid by hand.</span></div>
+      <div class="voicerow"><b>Luxury</b><span>Oak fire. Brick. Nothing else touches the bean.</span></div>
+      <div class="voicerow community"><b>Community</b><span>We built the ovens ourselves — and yes, that's real oak you're smelling.</span></div>
+    </div>
+
+    <table class="lentable" style="margin-top:22px">
+      <tr><th>Register</th><th>Sentence</th><th>Vocabulary</th><th>Punctuation</th><th>Never</th></tr>
+      <tr><td>Raw</td><td class="w">3–7 words</td><td>Verbs and nouns. No adjectives.</td><td>Full stops as beats. Fragments.</td><td>Softeners, "we believe", exclamation marks</td></tr>
+      <tr><td>Calm</td><td class="w">10–18 words</td><td>Plain, warm, unhurried</td><td>Commas. One clause at a time.</td><td>Urgency, caps, superlatives</td></tr>
+      <tr><td>Clinical</td><td class="w">8–14 words</td><td>Precise nouns, named techniques, numbers</td><td>Flat declaratives, colons</td><td>Metaphor, poetry, warmth-signalling</td></tr>
+      <tr><td>Craft</td><td class="w">12–22 words</td><td>Materials, process, hands, time</td><td>Em dashes, subordinate clauses</td><td>Tech vocabulary, "solutions", "curated"</td></tr>
+      <tr><td>Luxury</td><td class="w">2–8 words</td><td>Restraint. Understatement. Absence.</td><td>Full stops. Space doing the work.</td><td>Explaining, listing benefits, "luxury"</td></tr>
+      <tr><td>Community</td><td class="w">10–20 words</td><td>Second person, contractions, names</td><td>Dashes, questions, the occasional aside</td><td>Corporate distance, passive voice</td></tr>
+    </table>
+
+    <p style="margin-top:18px;font-size:13.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
+    <b style="color:var(--tan)">The tell that matters most ·</b> <b>Luxury never explains.</b> The
+    single most common way a mockup fails the luxury register is a paragraph justifying the price.
+    Restraint reads expensive; justification reads defensive. If a luxury page has more than about
+    forty words above the fold, the register is wrong regardless of how the type looks.</p>
+
+    <p style="margin-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
+    <b style="color:var(--tan)">Match, don't upgrade ·</b> If the client writes in the Community
+    register and you rewrite them into Luxury, you've rebranded them. The mockup will look better and
+    be wrong. Read four or five sentences of their existing copy before choosing register, and let
+    their voice win any tie.</p>
+  </section>
+
+  <!-- ============ LENGTH ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">CPY 04</span><h3>Length discipline</h3>
+      <p>Word budgets, not guidelines. Phase 1 pages fail far more often from padding than from being short.</p></div>
+
+    <table class="lentable">
+      <tr><th>Slot</th><th>Words</th><th>Rule</th></tr>
+      <tr><td>Eyebrow / kicker</td><td class="w">2–5</td><td>Optional. Cut it before cutting anything else.</td></tr>
+      <tr><td>Hero headline</td><td class="w">4–9</td><td>Under 9, or a deliberate two-line sentence. Never three lines.</td></tr>
+      <tr><td>Hero sub-line</td><td class="w">10–22</td><td>Carries the credential, the proof or the constraint — not a restatement.</td></tr>
+      <tr><td>Primary button</td><td class="w">2–4</td><td>Verb + object. Never one abstract word.</td></tr>
+      <tr><td>Section heading</td><td class="w">2–7</td><td>Says what's below, not what it means.</td></tr>
+      <tr><td>Section paragraph</td><td class="w">25–45</td><td>One idea. If it needs two paragraphs it needs two sections.</td></tr>
+      <tr><td>Card / service blurb</td><td class="w">8–18</td><td>Every card in a row gets the same length ±3 words, or the grid looks broken.</td></tr>
+      <tr><td>Pull quote</td><td class="w">8–20</td><td>Verbatim, attributed, real. Otherwise omit the section.</td></tr>
+      <tr><td>Practical block</td><td class="w">15–35</td><td>Hours, address, phone — live text, never in an image.</td></tr>
+      <tr><td>Closing line</td><td class="w">3–10</td><td>Repeats the hero's promise in different words.</td></tr>
+      <tr style="border-top:2px solid var(--edge)"><td><b style="color:var(--cream)">Whole Phase 1 page</b></td><td class="w"><b>180–320</b></td><td><b style="color:var(--cream)">Over 400 and you are padding. Go back and cut a section, not a sentence.</b></td></tr>
+    </table>
+
+    <p style="margin-top:18px;font-size:13.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
+    <b style="color:var(--tan)">Equal-length cards are a structural rule, not a style preference ·</b>
+    Three service cards of 9, 31 and 14 words produce three different card heights, and the row reads
+    as an accident. Write the shortest one first and hold the other two to it.</p>
+
+    <p style="margin-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
+    <b style="color:var(--tan)">Line length ·</b> Running text stays near <b>65 characters</b>. Headlines
+    take <code>text-wrap:balance</code>; body takes <code>text-wrap:pretty</code>. A headline that
+    breaks with one orphan word on line two is the single most common reason a mockup looks amateur at
+    a glance.</p>
+  </section>
+
+  <!-- ============ MICROCOPY ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">CPY 05</span><h3>Microcopy</h3>
+      <p>Buttons, labels, empty states. Small enough to skip; loud enough that skipping shows.</p></div>
+
+    <div class="fcard">
+      <p style="margin:0 0 6px;font-size:13px;font-family:var(--mono);letter-spacing:.12em;color:var(--teal);text-transform:uppercase">Buttons — verb + object, always</p>
+      <div class="swap"><span class="from">Submit</span><span class="arw">&rarr;</span><span class="to">Book my class</span></div>
+      <div class="swap"><span class="from">Learn more</span><span class="arw">&rarr;</span><span class="to">See the schedule</span></div>
+      <div class="swap"><span class="from">Get started</span><span class="arw">&rarr;</span><span class="to">Start the free week</span></div>
+      <div class="swap"><span class="from">Contact us</span><span class="arw">&rarr;</span><span class="to">Ask about a date</span></div>
+      <div class="swap"><span class="from">Click here</span><span class="arw">&rarr;</span><span class="to">Read the menu</span></div>
+      <div class="swap"><span class="from">Sign up</span><span class="arw">&rarr;</span><span class="to">Claim a spot</span></div>
+      <div class="swap"><span class="from">View services</span><span class="arw">&rarr;</span><span class="to">See prices</span></div>
+      <div class="swap"><span class="from">Shop now</span><span class="arw">&rarr;</span><span class="to">See the collection</span></div>
+      <div class="swap"><span class="from">Request a quote</span><span class="arw">&rarr;</span><span class="to">Get a price today</span></div>
+      <div class="swap" style="border-bottom:none"><span class="from">Explore</span><span class="arw">&rarr;</span><span class="to">See what's inside</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Why ·</b>
+      A button labelled with a verb and its object tells the visitor what happens next. An abstract
+      label makes them guess, and guessing is friction. <b>Write the button before the section</b> —
+      if you can't name the action, the section doesn't have one.</p>
+    </div>
+
+    <div class="fcard">
+      <p style="margin:0 0 6px;font-size:13px;font-family:var(--mono);letter-spacing:.12em;color:var(--teal);text-transform:uppercase">Labels and states</p>
+      <div class="swap"><span class="from">Testimonials</span><span class="arw">&rarr;</span><span class="to">What people say after six months</span></div>
+      <div class="swap"><span class="from">Our services</span><span class="arw">&rarr;</span><span class="to">What we do, and what it costs</span></div>
+      <div class="swap"><span class="from">About us</span><span class="arw">&rarr;</span><span class="to">Why the ovens are brick</span></div>
+      <div class="swap"><span class="from">Gallery</span><span class="arw">&rarr;</span><span class="to">The room, empty and full</span></div>
+      <div class="swap"><span class="from">Opening hours</span><span class="arw">&rarr;</span><span class="to">Open until 6 today</span></div>
+      <div class="swap" style="border-bottom:none"><span class="from">FAQ</span><span class="arw">&rarr;</span><span class="to">Things people ask before booking</span></div>
+      <p style="margin:14px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6"><b style="color:var(--tan)">Live state beats static label ·</b>
+      "Open until 6 today", computed from their published hours, is worth more than an hours table
+      and costs four lines of code. It's the cheapest thing on this page that reads as expensive.</p>
+    </div>
+
+    <div class="fcard">
+      <p style="margin:0 0 10px;font-size:13px;font-family:var(--mono);letter-spacing:.12em;color:var(--teal);text-transform:uppercase">Trust microcopy — place beside the action, not in the header</p>
+      <div class="egood"><span>Under the primary button: <b>No card required · Cancel any time</b></span><i>pattern C</i></div>
+      <div class="egood"><span>Beside a quote form: <b>We reply the same day, usually within an hour</b></span><i>pattern D</i></div>
+      <div class="egood"><span>Under a booking button: <b>Free to reschedule up to 24 hours before</b></span><i>pattern A</i></div>
+      <div class="egood"><span>By the price: <b>Includes everything. No setup fee.</b></span><i>pattern F</i></div>
+      <p style="margin:12px 0 0;font-size:13px;color:var(--ink-faint);line-height:1.6">Trust signals
+      placed <b>next to the action</b> outperform the same signals in a header badge row. Doubt happens
+      at the click, not at the top of the page. <b style="color:var(--ember)">Only ever state a policy
+      the client actually published.</b></p>
+    </div>
+  </section>
+
+  <!-- ============ NOTHING TO WORK WITH ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">CPY 06</span><h3>When they have nothing</h3>
+      <p>Forty words of copy on the whole site, all of it generic. The most common real input — and the
+      point at which most AI output starts inventing.</p></div>
+
+    <div class="fcard">
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--cream);line-height:1.65">Mine, in this
+      order. Stop as soon as you have enough — each step is more work and lower yield than the one above.</p>
+      <table class="lentable">
+        <tr><th>#</th><th>Source</th><th>What it gives you</th><th>Tier</th></tr>
+        <tr><td class="w">1</td><td>Their About / Our Story page</td><td>Almost always the best writing they own, and almost always buried two clicks deep. Move it to the front.</td><td class="w">B</td></tr>
+        <tr><td class="w">2</td><td>Their own product / service names</td><td>A naming system is art direction. Fire-named coffees, room-named treatments — that's the page's vocabulary, pre-written.</td><td class="w">B</td></tr>
+        <tr><td class="w">3</td><td>Menu, price list, timetable</td><td>Concrete nouns and numbers. The rawest material there is, and it's all verifiable.</td><td class="w">B</td></tr>
+        <tr><td class="w">4</td><td>Reviews</td><td>The exact words customers use. Repeated phrases are the value proposition, stated by the market instead of guessed.</td><td class="w">C/D</td></tr>
+        <tr><td class="w">5</td><td>Instagram captions</td><td>For cafés, studios, gyms and salons this is where the voice actually lives. Needs a human's browser.</td><td class="w">C</td></tr>
+        <tr><td class="w">6</td><td>Their FAQ or booking notes</td><td>Policies, constraints, honest specifics — reliably better copy than the homepage.</td><td class="w">B</td></tr>
+        <tr><td class="w">7</td><td>Photo captions and alt text</td><td>Occasionally the only place a real detail is written down.</td><td class="w">A</td></tr>
+      </table>
+      <p style="margin:16px 0 0;font-size:14px;color:var(--ink-dim);line-height:1.65;
+        border-top:1px solid var(--edge-soft);padding-top:14px">
+      <b style="color:var(--cream)">If all seven are dry:</b> use structure instead of prose. A short
+      declarative label, their real numbers, and generous space. A section reading
+      <i>Hours &middot; Tue–Sun, 7–3</i> in confident type is finished work. A section reading
+      <i>We're passionate about serving our community</i> is a lie you wrote.</p>
+      <p style="margin:12px 0 0;font-size:14.5px;color:var(--ember);line-height:1.6;font-weight:600">
+      Empty is better than fabricated. A blank region reads as design. An invented sentence reads as
+      real until someone checks — and then everything else you wrote is suspect too.</p>
+    </div>
+
+    <div class="fcard">
+      <p style="margin:0 0 6px;font-size:13px;font-family:var(--mono);letter-spacing:.12em;color:var(--teal);text-transform:uppercase">Rearranging is allowed. Inventing is not.</p>
+      <div class="egood"><span>Their About page says "We drew up the plans and laid every brick by hand." You put it in the hero.</span><i>verbatim, moved</i></div>
+      <div class="egood"><span>Their menu lists twelve drinks named after states of fire. You name the section "Every stage of the fire."</span><i>derived from their own system</i></div>
+      <div class="egood"><span>Four reviews all say "never bitter." You surface it as a pull quote, attributed to the reviews.</span><i>observed, attributed</i></div>
+      <div class="ebad"><span>"Family-owned since 1998" — when no page says family-owned or 1998</span><i>the most common invented sentence there is</i></div>
+      <div class="ebad"><span>"Voted best in the city three years running"</span><i>an award nobody gave them</i></div>
+      <div class="ebad"><span>"Our expert team of certified specialists"</span><i>credentials you did not verify</i></div>
+      <div class="ebad"><span>A five-star quote from "Sarah M."</span><i>a fabricated person</i></div>
+    </div>
+  </section>
+
+  <!-- ============ CRIMES ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">CPY 07</span><h3>Copy crimes</h3>
+      <p>Instant tells. Any one of these on a page marks it as generated or templated, no matter how
+      good the design is.</p></div>
+
+    <div class="fcard">
+      <div class="crime"><b>"Welcome to [business name]"</b><span>The logo is directly above it. The most wasted sentence on the internet.</span></div>
+      <div class="crime"><b>"Your journey starts here"</b><span>Journey, experience, destination — all three are placeholders that survived to launch.</span></div>
+      <div class="crime"><b>"Passionate about…"</b><span>Nobody says this out loud about their own work.</span></div>
+      <div class="crime"><b>"We believe that…"</b><span>Belief statements are what you write when you have no facts.</span></div>
+      <div class="crime"><b>"Elevate your…"</b><span>Elevate, unleash, empower, transform, curated, seamless, bespoke.</span></div>
+      <div class="crime"><b>"Lorem ipsum" anywhere</b><span>Including one card in a row of six. Someone always spots it.</span></div>
+      <div class="crime"><b>Three CTAs of equal weight</b><span>No primary action means no action.</span></div>
+      <div class="crime"><b>Exclamation marks</b><span>Zero on the page, except inside a verbatim customer quote.</span></div>
+      <div class="crime"><b>Sentence-case Title Case Everywhere</b><span>Pick one casing rule and hold it across every heading.</span></div>
+      <div class="crime"><b>"Contact us today!"</b><span>Urgency with no reason attached converts nothing.</span></div>
+      <div class="crime"><b>Invented statistics</b><span>"Over 10,000 happy customers" — a number nobody counted.</span></div>
+      <div class="crime"><b>Testimonials with initials only</b><span>"— J.D." reads as fabricated even when it isn't.</span></div>
+      <div class="crime"><b>A headline that names the industry</b><span>"Premium Coffee Roasters" — that's a directory listing.</span></div>
+      <div class="crime"><b>Two ideas in one heading</b><span>Anything with "and" in a heading is two sections wearing a coat.</span></div>
+      <div class="crime" style="border-bottom:none"><b>Copy written to fill a shape</b><span>If a paragraph exists because the layout had a gap, delete the gap.</span></div>
+    </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">FINAL</span><h4>The one-minute copy pass, before anything is shown</h4></div>
+      <div class="egood"><span>Read every sentence aloud. Any you wouldn't say to a customer gets cut.</span></div>
+      <div class="egood"><span>Search the page for: journey, passionate, believe, elevate, unleash, seamless, curated, experience, solutions.</span><i>each hit is a rewrite</i></div>
+      <div class="egood"><span>Count the words. Over 400 in Phase 1 means cut a whole section.</span></div>
+      <div class="egood"><span>Point at each fact and name its tier. Anything at E or F comes off the page.</span></div>
+      <div class="egood"><span>Swap the client's name for a competitor's. Anything still true gets rewritten.</span></div>
+    </div>
+  </section>
+</div><!-- /panel-copy -->
 
 <div class="panel" id="panel-kit" role="tabpanel" aria-labelledby="tab-kit" hidden>
   <div class="panel-intro">

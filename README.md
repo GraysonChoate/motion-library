@@ -14,6 +14,8 @@ consistently good.
 |---|---|
 | **[`research/`](research/)** | how to find out what's actually true about a client, and prove it — the **gauge** |
 | **[`effects/`](effects/)** | working, debugged interaction code you can lift — the **fixtures** |
+| **Patterns** *(in the library page)* | the two questions that place any business — the **classifier** |
+| **Copy** *(in the library page)* | headline formulas, voice by register, word budgets, copy crimes — the **words** |
 | **Kit** *(in the library page)* | tokens, layout archetypes, utility components, photo treatment, edge language — the **furniture** |
 | **[`standards/`](standards/)** | accessibility, performance, and demo-vs-ship values — the **tolerances** |
 
