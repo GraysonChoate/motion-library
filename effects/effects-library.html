@@ -1031,6 +1031,81 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 .chip:focus-visible{outline:2px solid var(--slate); outline-offset:2px}
 .group[hidden]{display:none}
 
+/* ================= IMG group demos ================= */
+.plateA,.plateB{position:absolute; inset:-14%; background-size:cover; background-position:center;
+  pointer-events:none; will-change:transform}
+.plateA{background-color:#3a2c1e;
+  background-image:radial-gradient(circle at 32% 38%,#F0D8A0,transparent 62%),
+  radial-gradient(circle at 72% 62%,#D89A62,transparent 58%);
+  -webkit-mask-image:radial-gradient(ellipse 58% 60% at 38% 44%,#000 16%,transparent 82%);
+          mask-image:radial-gradient(ellipse 58% 60% at 38% 44%,#000 16%,transparent 82%);
+  mix-blend-mode:screen; opacity:.85}
+.plateB{background-color:#26332f;
+  background-image:radial-gradient(circle at 66% 42%,#9FD4C4,transparent 60%),
+  radial-gradient(circle at 30% 72%,#E8B98A,transparent 56%);
+  -webkit-mask-image:radial-gradient(ellipse 54% 56% at 66% 56%,#000 12%,transparent 80%);
+          mask-image:radial-gradient(ellipse 54% 56% at 66% 56%,#000 12%,transparent 80%);
+  mix-blend-mode:screen; opacity:.7}
+
+.frames{display:flex; gap:16px; align-items:center; justify-content:center; height:100%; padding:0 20px}
+.fr{position:relative; overflow:hidden; flex:0 0 auto; width:26%; max-width:150px;
+  border:1px solid var(--edge-soft)}
+.fr i{position:absolute; inset:0; display:block; background-size:cover; background-position:center;
+  background-color:#241d16;
+  background-image:radial-gradient(circle at 40% 30%,#EBD3A6,transparent 62%),
+    radial-gradient(circle at 70% 75%,#C08A5E,transparent 58%);
+  transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.fr:hover i{transform:scale(1.07)}
+.fr-arch{aspect-ratio:4/5; border-radius:50% 50% 3px 3px / 32% 32% 3px 3px}
+.fr-lens{aspect-ratio:1; border-radius:50%}
+.fr-pillar{aspect-ratio:3/4; border-radius:999px 999px 3px 3px}
+
+.duowrap{position:absolute; inset:12% 18%; isolation:isolate; overflow:hidden; border-radius:3px;
+  border:1px solid var(--edge-soft); cursor:pointer}
+.duoimg{position:absolute; inset:0; background-size:cover; background-position:center;
+  background-image:radial-gradient(circle at 35% 30%,#e0b071,transparent 55%),
+    radial-gradient(circle at 72% 66%,#7b8f6a,transparent 52%),
+    linear-gradient(140deg,#6b5a41,#2a2118);
+  filter:grayscale(1) contrast(1.12); transition:filter .55s cubic-bezier(.16,1,.3,1)}
+.duowrap::before,.duowrap::after{content:""; position:absolute; inset:0; pointer-events:none;
+  transition:opacity .55s cubic-bezier(.16,1,.3,1)}
+.duowrap::before{background:#2a1d14; mix-blend-mode:multiply}
+.duowrap::after{background:#E8DCC8; mix-blend-mode:screen; opacity:.8}
+.duowrap:hover .duoimg{filter:none}
+.duowrap:hover::before,.duowrap:hover::after{opacity:0}
+
+.splitwrap{position:absolute; inset:14% 20%; overflow:hidden; border-radius:3px;
+  border:1px solid var(--edge-soft)}
+.splitimg{position:absolute; inset:0; background-size:cover;
+  background-image:radial-gradient(circle at 45% 40%,#d9c08a,transparent 58%),
+    linear-gradient(120deg,#5c4a34,#241c15)}
+.splitwrap i{position:absolute; inset:0; background:inherit; mix-blend-mode:screen;
+  will-change:transform; pointer-events:none}
+.splitwrap i.r{background:radial-gradient(circle at 45% 40%,rgba(214,74,74,.55),transparent 62%)}
+.splitwrap i.b{background:radial-gradient(circle at 45% 40%,rgba(74,120,214,.55),transparent 62%)}
+
+.typemask{position:absolute; inset:0; display:grid; place-content:center; margin:0; text-align:center; font-family:var(--display); font-size:clamp(44px,11vw,104px);
+  font-weight:800; letter-spacing:-.03em; line-height:1; color:var(--cream);
+  background-image:radial-gradient(circle at 30% 35%,#e6c07a,transparent 55%),
+    radial-gradient(circle at 72% 68%,#5E8A7E,transparent 52%),
+    linear-gradient(130deg,#c98b5a,#2a2118);
+  background-size:180% 180%; -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; animation:typepan 18s ease-in-out infinite alternate}
+@keyframes typepan{ to{ background-position:70% 60% } }
+
+.trailhost{position:absolute; inset:0; overflow:hidden; cursor:crosshair}
+.trailhost b{position:absolute; width:104px; aspect-ratio:3/4; margin:0; display:block;
+  transform:translate(-50%,-50%) scale(.85); opacity:0; pointer-events:none; border-radius:2px;
+  background-size:cover; background-position:center}
+.trailhost b.on{animation:trailpop .82s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes trailpop{
+  from{opacity:.95; transform:translate(-50%,-50%) scale(.86)}
+  to{opacity:0; transform:translate(-50%,-50%) scale(1.06)} }
+@media (prefers-reduced-motion:reduce){
+  .typemask{animation:none}
+  .trailhost b.on{animation:none}
+}
+
 /* ===== effect index — the human's fast path into the catalogue =====
    Purely navigational. It reorders nothing and rewords nothing, so the AI reads
    the same content it always did; it just gains a table of contents, which is
@@ -2810,13 +2885,14 @@ and read BLD 09 for what additionally opens up.</pre>
 <div class="panel" id="panel-effects" role="tabpanel" aria-labelledby="tab-effects" hidden>
 <div class="efind" id="efind">
   <div class="efind-top">
-    <h4>All 47 effects &mdash; jump straight to one</h4>
+    <h4>All 53 effects &mdash; jump straight to one</h4>
     <input id="ixq" type="search" placeholder="Filter by ID, name or technique&hellip;  (press /)" aria-label="Filter effects">
-    <span class="ixcount" id="ixcount">47 shown</span>
+    <span class="ixcount" id="ixcount">53 shown</span>
   </div>
   <p class="ixnote">This is the catalogue <b>BLD 02 step 6</b> requires you to choose from. Pick by ID. Every entry links to its live demo and code below.</p>
 <div class="ixgroup" data-ixg="sys"><h5>SYS · architecture <em>5</em></h5><div class="ixgrid"><a class="ix" href="#e-SYS-01" data-ix="SYS-01 Native CSS scroll timelines browser-native, zero JS"><b>SYS-01</b><span>Native CSS scroll timelines</span><i>browser-native, zero JS</i></a><a class="ix" href="#e-SYS-02" data-ix="SYS-02 FLIP layout animation First, Last, Invert, Play"><b>SYS-02</b><span>FLIP layout animation</span><i>First, Last, Invert, Play</i></a><a class="ix" href="#e-SYS-03" data-ix="SYS-03 Spring physics vs easing velocity-aware motion"><b>SYS-03</b><span>Spring physics vs easing</span><i>velocity-aware motion</i></a><a class="ix" href="#e-SYS-04" data-ix="SYS-04 View Transitions browser-native morphing"><b>SYS-04</b><span>View Transitions</span><i>browser-native morphing</i></a><a class="ix" href="#e-SYS-05" data-ix="SYS-05 Speculation Rules prefetch and prerender on intent"><b>SYS-05</b><span>Speculation Rules</span><i>prefetch and prerender on intent</i></a></div></div>
 <div class="ixgroup" data-ixg="gl"><h5>GL · rendered <em>9</em></h5><div class="ixgrid"><a class="ix" href="#e-GL-01" data-ix="GL-01 Raymarched SDF field fragment shader, zero geometry"><b>GL-01</b><span>Raymarched SDF field</span><i>fragment shader, zero geometry</i></a><a class="ix" href="#e-GL-02" data-ix="GL-02 Dispersion glass index-of-refraction shader"><b>GL-02</b><span>Dispersion glass</span><i>index-of-refraction shader</i></a><a class="ix" href="#e-GL-03" data-ix="GL-03 Displacement transition two textures, one noise map"><b>GL-03</b><span>Displacement transition</span><i>two textures, one noise map</i></a><a class="ix" href="#e-GL-04" data-ix="GL-04 Fluid cursor ping-pong advection"><b>GL-04</b><span>Fluid cursor</span><i>ping-pong advection</i></a><a class="ix" href="#e-GL-05" data-ix="GL-05 GPGPU particles positions stored in a texture"><b>GL-05</b><span>GPGPU particles</span><i>positions stored in a texture</i></a><a class="ix" href="#e-GL-06" data-ix="GL-06 Post-processing stack render to texture, then treat it"><b>GL-06</b><span>Post-processing stack</span><i>render to texture, then treat it</i></a><a class="ix" href="#e-GL-07" data-ix="GL-07 Mesh distortion on scroll vertex displacement"><b>GL-07</b><span>Mesh distortion on scroll</span><i>vertex displacement</i></a><a class="ix" href="#e-GL-08" data-ix="GL-08 Domain-warped field noise sampled through noise"><b>GL-08</b><span>Domain-warped field</span><i>noise sampled through noise</i></a><a class="ix" href="#e-GL-09" data-ix="GL-09 Ordered dithering post-pass, any source"><b>GL-09</b><span>Ordered dithering</span><i>post-pass, any source</i></a></div></div>
+<div class="ixgroup" data-ixg="img"><h5>IMG · imagery <em>6</em></h5><div class="ixgrid"><a class="ix" href="#e-IMG-01" data-ix="IMG-01 Feathered plate radial mask + blend mode"><b>IMG-01</b><span>Feathered plate</span><i>radial mask + blend mode</i></a><a class="ix" href="#e-IMG-02" data-ix="IMG-02 Shaped frame border-radius as composition"><b>IMG-02</b><span>Shaped frame</span><i>border-radius as composition</i></a><a class="ix" href="#e-IMG-03" data-ix="IMG-03 Duotone release two blend layers, dropped on hover"><b>IMG-03</b><span>Duotone release</span><i>two blend layers, dropped on hover</i></a><a class="ix" href="#e-IMG-04" data-ix="IMG-04 Chromatic split channel offset by pointer velocity"><b>IMG-04</b><span>Chromatic split</span><i>channel offset by pointer velocity</i></a><a class="ix" href="#e-IMG-05" data-ix="IMG-05 Type-masked image background-clip: text"><b>IMG-05</b><span>Type-masked image</span><i>background-clip: text</i></a><a class="ix" href="#e-IMG-06" data-ix="IMG-06 Pointer image trail distance-gated image queue"><b>IMG-06</b><span>Pointer image trail</span><i>distance-gated image queue</i></a></div></div>
 <div class="ixgroup" data-ixg="dep"><h5>DEP · depth <em>3</em></h5><div class="ixgrid"><a class="ix" href="#e-DEP-01" data-ix="DEP-01 Multi-plane parallax pointer + scroll parallax"><b>DEP-01</b><span>Multi-plane parallax</span><i>pointer + scroll parallax</i></a><a class="ix" href="#e-DEP-02" data-ix="DEP-02 Pointer-tilted panel pointer-driven 3D transform"><b>DEP-02</b><span>Pointer-tilted panel</span><i>pointer-driven 3D transform</i></a><a class="ix" href="#e-DEP-03" data-ix="DEP-03 Focus falloff carousel depth via blur, not position"><b>DEP-03</b><span>Focus falloff carousel</span><i>depth via blur, not position</i></a></div></div>
 <div class="ixgroup" data-ixg="rea"><h5>REA · reactivity <em>3</em></h5><div class="ixgrid"><a class="ix" href="#e-REA-01" data-ix="REA-01 Particle field with pointer wake canvas particle system"><b>REA-01</b><span>Particle field with pointer wake</span><i>canvas particle system</i></a><a class="ix" href="#e-REA-02" data-ix="REA-02 Velocity trail + magnetic control velocity-spawned trail + magnetism"><b>REA-02</b><span>Velocity trail + magnetic control</span><i>velocity-spawned trail + magnetism</i></a><a class="ix" href="#e-REA-03" data-ix="REA-03 Spotlight mask reveal by proximity"><b>REA-03</b><span>Spotlight mask</span><i>reveal by proximity</i></a></div></div>
 <div class="ixgroup" data-ixg="typ"><h5>TYP · typography <em>10</em></h5><div class="ixgrid"><a class="ix" href="#e-TYP-01" data-ix="TYP-01 Character blur-stagger split-text transition"><b>TYP-01</b><span>Character blur-stagger</span><i>split-text transition</i></a><a class="ix" href="#e-TYP-02" data-ix="TYP-02 Line mask reveal clip per line, not per character"><b>TYP-02</b><span>Line mask reveal</span><i>clip per line, not per character</i></a><a class="ix" href="#e-TYP-03" data-ix="TYP-03 Tracking open letter-spacing as the animation"><b>TYP-03</b><span>Tracking open</span><i>letter-spacing as the animation</i></a><a class="ix" href="#e-TYP-04" data-ix="TYP-04 Weight response variable-font principle"><b>TYP-04</b><span>Weight response</span><i>variable-font principle</i></a><a class="ix" href="#e-TYP-05" data-ix="TYP-05 Text scramble glyph resolve"><b>TYP-05</b><span>Text scramble</span><i>glyph resolve</i></a><a class="ix" href="#e-TYP-06" data-ix="TYP-06 Counter roll tabular digits"><b>TYP-06</b><span>Counter roll</span><i>tabular digits</i></a><a class="ix" href="#e-TYP-07" data-ix="TYP-07 Velocity skew &amp; settle scroll-velocity response"><b>TYP-07</b><span>Velocity skew &amp; settle</span><i>scroll-velocity response</i></a><a class="ix" href="#e-TYP-08" data-ix="TYP-08 Sticky set swap, opposing drift multi-stop scroll interpolation"><b>TYP-08</b><span>Sticky set swap, opposing drift</span><i>multi-stop scroll interpolation</i></a><a class="ix" href="#e-TYP-09" data-ix="TYP-09 Velocity marquee scroll-coupled"><b>TYP-09</b><span>Velocity marquee</span><i>scroll-coupled</i></a><a class="ix" href="#e-TYP-10" data-ix="TYP-10 Threshold dissolve canvas 2D, noise mask"><b>TYP-10</b><span>Threshold dissolve</span><i>canvas 2D, noise mask</i></a></div></div>
@@ -3223,6 +3299,7 @@ document.addEventListener('visibilitychange', () =&gt; {
     <button class="chip" data-g="typ" aria-pressed="false">TYP · typography</button>
     <button class="chip" data-g="rev" aria-pressed="false">REV · reveal</button>
     <button class="chip" data-g="plt" aria-pressed="false">PLT · platform</button>
+    <button class="chip" data-g="img" aria-pressed="false">IMG · imagery</button>
     <button class="chip" data-g="amb" aria-pressed="false">AMB · ambient</button>
   </div>
 
@@ -5034,6 +5111,214 @@ strip.addEventListener('<b>scrollsnapchanging</b>', e => {
 
 <i>// what this replaces: a passive scroll listener, a rAF throttle,
 // getBoundingClientRect on every child, and an off-by-one bug</i>
+</pre></details>
+    </div>
+  </div>
+</section>
+
+
+<section class="purpose group" data-g="img">
+  <div class="purpose-head">
+    <span class="n">IMG</span>
+    <h2>Imagery</h2>
+    <p>How a photograph is put on a page. The most-used group, because a page is mostly pictures.</p>
+  </div>
+  <div class="brief">
+    <p class="def">Imagery treatment is what stops a photo reading as pasted on.</p>
+    <div class="brief-grid">
+    <div><h6>What it actually is</h6><p>Masking, framing, grading and pointer response applied to real photographs &mdash; the client's own, or additive texture sourced behind them. Never a filter for its own sake.</p></div>
+    <div><h6>Why it decides quality</h6><p>A hard-edged rectangle dropped onto a designed page is the single most visible tell of an amateur build. Every technique here exists to make an image sit <b>in</b> the composition instead of <b>on</b> it.</p></div>
+    <div class="warn"><h6>The rule</h6><p><b>Treatment is a rescue, not a ritual.</b> If the photograph already carries the client's palette and lighting, the correct treatment is <b>none</b> &mdash; see BLD 07 &middot; 01b. These are for imagery that clashes, or for additive texture that must recede.</p></div>
+    <div><h6>Reach for it</h6><p>Any hero, any mosaic, any sourced or generated texture, and every card that holds a photograph.</p></div>
+    </div>
+  </div>
+
+  <div class="bench" id="e-IMG-01">
+    <div class="stage" data-demo="img-plate">
+      <div class="plateA" id="plateA"></div>
+      <div class="plateB" id="plateB"></div>
+      <div class="ambcap">Two plates, feathered, drifting</div>
+      <p class="hint">Move the pointer &mdash; the plates part</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">IMG-01</span><h3>Feathered plate</h3><span class="src">radial mask + blend mode</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>An image is masked with a soft radial gradient so it has <b>no edge at all</b>, then set to a blend mode so the ground shows through it. Layer two or three at different depths and the page reads as atmosphere rather than as stacked pictures.</p></div>
+        <div><h5>When to use it</h5><p><b>Every piece of additive texture</b> &mdash; fabric, florals, smoke, bokeh. This is the technique that turns a sourced stock image into a background nobody can identify as stock. The mask does the work; the blend mode decides whether it sits in light (<code>screen</code>) or in shadow (<code>multiply</code>).</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+.plate{
+  position:absolute; background-size:cover; pointer-events:none;
+  <i>/* the whole trick — the image never has a hard edge */</i>
+  -webkit-mask-image: radial-gradient(ellipse 60% 62% at 50% 46%, #000 <b>18%</b>, transparent <b>82%</b>);
+          mask-image: radial-gradient(ellipse 60% 62% at 50% 46%, #000 <b>18%</b>, transparent <b>82%</b>);
+  mix-blend-mode: <b>screen</b>;   <i>/* screen = sits in light · multiply = sits in shadow */</i>
+  opacity:.34;
+}
+<i>/* the two stops are the dial: 18% solid centre, gone by 82%.
+   Move the first toward 0 for a wisp, toward 50% for a plate.  */</i>
+
+<i>// depth comes from moving them at DIFFERENT rates in the shared loop</i>
+plateA.style.transform = `translate3d(${mx*-0.02}px, ${scrollY*0.14}px, 0)`;
+plateB.style.transform = `translate3d(${mx* 0.03}px, ${scrollY*0.22}px, 0)`;
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench" id="e-IMG-02">
+    <div class="stage" data-demo="img-frame">
+      <div class="frames">
+        <div class="fr fr-arch"><i></i></div>
+        <div class="fr fr-lens"><i></i></div>
+        <div class="fr fr-pillar"><i></i></div>
+      </div>
+      <p class="hint">Arch &middot; lens &middot; pillar</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">IMG-02</span><h3>Shaped frame</h3><span class="src">border-radius as composition</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Three shapes, built entirely from <code>border-radius</code>, that make a grid of photographs read as a <b>composition</b> instead of a table: the arch, the lens and the pillar.</p></div>
+        <div><h5>When to use it</h5><p>Any mosaic or service grid. Mixing one arch, one circle and one soft rectangle across a grid does more for perceived design than any animation on the same grid. <b>Percentage radii are exempt from the 2px/3px rule</b> in KIT 01 &mdash; they are deliberate organic form, not a rounded box.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>/* arch — flat bottom, domed top. The two-value / syntax is what
+   makes the dome elliptical rather than a half-circle.          */</i>
+.arch  { aspect-ratio:4/5; border-radius: <b>50% 50% 3px 3px / 32% 32% 3px 3px</b>; }
+
+<i>/* lens — a true circle, for one item only. Two circles is a pattern. */</i>
+.lens  { aspect-ratio:1;   border-radius: <b>50%</b>; }
+
+<i>/* pillar — fully domed top, square foot */</i>
+.pillar{ aspect-ratio:3/4; border-radius: <b>999px 999px 3px 3px</b>; }
+
+<i>/* the image goes INSIDE and overflows, so it can scale on hover
+   without the frame moving                                       */</i>
+.fr { overflow:hidden }
+.fr img { width:100%; height:100%; object-fit:cover;
+          transition: transform .7s var(--e) }
+.fr:hover img { transform: scale(1.06) }
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench" id="e-IMG-03">
+    <div class="stage" data-demo="img-duo">
+      <div class="duowrap" id="duoWrap"><div class="duoimg"></div></div>
+      <p class="hint">Hover &mdash; the grade releases</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">IMG-03</span><h3>Duotone release</h3><span class="src">two blend layers, dropped on hover</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>The image is desaturated and mapped to two brand colours &mdash; shadow via <code>multiply</code>, highlight via <code>screen</code> &mdash; then <b>the whole grade lifts on hover</b> and the real photograph appears underneath.</p></div>
+        <div><h5>When to use it</h5><p>Mixed-quality photo sets that must read as one family, and any card where the reveal of true colour is worth an interaction. <b>Both colours come from the measured ramp</b>, never eyeballed &mdash; that is what separates a duotone from a filter. Cross at least 40&deg; of hue or it reads as a mistake.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+.duo          { position:relative; isolation:isolate; }
+.duo img      { filter: grayscale(1) contrast(1.1); transition: filter .5s var(--e) }
+.duo::before,
+.duo::after   { content:""; position:absolute; inset:0; transition: opacity .5s var(--e) }
+
+<i>/* shadow stop and highlight stop — BOTH from the measured ramp (KIT 01) */</i>
+.duo::before  { background: var(--brand-900); mix-blend-mode: <b>multiply</b>; }
+.duo::after   { background: var(--paper);     mix-blend-mode: <b>screen</b>; opacity:.82; }
+
+<i>/* the release */</i>
+.duo:hover img      { filter: none }
+.duo:hover::before,
+.duo:hover::after   { opacity: 0 }
+
+<i>/* NEVER stack this with GL-09 dithering — they fight for the same role */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench" id="e-IMG-04">
+    <div class="stage" data-demo="img-split">
+      <div class="splitwrap" id="splitWrap"><div class="splitimg"></div></div>
+      <p class="hint">Move across &mdash; the channels separate</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">IMG-04</span><h3>Chromatic split</h3><span class="src">channel offset by pointer velocity</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Red and blue copies of the image are offset a few pixels in opposite directions, scaled by how fast the pointer is moving. Stationary, it is invisible; moving, the image separates like a mis-registered print.</p></div>
+        <div><h5>When to use it</h5><p>Raw and editorial registers, and anywhere the brand has a print or risograph story. <b>Keep the maximum offset under 6px</b> &mdash; past that it stops reading as registration and starts reading as a broken image. Never on text, never on a face at rest.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+<i>/* three stacked copies of the same image */</i>
+.split i { position:absolute; inset:0; background-size:cover; }
+.split i:nth-child(1){ mix-blend-mode:screen; filter:url(#redOnly)  }
+.split i:nth-child(2){ mix-blend-mode:screen; filter:url(#blueOnly) }
+
+<i>// offset scales with pointer SPEED, not position — so it rewards
+// movement and disappears the moment you stop</i>
+let px=0, py=0, v=0;
+onpointermove = e =&gt; {
+  v = Math.min(Math.hypot(e.clientX-px, e.clientY-py), <b>6</b>);
+  px = e.clientX; py = e.clientY;
+};
+<i>// in the shared tick(): decay toward zero so it settles</i>
+v *= .9;
+r.style.transform = `translate(${ v}px,0)`;
+b.style.transform = `translate(${-v}px,0)`;
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench" id="e-IMG-05">
+    <div class="stage" data-demo="img-type">
+      <h4 class="typemask">TEXTURE</h4>
+      <p class="hint">The image lives inside the letterforms</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">IMG-05</span><h3>Type-masked image</h3><span class="src">background-clip: text</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>A photograph is painted <b>inside the letterforms</b> of a heading. The image can drift behind the type, so the words appear to be a window onto something moving.</p></div>
+        <div><h5>When to use it</h5><p>One word, once, at display size. It needs <b>heavy weight and tight tracking</b> to have enough interior area to show an image &mdash; at body weight it reads as noise. Always ship a solid <code>color</code> fallback first so the text is never invisible if the image fails to load.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+.typemask{
+  color: var(--ink);              <i>/* fallback FIRST — never invisible text */</i>
+  font-weight: <b>800</b>;               <i>/* thin type has no interior to fill */</i>
+  letter-spacing: <b>-.03em</b>;
+  background-image: url(texture.jpg);
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+<i>/* drift the image, not the text — the window stays put */</i>
+@keyframes pan { to { background-position: 60% 40% } }
+.typemask{ animation: pan 18s ease-in-out infinite alternate }
+
+<i>/* accessibility: the element must still contain real, selectable text */</i>
+</pre></details>
+    </div>
+  </div>
+
+  <div class="bench" id="e-IMG-06">
+    <div class="stage" data-demo="img-trail">
+      <div class="trailhost" id="trailHost"></div>
+      <p class="hint">Sweep across &mdash; images follow the pointer</p></div>
+    <div class="rail">
+      <div class="rail-top"><span class="id">IMG-06</span><h3>Pointer image trail</h3><span class="src">distance-gated image queue</span></div>
+      <div class="rail-grid">
+        <div><h5>What it does</h5><p>Moving the pointer drops images along its path, each scaling in and fading out behind it. New images appear only after the pointer has travelled a set distance, so the trail is even instead of clumping.</p></div>
+        <div><h5>When to use it</h5><p>Portfolio and gallery heroes where the work itself is the argument. <b>The distance gate is the whole craft</b> &mdash; without it a fast sweep spawns forty images and a slow one spawns none. Cap the pool and reuse nodes; never append unbounded.</p></div>
+      </div>
+      <details class="code"><summary>Code</summary><pre>
+const GAP = <b>110</b>;              <i>// px of travel before the next image</i>
+let last = {x:0,y:0}, i = 0;
+const pool = [...host.children];  <i>// fixed pool, reused — never append</i>
+
+host.addEventListener('pointermove', e =&gt; {
+  const r = host.getBoundingClientRect();
+  const x = e.clientX-r.left, y = e.clientY-r.top;
+  if (Math.hypot(x-last.x, y-last.y) &lt; GAP) return;   <i>// the gate</i>
+  last = {x,y};
+  const el = pool[i++ % pool.length];
+  el.style.left = x+'px'; el.style.top = y+'px';
+  el.classList.remove('on'); void el.offsetWidth;      <i>// restart the animation</i>
+  el.classList.add('on');
+});
+<i>/* .on { animation: pop .8s var(--e) forwards }
+   @keyframes pop { from{opacity:1;transform:translate(-50%,-50%) scale(.85)}
+                    to  {opacity:0;transform:translate(-50%,-50%) scale(1.05)} } */</i>
 </pre></details>
     </div>
   </div>
@@ -7715,6 +8000,62 @@ qa('[data-demo="dof"]').forEach(stage => {
       c.style.zIndex = String(100 - Math.round(d*10));
     });
   }}));
+});
+
+
+/* ================= IMG demos ================= */
+qa('[data-demo="img-plate"]').forEach(stage => {
+  const a = q('.plateA', stage), b = q('.plateB', stage);
+  const rec = register(stage, () => ({ tick(){
+    if (RM) return;
+    const nx = rec.pointer.inside ? rec.pointer.nx : 0;
+    const ny = rec.pointer.inside ? rec.pointer.ny : 0;
+    a.style.transform = `translate3d(${(nx*-26).toFixed(1)}px, ${(ny*-16).toFixed(1)}px, 0)`;
+    b.style.transform = `translate3d(${(nx* 38).toFixed(1)}px, ${(ny* 22).toFixed(1)}px, 0)`;
+  }}));
+});
+
+qa('[data-demo="img-split"]').forEach(stage => {
+  const wrap = q('.splitwrap', stage);
+  const r = document.createElement('i'); r.className = 'r';
+  const b = document.createElement('i'); b.className = 'b';
+  wrap.append(r, b);
+  let px = 0, py = 0, v = 0;
+  stage.addEventListener('pointermove', e => {
+    if (RM) return;
+    v = Math.min(Math.hypot(e.clientX - px, e.clientY - py), 6);
+    px = e.clientX; py = e.clientY;
+  }, {passive:true});
+  register(stage, () => ({ tick(){
+    v *= .9;
+    r.style.transform = `translate(${v.toFixed(2)}px,0)`;
+    b.style.transform = `translate(${(-v).toFixed(2)}px,0)`;
+  }}));
+});
+
+qa('[data-demo="img-trail"]').forEach(stage => {
+  const host = q('.trailhost', stage);
+  const SHOTS = [
+    'radial-gradient(circle at 40% 35%,#e0b071,transparent 60%),linear-gradient(140deg,#6b5a41,#2a2118)',
+    'radial-gradient(circle at 60% 45%,#7b8f6a,transparent 58%),linear-gradient(120deg,#3c4a3a,#1d2422)',
+    'radial-gradient(circle at 35% 60%,#c98b5a,transparent 58%),linear-gradient(160deg,#5c4a34,#241c15)',
+    'radial-gradient(circle at 65% 30%,#9aa7c4,transparent 58%),linear-gradient(130deg,#3a4256,#1b1f2a)',
+    'radial-gradient(circle at 45% 50%,#d9c08a,transparent 60%),linear-gradient(150deg,#6b5a41,#2a2118)'
+  ];
+  const pool = SHOTS.map(g => { const el = document.createElement('b');
+    el.style.backgroundImage = g; host.appendChild(el); return el; });
+  const GAP = 110;
+  let last = {x:-1e3, y:-1e3}, i = 0;
+  host.addEventListener('pointermove', e => {
+    if (RM) return;
+    const r = host.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    if (Math.hypot(x - last.x, y - last.y) < GAP) return;
+    last = {x, y};
+    const el = pool[i++ % pool.length];
+    el.style.left = x + 'px'; el.style.top = y + 'px';
+    el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
+  }, {passive:true});
 });
 
 /* ================= REA-01 ember field ================= */
