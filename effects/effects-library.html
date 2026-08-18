@@ -5419,6 +5419,66 @@ overlay.style.background =
     <blockquote><p>A colleague should reach your diagnosis from the card alone, without you in the
     room. If it only works with your narration, you're carrying it — not the research.</p></blockquote>
   </div>
+
+  <div class="law" id="imgsource">
+    <h3>Sourcing the imagery &mdash; and adapting to whatever tools the operator actually has</h3>
+    <p>A page is mostly pictures. This is the step most likely to be improvised, and improvising it
+    is how a build ends up either empty or generic. <b>Work strictly down this ladder. Never skip a
+    rung because the next one is easier.</b></p>
+
+    <table class="lentable">
+      <tr><th></th><th>Source</th><th>Use it for</th><th>Rule</th></tr>
+      <tr><td class="w">1</td><td><b>Their own photography</b> &mdash; site, Instagram, Facebook, Google Business, booking platform</td><td>Hero, team, product, interior, proof. <b>Anything depicting the business.</b></td><td><b>Always first, always preferred.</b> Their real hero beats anything you could source or make. If it is good, it stays &mdash; see BLD 07 &middot; 01b.</td></tr>
+      <tr><td class="w">2</td><td><b>Assets the operator hands you</b> &mdash; a folder of textures, fabrics, florals, overlays</td><td>Grounds, overlays, framing, mosaic layers, section texture.</td><td><b>Additive only.</b> These sit behind, around and between their photography. They never replace it.</td></tr>
+      <tr><td class="w">3</td><td><b>Searched imagery</b> &mdash; the operator finds fabric, water, florals, smoke, marble</td><td>The same additive roles as row 2.</td><td>Abstract and textural <b>only</b>. Licensing is the operator's call &mdash; flag anything you cannot confirm is free to use.</td></tr>
+      <tr><td class="w">4</td><td><b>Generated imagery</b> &mdash; whichever generator this operator actually has</td><td>Texture and atmosphere that could not be found. Last resort, not first reach.</td><td><b>Never depicting the business.</b> No invented storefronts, staff, products or interiors. Abstract, textural or product-adjacent only (KIT 08).</td></tr>
+    </table>
+
+    <h4>Ask what they have. Do not assume a tool.</h4>
+    <p>Operators run wildly different stacks and <b>you cannot detect this from the request</b>. One
+    line, once, at the start &mdash; then never again:</p>
+    <blockquote><p><b>&ldquo;For any imagery I can't source from the business itself: do you have an
+    image generator I should use (Midjourney, ChatGPT/DALL&middot;E, Gemini, Higgsfield, Firefly,
+    something else), or would you rather find and send textures yourself?&rdquo;</b></p></blockquote>
+    <table class="lentable">
+      <tr><th>What they have</th><th>How you work</th></tr>
+      <tr><td><b>A generator you can call directly</b> (an MCP tool, an API)</td><td>Generate to a locked palette. If the generator takes explicit colours, pass the measured client ramp &mdash; that is the difference between on-brand texture and stock-looking filler.</td></tr>
+      <tr><td><b>Midjourney, or any generator they drive by hand</b></td><td>You cannot call it. <b>Write the prompts for them</b> &mdash; numbered, copy-paste ready, with aspect ratio and the measured hex values named in the prompt &mdash; and say exactly what each asset is for.</td></tr>
+      <tr><td><b>ChatGPT / Gemini / Firefly</b></td><td>Same as above. Prompts written for a text-to-image model that will not honour hex codes reliably &mdash; so name the colours in words too (&ldquo;warm cream, blush-nude, deep roast brown&rdquo;).</td></tr>
+      <tr><td><b>Nothing &mdash; they will search</b></td><td>Give them <b>search queries</b>, not vague requests. Name the subject, the treatment and the negative space you need.</td></tr>
+      <tr><td><b>Nothing at all, and no time</b></td><td>Build it in code. Mesh gradients and SVG grain (KIT 10) cost nothing and never look like stock. <b>A type-led page with real texture beats a page with bad photography.</b></td></tr>
+    </table>
+
+    <h4>What to ask for &mdash; the brief is the same whoever makes it</h4>
+    <p>Whether you generate it, they generate it, or they search for it, an additive asset needs the
+    same four things. <b>State all four every time.</b></p>
+    <table class="lentable">
+      <tr><th>Say</th><th>Because</th></tr>
+      <tr><td><b>The role</b> &mdash; hero ground, section texture, mosaic tile, framing edge</td><td>Role sets aspect ratio and where the negative space has to be.</td></tr>
+      <tr><td><b>The colours, measured</b> &mdash; actual hex values from their ramp, plus plain-word equivalents</td><td>An asset that is not in their palette will be visible as an import forever.</td></tr>
+      <tr><td><b>The negative space</b> &mdash; &ldquo;subject on the right third, empty on the left two thirds&rdquo;</td><td>This is what makes an image usable behind copy. Almost nobody asks for it, and it is the single most common reason a sourced image cannot be used.</td></tr>
+      <tr><td><b>No text, no people, no logos</b></td><td>Text cannot be restyled or translated; people imply staff you do not have; logos are somebody else's mark.</td></tr>
+    </table>
+    <p><b>Search queries that actually return usable texture</b> &mdash; give these verbatim:
+    <code>cream silk fabric folds soft light close up</code> &middot;
+    <code>white orchid petals falling on beige background copy space</code> &middot;
+    <code>water droplets macro rose gold bokeh</code> &middot;
+    <code>marble texture warm grey seamless</code> &middot;
+    <code>smoke wisps on dark background isolated</code>.
+    <b>Always append the negative-space phrase</b> &mdash; <i>copy space</i>, <i>isolated on plain
+    background</i>, <i>minimal composition</i> &mdash; or you will get a busy image you cannot put type on.</p>
+
+    <blockquote class="warn"><p><strong>Never place a sourced or generated image as a plain
+    rectangle.</strong> That is the tell that it was imported. Every additive asset arrives masked,
+    feathered, blended or framed &mdash; radial mask to fade its edges, a blend mode so it sits in the
+    ground rather than on it, or a shaped frame (arch, lens, pillar). See KIT 08 and the mosaic
+    approach in KIT 06.</p></blockquote>
+
+    <div class="warnbox"><b>The failure this prevents ·</b> a build was handed a folder of beautiful
+    florals and fabrics as <i>additive</i> texture, and used them as <b>section tiles in place of the
+    client's own photography</b> &mdash; while also degrading the client's genuinely good hero. Both
+    halves of that were backwards. <b>Row 1 is the page. Rows 2&ndash;4 are the room it sits in.</b></div>
+  </div>
 </div><!-- /panel-research -->
 
 <div class="panel" id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
