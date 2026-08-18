@@ -1817,6 +1817,7 @@ and read BLD 09 for what additionally opens up.</pre>
         <tr><td>The one signature moment</td><td><b>CHO 02</b> — is it actually layered (base + 1-2 effects, one trigger), or one flat effect wearing a bigger word count?</td></tr>
         <tr><td>Type, anywhere</td><td><b>KIT 02</b> — locked font check done first? Weight count under four? Tracking direction correct for size?</td></tr>
         <tr><td>Spacing, radii, colour</td><td><b>KIT 01</b> — every value literally traceable to the token block, or did one get typed by feel?</td></tr>
+        <tr><td>A café, studio, gym, salon or restaurant</td><td><b>Research tab + CPY 06</b> — did you actually web-search "&lt;business&gt; instagram" and read the results page, or did you skip straight to their own site and assume it was enough?</td></tr>
       </table>
 
       <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
@@ -1960,6 +1961,40 @@ and read BLD 09 for what additionally opens up.</pre>
     if (untouched) console.warn(&#x27;ADVISORY — logo has no mix-blend-mode or filter. Confirm the source PNG is actually transparent, not baked onto white (KIT 03), before shipping:&#x27;, i.src.slice(-60));
   });
 
+  <i>// 12 · nothing renders smaller than it can actually be read. Mark real fine</i>
+  <i>//      print (legal, disclaimers) data-fine to allow it down to 11px — every</i>
+  <i>//      other leaf of text has a 13px floor, logo/nav labels included.</i>
+  $$(&#x27;p,span,a,li,h1,h2,h3,h4,h5,label,button,td,th&#x27;).forEach(e =&gt; {
+    if (!e.innerText || !e.innerText.trim() || e.children.length) return;
+    const fs = parseFloat(cs(e).fontSize);
+    const floor = e.closest(&#x27;[data-fine]&#x27;) ? 11 : 13;
+    if (fs &gt; 0 &amp;&amp; fs &lt; floor)
+      ok(false, &#x27;font-size &#x27; + fs + &#x27;px is under the &#x27; + floor + &#x27;px floor — &quot;&#x27; + e.innerText.slice(0,30) + &#x27;&quot;&#x27;);
+  });
+
+  <i>// 13 · an image asked to render bigger than its native pixels blurs no</i>
+  <i>//      matter how good the source was — this is the actual KIT 08 rejection</i>
+  <i>//      rule, measured at render time instead of guessed at sourcing time.</i>
+  $$(&#x27;img&#x27;).forEach(i =&gt; {
+    if (!i.complete || !i.naturalWidth) return;
+    const dispW = i.getBoundingClientRect().width * (window.devicePixelRatio || 1);
+    if (dispW &gt; i.naturalWidth * 1.05)
+      ok(false, &#x27;image upscaled &#x27; + Math.round(dispW / i.naturalWidth * 100) + &#x27;% past its native resolution — will read as soft or blurry: &#x27; + i.src.slice(-60));
+  });
+
+  <i>// 14 · a small piece of content floating alone in a much larger, otherwise</i>
+  <i>//      empty box is dead space, not breathing room. Mark a deliberately</i>
+  <i>//      spacious container data-spacious to exempt it.</i>
+  $$(&#x27;section,div&#x27;).forEach(box =&gt; {
+    if (box.hasAttribute(&#x27;data-spacious&#x27;) || box.closest(&#x27;[data-spacious]&#x27;)) return;
+    const kids = [...box.children];
+    if (kids.length !== 1) return;
+    const br = box.getBoundingClientRect(), kr = kids[0].getBoundingClientRect();
+    const boxArea = br.width * br.height, kidArea = kr.width * kr.height;
+    if (boxArea &gt; 40000 &amp;&amp; kidArea &gt; 0 &amp;&amp; kidArea / boxArea &lt; 0.12)
+      ok(false, &#x27;lone child fills only &#x27; + Math.round(kidArea/boxArea*100) + &#x27;% of its container — likely dead space, mark data-spacious if intentional&#x27;);
+  });
+
   console[F.length ? &#x27;error&#x27; : &#x27;log&#x27;](F.length ? F : &#x27;self-check clean&#x27;);
 })();</code></pre>
       <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
@@ -1983,6 +2018,17 @@ and read BLD 09 for what additionally opens up.</pre>
       earlier in the session and having applied it to the element in front of you are not the same
       event, and nothing except a check that actually fails will close that gap.</b> That's the
       whole reason this block exists instead of a paragraph asking nicely.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Checks 12–14 close the gap between what this document says to do
+      and what it actually verifies ·</b> small type, blurry images and dead space were always
+      covered by prose — the Type, Space and Colour checklists below, and KIT 02 and KIT 08 — but
+      <b style="color:var(--cream)">prose is a thing an AI is trusted to apply, not a thing that
+      fails.</b> Check 12 catches type rendered under a real floor. Check 13 catches an image asked
+      to render past its own native pixels — the actual mechanism behind "blurry," measured instead
+      of eyeballed, and the same rule KIT 08's rejection line describes, now enforced where it
+      matters: after layout, not at sourcing. Check 14 catches a lone element stranded in a box far
+      bigger than it needs — the mechanical signature of dead space, as opposed to space that was
+      actually designed.</p>
     </div>
 
     <div class="auditgrid">
