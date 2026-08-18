@@ -1995,6 +1995,123 @@ and read BLD 09 for what additionally opens up.</pre>
       ok(false, &#x27;lone child fills only &#x27; + Math.round(kidArea/boxArea*100) + &#x27;% of its container — likely dead space, mark data-spacious if intentional&#x27;);
   });
 
+  <i>// 15 · border-radius is 2px, 3px, or a genuine pill/circle (radius &gt;= half the</i>
+  <i>//      box&#x27;s own smaller dimension). Elliptical &quot;/&quot; shapes are deliberate</i>
+  <i>//      organic forms (KIT 10 blobs) and are exempt, as is data-radius-ok.</i>
+  $$(&#x27;*&#x27;).forEach(e =&gt; {
+    if (e.hasAttribute(&#x27;data-radius-ok&#x27;) || e.closest(&#x27;[data-radius-ok]&#x27;)) return;
+    const r = e.getBoundingClientRect();
+    if (r.width === 0 || r.height === 0) return;
+    const corners = [&#x27;borderTopLeftRadius&#x27;,&#x27;borderTopRightRadius&#x27;,&#x27;borderBottomRightRadius&#x27;,&#x27;borderBottomLeftRadius&#x27;];
+    for (const c of corners) {
+      const v = cs(e)[c];
+      if (v === &#x27;0px&#x27; || v.includes(&#x27;%&#x27;) || v.includes(&#x27;/&#x27;)) continue;
+      const px = parseFloat(v);
+      if (!px) continue;
+      const pill = px &gt;= Math.min(r.width, r.height) / 2 - 1;
+      if (px !== 2 &amp;&amp; px !== 3 &amp;&amp; !pill) {
+        ok(false, &#x27;border-radius &#x27; + v + &#x27; is off the 2px/3px/pill scale (KIT 01)&#x27;);
+        break;
+      }
+    }
+  });
+
+  <i>// 16 · hairline width: any visible border is 1px, unless marked data-border-ok</i>
+  <i>//      for a deliberate accent rule (KIT 09).</i>
+  $$(&#x27;*&#x27;).forEach(e =&gt; {
+    if (e.hasAttribute(&#x27;data-border-ok&#x27;) || e.closest(&#x27;[data-border-ok]&#x27;)) return;
+    for (const side of [&#x27;Top&#x27;,&#x27;Right&#x27;,&#x27;Bottom&#x27;,&#x27;Left&#x27;]) {
+      const style = cs(e)[&#x27;border&#x27; + side + &#x27;Style&#x27;];
+      const width = parseFloat(cs(e)[&#x27;border&#x27; + side + &#x27;Width&#x27;]);
+      if (style !== &#x27;none&#x27; &amp;&amp; width &gt; 0 &amp;&amp; width !== 1) {
+        ok(false, &#x27;border-&#x27; + side.toLowerCase() + &#x27; is &#x27; + width + &#x27;px — KIT 09 default is a 1px hairline&#x27;);
+        break;
+      }
+    }
+  });
+
+  <i>// 17 · no pure black, no pure white — anywhere, on anything with real area or</i>
+  <i>//      text. Canvas/SVG/img content and data-tone-ok are exempt.</i>
+  const isPure = v =&gt; { const m = v.match(/rgba?\(([\d.]+), ?([\d.]+), ?([\d.]+)(?:, ?([\d.]+))?\)/);
+    if (!m) return null;
+    const [, red, g, b, a] = m;
+    if (a !== undefined &amp;&amp; parseFloat(a) &lt; 1) return null;
+    if (+red===0 &amp;&amp; +g===0 &amp;&amp; +b===0) return &#x27;black&#x27;;
+    if (+red===255 &amp;&amp; +g===255 &amp;&amp; +b===255) return &#x27;white&#x27;;
+    return null; };
+  const toneExempt = e =&gt; e.hasAttribute(&#x27;data-tone-ok&#x27;) || e.closest(&#x27;[data-tone-ok]&#x27;)
+    || e.tagName === &#x27;CANVAS&#x27; || e.tagName === &#x27;SVG&#x27; || e.tagName === &#x27;IMG&#x27; || e.closest(&#x27;svg&#x27;);
+  $$(&#x27;*&#x27;).forEach(e =&gt; {
+    if (toneExempt(e)) return;
+    const r = e.getBoundingClientRect();
+    if (r.width === 0 || r.height === 0) return;
+    const p = isPure(cs(e).backgroundColor);
+    if (p) ok(false, &#x27;background is pure &#x27; + p + &#x27; on &#x27; + e.tagName.toLowerCase() + &#x27; — KIT 01 neutrals carry brand hue, never 0/255&#x27;);
+  });
+  $$(&#x27;p,span,a,li,h1,h2,h3,h4,h5,label,button,td,th&#x27;).forEach(e =&gt; {
+    if (toneExempt(e) || !e.innerText || !e.innerText.trim() || e.children.length) return;
+    const p = isPure(cs(e).color);
+    if (p) ok(false, &#x27;text color is pure &#x27; + p + &#x27; on &quot;&#x27; + e.innerText.slice(0,30) + &#x27;&quot; — KIT 01 neutrals carry brand hue, never 0/255&#x27;);
+  });
+
+  <i>// 18 · WCAG contrast: 4.5:1 body text, 3:1 for 24px+/19px+bold. Walks up for</i>
+  <i>//      the nearest opaque background. Mark data-contrast-ok to exempt (e.g. text</i>
+  <i>//      over a busy photo where a scrim was already checked by eye).</i>
+  const relLum = rgb =&gt; {
+    const m = rgb.match(/[\d.]+/g).map(Number);
+    const [r,g,b] = m.slice(0,3).map(c =&gt; { c/=255; return c&lt;=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4); });
+    return 0.2126*r+0.7152*g+0.0722*b;
+  };
+  const bgOf = e =&gt; { let n=e; while(n){ const c=cs(n).backgroundColor; const m=c.match(/[\d.]+/g);
+    if (m &amp;&amp; (m.length&lt;4 || parseFloat(m[3])&gt;0.5)) return c; n=n.parentElement; } return &#x27;rgb(255,255,255)&#x27;; };
+  $$(&#x27;p,span,a,li,h1,h2,h3,h4,h5,label,button,td,th&#x27;).forEach(e =&gt; {
+    if (!e.innerText || !e.innerText.trim() || e.children.length) return;
+    if (e.closest(&#x27;[data-contrast-ok]&#x27;)) return;
+    const fg = cs(e).color, bg = bgOf(e);
+    const L1 = relLum(fg), L2 = relLum(bg);
+    const ratio = (Math.max(L1,L2)+0.05) / (Math.min(L1,L2)+0.05);
+    const fs = parseFloat(cs(e).fontSize), bold = parseInt(cs(e).fontWeight) &gt;= 700;
+    const large = fs &gt;= 24 || (fs &gt;= 18.66 &amp;&amp; bold);
+    const floor = large ? 3 : 4.5;
+    if (ratio &lt; floor)
+      ok(false, &#x27;contrast &#x27; + ratio.toFixed(2) + &#x27;:1 on &quot;&#x27; + e.innerText.slice(0,30) + &#x27;&quot; — needs &#x27; + floor + &#x27;:1&#x27;);
+  });
+
+  <i>// 19 · a real detector for check 11&#x27;s advisory — sample the logo&#x27;s own corner</i>
+  <i>//      pixels. Opaque and identical at all four corners means a solid raster</i>
+  <i>//      box, not a transparent mark (KIT 03). Some CDNs block canvas read-back</i>
+  <i>//      on cross-origin images (CORS) — many don&#x27;t (Squarespace, Wix, Shopify,</i>
+  <i>//      Cloudinary all allow it). When blocked this silently falls back to the</i>
+  <i>//      check-11 advisory instead of guessing.</i>
+  $$(&#x27;nav img, footer img&#x27;).forEach(i =&gt; {
+    if (!i.complete || !i.naturalWidth) return;
+    try {
+      const c = document.createElement(&#x27;canvas&#x27;);
+      c.width = i.naturalWidth; c.height = i.naturalHeight;
+      const ctx = c.getContext(&#x27;2d&#x27;, { willReadFrequently: true });
+      ctx.drawImage(i, 0, 0);
+      const pts = [[0,0],[c.width-1,0],[0,c.height-1],[c.width-1,c.height-1]];
+      const corners = pts.map(([x,y]) =&gt; ctx.getImageData(x,y,1,1).data);
+      const near = (a,b) =&gt; Math.abs(a[0]-b[0])&lt;6 &amp;&amp; Math.abs(a[1]-b[1])&lt;6 &amp;&amp; Math.abs(a[2]-b[2])&lt;6;
+      const allOpaque = corners.every(p =&gt; p[3] &gt; 250);
+      const allSame = corners.every(p =&gt; near(p, corners[0]));
+      if (allOpaque &amp;&amp; allSame)
+        ok(false, &#x27;logo corners are opaque and identical (&#x27; + Array.from(corners[0]).slice(0,3).join(&#x27;,&#x27;) + &#x27;) — looks like an untreated raster box, not a transparent mark (KIT 03): &#x27; + i.src.slice(-60));
+    } catch (e) { <i>/* CORS-tainted canvas — can&#x27;t sample, the check-11 advisory still runs */</i> }
+  });
+
+  <i>// 20/21 · your own copy only — quoted client text (data-verbatim) is stripped</i>
+  <i>//        out first, exactly like check 8, so a real testimonial with a real</i>
+  <i>//        exclamation mark or the word &quot;journey&quot; in it never trips these.</i>
+  let ownText = document.body.innerText;
+  $$(&#x27;[data-verbatim]&#x27;).forEach(e =&gt; { ownText = ownText.split(e.innerText).join(&#x27; &#x27;); });
+  const lower = ownText.toLowerCase();
+  [&#x27;journey&#x27;,&#x27;passionate&#x27;,&#x27;believe&#x27;,&#x27;elevate&#x27;,&#x27;unleash&#x27;,&#x27;seamless&#x27;,&#x27;curated&#x27;,&#x27;solutions&#x27;].forEach(w =&gt; {
+    if (new RegExp(&#x27;\\b&#x27; + w + &#x27;\\b&#x27;).test(lower))
+      ok(false, &#x27;banned word &quot;&#x27; + w + &#x27;&quot; in your own copy — Copy checklist bans it for a reason&#x27;);
+  });
+  ok(!/[!]/.test(ownText), &#x27;exclamation mark in your own copy — fine in a real quote, not anywhere else&#x27;);
+
   console[F.length ? &#x27;error&#x27; : &#x27;log&#x27;](F.length ? F : &#x27;self-check clean&#x27;);
 })();</code></pre>
       <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
@@ -2029,6 +2146,26 @@ and read BLD 09 for what additionally opens up.</pre>
       matters: after layout, not at sourcing. Check 14 catches a lone element stranded in a box far
       bigger than it needs — the mechanical signature of dead space, as opposed to space that was
       actually designed.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Checks 15–18 do the same for the rest of Form and Colour ·</b>
+      radius (KIT 01: 2px, 3px, or a real pill — nothing else), hairline width (KIT 09: 1px, not a
+      random accent weight), pure black or white anywhere on the page (KIT 01: neutrals always carry
+      the brand hue), and WCAG contrast itself — 4.5:1 body, 3:1 large — computed against the actual
+      nearest background instead of assumed. All four were already checklist lines below. None of
+      them were ever things that could fail. Now they are.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Check 19 turns check 11 from an advisory into a real detector,
+      when it can ·</b> it samples the logo's own corner pixels — opaque and identical at all four
+      means a solid box, not a treated mark. This is the exact defect that started this whole
+      section: a raw-boxed logo shipped once, in this same document, by this same model. Some CDNs
+      block canvas read-back on a cross-origin image; when that happens the check fails silently
+      closed, not silently passed — it says nothing, and check 11's advisory is still there to catch
+      what it couldn't.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Checks 20 and 21 close out the Copy checklist ·</b> the banned-word
+      list and the exclamation-mark rule were always there, they just relied on the AI noticing its
+      own word choice while writing under everything else this build asks for. Same fix as
+      everywhere above — stop trusting the read, start trusting the count.</p>
     </div>
 
     <div class="auditgrid">
