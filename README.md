@@ -107,31 +107,27 @@ never tested, because nothing in the process required testing it.
 
 ---
 
-## 4. Tool reality — route by source type
+## 4. Getting the social, without asking anyone
 
-Automation and humans have different reach. This table saves the most time of anything
-here.
+**The person running this gathers nothing.** For a café, studio, gym or salon the brand lives on
+Instagram more than the website, so it has to be reachable by the AI.
 
-| Source | Automated fetch | Route to |
-|---|---|---|
-| Client's own site | ✅ reliable | you, scripted |
-| Client's CDN images | ✅ reliable | you + ImageMagick |
-| Google / Bing / DuckDuckGo | ❌ shells, bot checks, junk | **a human's browser** |
-| Instagram / TikTok / Facebook | ❌ 429 / 400 / empty JS | **a human's browser** |
-| Yelp / Google reviews | ⚠️ varies | try once, then a human |
+**Never fetch instagram.com directly** — from a datacenter address it returns 429, a 400, or an
+empty JS shell. You don't need the site, you need what it says, and a search results page carries
+that in plain text.
 
-**Two failures on one source means switch source, not technique.** The first run burned
-four attempts on Instagram — profile, API, embed, headless browser — when the answer was
-one screenshot from a person.
+1. Read the handle off their own footer
+2. **Web-search `<business> instagram` and read the results page itself** — bio, captions,
+   follower count and like counts are all in the result text. This is the workhorse.
+3. `site:instagram.com <handle>` for more captions
+4. Search the business name alone — other accounts describe the room better than the owner does
+5. Their Google Business listing, for hours, photos and review themes
 
-**Batch the human-only asks into your first message:** Google Images for
-`"<brand>" interior`, the Instagram grid, the homepage as they see it, the top ~10
-reviews, and any brand assets they hold.
+Two failures on one route means change route, not technique.
 
-**For cafés, studios, gyms and salons the brand lives on Instagram more than the
-website.** Skipping it means missing the identity. Ask on day one.
-
----
+**From the first real run:** the website's best line was *"Experience the world, one cup at a
+time."* Their Instagram gave *"No rush here. Just a good seat, good coffee."* — better, theirs, and
+nowhere on the website. All of it off a search results page.
 
 ## 5. Known failure modes
 

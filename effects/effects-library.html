@@ -1138,6 +1138,14 @@ open the two or three sections a step needs, not the whole document.
               headings verbatim · their three best sentences · prices ·
               hours · address · phone · every real outbound link ·
               image urls · any ® or ™. Write down what you could NOT reach.
+              <b>Then get their Instagram, yourself.</b> Take the handle off their
+              own footer, then <b>web-search "&lt;business&gt; instagram" and read the
+              results page</b> — the bio, the captions, the follower count and
+              the like counts are all in the result text. <b>Never fetch
+              instagram.com directly</b>; from a datacenter address it returns
+              429 or an empty shell every time. For a cafe, studio, gym,
+              salon or restaurant this is where the voice lives, and their
+              best headline is usually a caption. Full ladder in Research.
  2  CLASSIFY  Pattern <b>A</b> book a slot · <b>B</b> come and consume · <b>C</b> join · <b>D</b> hire for
               a job · <b>E</b> retain a professional · <b>F</b> buy a product · <b>G</b> attend
               an occasion · <b>H</b> enrol.   Register <b>Raw · Calm · Clinical ·
@@ -1172,6 +1180,10 @@ ABSOLUTE RULES
    A missing section is honest. An invented one is not.
  · <b>Do not ask clarifying questions.</b> Every ambiguity in this document has
    a stated default. Low confidence on register → use Community.
+ · <b>Gather everything yourself.</b> The person who sent the trigger supplies
+   nothing but the url. Never ask them for a screenshot, an asset, the
+   social, the hours or a preference. If a source is unreachable after the
+   ladder in Research, note it in the hand-over and continue.
  · <b>If a fetch failed, say so in plain words.</b> Never describe a source you
    could not read as though you read it.
  · <b>Elevate the execution, never the brand.</b> Their colours, their marks,
@@ -1448,9 +1460,14 @@ and read BLD 09 for what additionally opens up.</pre>
           stacks · the nav items in order · the text on the busiest button · headings verbatim · the
           best three sentences anywhere on the site · prices, hours, address, phone · every real
           outbound link (booking, ordering, socials, maps) · image URLs · any ® or ™.</p>
+          <p><b>Then their social, without asking anyone.</b> Take the handle from their own footer,
+          then search <code>&lt;business&gt; instagram</code> and <b>read the results page itself</b> —
+          bio, captions, follower and like counts are all in the result text. Never fetch
+          instagram.com. The full ladder, and what to take off the page, is in the Research tab.</p>
           <p class="tlout"><b>Output</b> — a raw dump of what you actually read, with URLs.</p>
           <p class="tlgate"><b>Gate</b> — a written list of anything you could not reach. A blocked
-          fetch is a finding, never a hole to fill with a guess.</p>
+          fetch is a finding, never a hole to fill with a guess — and never a reason to ask the person
+          for help.</p>
         </div>
       </div>
 
@@ -1717,7 +1734,7 @@ and read BLD 09 for what additionally opens up.</pre>
       <tr><td>No logo anywhere</td><td>Wordmark in the display face with deliberate tracking. That <i>is</i> a logo for mockup purposes.</td><td>Design a mark. Not our call.</td></tr>
       <tr><td>Menu or prices only as a PDF</td><td>Read the PDF, set it as live HTML text. This alone is often the largest single improvement on the page.</td><td>Embed or link the PDF again.</td></tr>
       <tr><td>Site is a JS shell — no content in the HTML</td><td>Take content from the rendered text, their Google Business listing, and their social bios. Tag the tiers honestly and say the DOM was unreadable.</td><td>Claim you parsed their CSS when you got a shell.</td></tr>
-      <tr><td>Fetch blocked entirely</td><td>Say so in one plain sentence and ask for one thing: a screenshot of the homepage. This is the <b>only</b> hard blocker in the process.</td><td>Build from your mental model of the brand.</td></tr>
+      <tr><td>Their website is unreachable</td><td>Work from what is indexed: search their name, read the results page, their Google Business listing, their social. A caf&eacute; can be classified and built from those alone. Say in the hand-over that the site itself was unreadable.</td><td>Ask the person for a screenshot. Build from your mental model of the brand.</td></tr>
       <tr><td>They have no address or hours</td><td>Omit the practical section. A missing section is honest; an invented one is not.</td><td>Fill it with plausible hours.</td></tr>
       <tr><td>Reviews exist but you can't verify them</td><td>Omit the proof section, and say in the note that review proof is the highest-value addition available.</td><td>Paraphrase, attribute to initials, or invent a rating.</td></tr>
       <tr><td>Site is already good</td><td>Say so plainly, then find the one thing that is genuinely weaker than the rest and rebuild that section only. Honest and short beats a rebuild nobody needed.</td><td>Change it for the sake of changing it.</td></tr>
@@ -4415,23 +4432,51 @@ overlay.style.background =
     three rounds until measurement killed it. The guessed colour wasn't even in their palette.</p>
     <p>The difference wasn't luck. The inference was falsifiable and got checked.</p></blockquote>
 
-    <h3>Route by source type</h3>
-    <p>Automation and humans have different reach. This table saves the most time of anything here.</p>
+    <h3>Getting the social, without asking anyone</h3>
+    <p><strong>The person running this gathers nothing.</strong> Social is not an optional extra —
+    for a caf&eacute;, studio, gym, salon or restaurant the brand lives on Instagram more than on the
+    website, and skipping it means missing the voice. So it has to be reachable by you.</p>
+
+    <blockquote class="warn"><p><strong>Never fetch instagram.com directly.</strong> From any
+    datacenter address it returns 429, a 400 from the API, or an empty JavaScript shell. Every
+    attempt is wasted. <strong>You do not need the site — you need what it says</strong>, and a
+    search results page carries that in plain text.</p></blockquote>
+
     <table>
-      <tr><th>Source</th><th>Automated fetch</th><th>Route to</th></tr>
-      <tr><td>Client's own site</td><td>✅ reliable</td><td>you, scripted</td></tr>
-      <tr><td>Client's CDN images</td><td>✅ reliable</td><td>you + ImageMagick</td></tr>
-      <tr><td>Google / Bing / DDG</td><td>❌ shells, bot checks, junk</td><td><strong>a human's browser</strong></td></tr>
-      <tr><td>Instagram / TikTok</td><td>❌ 429 / 400 / empty JS</td><td><strong>a human's browser</strong></td></tr>
-      <tr><td>Yelp / reviews</td><td>⚠️ varies</td><td>try once, then a human</td></tr>
+      <tr><th>#</th><th>Try this</th><th>What it reliably gives you</th></tr>
+      <tr><td>1</td><td>Read the <strong>handle off their own website</strong> — the footer or social row</td><td>The exact account, with no guessing at a name.</td></tr>
+      <tr><td>2</td><td>Web-search <code>&lt;business name&gt; instagram</code> or <code>&lt;business&gt; IG</code> — <strong>and read the results page itself</strong></td><td>The bio verbatim, follower count, and the captions, dates and like counts of recent posts. This is the workhorse. It is almost always enough.</td></tr>
+      <tr><td>3</td><td>Web-search <code>site:instagram.com &lt;handle&gt;</code></td><td>More individual posts, with their caption text in the result snippets.</td></tr>
+      <tr><td>4</td><td>Web-search the business name alone, and read what <strong>other</strong> accounts said</td><td>Food bloggers and local accounts describe the room better than the owner does — interior, atmosphere, what it's good for.</td></tr>
+      <tr><td>5</td><td>Their Google Business / Maps listing</td><td>Hours, photographs, review themes, the category they file themselves under.</td></tr>
+      <tr><td>6</td><td>A text-extraction proxy in front of the profile url</td><td>Occasionally returns the bio when a direct fetch will not.</td></tr>
+      <tr><td>7</td><td>A different search engine</td><td>Different index, different snippets. Cheap to try once.</td></tr>
     </table>
-    <blockquote class="warn"><p><strong>Two failures on one source means switch source, not
-    technique.</strong> The first run burned four attempts on Instagram — profile, API, embed,
-    headless browser — when the answer was one screenshot from a person.</p></blockquote>
-    <p>Batch the human-only asks into your first message: Google Images for
-    <code>"&lt;brand&gt;" interior</code>, the Instagram grid, the homepage as they see it, the top
-    ten reviews, and any brand assets they hold. <strong>For cafés, studios, gyms and salons the
-    brand lives on Instagram more than the website.</strong></p>
+
+    <p><strong>Two failures on one route means change route, not technique.</strong> The first run of
+    this process burned four attempts on instagram.com — profile, API, embed, headless browser — when
+    step 2 above would have answered it in one call.</p>
+
+    <h3>What to take off the results page</h3>
+    <table>
+      <tr><th>Take</th><th>Why it matters</th><th>Tier</th></tr>
+      <tr><td>The bio line, word for word</td><td>The shortest, most deliberate description of the business that exists anywhere. Frequently a better hero sub-line than their whole homepage.</td><td>C</td></tr>
+      <tr><td>Recent caption text</td><td>Their actual voice, unedited by a web designer. This is where the best headline usually is.</td><td>C</td></tr>
+      <tr><td>Follower count</td><td>Scale, and how much of their attention lives here.</td><td>D</td></tr>
+      <tr><td>Post dates and like counts</td><td>Whether the account is alive, and what people respond to.</td><td>D</td></tr>
+      <tr><td>How other accounts describe them</td><td>Outside language about the room and the atmosphere.</td><td>D</td></tr>
+      <tr><td>Repeated phrases across posts</td><td>Their real positioning, stated more honestly than on the site.</td><td>C</td></tr>
+    </table>
+
+    <blockquote><p><strong>Worked example, from the first real run.</strong> The website's best line
+    was <em>"Experience the world, one cup at a time."</em> Their Instagram bio and captions gave
+    <em>"Cozy caf&eacute; to study, work, or connect"</em> and <em>"No rush here. Just a good seat,
+    good coffee."</em> — both better, both theirs, neither anywhere on the website. Every word came
+    off a search results page. Nobody was asked for anything.</p></blockquote>
+
+    <p><strong>If every route fails</strong>, write one line in the hand-over saying the social was
+    unreachable and carry on with the website alone. <strong>Do not ask the person running this to
+    fetch it</strong> — they are not part of the research, and stopping to ask is a failed run.</p>
 
     <h3>Verify — the part that gets skipped</h3>
     <h4>Two-source rule</h4>
@@ -5036,7 +5081,7 @@ overlay.style.background =
         <tr><td class="w">2</td><td>Their own product / service names</td><td>A naming system is art direction. Fire-named coffees, room-named treatments — that's the page's vocabulary, pre-written.</td><td class="w">B</td></tr>
         <tr><td class="w">3</td><td>Menu, price list, timetable</td><td>Concrete nouns and numbers. The rawest material there is, and it's all verifiable.</td><td class="w">B</td></tr>
         <tr><td class="w">4</td><td>Reviews</td><td>The exact words customers use. Repeated phrases are the value proposition, stated by the market instead of guessed.</td><td class="w">C/D</td></tr>
-        <tr><td class="w">5</td><td>Instagram captions</td><td>For cafés, studios, gyms and salons this is where the voice actually lives. Needs a human's browser.</td><td class="w">C</td></tr>
+        <tr><td class="w">5</td><td>Instagram bio and captions</td><td>For cafés, studios, gyms and salons this is where the voice actually lives — and it is frequently the best writing the business owns. Reach it through a search results page, never through instagram.com. See the Research tab.</td><td class="w">C</td></tr>
         <tr><td class="w">6</td><td>Their FAQ or booking notes</td><td>Policies, constraints, honest specifics — reliably better copy than the homepage.</td><td class="w">B</td></tr>
         <tr><td class="w">7</td><td>Photo captions and alt text</td><td>Occasionally the only place a real detail is written down.</td><td class="w">A</td></tr>
       </table>
