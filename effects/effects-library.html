@@ -1594,12 +1594,29 @@ and read BLD 09 for what additionally opens up.</pre>
         <div class="tlt">11–12<i>min</i></div>
         <div class="tlb">
           <h5>6 · Choose the motion</h5>
-          <p>From Choreography: <b>one signature, two supporting, one ambient.</b> Pick the signature
-          from something this business owns, then find the effect that expresses it — not the other
-          way round.</p>
-          <p class="tlout"><b>Output</b> — four effect IDs and one sentence saying what fact the
-          signature comes from.</p>
-          <p class="tlgate"><b>Gate</b> — if you can't name the fact, it's decoration. Choose again.</p>
+          <p><b style="color:var(--cream)">Open the Effects tab and choose by ID. Do not design
+          motion from memory.</b> This step is the one most often skipped, and skipping it is why a
+          build comes out as twelve identical fade-ups: the model reaches for what it already knows
+          instead of the 47 techniques sitting one tab away. <b>If you did not open the catalogue,
+          you did not do this step.</b></p>
+          <p>Read CHO 00 first — <b>budget counts distinct IDEAS, coverage counts how much of the
+          page they touch.</b> Four ideas is the ceiling. <b>Every element on the page is the
+          floor.</b> One reveal idea applied to fourteen headings is still one idea.</p>
+          <table class="lentable" style="margin:12px 0">
+            <tr><th>Slot</th><th>How many</th><th>Where to look</th></tr>
+            <tr><td><b>Signature</b></td><td class="w">1, layered</td><td>GL · REA · TYP · REV — the loud groups. Base treatment + 1-2 effects on ONE trigger (CHO 02).</td></tr>
+            <tr><td><b>Supporting</b></td><td class="w">2</td><td>REV · DEP · SYS · TYP — structural, repeatable, applied everywhere.</td></tr>
+            <tr><td><b>Ambient</b></td><td class="w">1</td><td>AMB · GL — continuous, low amplitude, never near reading text.</td></tr>
+            <tr><td><b>Pointer</b></td><td class="w">1 minimum</td><td>KIT 12 + REA — a cursor behaviour or pointer-reactive field. <b>A Phase 1 page without one reads as static.</b></td></tr>
+            <tr><td><b>Micro</b></td><td class="w">every control</td><td>Not part of the budget. Every link, button and card answers the pointer.</td></tr>
+          </table>
+          <p class="tlout"><b>Output</b> — <b>five or more real effect IDs copied from the catalogue</b>
+          (signature, two supporting, ambient, pointer), plus one sentence naming the fact about this
+          business that the signature comes from.</p>
+          <p class="tlgate"><b>Gate</b> — every ID must exist in the Effects tab; an invented ID means
+          you never opened it. If you cannot name the fact, it's decoration — choose again. And if the
+          whole page resolves to fade-and-rise, you have chosen nothing: go back and pick a real
+          technique for the signature.</p>
         </div>
       </div>
 
@@ -2230,6 +2247,36 @@ and read BLD 09 for what additionally opens up.</pre>
       ok(false, &#x27;flat dead field &#x27; + Math.round(r.width) + &#x27;x&#x27; + Math.round(r.height)
          + &#x27;px — no texture, gradient or motion on it (CHO 00 section-ground row)&#x27;);
   });
+
+  <i>// 26 · TECHNIQUE DIVERSITY. Checks 22-25 only prove that something moves —</i>
+  <i>//      a page built from twelve identical fade-ups passes every one of them.</i>
+  <i>//      This one asks WHAT is moving. It counts distinct technique families</i>
+  <i>//      actually present in the rendered page, which is the only automatic</i>
+  <i>//      way to tell &quot;chose from the catalogue&quot; from &quot;reached for the default&quot;.</i>
+  const fam = new Set();
+  const seenTransform = new Set();
+  $$(&#x27;*&#x27;).forEach(e =&gt; {
+    const s = cs(e);
+    if (e.tagName === &#x27;CANVAS&#x27;) fam.add(&#x27;canvas/GL&#x27;);
+    if (s.clipPath &amp;&amp; s.clipPath !== &#x27;none&#x27;) fam.add(&#x27;clip-path&#x27;);
+    if ((s.maskImage &amp;&amp; s.maskImage !== &#x27;none&#x27;) ||
+        (s.webkitMaskImage &amp;&amp; s.webkitMaskImage !== &#x27;none&#x27;)) fam.add(&#x27;mask&#x27;);
+    if (s.mixBlendMode &amp;&amp; s.mixBlendMode !== &#x27;normal&#x27;) fam.add(&#x27;blend&#x27;);
+    if (s.filter &amp;&amp; s.filter !== &#x27;none&#x27;) fam.add(&#x27;filter&#x27;);
+    if (s.animationName &amp;&amp; s.animationName !== &#x27;none&#x27;) fam.add(&#x27;keyframes&#x27;);
+    if (s.overflow === &#x27;hidden&#x27; &amp;&amp; e.children.length &amp;&amp;
+        [...e.children].some(c =&gt; cs(c).transform !== &#x27;none&#x27;)) fam.add(&#x27;masked-slide&#x27;);
+    const tp = s.transitionProperty || &#x27;&#x27;;
+    if (tp.includes(&#x27;letter-spacing&#x27;) || tp.includes(&#x27;font-variation&#x27;) ||
+        tp.includes(&#x27;font-weight&#x27;)) fam.add(&#x27;type-axis&#x27;);
+    if (tp.includes(&#x27;clip-path&#x27;)) fam.add(&#x27;clip-reveal&#x27;);
+    const t = s.transform;
+    if (t &amp;&amp; t !== &#x27;none&#x27;) seenTransform.add(t.startsWith(&#x27;matrix3d&#x27;) ? &#x27;3d&#x27; : &#x27;2d&#x27;);
+  });
+  if ($$(&#x27;[data-cursor]&#x27;).length || $$(&#x27;.cursor-pill,[class*=cursor]&#x27;).length) fam.add(&#x27;pointer&#x27;);
+  seenTransform.forEach(v =&gt; fam.add(&#x27;transform-&#x27; + v));
+  ok(fam.size &gt;= 5, &#x27;only &#x27; + fam.size + &#x27; motion technique(s) on the page (&#x27;
+     + [...fam].join(&#x27;, &#x27;) + &#x27;) — a Phase 1 page needs 5+. Fade-and-rise everywhere is not a choice, it is a default (BLD 02 step 6)&#x27;);
 
   console[F.length ? &#x27;error&#x27; : &#x27;log&#x27;](F.length ? F : &#x27;self-check clean&#x27;);
 })();</code></pre>

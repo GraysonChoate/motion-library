@@ -134,30 +134,36 @@ svg{display:block; flex:none}
 .btn:focus-visible{outline:2px solid var(--clay); outline-offset:3px}
 
 /* ===== hero — their photograph emerging from a silk-light field ===== */
-.hero{position:relative; min-height:min(94vh,920px); overflow:clip; display:flex; align-items:center;
+/* THEIR photograph is already the brand: warm peach, blush, the lit SB sign.
+   It needs NO rescue. An earlier pass ran grayscale(.55) + brightness(.82) +
+   a clay colour-blend + a 94% black side-scrim across the faces and destroyed
+   it. Duotone exists to force CLASHING photos into one palette — this one
+   already IS the palette, so treatment only subtracts.
+   It is also a centred group shot, so the scrim is bottom-weighted and the
+   copy sits low: nothing dark ever crosses a face. */
+.hero{position:relative; min-height:min(94vh,920px); overflow:clip; display:flex; align-items:flex-end;
   background:var(--ink)}
 .hero canvas{position:absolute; inset:0; width:100%; height:100%; display:block; z-index:0}
 .hero-photo{position:absolute; inset:0; z-index:1; background-image:var(--img-hero);
-  background-size:cover; background-position:58% 40%; will-change:transform;
-  filter:grayscale(.55) contrast(1.12) brightness(.82);
-  -webkit-mask-image:linear-gradient(100deg, transparent 4%, #000 46%, #000 100%);
-          mask-image:linear-gradient(100deg, transparent 4%, #000 46%, #000 100%)}
-/* duotone over their photo, both stops measured from their own palette */
+  background-size:cover; background-position:50% 32%; will-change:transform;
+  filter:saturate(1.04) contrast(1.02)}
 .hero-duo{position:absolute; inset:0; z-index:2; pointer-events:none;
-  background:var(--clay); mix-blend-mode:color; opacity:.42}
+  background:var(--blush); mix-blend-mode:soft-light; opacity:.16}
 .hero-scrim{position:absolute; inset:0; z-index:3; pointer-events:none;
-  background:
-    linear-gradient(100deg, rgba(30,32,31,.94) 0%, rgba(30,32,31,.74) 30%, rgba(30,32,31,.18) 58%, transparent 74%),
-    linear-gradient(180deg, rgba(30,32,31,.42) 0%, transparent 34%, rgba(30,32,31,.52) 100%)}
-.hero .plate-soft{right:-8%; top:-14%; width:62%; height:74%; background-image:var(--img-soft1);
-  opacity:.34; mix-blend-mode:screen; z-index:4;
-  -webkit-mask-image:radial-gradient(ellipse 56% 60% at 64% 38%, #000 4%, transparent 76%);
-          mask-image:radial-gradient(ellipse 56% 60% at 64% 38%, #000 4%, transparent 76%)}
-.hero-in{position:relative; z-index:6; width:100%; padding:clamp(90px,12vh,140px) 0}
+  background:linear-gradient(180deg,
+    rgba(30,32,31,.20) 0%, rgba(30,32,31,.04) 16%,
+    transparent 40%, rgba(30,32,31,.42) 66%,
+    rgba(30,32,31,.80) 86%, rgba(30,32,31,.90) 100%)}
+.hero .plate-soft{right:-8%; top:-14%; width:56%; height:60%; background-image:var(--img-soft1);
+  opacity:.22; mix-blend-mode:screen; z-index:4;
+  -webkit-mask-image:radial-gradient(ellipse 54% 56% at 68% 26%, #000 2%, transparent 74%);
+          mask-image:radial-gradient(ellipse 54% 56% at 68% 26%, #000 2%, transparent 74%)}
+.hero-in{position:relative; z-index:6; width:100%;
+  padding:0 0 clamp(52px,7vh,86px)}
 .eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.24em; text-transform:uppercase;
   color:var(--blush); margin:0 0 24px}
-.hero h1{font-size:clamp(38px,5.6vw,78px); line-height:1.06; max-width:15ch; color:var(--paper);
-  font-weight:400}
+.hero h1{font-size:clamp(34px,4.6vw,62px); line-height:1.08; max-width:17ch; color:var(--paper);
+  font-weight:400; text-shadow:0 1px 30px rgba(30,32,31,.45)}
 .hero h1 em{font-style:italic; color:var(--blush)}
 .hero .sub{font-size:clamp(15.5px,1.3vw,18px); max-width:47ch; margin:26px 0 0;
   color:rgba(243,226,214,.88)}
