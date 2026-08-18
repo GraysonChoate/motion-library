@@ -939,7 +939,157 @@ footer b{color:var(--ink-dim); font-weight:500}
     numbers. The full dial table is in the repo, and the rule is in Standards.</p>
     <p>Groups run from most fundamental to most decorative. <strong>Architecture first</strong> —
     it changes how you build everything after it.</p>
+    <p><strong>Read Choreography below before browsing the catalogue.</strong> It sets the budget —
+    one signature effect, two supporting, one ambient — and browsing first is how a page ends up
+    with nine.</p>
   </div>
+  <section class="purpose" id="choreography">
+    <div class="purpose-head">
+      <span class="n">CHO</span>
+      <h2>Choreography</h2>
+      <p>How much motion, where it goes, and what fights what. Read before picking a single effect.</p>
+    </div>
+    <div class="brief">
+      <p class="def">A page with four well-chosen effects beats a page with twelve, every time.</p>
+      <div class="brief-grid">
+        <div><h6>The problem this solves</h6><p>Given a library this size, the default failure is
+        using it. Every effect is individually good and the page ends up looking like a demo reel —
+        busy, unfocused, and clearly built by someone showing off rather than someone deciding.</p></div>
+        <div><h6>The budget</h6><p><b>One signature, two supporting, one ambient.</b> Plus
+        micro-interactions, which don't count. That's the whole page. If a fifth idea is genuinely
+        better than one already in, it replaces it — the number doesn't move.</p></div>
+        <div class="warn"><h6>What separates good from bad</h6><p>Amateur pages animate
+        <b>everything, equally</b>. There's no hierarchy, so nothing reads as important. Designed
+        pages spend almost all their motion on one moment and stay nearly still everywhere else —
+        which is what makes that one moment land.</p></div>
+        <div><h6>Reach for it</h6><p>Before opening the group index below. Choose the four slots
+        first, then go find the effects that fill them. Browsing the catalogue first is how pages
+        end up with nine.</p></div>
+      </div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 01</span><h4>The four slots</h4></div>
+      <table class="lentable">
+        <tr><th>Slot</th><th>How many</th><th>Job</th><th>Amplitude</th><th>Typical</th></tr>
+        <tr><td><b style="color:var(--cream)">Signature</b></td><td class="w">exactly 1</td><td>The one thing they'd describe to a friend. Tied to what this business actually does — not a generic effect applied to a generic section.</td><td class="w">full</td><td>GL-02 · REV-03 · REA-01 · TYP-04</td></tr>
+        <tr><td><b style="color:var(--cream)">Supporting</b></td><td class="w">2</td><td>Structural, repeatable, invisible. One reveal that every section uses, one depth or scroll behaviour that holds the page together.</td><td class="w">ship values</td><td>REV-01 · DEP-01 · SYS-01 · TYP-01</td></tr>
+        <tr><td><b style="color:var(--cream)">Ambient</b></td><td class="w">1</td><td>Continuous, very low amplitude, never near reading text. Makes the page feel alive while nothing is happening.</td><td class="w">30–40% of demo</td><td>AMB-01 · AMB-03 · AMB-06</td></tr>
+        <tr><td><b style="color:var(--cream)">Micro</b></td><td class="w">unlimited</td><td>Hover, focus, press, and state change on real controls. Not part of the budget — but every one on the page uses the same duration and the same curve.</td><td class="w">120–200ms</td><td>—</td></tr>
+      </table>
+      <p style="margin:16px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65;
+        border-top:1px solid var(--edge-soft);padding-top:14px">
+      <b style="color:var(--tan)">The signature is chosen from the business, not from this library ·</b>
+      A roaster whose menu sells coffee by cream ratio should get an interaction built on that ratio.
+      A gym whose proof is transformation should get one built on before-and-after. Ask
+      <i>what does this business own that no competitor does</i>, and build the signature on the
+      answer. An effect picked because it looked good in the catalogue is decoration; the same effect
+      picked because it expresses the product is design.</p>
+      <div class="warnbox"><b>The signature appears once.</b> Used twice it becomes a pattern, and a
+      pattern is a supporting effect with the amplitude turned up too far. The second appearance is
+      also the moment a visitor stops being impressed and starts being able to describe it.</div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 02</span><h4>Entrance — the first 1200ms</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">The load
+      sequence is the only choreography every visitor sees. It runs on a timer, not on scroll —
+      <b style="color:var(--cream)">nothing above the fold may wait for a scroll event</b>, because a
+      hero element that fades in on scroll is invisible to the 40% who never scroll.</p>
+      <table class="lentable">
+        <tr><th>At</th><th>Element</th><th>From</th><th>Duration</th></tr>
+        <tr><td class="w">0ms</td><td>Hero media / background</td><td>opacity 0 → 1, scale 1.04 → 1</td><td class="w">900ms</td></tr>
+        <tr><td class="w">80ms</td><td>Eyebrow / kicker</td><td>opacity 0, y +8px</td><td class="w">500ms</td></tr>
+        <tr><td class="w">140ms</td><td>Headline</td><td>opacity 0, y +14px — or per-word stagger at 22ms</td><td class="w">600ms</td></tr>
+        <tr><td class="w">280ms</td><td>Sub-line</td><td>opacity 0, y +10px</td><td class="w">500ms</td></tr>
+        <tr><td class="w">380ms</td><td>Primary action</td><td>opacity 0, y +8px</td><td class="w">450ms</td></tr>
+        <tr><td class="w">460ms</td><td>Nav and secondary chrome</td><td>opacity 0</td><td class="w">400ms</td></tr>
+        <tr><td class="w">900ms</td><td>Ambient loop starts</td><td>fades up to its running amplitude</td><td class="w">1200ms</td></tr>
+      </table>
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Rules ·</b> Total entrance under <b>1.2s</b> — past that it reads as
+      a slow site rather than a considered one. Travel distances stay small: <b>8–16px</b>, never the
+      40px+ that template builders use. And the nav arrives <b>last</b>, not first — leading with
+      chrome tells the visitor the site is about itself.</p>
+      <div class="warnbox"><b>Never animate a full-screen overlay or a progress counter on load.</b>
+      A preloader on a five-section marketing page adds real seconds to the only moment that counts.
+      Google's judgment window is roughly <b>50 milliseconds</b> — a loader spends all of it on itself.</div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 03</span><h4>Scroll pacing</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">One animated moment per screen.</b> Not one per component — one
+      per screenful of scroll. If two things move as the visitor passes a section, one of them is
+      noise.</p>
+      <table class="lentable">
+        <tr><th>Screen</th><th>What moves</th><th>Why</th></tr>
+        <tr><td>1 — Hero</td><td>Entrance, then the ambient only</td><td>Establish. Let them read.</td></tr>
+        <tr><td>2</td><td>Supporting reveal, once</td><td>Teach the page's vocabulary with a small move.</td></tr>
+        <tr><td>3</td><td><b style="color:var(--cream)">Nothing</b></td><td>The rest beat. Non-negotiable — a page that moves continuously has no emphasis left to spend.</td></tr>
+        <tr><td>4 — the moment</td><td><b style="color:var(--cream)">Signature</b></td><td>Lands hardest because three screens of restraint came before it.</td></tr>
+        <tr><td>5</td><td>Supporting reveal</td><td>Back to the vocabulary.</td></tr>
+        <tr><td>6</td><td>Nothing</td><td>Practical information wants stillness.</td></tr>
+        <tr><td>7 — Close</td><td>One small move on the action</td><td>Direct attention to the one thing left to do.</td></tr>
+      </table>
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Scroll-driven ranges ·</b> An element should finish its animation
+      by the time it is <b>halfway up the viewport</b> — <code>animation-range: entry 0% cover 40%</code>.
+      Animations still running when the element is centred force the reader to wait for the page,
+      which is the most irritating thing motion can do.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Reveal once ·</b> Scroll up and back down and nothing re-animates.
+      Re-triggering reveals is the single most common scroll-animation mistake, and it makes a page
+      feel unstable rather than alive.</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 04</span><h4>Effects that fight each other</h4></div>
+      <p style="margin:0 0 6px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Each pair below
+      is individually fine and jointly broken. Most of them fail as <i>looks slightly wrong</i> rather
+      than as an error, which is why they survive to launch.</p>
+      <div class="crime"><b>Velocity skew + parallax, same element</b><span>Two transforms competing for one matrix. The element wobbles and neither effect reads.</span></div>
+      <div class="crime"><b>Sticky section + scroll-driven mask inside it</b><span>Position sticky changes what the scroll timeline resolves against. The mask freezes partway.</span></div>
+      <div class="crime"><b>WebGL background + backdrop-filter above it</b><span>Forces a readback of the GPU surface every frame. Reliably the heaviest thing you can accidentally do.</span></div>
+      <div class="crime"><b>View Transitions + FLIP on the same element</b><span>Both animate the same layout change. You get a double move.</span></div>
+      <div class="crime"><b>Tilt + magnetic pull on one card</b><span>The pointer is driving two models with different centres. Feels loose and slightly nauseating.</span></div>
+      <div class="crime"><b>Ambient grain + grain in the photo treatment</b><span>Moiré, and the images look dirty rather than filmic.</span></div>
+      <div class="crime"><b>Two easing families on one page</b><span>A bouncy spring on the buttons and a smooth ease on the sections reads as two sites stitched together.</span></div>
+      <div class="crime"><b>Character stagger on more than one heading</b><span>The first is a flourish. The second makes both look automated.</span></div>
+      <div class="crime"><b>Ambient motion behind body copy</b><span>Anything moving under text makes the text feel unstable, whatever the contrast ratio says.</span></div>
+      <div class="crime" style="border-bottom:none"><b>Scroll-jacking anything</b><span>Custom scroll speed, snap on a long page, or a hijacked wheel. It breaks trackpads, keyboards and every accessibility expectation at once.</span></div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-top"><span class="code">CHO 05</span><h4>One easing vocabulary</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Pick these
+      once and use nothing else. A page with a consistent curve feels like one object; a page with
+      five feels assembled.</p>
+      <table class="lentable">
+        <tr><th>Use</th><th>Curve</th><th>Duration</th><th>Notes</th></tr>
+        <tr><td>Entrance</td><td class="w">cubic-bezier(.16,1,.3,1)</td><td class="w">450–600ms</td><td>Fast out of the gate, long settle. The workhorse.</td></tr>
+        <tr><td>Exit</td><td class="w">cubic-bezier(.4,0,1,1)</td><td class="w">180–250ms</td><td>Leaving should be quicker than arriving, always.</td></tr>
+        <tr><td>Hover / press</td><td class="w">cubic-bezier(.2,0,0,1)</td><td class="w">120–180ms</td><td>Under 200ms or it feels laggy under the finger.</td></tr>
+        <tr><td>Layout change</td><td class="w">FLIP + entrance curve</td><td class="w">320–420ms</td><td>Never animate width or height directly.</td></tr>
+        <tr><td>Anything pointer-driven</td><td class="w">spring, no duration</td><td class="w">—</td><td>Stiffness 170 / damping 26 as a start. Duration-based easing on a pointer always feels dead.</td></tr>
+        <tr><td>Continuous / ambient</td><td class="w">linear</td><td class="w">—</td><td>Eased loops visibly pulse at the seam.</td></tr>
+      </table>
+      <div class="warnbox"><b>Never <code>ease-in-out</code> on an entrance.</b> The slow start reads
+      as lag — the element appears to hesitate before moving. It is the default in most tools and it
+      is wrong for almost everything on a marketing page.</div>
+    </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">CHECK</span><h4>Before the motion is done</h4></div>
+      <div class="egood"><span>Count the effects. One signature, two supporting, one ambient — no more.</span></div>
+      <div class="egood"><span>Name the signature out loud and say which fact about the business it comes from.</span><i>if you can't, it's decoration</i></div>
+      <div class="egood"><span>Scroll the whole page at normal speed. More than one thing moving per screen?</span></div>
+      <div class="egood"><span>Scroll back up. Anything re-animate?</span></div>
+      <div class="egood"><span>Turn on reduced motion. Is the page a designed still composition, or is it dead?</span></div>
+      <div class="egood"><span>Throttle to 4× slower CPU. Does the entrance still finish under 1.2s?</span></div>
+    </div>
+  </section>
+
   <div class="chips" role="group" aria-label="Filter by group">
     <button class="chip" data-g="all" aria-pressed="true">All</button>
     <button class="chip" data-g="sys" aria-pressed="false">SYS · architecture</button>
