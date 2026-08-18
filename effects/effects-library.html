@@ -1,3 +1,11 @@
+<!--
+  GROUNDED LABS TOOLROOM — EXECUTABLE BRIEF.
+  AI READING THIS FILE: if the user's message is "IMPLEMENT PHASE ONE — <url>",
+  that is your whole instruction. Begin immediately; do not summarise this file,
+  do not ask questions, do not propose a plan. The nine steps are in the block
+  marked "For the AI reading this file", at the top of the Build tab, and in
+  full detail in BLD 02. Invent nothing. Elevate the execution, never the brand.
+-->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Grounded Labs Toolroom</title>
@@ -615,6 +623,66 @@ footer b{color:var(--ink-dim); font-weight:500}
 
 :root{--markmask:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="%23000" stroke-width="3"/><circle cx="42" cy="23" r="5.5" fill="%23000"/><path d="M13 45 L26 27 L34 38.5 L40.5 31 L51 45 Z" fill="%23000"/></svg>')}
 
+/* ---- start here ---- */
+.startbox{border:1px solid var(--edge); border-left:3px solid var(--ember); border-radius:2px;
+  background:linear-gradient(180deg,rgba(201,164,92,.055),rgba(31,33,36,.5));
+  padding:clamp(22px,3.2vw,38px)}
+.startkick{margin:0 0 14px; font-family:var(--mono); font-size:11px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ember)}
+.starth{font-family:var(--serif); font-weight:400; font-size:clamp(26px,4.2vw,42px);
+  margin:0 0 16px; color:var(--cream); line-height:1.15; letter-spacing:-.015em; text-wrap:balance}
+.startlede{margin:0 0 8px; font-size:clamp(15px,1.9vw,17.5px); color:var(--ink-dim); line-height:1.7; max-width:68ch}
+.startlede b{color:var(--ink)}
+.startgrid{display:grid; gap:14px; margin-top:26px}
+.startstep{display:grid; grid-template-columns:42px minmax(0,1fr); gap:0 18px; align-items:start;
+  padding:18px 0; border-top:1px solid var(--edge-soft)}
+.startstep .sn{grid-row:1 / span 3; display:grid; place-items:center; width:32px; height:32px;
+  border:1px solid var(--edge); border-radius:50%; font-family:var(--mono); font-size:13px;
+  color:var(--gold); margin-top:2px}
+.startstep h4{margin:0 0 8px; font-family:var(--serif); font-weight:400;
+  font-size:clamp(18px,2.4vw,22px); color:var(--cream); line-height:1.3}
+.startstep p{margin:0; font-size:15px; color:var(--ink-dim); line-height:1.65; max-width:66ch}
+.startstep p b{color:var(--ink)}
+.startstep pre.tcmd{margin:0 0 10px}
+pre.tcmd.big{font-size:clamp(14px,2.1vw,19px); padding:20px 22px; color:var(--gold)}
+.startsplit{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px; margin-top:24px}
+.startfail,.startphase2{border:1px solid var(--edge-soft); border-radius:2px; background:rgba(22,23,26,.5); padding:18px 20px}
+.startfail h4,.startphase2 h4{margin:0 0 10px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.16em; text-transform:uppercase; font-weight:400}
+.startfail h4{color:var(--ember)} .startphase2 h4{color:var(--teal)}
+.startfail .lentable td{font-size:13px; padding:8px 10px 8px 0}
+.startfail .lentable td:first-child{white-space:normal; color:var(--ink); width:38%}
+.startfail code,.startphase2 code{font-size:11.5px}
+.startphase2 p{margin:0 0 10px; font-size:14px; color:var(--ink-dim); line-height:1.6}
+.startphase2 pre.tcmd{margin:0 0 10px; font-size:12.5px}
+.startend{margin:24px 0 0; padding-top:18px; border-top:1px solid var(--edge-soft);
+  font-size:14.5px; color:var(--ink-dim); line-height:1.7; max-width:72ch}
+.startend b{color:var(--cream)}
+.who{display:inline-block; font-family:var(--mono); font-size:9px; letter-spacing:.14em;
+  text-transform:uppercase; padding:2px 7px; border-radius:2px; vertical-align:middle;
+  border:1px solid currentColor; white-space:nowrap}
+.who.you{color:var(--flame)} .who.ai{color:var(--slate)} .who.both{color:var(--teal)}
+.cphead .who{margin-left:auto; align-self:center}
+@media(max-width:560px){
+  .startstep{grid-template-columns:32px minmax(0,1fr); gap:0 12px}
+  .startstep .sn{width:26px;height:26px;font-size:11px}
+}
+
+/* ---- AI bootstrap block ---- */
+.aiboot{margin:0 0 clamp(24px,4vh,44px); border:1px solid rgba(124,151,179,.34);
+  border-radius:2px; background:#0E1013; overflow:hidden}
+.abkick{margin:0; padding:11px 16px; background:rgba(124,151,179,.10);
+  border-bottom:1px solid rgba(124,151,179,.22);
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--slate)}
+.abkick a{color:var(--gold)}
+.abbody{overflow-x:auto}
+.aiboot pre{margin:0; padding:clamp(16px,2.4vw,26px); border:none; background:transparent;
+  font-family:var(--mono); font-size:12px; line-height:1.72; color:var(--ink-dim);
+  white-space:pre; min-width:0}
+.aiboot pre b{color:var(--gold); font-weight:400}
+@media(max-width:820px){ .aiboot pre{font-size:10.5px; line-height:1.65} }
+
 /* ---- the spine ---- */
 .spine{counter-reset:sp; list-style:none; margin:18px 0 0; padding:0;
   border-top:1px solid var(--edge-soft)}
@@ -639,6 +707,9 @@ footer b{color:var(--ink-dim); font-weight:500}
   padding:18px clamp(16px,2.2vw,24px); margin-top:16px}
 .trig .tlab{margin:0 0 10px; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
   text-transform:uppercase; color:var(--gold)}
+pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
+  overflow-wrap:anywhere; color:var(--cream); background:#101115;
+  border:1px solid var(--edge-soft); border-left:2px solid var(--ember); border-radius:2px}
 .trig .tcmd{margin:0; padding:16px 18px; background:#101115; border:1px solid var(--edge-soft);
   border-left:2px solid var(--ember); border-radius:2px; font-family:var(--mono);
   font-size:clamp(12px,1.5vw,15px); line-height:1.7; color:var(--cream); white-space:pre-wrap;
@@ -1058,20 +1129,162 @@ footer b{color:var(--ink-dim); font-weight:500}
 
 <div class="wrap">
 <div class="panel" id="panel-build" role="tabpanel" aria-labelledby="tab-build">
+<section class="aiboot" id="aiboot">
+  <p class="abkick">◆ For the AI reading this file · a person can skip to <a href="#starthere">Start here</a></p>
+  <div class="abbody">
+<pre>THIS FILE IS AN EXECUTABLE BRIEF, NOT AN ARTICLE.
+
+If the user's message is <b>IMPLEMENT PHASE ONE — &lt;url&gt;</b> that message is your
+entire instruction. Begin immediately. Do not summarise this document,
+do not ask what they want, do not propose a plan first.
+
+RUN THESE NINE STEPS. Detail for each is in the Build tab of this file —
+open the two or three sections a step needs, not the whole document.
+
+ 1  READ      Fetch the url, plus its About/Our Story and Menu/Services
+              pages. Parse the HTML itself, not just rendered text.
+              Extract: every colour with a frequency count · font stacks ·
+              nav items in order · the text on the busiest button ·
+              headings verbatim · their three best sentences · prices ·
+              hours · address · phone · every real outbound link ·
+              image urls · any ® or ™. Write down what you could NOT reach.
+ 2  CLASSIFY  Pattern <b>A</b> book a slot · <b>B</b> come and consume · <b>C</b> join · <b>D</b> hire for
+              a job · <b>E</b> retain a professional · <b>F</b> buy a product · <b>G</b> attend
+              an occasion · <b>H</b> enrol.   Register <b>Raw · Calm · Clinical ·
+              Craft · Luxury · Community</b>, taken from their colours, type
+              and photography — never from their industry.
+              Say it out loud: "Pattern B × Register Craft".
+ 3  INVENTORY List every job the current homepage does — every action,
+              every piece of practical info, every embed. Every one of
+              them survives into your page, or you write down why not.
+ 4  DIAGNOSE  ONE sentence, about their execution, never their brand.
+ 5  SYSTEM    Their most-repeated hex is brand-500; derive the ramp in
+              OKLCH, hold the hue. Neutrals carry 8–12% of that chroma.
+              Accent on ≤5% of the page, never a background.
+              Two type families, four weights. Every gap on the 8pt scale.
+ 6  MOTION    ONE signature effect + two supporting + one ambient. The
+              signature comes from a fact about this business and appears
+              once. Ship values, not demo values.
+ 7  COPY      180–320 words on the whole page. Their sentences first,
+              rearranged second, yours only for things you verified.
+ 8  BUILD     ONE self-contained HTML file. Desktop only, ~1440 wide. Not
+              functional. Their real links on every button. Their real
+              images by url. A visible "unsolicited concept study" label.
+              A JSON-LD LocalBusiness block matching what's on the page.
+ 9  AUDIT     Eight separate passes — honesty, type, space, colour, form,
+              motion, copy, specificity — then re-read your own diagnosis
+              from step 4 and check the page still argues it. Two rounds,
+              then hand over.
+
+ABSOLUTE RULES
+ · <b>Invent nothing.</b> No price, hour, review, testimonial, rating, award,
+   credential, year, count or link you did not read from a source.
+   A missing section is honest. An invented one is not.
+ · <b>Do not ask clarifying questions.</b> Every ambiguity in this document has
+   a stated default. Low confidence on register → use Community.
+ · <b>If a fetch failed, say so in plain words.</b> Never describe a source you
+   could not read as though you read it.
+ · <b>Elevate the execution, never the brand.</b> Their colours, their marks,
+   their words. If the output could be a rebrand, it is wrong.
+ · <b>Resist your own defaults.</b> No violet gradients, no Inter for everything,
+   no six identical cards, no glassmorphism, no 16px-radius-plus-shadow,
+   no "seamless / innovative / elevate". See BLD 01 — this is the section
+   that matters most, because everything else can be right and the page
+   can still come out looking generated.
+
+If the message is <b>IMPLEMENT PHASE TWO — &lt;url&gt;</b>, keep the same classification
+and read BLD 09 for what additionally opens up.</pre>
+  </div>
+</section>
+
+  <section class="cpsec" id="starthere">
+    <div class="startbox">
+      <p class="startkick">Start here · you need about ninety seconds of this page</p>
+      <h3 class="starth">You are going to paste one line into an AI. That's the job.</h3>
+      <p class="startlede">You give an AI this file and a website address. Fifteen to twenty minutes
+      later it gives you back a much better-looking version of that website's home page, as a single
+      file you can open and look at. <b>You do not have to design anything, write anything, or
+      understand anything below this box.</b> All of that is written for the AI, not for you.</p>
+
+      <div class="startgrid">
+        <div class="startstep">
+          <span class="sn">1</span>
+          <h4>Open an AI that can read files and browse the web</h4>
+          <p><b>Claude</b>, <b>ChatGPT</b>, or <b>Gemini</b> all work. It has to be one that can open
+          a web page — if it tells you it can't visit links, you're in the wrong tool or the wrong
+          mode. Start a brand-new chat, not one you've used for something else.</p>
+        </div>
+
+        <div class="startstep">
+          <span class="sn">2</span>
+          <h4>Upload this file</h4>
+          <p>Attach it to the chat the same way you'd attach a photo — the paperclip, or drag it in.
+          Wait for it to finish uploading before you type anything.</p>
+        </div>
+
+        <div class="startstep">
+          <span class="sn">3</span>
+          <h4>Copy this. Change the address to theirs. Send it.</h4>
+          <pre class="tcmd big">IMPLEMENT PHASE ONE — https://theirsite.com</pre>
+          <p>That's the whole message. Don't add anything. Don't explain what you want. Don't answer
+          questions it hasn't asked. Everything it needs is in the file you just uploaded.</p>
+        </div>
+
+        <div class="startstep">
+          <span class="sn">4</span>
+          <h4>Wait. Then save what it gives you.</h4>
+          <p>It will work for a while and hand back a file ending in <code>.html</code> — download it
+          or copy it into a file with that ending. <b>Then double-click it.</b> It opens in your web
+          browser like any other page. That's the mockup.</p>
+        </div>
+      </div>
+
+      <div class="startsplit">
+        <div class="startfail">
+          <h4>If something goes wrong</h4>
+          <table class="lentable">
+            <tr><td><b>It asks you questions</b></td><td>Reply exactly: <code>Use the stated defaults in the document and continue. Do not ask again.</code></td></tr>
+            <tr><td><b>It says it can't open the website</b></td><td>Turn on web browsing / search in the tool, or try a different one from step 1. Don't let it guess — a guessed page is worthless.</td></tr>
+            <tr><td><b>It gives you a description instead of a file</b></td><td>Reply: <code>Output the complete single HTML file now. No explanation.</code></td></tr>
+            <tr><td><b>It writes something generic</b></td><td>Reply: <code>Re-read BLD 01 and BLD 06 in the document, then fix the page.</code></td></tr>
+            <tr><td><b>It stops halfway</b></td><td>Reply: <code>Continue from where you stopped.</code></td></tr>
+            <tr><td><b>You want a change</b></td><td>Say it in plain words — "make it warmer", "the top is too busy". BLD 10 tells it what you meant.</td></tr>
+          </table>
+        </div>
+
+        <div class="startphase2">
+          <h4>Later — after they've said yes</h4>
+          <p>Same file, new chat, this line instead. Paste anything you've learned underneath it:</p>
+          <pre class="tcmd">IMPLEMENT PHASE TWO — https://theirsite.com
+&lt;paste anything you learned: what they liked, what they
+ didn't, photos they sent, the pages they need&gt;</pre>
+          <p>Phase 2 is the real build — every page, phones, video, the works. Don't run it before
+          they've agreed to work with us; it's a lot of effort aimed at a maybe.</p>
+        </div>
+      </div>
+
+      <p class="startend"><b>That's everything you need.</b> The rest of this page — and the six other
+      tabs — is the instruction manual the AI reads while it works. You're welcome to read it, and
+      you don't have to. Sections below are marked <span class="who you">YOU</span> where they need a
+      person and <span class="who ai">THE AI</span> where they don't.</p>
+    </div>
+  </section>
+
   <div class="panel-intro">
     <p class="role">The procedure</p>
     <h2>Type one line. Get a page back.</h2>
-    <p>Every other tab is <strong>reference</strong> — material the AI consults while it works. This
-    tab is the <strong>procedure</strong>: the trigger, the ordered steps, the time budget, and the
+    <p>Everything from here down is <strong>written for the AI to execute</strong>, not for a
+    person to interpret. It is the full version of the nine steps in the block above: the trigger,
+    the ordered procedure, the time budget, what to do when the source material is broken, and the
     audit that runs before anything is handed over.</p>
-    <p>Written for the AI to execute, not for a person to interpret. If you're a person, the only two
-    things you need are the trigger phrase in BLD 00 and the hand-over rule in BLD 04.</p>
+    <p>Every other tab is <strong>reference</strong> the procedure sends it to. If you are a person
+    and you have done the four steps in <em>Start here</em>, you are already finished.</p>
   </div>
 
   <section class="cpsec" id="spine">
     <div class="cphead"><span class="n">THE SPINE</span><h3>The whole system, in fifteen lines</h3>
       <p>If you retain nothing else, retain this. Everything in every tab is one of these fifteen
-      rules worked out in detail.</p></div>
+      rules worked out in detail.</p><span class="who both">Both</span></div>
 
     <ol class="spine">
       <li><b>Elevate the execution. Never the brand.</b><span>If the output could be a rebrand, it's wrong.</span><i>README</i></li>
@@ -1099,7 +1312,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <!-- ============ TRIGGER ============ -->
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 00</span><h3>The trigger</h3>
-      <p>Upload this file to any AI that can read a document and write code. Then send one line.</p></div>
+      <p>Upload this file to any AI that can read a document and write code. Then send one line.</p><span class="who you">You</span></div>
 
     <div class="trig">
       <p class="tlab">Phase 1 — the mockup</p>
@@ -1157,7 +1370,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 01</span><h3>Your own defaults are the enemy</h3>
       <p>Written for the model reading this. Left alone, you will produce a specific, recognisable
-      page — and everyone has already seen it.</p></div>
+      page — and everyone has already seen it.</p><span class="who ai">The AI</span></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
     A language model generates by reaching for the most probable next token. Applied to design, that
@@ -1232,7 +1445,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 02</span><h3>Phase 1 — the procedure</h3>
       <p>Eight steps, time-boxed to twenty minutes. Each has an output and a gate. Do not start a step
-      until the previous gate passes.</p></div>
+      until the previous gate passes.</p><span class="who ai">The AI</span></div>
 
     <div class="tl">
       <div class="tlrow">
@@ -1371,7 +1584,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 03</span><h3>What Phase 1 is</h3>
       <p>The scope is narrow on purpose. Everything cut here exists in Phase 2 — nothing is being
-      abandoned, only sequenced.</p></div>
+      abandoned, only sequenced.</p><span class="who both">Both</span></div>
 
     <div class="scopegrid">
       <div class="scopecol yes">
@@ -1420,7 +1633,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <!-- ============ DELIVERABLE ============ -->
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 04</span><h3>The deliverable</h3>
-      <p>One file and one short note. Nothing else is produced or expected.</p></div>
+      <p>One file and one short note. Nothing else is produced or expected.</p><span class="who both">Both</span></div>
 
     <div class="fcard">
       <h4 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 10px;color:var(--cream)">The file</h4>
@@ -1494,7 +1707,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <!-- ============ BAD INPUT ============ -->
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 05</span><h3>When the input is bad</h3>
-      <p>It usually is. Every row has a stated default so nothing here stops the run.</p></div>
+      <p>It usually is. Every row has a stated default so nothing here stops the run.</p><span class="who ai">The AI</span></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
     The businesses worth elevating are precisely the ones whose sites are broken, so <b style="color:var(--cream)">bad
@@ -1526,7 +1739,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <!-- ============ AUDIT ============ -->
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 06</span><h3>The cheap-tells audit</h3>
-      <p>Mechanical. Run every line before hand-over. Fix what it catches — don't report it.</p></div>
+      <p>Mechanical. Run every line before hand-over. Fix what it catches — don't report it.</p><span class="who ai">The AI</span></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
     Nothing here is a matter of taste. Each line is a yes-or-no check on something that reliably makes
@@ -1670,7 +1883,7 @@ footer b{color:var(--ink-dim); font-weight:500}
 <!-- ============ TRAPS ============ -->
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 07</span><h3>Traps other people already fell into</h3>
-      <p>Everything here is somebody else's expensive lesson. Reading it is cheaper than repeating it.</p></div>
+      <p>Everything here is somebody else's expensive lesson. Reading it is cheaper than repeating it.</p><span class="who ai">The AI</span></div>
 
     <div class="fcard">
       <div class="fcard-top"><span class="code">01</span><h4>The redesign that lost them money</h4></div>
@@ -1767,7 +1980,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 08</span><h3>The reversibility floor</h3>
       <p>Eight decisions that cost nothing now and cost a redesign later. This is a speed section,
-      not a compliance one.</p></div>
+      not a compliance one.</p><span class="who ai">The AI</span></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
     The phase split works because implementation can be added later — forms get wired, mobile gets
@@ -1797,7 +2010,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 09</span><h3>Phase 2 — after they sign</h3>
       <p>Same document, same classification, wider permissions. This is where everything Phase 1
-      excluded comes back.</p></div>
+      excluded comes back.</p><span class="who you">You</span></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
     <b style="color:var(--cream)">The classification does not change.</b> Pattern and register were
@@ -1828,7 +2041,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <!-- ============ TWEAKS ============ -->
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 10</span><h3>Tweak vocabulary</h3>
-      <p>What a person means when they say a vague thing, and what the AI should actually change.</p></div>
+      <p>What a person means when they say a vague thing, and what the AI should actually change.</p><span class="who both">Both</span></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
     Feedback on a mockup is almost always impressionistic, and the usual failure is the AI changing
@@ -1863,7 +2076,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 11</span><h3>Award-winning versus effective</h3>
       <p>The two things a Phase 1 page is asked to do, and where they genuinely pull against each
-      other.</p></div>
+      other.</p><span class="who ai">The AI</span></div>
 
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
     This document keeps saying two things that sound contradictory. <b style="color:var(--cream)">Make it
@@ -1913,7 +2126,7 @@ footer b{color:var(--ink-dim); font-weight:500}
   <!-- ============ NEVER ============ -->
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 12</span><h3>Hard stops</h3>
-      <p>Not preferences. Any one of these makes the output worse than sending nothing.</p></div>
+      <p>Not preferences. Any one of these makes the output worse than sending nothing.</p><span class="who ai">The AI</span></div>
 
     <div class="fcard" style="border-left-color:var(--ember)">
       <div class="ebad"><span>Describing a source you could not read as though you read it</span><i>poisons everything downstream</i></div>
