@@ -2174,19 +2174,22 @@ and read BLD 09 for what additionally opens up.</pre>
     if (el.hasAttribute(&#x27;data-static-ok&#x27;) || el.closest(&#x27;[data-static-ok]&#x27;)) return;
     const r = el.getBoundingClientRect();
     if (r.width &lt; innerWidth*0.6 || r.height &lt; 420) return;
-    const s = cs(el);
-    const plain = s.backgroundImage === &#x27;none&#x27;;
-    if (!plain) return;
-    const hasLiveKid = [...el.children].some(k =&gt; {
+    <i>// texture on an ANCESTOR already covers this area — an inner .wrap inside a</i>
+    <i>// properly textured section is not itself a dead field.</i>
+    const textured = n =&gt; {
+      if (cs(n).backgroundImage !== &#x27;none&#x27;) return true;
+      return [&#x27;::before&#x27;,&#x27;::after&#x27;].some(p =&gt; { const ps = getComputedStyle(n, p);
+        return ps.content !== &#x27;none&#x27; &amp;&amp; ps.backgroundImage !== &#x27;none&#x27;; });
+    };
+    let up = el, covered = false;
+    while (up &amp;&amp; up !== document.body) { if (textured(up)) { covered = true; break; } up = up.parentElement; }
+    if (covered) return;
+    const live = [...el.querySelectorAll(&#x27;*&#x27;)].some(k =&gt; {
       const ks = cs(k);
       return k.tagName === &#x27;CANVAS&#x27; || ks.backgroundImage !== &#x27;none&#x27;
           || (ks.animationName &amp;&amp; ks.animationName !== &#x27;none&#x27;);
     });
-    const pseudo = [&#x27;::before&#x27;,&#x27;::after&#x27;].some(p =&gt; {
-      const ps = getComputedStyle(el, p);
-      return ps.content !== &#x27;none&#x27; &amp;&amp; ps.backgroundImage !== &#x27;none&#x27;;
-    });
-    if (!hasLiveKid &amp;&amp; !pseudo)
+    if (!live)
       ok(false, &#x27;flat dead field &#x27; + Math.round(r.width) + &#x27;x&#x27; + Math.round(r.height)
          + &#x27;px — no texture, gradient or motion on it (CHO 00 section-ground row)&#x27;);
   });
