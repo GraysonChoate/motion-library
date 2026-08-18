@@ -12,6 +12,7 @@ consistently good.
 
 | | |
 |---|---|
+| **Build** *(in the library page)* | the trigger phrase, the twenty-minute procedure, the bad-input playbook and the audit — the **procedure** |
 | **[`research/`](research/)** | how to find out what's actually true about a client, and prove it — the **gauge** |
 | **[`effects/`](effects/)** | working, debugged interaction code you can lift — the **fixtures** |
 | **Patterns** *(in the library page)* | the two questions that place any business — the **classifier** |
@@ -20,7 +21,8 @@ consistently good.
 | **[`standards/`](standards/)** | accessibility, performance, and demo-vs-ship values — the **tolerances** |
 
 **New here?** Open **[`effects/effects-library.html`](effects/effects-library.html)** in a
-browser and move your cursor through every stage. Then read
+browser. It opens on the **Build** tab — the procedure — and everything else is reference the
+procedure sends you to. Then go to **Effects** and move your cursor through every stage. Then read
 [`research/README.md`](research/README.md) and fill in a research card for a business you
 already know — a café near you, your gym. Doing it once on something familiar is the
 fastest way to see what the card catches that intuition misses.

@@ -559,6 +559,62 @@ footer b{color:var(--ink-dim); font-weight:500}
   font-size:clamp(27px,4vw,44px); line-height:1.1; letter-spacing:-.02em}
 .tspec.community .tstext{font-family:Inter,var(--sans); font-weight:400; font-size:15.5px}
 
+/* ================= BUILD ================= */
+.trig{border:1px solid var(--edge); border-radius:2px; background:linear-gradient(180deg,rgba(201,164,92,.05),transparent);
+  padding:18px clamp(16px,2.2vw,24px); margin-top:16px}
+.trig .tlab{margin:0 0 10px; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--gold)}
+.trig .tcmd{margin:0; padding:16px 18px; background:#101115; border:1px solid var(--edge-soft);
+  border-left:2px solid var(--ember); border-radius:2px; font-family:var(--mono);
+  font-size:clamp(12px,1.5vw,15px); line-height:1.7; color:var(--cream); white-space:pre-wrap;
+  word-break:break-word; overflow-wrap:anywhere}
+.trig .tnote{margin:12px 0 0; font-size:13.5px; color:var(--ink-faint); line-height:1.6}
+
+.tl{margin-top:18px; border-left:1px solid var(--edge)}
+.tlrow{display:grid; grid-template-columns:96px 1fr; position:relative}
+.tlt{font-family:var(--mono); font-size:13px; color:var(--gold); padding:22px 16px 0 18px;
+  position:relative; font-variant-numeric:tabular-nums; white-space:nowrap}
+.tlt i{display:block; font-style:normal; font-size:9.5px; letter-spacing:.14em; color:var(--ink-faint); margin-top:3px}
+.tlt::before{content:""; position:absolute; left:-4.5px; top:26px; width:8px; height:8px;
+  border-radius:50%; background:var(--ember); box-shadow:0 0 0 3px var(--char)}
+.tlb{padding:18px 0 26px; border-bottom:1px solid var(--edge-soft)}
+.tlrow:last-child .tlb{border-bottom:none}
+.tlb h5{font-family:var(--serif); font-weight:400; font-size:20px; margin:0 0 10px; color:var(--cream)}
+.tlb p{margin:0 0 9px; font-size:14.5px; color:var(--ink-dim); line-height:1.65; max-width:72ch}
+.tlb .tlex{font-size:13.5px; color:var(--ink-faint)}
+.tlb .tlex b,.tlb .tlout b,.tlb .tlgate b{color:var(--tan); font-weight:400}
+.tlb .tlout,.tlb .tlgate{font-size:13.5px; color:var(--ink-faint)}
+.tlb .tlgate b{color:var(--flame)}
+@media(max-width:640px){.tlrow{grid-template-columns:66px 1fr}.tlt{padding:20px 10px 0 14px;font-size:11.5px}}
+
+.scopegrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:16px}
+.scopecol{border:1px solid var(--edge-soft); border-radius:2px; padding:18px 20px; background:var(--soot)}
+.scopecol.yes{border-left:2px solid var(--teal)}
+.scopecol.no{border-left:2px solid var(--ember)}
+.scopecol h4{font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+  margin:0 0 12px; font-weight:400}
+.scopecol.yes h4{color:var(--teal)} .scopecol.no h4{color:var(--ember)}
+.scopecol ul{margin:0; padding:0; list-style:none}
+.scopecol li{padding:6px 0 6px 20px; position:relative; font-size:14px; color:var(--ink-dim); line-height:1.5}
+.scopecol li b{color:var(--cream); font-weight:500}
+.scopecol.yes li::before{content:"+"; position:absolute; left:0; color:var(--teal); font-family:var(--mono); font-size:12px}
+.scopecol.no li::before{content:"\2013"; position:absolute; left:0; color:var(--ember); font-family:var(--mono); font-size:12px}
+
+.labeldemo{margin:4px 0 0; padding:11px 16px; background:rgba(180,99,58,.10);
+  border:1px solid rgba(180,99,58,.3); border-radius:2px; font-family:var(--mono);
+  font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--flame); text-align:center}
+
+.badin td:nth-child(3){color:var(--ink-faint)}
+.badin td:nth-child(3)::before{content:"\2715\00a0\00a0"; color:var(--ember); font-family:var(--mono); font-size:11px}
+
+.auditgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:18px}
+.auditcol{border:1px solid var(--edge-soft); border-radius:2px; padding:16px 18px; background:var(--soot)}
+.auditcol h5{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 10px; font-weight:400}
+.auditcol .checklist{margin:0}
+.auditcol .checklist li{padding:5px 0 5px 24px; font-size:13.5px; color:var(--ink-dim); line-height:1.5}
+.auditcol .checklist li::before{top:5px}
+
 /* ================= COPY ================= */
 .cpsec{padding:clamp(36px,6vh,64px) 0 0}
 .cphead{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
@@ -804,14 +860,12 @@ footer b{color:var(--ink-dim); font-weight:500}
   overflow-x:auto; scrollbar-width:none}
 .tabbar-inner::-webkit-scrollbar{display:none}
 .tab{appearance:none; background:transparent; border:none; cursor:pointer;
-  padding:16px 13px 14px; font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
+  padding:16px 19px 14px; font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
   text-transform:uppercase; color:var(--ink-faint); border-bottom:2px solid transparent;
   transition:color .2s,border-color .2s; white-space:nowrap; display:flex; align-items:center; gap:6px}
 .tab:hover{color:var(--ink-dim)}
 .tab[aria-selected="true"]{color:var(--gold); border-bottom-color:var(--gold)}
 .tab:focus-visible{outline:2px solid var(--slate); outline-offset:-4px}
-.tab .n{font-size:10px; color:var(--ink-faint); font-variant-numeric:tabular-nums}
-.tab[aria-selected="true"] .n{color:var(--tan)}
 .panel[hidden]{display:none}
 .panel-intro{padding:clamp(36px,6vh,64px) 0 8px; max-width:70ch}
 .panel-intro h2{font-family:var(--serif); font-weight:400; font-size:clamp(28px,4.6vw,46px);
@@ -874,7 +928,6 @@ footer b{color:var(--ink-dim); font-weight:500}
   .tabbar-inner{overflow-x:auto; scrollbar-width:none; padding:0 16px}
   .tabbar-inner::-webkit-scrollbar{display:none}
   .tab{padding:14px 11px 12px; font-size:10.5px; gap:0}
-  .tab .n{display:none}
   .wrap{padding:0 16px}
   .brief{padding:20px 16px}
   .rail{padding:18px 16px 20px}
@@ -918,17 +971,508 @@ footer b{color:var(--ink-dim); font-weight:500}
 
 <nav class="tabbar" role="tablist" aria-label="Toolroom sections">
   <div class="tabbar-inner">
-    <button class="tab" role="tab" id="tab-research" aria-controls="panel-research" aria-selected="false">Research <span class="n">gauge</span></button>
-    <button class="tab" role="tab" id="tab-effects"  aria-controls="panel-effects"  aria-selected="true">Effects <span class="n">fixtures</span></button>
-    <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns <span class="n">classifier</span></button>
-    <button class="tab" role="tab" id="tab-copy" aria-controls="panel-copy" aria-selected="false">Copy <span class="n">words</span></button>
-    <button class="tab" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false">Kit <span class="n">furniture</span></button>
-    <button class="tab" role="tab" id="tab-standards" aria-controls="panel-standards" aria-selected="false">Standards <span class="n">tolerances</span></button>
+    <button class="tab" role="tab" id="tab-build" aria-controls="panel-build" aria-selected="true">Build</button>
+    <button class="tab" role="tab" id="tab-research" aria-controls="panel-research" aria-selected="false">Research</button>
+    <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+    <button class="tab" role="tab" id="tab-copy" aria-controls="panel-copy" aria-selected="false">Copy</button>
+    <button class="tab" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false">Kit</button>
+    <button class="tab" role="tab" id="tab-effects" aria-controls="panel-effects" aria-selected="false">Effects</button>
+    <button class="tab" role="tab" id="tab-standards" aria-controls="panel-standards" aria-selected="false">Standards</button>
   </div>
 </nav>
 
 <div class="wrap">
-<div class="panel" id="panel-effects" role="tabpanel" aria-labelledby="tab-effects">
+<div class="panel" id="panel-build" role="tabpanel" aria-labelledby="tab-build">
+  <div class="panel-intro">
+    <p class="role">The procedure</p>
+    <h2>Type one line. Get a page back.</h2>
+    <p>Every other tab is <strong>reference</strong> — material the AI consults while it works. This
+    tab is the <strong>procedure</strong>: the trigger, the ordered steps, the time budget, and the
+    audit that runs before anything is handed over.</p>
+    <p>Written for the AI to execute, not for a person to interpret. If you're a person, the only two
+    things you need are the trigger phrase in BLD 00 and the hand-over rule in BLD 03.</p>
+  </div>
+
+  <!-- ============ TRIGGER ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 00</span><h3>The trigger</h3>
+      <p>Upload this file to any AI that can read a document and write code. Then send one line.</p></div>
+
+    <div class="trig">
+      <p class="tlab">Phase 1 — the mockup</p>
+      <pre class="tcmd">IMPLEMENT PHASE ONE — https://theirsite.com</pre>
+      <p class="tnote">Nothing else is required. No brief, no answers, no assets. The AI reads this
+      document, runs BLD 01, and returns one self-contained HTML file in 15–20 minutes.</p>
+    </div>
+
+    <div class="trig">
+      <p class="tlab">Phase 2 — the real build</p>
+      <pre class="tcmd">IMPLEMENT PHASE TWO — https://theirsite.com
+&lt;paste anything learned since: what they liked, what they didn't,
+ real photography, page list, brand assets, corrections&gt;</pre>
+      <p class="tnote">Same document, same classification, different permissions. See BLD 06.</p>
+    </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">AI</span><h4>Standing instructions for whichever model is reading this</h4></div>
+      <div class="egood"><span><b>Do not ask clarifying questions.</b> Every ambiguity in this process has a stated default. Find it and proceed.</span><i>the one exception is a hard blocker in BLD 04</i></div>
+      <div class="egood"><span><b>State your classification before building.</b> One line: <code>Pattern C × Register Raw · confidence high</code>. It's the single highest-leverage decision and it must be visible.</span></div>
+      <div class="egood"><span><b>Tag every fact with its evidence tier.</b> Nothing at tier E or F appears on the page.</span></div>
+      <div class="egood"><span><b>Invent nothing.</b> No prices, reviews, testimonials, awards, credentials, years, counts, or links you did not read from a source.</span></div>
+      <div class="egood"><span><b>Take defaults from this document, not from your own habits.</b> Where the Kit has a token, use it. Where Choreography has a budget, keep it. Where Copy has a word count, hold it.</span></div>
+      <div class="egood"><span><b>If a fetch fails, say so in plain words</b> and continue under BLD 04. Never describe a source you could not read as though you read it.</span></div>
+      <div class="egood"><span><b>Report what you skipped.</b> The hand-over ends with what you couldn't verify and what you left out.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ PHASE ONE ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 01</span><h3>Phase 1 — the procedure</h3>
+      <p>Eight steps, time-boxed to twenty minutes. Each has an output and a gate. Do not start a step
+      until the previous gate passes.</p></div>
+
+    <div class="tl">
+      <div class="tlrow">
+        <div class="tlt">0–3<i>min</i></div>
+        <div class="tlb">
+          <h5>1 · Read the site</h5>
+          <p>Fetch the homepage and the two most-linked internal pages — usually <b>About / Our Story</b>
+          and <b>Menu / Services / Pricing</b>. Parse the HTML, don't just skim rendered text.</p>
+          <p class="tlex"><b>Extract:</b> every hex and rgb in the CSS with a frequency count · the font
+          stacks · the nav items in order · the text on the busiest button · headings verbatim · the
+          best three sentences anywhere on the site · prices, hours, address, phone · every real
+          outbound link (booking, ordering, socials, maps) · image URLs · any ® or ™.</p>
+          <p class="tlout"><b>Output</b> — a raw dump of what you actually read, with URLs.</p>
+          <p class="tlgate"><b>Gate</b> — a written list of anything you could not reach. A blocked
+          fetch is a finding, never a hole to fill with a guess.</p>
+        </div>
+      </div>
+
+      <div class="tlrow">
+        <div class="tlt">3–5<i>min</i></div>
+        <div class="tlb">
+          <h5>2 · Classify</h5>
+          <p>Run the Patterns tab. <b>Pattern</b> from what the customer is deciding — the money action
+          is usually written on their busiest button. <b>Register</b> from their palette, type weight
+          and photography, <i>not</i> from their industry.</p>
+          <p class="tlout"><b>Output</b> — one line, stated out loud:
+          <code>Pattern B × Register Craft · confidence high</code>.</p>
+          <p class="tlgate"><b>Gate</b> — low confidence resolves to the closest pattern in the
+          <b>Community</b> register. Never stop to ask.</p>
+        </div>
+      </div>
+
+      <div class="tlrow">
+        <div class="tlt">5–7<i>min</i></div>
+        <div class="tlb">
+          <h5>3 · Diagnose</h5>
+          <p><b>One sentence</b> naming what is wrong with the current site. Not a list. If it needs a
+          paragraph, you don't have it yet.</p>
+          <p class="tlex"><b>Shapes that work:</b> "The homepage is a coupon and the story is in the
+          basement." · "Everything they sell is behind a PDF." · "The photography is good and it's
+          all 400px wide." · "They have three fonts and no hierarchy."</p>
+          <p class="tlout"><b>Output</b> — the sentence. It becomes the thesis the whole page argues.</p>
+          <p class="tlgate"><b>Gate</b> — the diagnosis must be about <b>execution</b>, never about
+          the brand. We elevate execution; we don't rebrand.</p>
+        </div>
+      </div>
+
+      <div class="tlrow">
+        <div class="tlt">7–9<i>min</i></div>
+        <div class="tlb">
+          <h5>4 · Set the system</h5>
+          <p>From the Kit tab, in this order: <b>palette</b> (their most-frequent hex is
+          <code>brand 500</code>; derive the ramp and the neutrals from it, biasing greys 3–5% toward
+          the brand hue) → <b>typefaces</b> (KIT 02, by register; match what they already own if they
+          own something) → <b>scale and spacing</b> (KIT 01, unchanged) → <b>layout archetype</b>
+          (KIT 03, by pattern).</p>
+          <p class="tlout"><b>Output</b> — a token block. Every value on the finished page comes from it.</p>
+          <p class="tlgate"><b>Gate</b> — the brand colour is an accent: CTA, active state, one rule,
+          one highlight. <b>Never a large background area.</b></p>
+        </div>
+      </div>
+
+      <div class="tlrow">
+        <div class="tlt">9–10<i>min</i></div>
+        <div class="tlb">
+          <h5>5 · Choose the motion</h5>
+          <p>From Choreography: <b>one signature, two supporting, one ambient.</b> Pick the signature
+          from something this business owns, then find the effect that expresses it — not the other
+          way round.</p>
+          <p class="tlout"><b>Output</b> — four effect IDs and one sentence saying what fact the
+          signature comes from.</p>
+          <p class="tlgate"><b>Gate</b> — if you can't name the fact, it's decoration. Choose again.</p>
+        </div>
+      </div>
+
+      <div class="tlrow">
+        <div class="tlt">10–12<i>min</i></div>
+        <div class="tlb">
+          <h5>6 · Write the copy</h5>
+          <p>From the Copy tab: headline formula for the pattern, voice for the register, word budget
+          per slot. <b>Their verbatim sentences first</b>, rearranged second, yours only for things you
+          verified.</p>
+          <p class="tlout"><b>Output</b> — every string on the page, with its evidence tier beside it.</p>
+          <p class="tlgate"><b>Gate</b> — total under <b>320 words</b>. Zero strings at tier E or F.</p>
+        </div>
+      </div>
+
+      <div class="tlrow">
+        <div class="tlt">12–18<i>min</i></div>
+        <div class="tlb">
+          <h5>7 · Build</h5>
+          <p>One self-contained HTML file. Sections in the order the pattern specifies, with the
+          components the pattern requires. Their real links on every action. Their real images by URL,
+          treated per KIT 05. The concept-work label, visible and persistent.</p>
+          <p class="tlout"><b>Output</b> — the file.</p>
+          <p class="tlgate"><b>Gate</b> — it opens by double-click, offline, with no build step and no
+          external request except the client's own image URLs.</p>
+        </div>
+      </div>
+
+      <div class="tlrow">
+        <div class="tlt">18–20<i>min</i></div>
+        <div class="tlb">
+          <h5>8 · Audit and hand over</h5>
+          <p>Run BLD 05 in full. Fix what it catches — don't report it. Then write the hand-over note
+          from BLD 03.</p>
+          <p class="tlout"><b>Output</b> — the file plus a short note: classification, diagnosis,
+          signature effect, what you couldn't verify, what you left out.</p>
+          <p class="tlgate"><b>Gate</b> — every line of the audit passes, or the failure is named in
+          the note.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCOPE ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 02</span><h3>What Phase 1 is</h3>
+      <p>The scope is narrow on purpose. Everything cut here exists in Phase 2 — nothing is being
+      abandoned, only sequenced.</p></div>
+
+    <div class="scopegrid">
+      <div class="scopecol yes">
+        <h4>In</h4>
+        <ul>
+          <li>The <b>homepage only</b></li>
+          <li><b>Desktop</b> composition, roughly 1440 wide</li>
+          <li>One self-contained HTML file</li>
+          <li>Real palette, real type, real structure</li>
+          <li>Their verbatim copy</li>
+          <li>Their real images, by URL</li>
+          <li>Their real links on every action</li>
+          <li>Four motion slots, at ship values</li>
+          <li>CSS and vanilla JS only</li>
+          <li>The concept-work label</li>
+        </ul>
+      </div>
+      <div class="scopecol no">
+        <h4>Out — until Phase 2</h4>
+        <ul>
+          <li>Any second page</li>
+          <li>Mobile and tablet layouts</li>
+          <li>Working forms, booking, cart, search</li>
+          <li>Video of any kind</li>
+          <li>Generated or stock imagery</li>
+          <li>WebGL, 3D, shaders</li>
+          <li>A CMS, a backend, a database</li>
+          <li>Full accessibility and performance work</li>
+          <li>Cross-browser testing</li>
+          <li>Anything requiring a person to decide</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warnbox"><b>Not functional is a feature, not a shortcut.</b> Buttons look real and go
+    to the client's real URLs. Nothing is wired up, and nothing pretends to be. A mockup that half
+    works is worse than one that clearly doesn't, because the first thing anyone does is click.</div>
+
+    <p style="margin-top:16px;font-size:14px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
+    <b style="color:var(--tan)">Desktop-only has one consequence to respect ·</b> don't build a layout
+    that has no obvious phone answer. A five-column feature row and a horizontally-scrolling hero
+    both look fine at 1440 and have no good mobile form. Choosing archetypes from KIT 03 avoids this
+    automatically — every one of them collapses cleanly.</p>
+  </section>
+
+  <!-- ============ DELIVERABLE ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 03</span><h3>The deliverable</h3>
+      <p>One file and one short note. Nothing else is produced or expected.</p></div>
+
+    <div class="fcard">
+      <h4 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 10px;color:var(--cream)">The file</h4>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      Named <code>&lt;business&gt;-concept-v1.html</code>. Self-contained. Opens by double-click.
+      It starts with a comment block stating how it was made:</p>
+      <pre><code>&lt;!--
+  CONCEPT STUDY · not affiliated with, endorsed by, or commissioned by the business.
+  Source        https://theirsite.com  (read 2026-08-18)
+  Pattern       B · come and consume        Register  Craft
+  Diagnosis     The homepage is a coupon; the story is in the basement.
+  Palette       brand 500 #E3B245 — 25 occurrences in their own CSS
+  Type          Instrument Serif 400 / Newsreader 300
+  Signature     REV-03, built on their published cream ratios
+  Copy          all verbatim or rearranged from their own pages, tiers A–C
+  Unverified    Instagram (blocked from this network) · review counts
+--&gt;</code></pre>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">That block is
+      the audit trail. Anyone picking the file up later can see what was measured, what was inferred,
+      and what was never checked — without asking whoever made it.</p>
+    </div>
+
+    <div class="fcard">
+      <h4 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 10px;color:var(--cream)">The label, in the page</h4>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Visible and
+      persistent — a fixed strip, not a footer line someone has to scroll to. It is the difference
+      between concept work and passing something off as real.</p>
+      <div class="labeldemo">Unsolicited concept study · not affiliated with the business · all copy is theirs</div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">Registered
+      marks keep their <b>®</b>. If they run trial-licensed or unlicensed fonts, note it in the
+      hand-over — it's a real liability and worth someone knowing.</p>
+    </div>
+
+    <div class="fcard">
+      <h4 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 10px;color:var(--cream)">The note</h4>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">Six lines.
+      Not a document.</p>
+      <table class="lentable">
+        <tr><td>Classification</td><td>Pattern × Register, and confidence</td></tr>
+        <tr><td>Diagnosis</td><td>the one sentence</td></tr>
+        <tr><td>What moved</td><td>what was buried that is now at the top</td></tr>
+        <tr><td>Signature</td><td>the effect, and the fact it came from</td></tr>
+        <tr><td>Unverified</td><td>every source you could not reach</td></tr>
+        <tr><td>Left out</td><td>anything Phase 1 scope excluded that matters here</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ BAD INPUT ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 04</span><h3>When the input is bad</h3>
+      <p>It usually is. Every row has a stated default so nothing here stops the run.</p></div>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
+    The businesses worth elevating are precisely the ones whose sites are broken, so <b style="color:var(--cream)">bad
+    input is the normal case, not the exception.</b> Two rules cover everything below: <b>work with
+    less rather than inventing more</b>, and <b>a constraint stated in the hand-over is a finding, not
+    a failure.</b></p>
+
+    <table class="lentable badin">
+      <tr><th>What you find</th><th>Do this</th><th>Never</th></tr>
+      <tr><td>No usable images</td><td>Build a type-led page. Large display type, generous space, one rule, colour fields from their palette. Editorial layouts don't need photography and frequently beat it.</td><td>Generate images. Use stock.</td></tr>
+      <tr><td>Images exist but are tiny or low-res</td><td>Use them small and deliberately — a 400px image at 400px is sharp. Crop tight, treat per KIT 05, and let type carry the scale.</td><td>Upscale and stretch across a hero.</td></tr>
+      <tr><td>One good image only</td><td>Use it once, big, as the hero. Everything else is type and colour. One good photo used once beats four bad ones.</td><td>Repeat it at different crops.</td></tr>
+      <tr><td>Brand colour is genuinely ugly</td><td>Keep it, shrink its area. Use it as accent only — button, active state, one hairline — against neutrals biased toward it. A bad colour in a 2% area reads as intentional.</td><td>Replace it. That's a rebrand.</td></tr>
+      <tr><td>Brand colour fails contrast on text</td><td>Keep the hue, adjust lightness for the text role only, and keep the original for large fills and the CTA background. State the adjustment in the hand-over.</td><td>Ship failing contrast because it's "their colour."</td></tr>
+      <tr><td>Forty words of copy on the whole site</td><td>CPY 06 mining order. If it's still dry, go structural — short declarative labels, their real numbers, more space.</td><td>Write plausible-sounding brand copy.</td></tr>
+      <tr><td>Low-res or bitmap-only logo</td><td>Set the name as type in the display face, at the size the logo would occupy, and note that a vector original is needed. Often looks better than the logo.</td><td>Trace it, redraw it, or blow it up.</td></tr>
+      <tr><td>No logo anywhere</td><td>Wordmark in the display face with deliberate tracking. That <i>is</i> a logo for mockup purposes.</td><td>Design a mark. Not our call.</td></tr>
+      <tr><td>Menu or prices only as a PDF</td><td>Read the PDF, set it as live HTML text. This alone is often the largest single improvement on the page.</td><td>Embed or link the PDF again.</td></tr>
+      <tr><td>Site is a JS shell — no content in the HTML</td><td>Take content from the rendered text, their Google Business listing, and their social bios. Tag the tiers honestly and say the DOM was unreadable.</td><td>Claim you parsed their CSS when you got a shell.</td></tr>
+      <tr><td>Fetch blocked entirely</td><td>Say so in one plain sentence and ask for one thing: a screenshot of the homepage. This is the <b>only</b> hard blocker in the process.</td><td>Build from your mental model of the brand.</td></tr>
+      <tr><td>They have no address or hours</td><td>Omit the practical section. A missing section is honest; an invented one is not.</td><td>Fill it with plausible hours.</td></tr>
+      <tr><td>Reviews exist but you can't verify them</td><td>Omit the proof section, and say in the note that review proof is the highest-value addition available.</td><td>Paraphrase, attribute to initials, or invent a rating.</td></tr>
+      <tr><td>Site is already good</td><td>Say so plainly, then find the one thing that is genuinely weaker than the rest and rebuild that section only. Honest and short beats a rebuild nobody needed.</td><td>Change it for the sake of changing it.</td></tr>
+      <tr><td>Two businesses on one site</td><td>Pick the pattern matching the busiest button and build that. Note the other in the hand-over.</td><td>Try to serve both.</td></tr>
+      <tr><td>Register is ambiguous</td><td>Community. It's the most forgiving treatment and the least likely to be wrong in a way that matters.</td><td>Default to Luxury because it looks best in a screenshot.</td></tr>
+    </table>
+  </section>
+
+  <!-- ============ AUDIT ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 05</span><h3>The cheap-tells audit</h3>
+      <p>Mechanical. Run every line before hand-over. Fix what it catches — don't report it.</p></div>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
+    Nothing here is a matter of taste. Each line is a yes-or-no check on something that reliably makes
+    a page read as generated, templated or rushed — the differences a client can feel but not name.</p>
+
+    <div class="auditgrid">
+      <div class="auditcol">
+        <h5>Honesty</h5>
+        <ul class="checklist">
+          <li>Every fact on the page traces to a source you read</li>
+          <li>No invented prices, hours, counts, awards, credentials or years</li>
+          <li>No fabricated testimonial, name or rating</li>
+          <li>Every link goes to a URL you actually saw</li>
+          <li>Registered marks carry ®</li>
+          <li>The concept-work label is visible and persistent</li>
+        </ul>
+      </div>
+      <div class="auditcol">
+        <h5>Type</h5>
+        <ul class="checklist">
+          <li>Two families, three only if the third is a functional mono</li>
+          <li>Four weights maximum, all of them used</li>
+          <li>No heading orphan — <code>text-wrap:balance</code> everywhere</li>
+          <li>Display tracking negative, label tracking positive, body at zero</li>
+          <li>Curly quotes, em dashes, real middots</li>
+          <li>Prices and times in tabular figures</li>
+          <li>No centred paragraphs, no justified text</li>
+          <li>Body measure under 70 characters</li>
+        </ul>
+      </div>
+      <div class="auditcol">
+        <h5>Space</h5>
+        <ul class="checklist">
+          <li>Every gap is on the 8pt scale</li>
+          <li>Section padding is 96 or 128 — nothing between</li>
+          <li>Space inside an element is smaller than space around it</li>
+          <li>Optical alignment checked, not just numeric</li>
+          <li>One consistent page margin, held on every section</li>
+          <li>Nothing is centred just because it was easier</li>
+        </ul>
+      </div>
+      <div class="auditcol">
+        <h5>Colour</h5>
+        <ul class="checklist">
+          <li>Brand colour is an accent, never a large field</li>
+          <li>Neutrals biased toward the brand hue, never pure grey</li>
+          <li>Body text meets 4.5:1, large text 3:1</li>
+          <li>No pure black and no pure white anywhere</li>
+          <li>No gradient that isn't doing a job</li>
+          <li>One accent, not three</li>
+        </ul>
+      </div>
+      <div class="auditcol">
+        <h5>Form</h5>
+        <ul class="checklist">
+          <li>Radii are 2px, 3px or full — nothing at 12 or 16</li>
+          <li>Hairlines at 1px, not 2 or 3</li>
+          <li>No soft blurred drop shadows on cards</li>
+          <li>No glassmorphism, no neon glow</li>
+          <li>Images are cropped deliberately, not fitted into boxes</li>
+          <li>Icons are one set at one weight</li>
+        </ul>
+      </div>
+      <div class="auditcol">
+        <h5>Motion</h5>
+        <ul class="checklist">
+          <li>One signature, two supporting, one ambient — counted</li>
+          <li>Ship values, not demo values</li>
+          <li>Nothing re-animates on scroll back up</li>
+          <li>Entrance finishes under 1.2s</li>
+          <li>One easing family across the whole page</li>
+          <li>Reduced-motion state is designed, not blank</li>
+          <li>One shared rAF loop, sections gated</li>
+        </ul>
+      </div>
+      <div class="auditcol">
+        <h5>Copy</h5>
+        <ul class="checklist">
+          <li>Under 320 words total</li>
+          <li>No journey, passionate, believe, elevate, unleash, seamless, curated, solutions</li>
+          <li>Headline stops working if you swap in a competitor&rsquo;s name</li>
+          <li>One primary action, styled unlike anything else</li>
+          <li>Buttons are verb + object</li>
+          <li>Cards in a row are within three words of each other</li>
+          <li>No exclamation marks outside a real quote</li>
+        </ul>
+      </div>
+      <div class="auditcol">
+        <h5>Specificity</h5>
+        <ul class="checklist">
+          <li>Swap in a competitor's name — does the page still work?</li>
+          <li>At least one thing on the page only this business could say</li>
+          <li>The signature effect traces to a real fact about them</li>
+          <li>The palette came from their CSS, not from your taste</li>
+          <li>Their best sentence is above the fold</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warnbox"><b>The last group is the one that matters.</b> Everything above it is
+    craft, and craft is table stakes. If the page could belong to a different client, it doesn't
+    matter how clean the spacing is — start over.</div>
+  </section>
+
+  <!-- ============ PHASE TWO ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 06</span><h3>Phase 2 — after they sign</h3>
+      <p>Same document, same classification, wider permissions. This is where everything Phase 1
+      excluded comes back.</p></div>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
+    <b style="color:var(--cream)">The classification does not change.</b> Pattern and register were
+    derived from what the business is, not from how much time you had. Phase 2 adds pages, depth and
+    real material to a decision already made — if the register turns out to be wrong, that's a
+    finding worth stating, not something to quietly redo.</p>
+
+    <table class="lentable">
+      <tr><th>Area</th><th>What opens up</th><th>Reference</th></tr>
+      <tr><td>Pages</td><td>Every page in the nav. Same tokens, same components, same motion vocabulary — a page that looks unrelated to the homepage is the failure mode here.</td><td>KIT 03</td></tr>
+      <tr><td>Mobile</td><td>Real layouts at 390 and 768, not a narrowed desktop. Axis-dependent effects re-checked, pointer effects given a static or tilt equivalent, particle counts and blur radii halved.</td><td>Standards §5</td></tr>
+      <tr><td>Content</td><td>Their real photography, shot or supplied. Real copy from the call. Everything that was omitted in Phase 1 for lack of evidence.</td><td>CPY 06</td></tr>
+      <tr><td>Motion</td><td>Budget can rise to two signatures on a long page. GL group becomes available. Page transitions and speculation rules.</td><td>CHO 01 · GL · PLT</td></tr>
+      <tr><td>Video</td><td>Allowed, with a poster frame, <code>preload="none"</code>, muted autoplay only when decorative, and a reduced-motion still.</td><td>—</td></tr>
+      <tr><td>Accessibility</td><td>Full pass: keyboard path, focus order, screen-reader labels, contrast under motion, reduced-motion and reduced-transparency states.</td><td>Standards §4</td></tr>
+      <tr><td>Performance</td><td>Real budgets. Image formats and sizes, font subsetting, layout-shift measurement, CPU throttling, a mid-range device.</td><td>Standards §3</td></tr>
+      <tr><td>Function</td><td>Forms, booking embeds, cart, search, CMS. The first point at which anything actually works.</td><td>—</td></tr>
+      <tr><td>Browsers</td><td>Safari included, which is where <code>mask-image</code>, <code>backdrop-filter</code> and scroll timelines behave differently.</td><td>PLT</td></tr>
+    </table>
+
+    <p style="margin-top:18px;font-size:14px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
+    <b style="color:var(--tan)">The one thing Phase 2 needs from a person ·</b> everything learned
+    since the mockup. What they reacted to, what they pushed back on, the assets they hold, the pages
+    they actually need, the corrections to anything that was inferred. Paste it under the trigger.
+    <b>The AI cannot get this from the site, and it is worth more than every other input combined.</b></p>
+  </section>
+
+  <!-- ============ TWEAKS ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 07</span><h3>Tweak vocabulary</h3>
+      <p>What a person means when they say a vague thing, and what the AI should actually change.</p></div>
+
+    <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
+    Feedback on a mockup is almost always impressionistic, and the usual failure is the AI changing
+    everything at once. Each row maps a phrase to <b style="color:var(--cream)">the two or three
+    specific changes that actually produce it.</b> Make those. Change nothing else.</p>
+
+    <table class="lentable">
+      <tr><th>They say</th><th>Change</th></tr>
+      <tr><td>Make it feel more premium</td><td>Increase section padding by one step · reduce accent area · tighten display tracking · remove one element per section. <b>Almost always subtraction.</b></td></tr>
+      <tr><td>It feels cheap</td><td>Check radii and shadows first — a 16px radius with a blurred shadow is usually the whole answer. Then hairline weight, then colour saturation.</td></tr>
+      <tr><td>Make it warmer</td><td>Bias the neutrals further toward the brand hue · raise the type size one step · reduce contrast between surface and ground · switch display face to a serif or humanist.</td></tr>
+      <tr><td>Make it cleaner</td><td>Remove elements. Do not add whitespace to a page that has too many things on it — that produces a sparse mess.</td></tr>
+      <tr><td>It's too busy</td><td>Cut the motion budget by one slot · reduce to one accent colour · remove every border that isn't separating something.</td></tr>
+      <tr><td>It's boring</td><td>The signature effect isn't landing, or the hero image is too small. Do <b>not</b> add effects — raise the amplitude of the one that's there and enlarge the hero.</td></tr>
+      <tr><td>Make it more modern</td><td>Sharper geometry, 1px hairlines, tighter display tracking, more contrast in type scale. Not more motion.</td></tr>
+      <tr><td>Make it more editorial</td><td>Wider measure with an asymmetric grid · a real pull quote · a display serif · one image per screen instead of a row.</td></tr>
+      <tr><td>Make it bolder</td><td>One step heavier on display only · larger hero type · higher contrast. Never bolder body copy.</td></tr>
+      <tr><td>Make it feel more expensive</td><td>Same as premium, plus: smaller logo, more space around the CTA, fewer words above the fold.</td></tr>
+      <tr><td>The hero doesn't work</td><td>In order: is the headline specific · is the image big enough · is the action the only button · is there a fourth element that should go.</td></tr>
+      <tr><td>It doesn't feel like us</td><td>The register is wrong. Re-read four sentences of their own copy and reclassify. This is a real restart, not a tweak — and it's the only feedback that justifies one.</td></tr>
+      <tr><td>Can we add a video</td><td>Phase 2. Say so, and note the poster frame and reduced-motion requirements now so nobody is surprised later.</td></tr>
+      <tr><td>Our customers are older</td><td>Body up one step · contrast up · reduce motion amplitude by half · larger tap targets · no ambient behind text.</td></tr>
+    </table>
+
+    <div class="warnbox"><b>One change at a time.</b> The failure mode with an AI editing a mockup is
+    <b>drift</b> — every pass quietly restyles things nobody mentioned until the page no longer matches
+    its own classification. After any tweak, re-run the Specificity group of BLD 05.</div>
+  </section>
+
+  <!-- ============ NEVER ============ -->
+  <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 08</span><h3>Hard stops</h3>
+      <p>Not preferences. Any one of these makes the output worse than sending nothing.</p></div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="ebad"><span>Describing a source you could not read as though you read it</span><i>poisons everything downstream</i></div>
+      <div class="ebad"><span>Any invented price, hour, review, rating, award, credential, count or date</span></div>
+      <div class="ebad"><span>A link you guessed from a URL pattern</span></div>
+      <div class="ebad"><span>Generated or stock imagery presented as theirs</span></div>
+      <div class="ebad"><span>Changing the logo, the name, or the marks</span><i>elevation, not rebrand</i></div>
+      <div class="ebad"><span>Replacing the brand colour because you prefer another</span></div>
+      <div class="ebad"><span>Shipping without the concept-work label</span></div>
+      <div class="ebad"><span>Implying a relationship with the business that doesn't exist</span></div>
+      <div class="ebad"><span>Demo-amplitude motion in a hand-over</span></div>
+      <div class="ebad"><span>A page that would work equally well for a competitor</span></div>
+    </div>
+  </section>
+</div><!-- /panel-build -->
+
+<div class="panel" id="panel-effects" role="tabpanel" aria-labelledby="tab-effects" hidden>
   <div class="panel-intro">
     <p class="role">The fixtures</p>
     <h2>Working parts, already debugged</h2>
