@@ -1792,6 +1792,15 @@ and read BLD 09 for what additionally opens up.</pre>
     <div class="cphead"><span class="n">BLD 06</span><h3>The cheap-tells audit</h3>
       <p>Mechanical. Run every line before hand-over. Fix what it catches — don't report it.</p><span class="who ai">The AI</span></div>
 
+    <div class="warnbox" style="margin-top:14px"><b>&quot;Don't report it&quot; includes advisories.</b>
+    An advisory you print, read, and ship past is not a check — it is a habit.
+    <b style="color:var(--cream)">A real build printed the same logo advisory on every single run and
+    shipped anyway, five times in a row, because nothing forced it to be resolved.</b> That is why
+    the two judgement-call checks below now <b>fail</b> instead of warning: resolve each one exactly
+    once, either by fixing it or by marking the acknowledgement attribute it names
+    (<code>data-logo-ok</code>, <code>data-contrast-ok</code>) after you have genuinely verified it.
+    <b>Never hand over with unresolved output of any severity.</b></div>
+
     <p style="font-size:14.5px;color:var(--ink-dim);line-height:1.65;margin:14px 0 0;max-width:74ch">
     Nothing here is a matter of taste. Each line is a yes-or-no check on something that reliably makes
     a page read as generated, templated or rushed — the differences a client can feel but not name.</p>
@@ -1957,9 +1966,15 @@ and read BLD 09 for what additionally opens up.</pre>
   <i>// 11 · a logo sitting in nav/footer with no treatment at all is worth a look,</i>
   <i>//      even though this check can&#x27;t tell a fine transparent PNG from a raw</i>
   <i>//      white box — see KIT 03 before deciding it&#x27;s fine.</i>
+  <i>//      This FAILS rather than warns. An advisory that can be ignored forever</i>
+  <i>//      will be — a real build printed this same line on every run and shipped</i>
+  <i>//      anyway, five times. Treat the logo, or mark data-logo-ok once you have</i>
+  <i>//      actually confirmed the source file is transparent. Both resolve it; a</i>
+  <i>//      console message you keep re-reading does not.</i>
   $$(&#x27;nav img, footer img&#x27;).forEach(i =&gt; {
+    if (i.hasAttribute(&#x27;data-logo-ok&#x27;)) return;
     const untouched = cs(i).mixBlendMode === &#x27;normal&#x27; &amp;&amp; cs(i).filter === &#x27;none&#x27;;
-    if (untouched) console.warn(&#x27;ADVISORY — logo has no mix-blend-mode or filter. Confirm the source PNG is actually transparent, not baked onto white (KIT 03), before shipping:&#x27;, i.src.slice(-60));
+    ok(!untouched, &#x27;logo has no treatment and is not marked data-logo-ok — confirm the source is transparent, not baked onto white (KIT 03): &#x27; + i.src.slice(-60));
   });
 
   <i>// 12 · nothing renders smaller than it can actually be read. Mark real fine</i>
@@ -2088,7 +2103,10 @@ and read BLD 09 for what additionally opens up.</pre>
     if (r.width &gt; 0 &amp;&amp; r.height &gt; 0) {
       const stack = document.elementsFromPoint(r.left + r.width/2, r.top + r.height/2);
       if (stack.some(el =&gt; el.tagName === &#x27;CANVAS&#x27;)) {
-        console.warn(&#x27;ADVISORY — can\&#x27;t compute contrast on &quot;&#x27; + e.innerText.slice(0,30) + &#x27;&quot;, a canvas is painted behind it — check by eye or mark data-contrast-ok&#x27;);
+        <i>// also a hard fail, for the same reason as check 11: verify it by eye</i>
+        <i>// ONCE and mark data-contrast-ok. Never leave it printing every run.</i>
+        ok(false, &#x27;contrast unverifiable on &quot;&#x27; + e.innerText.slice(0,30)
+           + &#x27;&quot; — a canvas is painted behind it. Check it by eye, then mark data-contrast-ok&#x27;);
         return;
       }
     }
@@ -2172,6 +2190,10 @@ and read BLD 09 for what additionally opens up.</pre>
   <i>//      reads as &quot;generated&quot; in a screenshot.</i>
   $$(&#x27;section,div&#x27;).forEach(el =&gt; {
     if (el.hasAttribute(&#x27;data-static-ok&#x27;) || el.closest(&#x27;[data-static-ok]&#x27;)) return;
+    <i>// an element carrying a blend mode is a TREATMENT layer (duotone, grade,</i>
+    <i>// scrim), never a dead field — it exists precisely to modify what is under</i>
+    <i>// it. Flagging those was a false positive found on a real build.</i>
+    if (cs(el).mixBlendMode !== &#x27;normal&#x27;) return;
     const r = el.getBoundingClientRect();
     if (r.width &lt; innerWidth*0.6 || r.height &lt; 420) return;
     <i>// texture on an ANCESTOR already covers this area — an inner .wrap inside a</i>

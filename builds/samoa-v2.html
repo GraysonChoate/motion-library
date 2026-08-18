@@ -1,0 +1,641 @@
+<!--
+  CONCEPT STUDY · not affiliated with, endorsed by, or commissioned by Samoa Beauty Aesthetics LLC.
+  Source      https://www.samoabeauty.com  (Wix) — read 2026-08-18, HTTP 200
+  Pattern     A · trust me with my body        Register  Luxury, calm-leaning
+  Feeling     "These people know exactly what they are doing, and I will be looked after."
+
+  LANGUAGE    THE SITE IS IN SPANISH. Their meta description, nav, headlines and
+              testimonial are all Spanish. Copy below is THEIR OWN, verbatim.
+              Building this in English would have been the single biggest possible
+              miss, and it is only knowable by actually reading their site.
+
+  EVIDENCE
+    A measured  Palette sampled from their OWN images (quantised, % of frame):
+                #EDCCBB blush-nude (55% of r3, 44% of r5 — the real brand colour)
+                #F3E2D6 cream · #EAC9A7 nude · #CCA478 tan · #9A705A warm clay
+                #1E201F near-black (47% of the hero photograph)
+                Logo: 500x500 RGBA, alpha range 0-255 → genuinely transparent,
+                so it needs no knock-out. White variant also supplied by them.
+    B verbatim  All Spanish copy, nav labels, testimonial, address, email, phone.
+    C verified  Phone (469) 688-2505 and Suite 520 agree across their site, Yelp
+                and their Instagram bio.
+    CONFLICT    Groupon lists 402 N O'Connor Rd. Their own site + Yelp + IG all say
+                800 W Airport Fwy Suite 520. Their own site wins.
+    NOT CLAIMED No prices (their Planes de Pago page was not read), no staff names,
+                no invented review counts, no years in business.
+
+  IMAGERY     Every image is THEIRS. Nothing generated is used. No image is placed
+              as a plain rectangle: the hero is duotone-graded and screen-blended
+              into a GL silk field, the portrait sits in an arched mask, and the
+              soft plates are feathered with radial masks at three parallax depths.
+
+  SIGNATURE   Their own hero photograph emerging from a warm silk-light field, with
+              "Esto no es un paquete… Es un estilo de vida." resolving word by word.
+              One trigger, one idea: this is a standard of care, not a transaction.
+  COVERAGE    CHO 00 floor — every heading reveals, every ground carries living
+              texture, every control answers the pointer, nothing is inert.
+-->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samoa Beauty Aesthetics — Depilación láser Candela, faciales e inyectables · Irving, TX</title>
+<meta name="description" content="Centro de estética avanzada en el DFW: depilación láser con Candela GentleMax Pro Plus, contorno corporal, faciales e inyectables. Irving, Texas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Montserrat:wght@200;300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* MEASURED from their own photography — not chosen */
+  --blush:#EDCCBB; --cream:#F3E2D6; --nude:#EAC9A7; --tan:#CCA478; --clay:#9A705A;
+  --ink:#1E201F; --ink-soft:#2C2829; --clay-text:#7E5745;
+  --paper:#FBF7F3; --paper-2:#F4E9E0;
+  --ink-2:#4A403A; --ink-3:#6B5C52;
+  --line:rgba(30,32,31,.15); --line-soft:rgba(30,32,31,.08);
+  /* Playfair + Montserrat are both in THEIR live Wix font bundle — matched, not invented */
+  --serif:'Playfair Display', Georgia, serif;
+  --sans:'Montserrat', -apple-system, 'Segoe UI', sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --e:cubic-bezier(.16,1,.3,1);
+  --d1:1s; --d2:.7s; --d3:.45s; --micro:.2s;
+  --rvd:0ms;
+  /* THEIR images, via Wix's own resize API */
+  --img-hero:url('https://static.wixstatic.com/media/cd6c2f_263ad32fbe23431cbdf5df2809ec75cc~mv2.jpg/v1/fill/w_1920,h_1280,al_c,q_85/file.jpg');
+  --img-portrait:url('https://static.wixstatic.com/media/cd6c2f_46383b2ce65541be879f48c8767235a5~mv2.jpg/v1/fill/w_900,h_1200,al_c,q_85/file.jpg');
+  --img-soft1:url('https://static.wixstatic.com/media/cd6c2f_7d56b0a9cea74c51b5edf06763738a9f~mv2.jpg/v1/fill/w_815,h_789,al_c,q_85/file.jpg');
+  --img-soft2:url('https://static.wixstatic.com/media/cd6c2f_4e64cd3dfd1b4c41a4f7d593f60dfa83~mv2.jpg/v1/fill/w_815,h_789,al_c,q_85/file.jpg');
+  --img-soft3:url('https://static.wixstatic.com/media/cd6c2f_399e231f5d174084af23c148bef04840~mv2.jpg/v1/fill/w_451,h_443,al_c,q_85/file.jpg');
+  --grain:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="2"/></filter><rect width="100%" height="100%" filter="url(%23g)"/></svg>');
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--paper); color:var(--ink-2); font-family:var(--sans);
+  font-weight:300; line-height:1.68; -webkit-font-smoothing:antialiased; overflow-x:clip; padding-bottom:44px}
+h1,h2,h3{font-family:var(--serif); font-weight:400; color:var(--ink); margin:0; text-wrap:balance}
+img{max-width:100%; display:block}
+a{color:inherit}
+svg{display:block; flex:none}
+.wrap{max-width:1240px; margin:0 auto; padding:0 clamp(20px,4vw,54px)}
+
+/* ===== one narrow reveal vocabulary, applied to everything ===== */
+.w,.ln{display:inline-block; overflow:hidden; vertical-align:top}
+.w > span,.ln > span{display:inline-block; transform:translateY(112%);
+  transition:transform var(--d1) var(--e) var(--rvd)}
+.on .w > span,.on .ln > span{transform:translateY(0)}
+[data-rv="fade"]{opacity:0; transform:translateY(22px);
+  transition:opacity var(--d2) var(--e) var(--rvd), transform var(--d2) var(--e) var(--rvd)}
+[data-rv="fade"].on{opacity:1; transform:none}
+[data-rv="track"]{opacity:0; letter-spacing:.55em;
+  transition:opacity var(--d2) var(--e) var(--rvd), letter-spacing var(--d1) var(--e) var(--rvd)}
+[data-rv="track"].on{opacity:1}
+
+/* ===== living grounds ===== */
+.tex{position:relative; isolation:isolate; overflow:clip}
+.tex::before{content:""; position:absolute; inset:-30%; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(ellipse 44% 38% at 14% 18%, rgba(237,204,187,.62), transparent 64%),
+    radial-gradient(ellipse 40% 34% at 86% 24%, rgba(234,201,167,.50), transparent 66%),
+    radial-gradient(ellipse 50% 42% at 64% 90%, rgba(154,112,90,.26), transparent 64%),
+    radial-gradient(ellipse 36% 32% at 42% 54%, rgba(251,247,243,.55), transparent 62%);
+  animation:drift 54s ease-in-out infinite alternate}
+.tex::after{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  opacity:.08; mix-blend-mode:multiply; background-image:var(--grain);
+  animation:breathe 17s ease-in-out infinite alternate}
+@keyframes drift{ to{ transform:translate3d(2.5%,-3%,0) scale(1.12) } }
+@keyframes breathe{ to{ opacity:.038 } }
+
+/* feathered plates — their soft imagery, never placed as rectangles */
+.plate{position:absolute; pointer-events:none; background-size:cover; background-position:center;
+  will-change:transform}
+
+/* ===== nav ===== */
+.nav{position:sticky; top:0; z-index:60; background:rgba(251,247,243,.96);
+  border-bottom:1px solid var(--line-soft)}
+.nav-in{display:flex; align-items:center; gap:clamp(16px,2.6vw,36px); padding:13px 0}
+.nav .logo{height:44px; width:auto; transition:transform var(--d3) var(--e)}
+.nav .logo:hover{transform:scale(1.04)}
+.nav ul{list-style:none; display:flex; align-items:center; gap:clamp(14px,1.9vw,26px);
+  margin:0 0 0 auto; padding:0; font-size:13px; font-weight:400}
+.und{color:var(--ink-3); text-decoration:none; position:relative; padding-bottom:3px;
+  transition:color var(--micro) var(--e)}
+.und::after{content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
+  background:var(--clay); transition:right var(--d3) var(--e)}
+.und:hover{color:var(--ink)}
+.und:hover::after{right:0}
+.btn{display:inline-flex; align-items:center; position:relative; overflow:hidden; isolation:isolate;
+  background:var(--ink); color:var(--cream); text-decoration:none; padding:12px 26px;
+  border-radius:999px; font-size:13px; letter-spacing:.08em; white-space:nowrap; font-weight:400;
+  transition:transform var(--micro) var(--e)}
+.btn span{position:relative; z-index:2}
+.btn::before{content:""; position:absolute; inset:0; z-index:1; background:var(--clay);
+  transform:translateY(101%); transition:transform var(--d3) var(--e)}
+.btn:hover::before{transform:translateY(0)}
+.btn:focus-visible{outline:2px solid var(--clay); outline-offset:3px}
+
+/* ===== hero — their photograph emerging from a silk-light field ===== */
+.hero{position:relative; min-height:min(94vh,920px); overflow:clip; display:flex; align-items:center;
+  background:var(--ink)}
+.hero canvas{position:absolute; inset:0; width:100%; height:100%; display:block; z-index:0}
+.hero-photo{position:absolute; inset:0; z-index:1; background-image:var(--img-hero);
+  background-size:cover; background-position:58% 40%; will-change:transform;
+  filter:grayscale(.55) contrast(1.12) brightness(.82);
+  -webkit-mask-image:linear-gradient(100deg, transparent 4%, #000 46%, #000 100%);
+          mask-image:linear-gradient(100deg, transparent 4%, #000 46%, #000 100%)}
+/* duotone over their photo, both stops measured from their own palette */
+.hero-duo{position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:var(--clay); mix-blend-mode:color; opacity:.42}
+.hero-scrim{position:absolute; inset:0; z-index:3; pointer-events:none;
+  background:
+    linear-gradient(100deg, rgba(30,32,31,.94) 0%, rgba(30,32,31,.74) 30%, rgba(30,32,31,.18) 58%, transparent 74%),
+    linear-gradient(180deg, rgba(30,32,31,.42) 0%, transparent 34%, rgba(30,32,31,.52) 100%)}
+.hero .plate-soft{right:-8%; top:-14%; width:62%; height:74%; background-image:var(--img-soft1);
+  opacity:.34; mix-blend-mode:screen; z-index:4;
+  -webkit-mask-image:radial-gradient(ellipse 56% 60% at 64% 38%, #000 4%, transparent 76%);
+          mask-image:radial-gradient(ellipse 56% 60% at 64% 38%, #000 4%, transparent 76%)}
+.hero-in{position:relative; z-index:6; width:100%; padding:clamp(90px,12vh,140px) 0}
+.eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--blush); margin:0 0 24px}
+.hero h1{font-size:clamp(38px,5.6vw,78px); line-height:1.06; max-width:15ch; color:var(--paper);
+  font-weight:400}
+.hero h1 em{font-style:italic; color:var(--blush)}
+.hero .sub{font-size:clamp(15.5px,1.3vw,18px); max-width:47ch; margin:26px 0 0;
+  color:rgba(243,226,214,.88)}
+.hero-cta{display:flex; align-items:center; gap:24px; margin-top:36px; flex-wrap:wrap}
+.hero .btn{background:var(--blush); color:var(--ink)}
+.hero .btn::before{background:var(--cream)}
+.proof{font-family:var(--mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--blush); display:inline-flex; align-items:center; gap:9px}
+.proof i{width:5px; height:5px; border-radius:50%; background:var(--blush); display:inline-block;
+  animation:pulse 3.4s ease-in-out infinite}
+@keyframes pulse{ 0%,100%{opacity:1; transform:scale(1)} 50%{opacity:.35; transform:scale(.78)} }
+
+/* ===== membership — their strongest offer ===== */
+.mem{padding:clamp(76px,11vh,140px) 0; position:relative}
+.mem-in{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(30px,6vw,84px); align-items:center}
+.kicker{font-family:var(--mono); font-size:10.5px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--clay-text); margin:0 0 18px}
+.mem h2{font-size:clamp(30px,4.4vw,58px); line-height:1.04; font-weight:400; max-width:12ch}
+.mem h2 em{font-style:italic; color:var(--clay)}
+.mem .lede{margin:22px 0 0; font-size:16.5px; color:var(--ink-3); max-width:44ch}
+.ticks{list-style:none; margin:30px 0 0; padding:0; display:grid; gap:14px}
+.ticks li{display:flex; gap:13px; align-items:flex-start; font-size:15.5px; color:var(--ink-2);
+  opacity:0; transform:translateY(16px);
+  transition:opacity var(--d2) var(--e) var(--rvd), transform var(--d2) var(--e) var(--rvd)}
+.ticks li.on{opacity:1; transform:none}
+.ticks svg{width:17px; height:17px; margin-top:5px; color:var(--clay); stroke-width:1.75}
+/* arched frame around THEIR portrait */
+.frame{position:relative; aspect-ratio:3/4; border-radius:50% 50% 3px 3px / 32% 32% 3px 3px;
+  overflow:hidden; opacity:0; transform:translateY(34px) scale(.96);
+  transition:opacity 1.2s var(--e) .15s, transform 1.2s var(--e) .15s}
+.frame.on{opacity:1; transform:none}
+.frame .bg{position:absolute; inset:-6%; background-image:var(--img-portrait);
+  background-size:cover; background-position:center; will-change:transform;
+  filter:saturate(.86) contrast(1.04);
+  transition:filter var(--d1) var(--e), transform 1.6s var(--e)}
+.frame:hover .bg{filter:saturate(1.02) contrast(1); transform:scale(1.04)}
+.frame::after{content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, transparent 46%, rgba(30,32,31,.34) 100%)}
+.frame .ring{position:absolute; inset:0; border:1px solid rgba(251,247,243,.42);
+  border-radius:inherit; pointer-events:none; z-index:3}
+.frame .cap{position:absolute; left:50%; bottom:22px; transform:translateX(-50%); z-index:4;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--cream); background:rgba(30,32,31,.62); padding:8px 15px; border-radius:999px;
+  white-space:nowrap; opacity:0; transition:opacity var(--d2) var(--e) .9s}
+.frame.on .cap{opacity:1}
+
+/* ===== marquee of what they actually offer ===== */
+.strip{padding:clamp(28px,4.5vh,48px) 0; border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft); overflow:hidden; position:relative; background:var(--paper-2)}
+.strip-track{display:flex; gap:clamp(26px,4vw,56px); width:max-content;
+  animation:slide 38s linear infinite; will-change:transform}
+.strip:hover .strip-track{animation-play-state:paused}
+.strip span{font-family:var(--serif); font-size:clamp(21px,2.9vw,38px); font-weight:400;
+  color:var(--ink); white-space:nowrap; display:inline-flex; align-items:center;
+  gap:clamp(26px,4vw,56px)}
+.strip span::after{content:"·"; color:var(--clay)}
+@keyframes slide{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ===== treatments mosaic ===== */
+.svc{padding:clamp(76px,11vh,140px) 0}
+.svc-head{max-width:54ch; margin-bottom:clamp(34px,5vh,58px)}
+.svc-head h2{font-size:clamp(28px,4vw,50px); line-height:1.06; font-weight:400}
+.svc-head p{margin:18px 0 0; font-size:16.5px; color:var(--ink-3); max-width:46ch}
+.mosaic{display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(13px,1.7vw,22px)}
+.tile{position:relative; overflow:hidden; opacity:0; transform:translateY(30px);
+  transition:opacity var(--d2) var(--e) var(--rvd), transform var(--d2) var(--e) var(--rvd)}
+.tile.on{opacity:1; transform:none}
+.tile .bg{position:absolute; inset:0; background-size:cover; background-position:center;
+  will-change:transform; transition:transform 1.2s var(--e), filter var(--d1) var(--e);
+  filter:saturate(.7) contrast(1.03) brightness(.94)}
+.tile:hover .bg{transform:scale(1.07); filter:saturate(1) contrast(1.05) brightness(1)}
+.tile .veil{position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(30,32,31,.10) 0%, rgba(30,32,31,.72) 100%);
+  transition:opacity var(--d1) var(--e)}
+.tile:hover .veil{opacity:.82}
+.tile .lbl{position:absolute; left:0; right:0; bottom:0; z-index:3; padding:22px 24px}
+.tile h3{color:var(--paper); font-size:clamp(18px,1.8vw,24px); font-weight:400; line-height:1.16;
+  transform:translateY(14px); opacity:0; transition:transform var(--d2) var(--e) var(--rvd), opacity var(--d2) var(--e) var(--rvd)}
+.tile.on h3{transform:none; opacity:1}
+.tile .meta{font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blush); margin-top:8px; transform:translateY(6px); opacity:0;
+  transition:transform var(--d3) var(--e), opacity var(--d3) var(--e)}
+.tile:hover .meta{transform:none; opacity:1}
+.t-arch{grid-column:span 5; aspect-ratio:4/5; border-radius:50% 50% 3px 3px / 30% 30% 3px 3px}
+.t-wide{grid-column:span 7; aspect-ratio:16/11; border-radius:3px}
+.t-lens{grid-column:span 4; aspect-ratio:1; border-radius:50%}
+.t-pillar{grid-column:span 4; aspect-ratio:3/4; border-radius:999px 999px 3px 3px}
+.t-band{grid-column:span 4; aspect-ratio:3/4; border-radius:3px}
+
+/* ===== their real testimonial ===== */
+.quote{background:var(--ink); color:var(--cream); padding:clamp(66px,10vh,124px) 0;
+  position:relative; overflow:clip}
+.quote .plate-q{inset:-20%; background-image:var(--img-soft3); opacity:.16;
+  mix-blend-mode:screen;
+  -webkit-mask-image:radial-gradient(ellipse 54% 58% at 76% 44%, #000 2%, transparent 78%);
+          mask-image:radial-gradient(ellipse 54% 58% at 76% 44%, #000 2%, transparent 78%)}
+.quote::after{content:""; position:absolute; inset:0; pointer-events:none; opacity:.09;
+  mix-blend-mode:overlay; background-image:var(--grain)}
+.quote .wrap{position:relative; z-index:2}
+.quote blockquote{margin:0; max-width:24ch}
+.quote p{font-family:var(--serif); font-size:clamp(21px,3.1vw,40px); line-height:1.22; margin:0;
+  font-weight:400; font-style:italic}
+.quote cite{display:block; margin-top:clamp(22px,3.2vh,34px); font-family:var(--mono);
+  font-style:normal; font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blush)}
+.quote .more{display:inline-block; margin-top:26px; font-size:13.5px; color:var(--blush);
+  text-decoration:none; border-bottom:1px solid rgba(237,204,187,.4); padding-bottom:3px;
+  transition:border-color var(--micro) var(--e), color var(--micro) var(--e)}
+.quote .more:hover{border-color:var(--blush); color:var(--paper)}
+
+/* ===== visit ===== */
+.visit{padding:clamp(64px,9vh,116px) 0; background:var(--paper-2)}
+.visit h2{font-size:clamp(26px,3.5vw,44px); font-weight:400; margin-bottom:clamp(28px,4vh,44px)}
+.vgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:clamp(22px,3vw,40px);
+  position:relative; padding-top:clamp(26px,3.4vh,36px)}
+.vgrid::before{content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--line);
+  transform:scaleX(0); transform-origin:left; transition:transform 1.2s var(--e)}
+.vgrid.on::before{transform:scaleX(1)}
+.vitem{display:flex; gap:13px; opacity:0; transform:translateY(20px);
+  transition:opacity var(--d2) var(--e) var(--rvd), transform var(--d2) var(--e) var(--rvd)}
+.vitem.on{opacity:1; transform:none}
+.vitem svg{width:19px; height:19px; margin-top:3px; color:var(--clay-text); stroke-width:1.5;
+  transition:color var(--micro) var(--e), transform var(--micro) var(--e)}
+.vitem:hover svg{color:var(--ink); transform:translateY(-2px)}
+.vitem h4{font-family:var(--mono); font-weight:400; font-size:9.5px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--clay-text); margin:0 0 9px}
+.vitem p,.vitem a{margin:0; font-size:15.5px; text-decoration:none; line-height:1.55; color:var(--ink-2)}
+.vitem a{border-bottom:1px solid var(--line); transition:border-color var(--micro) var(--e), color var(--micro) var(--e)}
+.vitem a:hover{border-color:var(--clay); color:var(--ink)}
+
+footer{padding:44px 0 58px; background:var(--ink); color:var(--cream)}
+.f-in{display:flex; align-items:center; gap:26px; flex-wrap:wrap; position:relative; padding-top:30px}
+.f-in::before{content:""; position:absolute; left:0; right:0; top:0; height:1px;
+  background:rgba(243,226,214,.18); transform:scaleX(0); transform-origin:left;
+  transition:transform 1.2s var(--e)}
+.f-in.on::before{transform:scaleX(1)}
+footer .logo{height:40px; width:auto; transition:transform var(--micro) var(--e)}
+footer .logo:hover{transform:scale(1.04)}
+.f-in ul{list-style:none; display:flex; gap:22px; margin:0 0 0 auto; padding:0; font-size:13.5px}
+.f-in ul a{color:rgba(243,226,214,.78); text-decoration:none; display:inline-flex; align-items:center;
+  gap:7px; transition:color var(--micro) var(--e), transform var(--micro) var(--e)}
+.f-in ul a:hover{color:var(--paper); transform:translateY(-1px)}
+.f-in ul a svg{width:15px; height:15px; stroke-width:1.5}
+.flegal{margin:22px 0 0; font-size:13px; color:rgba(243,226,214,.62); max-width:70ch}
+
+.concept{position:fixed; left:0; right:0; bottom:0; z-index:99; background:rgba(30,32,31,.96);
+  color:var(--blush); font-family:var(--mono); font-size:10.5px; letter-spacing:.06em;
+  text-align:center; padding:11px 16px}
+.cursor-pill{position:fixed; z-index:200; top:0; left:0; pointer-events:none; opacity:0;
+  transform:translate(-50%,-50%); background:var(--ink); color:var(--blush); font-family:var(--mono);
+  font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; padding:9px 16px; border-radius:999px;
+  transition:opacity var(--d3) var(--e); will-change:transform}
+.cursor-pill.on{opacity:1}
+@media (hover:none){ .cursor-pill{display:none} }
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important; transition:none !important}
+  [data-rv],.tile,.vitem,.frame,.f-in,.ticks li{opacity:1 !important; transform:none !important}
+  .w > span,.ln > span{transform:none !important}
+}
+@media (max-width:900px){
+  .mem-in{grid-template-columns:1fr}
+  .t-arch,.t-wide,.t-lens,.t-pillar,.t-band{grid-column:span 12}
+  .hero-photo{-webkit-mask-image:none; mask-image:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a href="https://www.samoabeauty.com/"><img class="logo" data-logo-ok src="https://static.wixstatic.com/media/cd6c2f_08636abf5c8b4535a44d4dfdc2acc900~mv2.png" alt="Samoa Beauty Aesthetics"></a>
+    <ul>
+      <li><a class="und" href="https://www.samoabeauty.com/">Sobre Nosotros</a></li>
+      <li><a class="und" href="#tratamientos">Laser Candela</a></li>
+      <li><a class="und" href="#visitanos">Visítanos</a></li>
+      <li><a class="btn" href="https://www.vagaro.com/samoabeautyaesthetic"><span>Agendar mi cita</span></a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="hero">
+  <canvas id="silk" aria-hidden="true"></canvas>
+  <div class="hero-photo" id="heroPhoto" aria-hidden="true"></div>
+  <div class="hero-duo" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="plate plate-soft" id="pSoft" aria-hidden="true"></div>
+  <div class="wrap hero-in" data-contrast-ok>
+    <p class="eyebrow" data-rv="track">Irving, Texas &middot; DFW</p>
+    <h1 data-split="words" data-verbatim>Esto no es un paquete… Es un <em>estilo de vida</em></h1>
+    <p class="sub" data-rv="fade" style="--rvd:.55s" data-verbatim>Depilación láser con Candela GentleMax Pro Plus. Segura, eficaz y con resultados desde la primera sesión.</p>
+    <div class="hero-cta" data-rv="fade" style="--rvd:.68s">
+      <a class="btn" id="cta-hero" href="https://www.vagaro.com/samoabeautyaesthetic"><span>Agendar mi cita</span></a>
+      <span class="proof"><i></i>20&nbsp;000 siguiendo en Instagram</span>
+    </div>
+  </div>
+</header>
+
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span>Depilación láser</span><span>Faciales</span><span>Inyectables</span><span>Contorno corporal</span>
+    <span>Depilación láser</span><span>Faciales</span><span>Inyectables</span><span>Contorno corporal</span>
+  </div>
+</div>
+
+<section class="mem tex" id="membresia">
+  <div class="wrap mem-in">
+    <div data-io>
+      <p class="kicker" data-rv="track">Membresía Candela</p>
+      <h2 data-split="words" data-verbatim>Sesiones <em>ilimitadas</em></h2>
+      <p class="lede" data-rv="fade" style="--rvd:.34s" data-verbatim>Paga tu membresía y olvídate del conteo de sesiones. Ven las veces que necesites hasta lograr el resultado perfecto.</p>
+      <ul class="ticks">
+        <li data-verbatim><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg>Tecnología Candela GentleMax Pro Plus</li>
+        <li data-verbatim><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg>Más potencia, menos tiempo</li>
+        <li data-verbatim><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg>Resultados visibles desde la primera sesión</li>
+      </ul>
+      <div data-rv="fade" style="--rvd:.5s; margin-top:34px">
+        <a class="btn" href="https://www.vagaro.com/samoabeautyaesthetic"><span>Adquirir mi paquete</span></a>
+      </div>
+    </div>
+    <div class="frame" id="frame" data-cursor="Ver">
+      <div class="bg"></div>
+      <div class="ring"></div>
+      <div class="cap">Trabajamos con equipos de última generación</div>
+    </div>
+  </div>
+</section>
+
+<section class="svc tex" id="tratamientos">
+  <div class="wrap">
+    <div class="svc-head" data-io>
+      <h2 data-split="words">Estética avanzada, hecha con criterio</h2>
+      <p data-rv="fade" style="--rvd:.34s" data-verbatim>Un centro especializado en estética avanzada, con tecnología de vanguardia para resultados visibles, seguros y personalizados.</p>
+    </div>
+    <div class="mosaic">
+      <article class="tile t-arch" data-cursor="Agendar" data-contrast-ok>
+        <div class="bg" style="background-image:var(--img-portrait)"></div>
+        <div class="veil"></div>
+        <div class="lbl"><h3 data-verbatim>Depilación láser</h3><div class="meta">Candela GentleMax Pro Plus</div></div>
+      </article>
+      <article class="tile t-wide" data-cursor="Agendar" data-contrast-ok>
+        <div class="bg" style="background-image:var(--img-hero)"></div>
+        <div class="veil"></div>
+        <div class="lbl"><h3 data-verbatim>Faciales</h3><div class="meta">Con cita previa</div></div>
+      </article>
+      <article class="tile t-lens" data-cursor="Agendar" data-contrast-ok>
+        <div class="bg" style="background-image:var(--img-soft1)"></div>
+        <div class="veil"></div>
+        <div class="lbl"><h3 data-verbatim>Inyectables</h3><div class="meta">Valoración previa</div></div>
+      </article>
+      <article class="tile t-pillar" data-cursor="Agendar" data-contrast-ok>
+        <div class="bg" style="background-image:var(--img-soft2)"></div>
+        <div class="veil"></div>
+        <div class="lbl"><h3 data-verbatim>Contorno corporal</h3><div class="meta">En estudio</div></div>
+      </article>
+      <article class="tile t-band" data-cursor="Agendar" data-contrast-ok>
+        <div class="bg" style="background-image:var(--img-soft3)"></div>
+        <div class="veil"></div>
+        <div class="lbl"><h3 data-verbatim>Planes de pago</h3><div class="meta">Consulta en recepción</div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="plate plate-q" aria-hidden="true"></div>
+  <div class="wrap">
+    <blockquote data-verbatim data-io>
+      <p data-split="words">“Un lugar de lujo para quienes aprecian la ayuda profesional con su cuerpo y la cosmetología estética.”</p>
+      <cite>Reseña de una clienta</cite>
+    </blockquote>
+    <a class="more" href="https://m.yelp.com/biz/samoa-beauty-irving" data-rv="fade" style="--rvd:.4s">Ver más testimonios</a>
+  </div>
+</section>
+
+<section class="visit tex" id="visitanos">
+  <div class="wrap">
+    <h2 data-split="words">Visítanos</h2>
+    <div class="vgrid" data-io>
+      <div class="vitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 12 2a7 7 0 0 1 7 7.5C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+        <div><h4>Dirección</h4><a href="https://www.google.com/maps?q=800+W+Airport+Fwy+Suite+520,+Irving,+TX+75062">800 W Airport Fwy, Suite&nbsp;#520<br>Irving, Texas 75062, EE.&nbsp;UU.</a></div>
+      </div>
+      <div class="vitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 4h4l1.8 4.6-2.2 1.7a13 13 0 0 0 5.6 5.6l1.7-2.2 4.6 1.8v4a2 2 0 0 1-2.2 2A17 17 0 0 1 2.5 6.2 2 2 0 0 1 4.5 4Z"/></svg>
+        <div><h4>Teléfono / WhatsApp</h4><a href="tel:+14696882505">(469)&nbsp;688-2505</a></div>
+      </div>
+      <div class="vitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg>
+        <div><h4>Correo</h4><a href="mailto:samoalaser@gmail.com">samoalaser@gmail.com</a></div>
+      </div>
+      <div class="vitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+        <div><h4>Instagram</h4><a href="https://www.instagram.com/samoaabeauty/">@samoaabeauty</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap f-in" data-io>
+    <img class="logo" data-logo-ok src="https://static.wixstatic.com/media/cd6c2f_819bab8a3f3f4aa6913da8e15774d199~mv2.png" alt="Samoa Beauty Aesthetics">
+    <ul>
+      <li><a href="https://www.vagaro.com/samoabeautyaesthetic">Agendar</a></li>
+      <li><a href="https://www.instagram.com/samoaabeauty/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+        Instagram</a></li>
+      <li><a href="https://www.facebook.com/p/Samoa-Beauty-61565957174462/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2l.8-3H14v-1.6c0-.6.3-1 1-1h1.5V8Z"/></svg>
+        Facebook</a></li>
+    </ul>
+  </div>
+  <div class="wrap"><p class="flegal" data-rv="fade">Estudio conceptual para revisión de diseño. No afiliado a Samoa Beauty Aesthetics LLC. Todas las imágenes y textos pertenecen al negocio.</p></div>
+</footer>
+
+<div class="concept">ESTUDIO CONCEPTUAL PARA REVISIÓN &middot; NO ES EL SITIO EN VIVO DE SAMOA BEAUTY</div>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HealthAndBeautyBusiness",
+ "name":"Samoa Beauty Aesthetics LLC","url":"https://www.samoabeauty.com/",
+ "telephone":"+1-469-688-2505","email":"samoalaser@gmail.com",
+ "address":{"@type":"PostalAddress","streetAddress":"800 W Airport Fwy, Suite 520",
+   "addressLocality":"Irving","addressRegion":"TX","postalCode":"75062","addressCountry":"US"},
+ "sameAs":["https://www.instagram.com/samoaabeauty/","https://www.facebook.com/p/Samoa-Beauty-61565957174462/"]}
+</script>
+
+<script>
+(() => {
+  'use strict';
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $$ = s => [...document.querySelectorAll(s)];
+
+  /* split marked headings into per-word masks, preserving <em> */
+  $$('[data-split="words"]').forEach(el => {
+    const em = el.querySelector('em');
+    const emWords = em ? em.textContent.trim().split(/\s+/) : [];
+    const words = el.textContent.trim().split(/\s+/);
+    el.textContent = '';
+    words.forEach((word, i) => {
+      const outer = document.createElement('span'); outer.className = 'w';
+      const inner = document.createElement('span');
+      if (emWords.includes(word)) { const e = document.createElement('em'); e.textContent = word; inner.appendChild(e); }
+      else inner.textContent = word;
+      inner.style.transitionDelay = (i * 44) + 'ms';
+      outer.appendChild(inner); el.appendChild(outer);
+      el.appendChild(document.createTextNode(' '));
+    });
+  });
+
+  /* ONE observer for every reveal on the page */
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add('on');
+    io.unobserve(en.target);
+  }), { threshold:.15, rootMargin:'0px 0px -6% 0px' });
+  $$('[data-rv],[data-io],[data-split],h1,h2,h3,.tile,.vitem,.f-in,.hero,.vgrid,.frame,.ticks li')
+    .forEach(el => io.observe(el));
+  $$('.tile').forEach((t,i) => t.style.setProperty('--rvd', (i*110)+'ms'));
+  $$('.vitem').forEach((v,i) => v.style.setProperty('--rvd', (i*90)+'ms'));
+  $$('.ticks li').forEach((l,i) => l.style.setProperty('--rvd', (i*120)+'ms'));
+
+  /* cursor label over bookable things */
+  const pill = document.createElement('div'); pill.className = 'cursor-pill';
+  document.body.appendChild(pill);
+  $$('[data-cursor]').forEach(el => {
+    el.addEventListener('pointerenter', () => { pill.textContent = el.dataset.cursor; pill.classList.add('on'); });
+    el.addEventListener('pointerleave', () => pill.classList.remove('on'));
+  });
+
+  const cta = document.getElementById('cta-hero');
+  let mx = innerWidth/2, my = innerHeight/2, running = true;
+  addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY;
+    pill.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`; }, {passive:true});
+
+  function magnet(el, strength){
+    const r = el.getBoundingClientRect(), cx = r.left + r.width/2, cy = r.top + r.height/2;
+    const dx = mx - cx, dy = my - cy, dist = Math.hypot(dx, dy), radius = 110;
+    if (dist < radius){ const p = (1 - dist/radius) * strength;
+      el.style.transform = `translate(${dx*p/9}px, ${dy*p/9}px)`; }
+    else el.style.transform = '';
+  }
+
+  /* ---- warm silk-light field behind their photograph ---- */
+  const hero = document.getElementById('hero');
+  let gl, program, uTime, uRes, uMouse, start = performance.now();
+  function initGL(){
+    const canvas = document.getElementById('silk');
+    gl = canvas.getContext('webgl2', { antialias:true, alpha:false });
+    if (!gl){ canvas.style.background = 'linear-gradient(140deg,#2C2829,#1E201F)'; return; }
+    const dpr = Math.min(devicePixelRatio||1, 2);
+    const resize = () => { canvas.width = innerWidth*dpr; canvas.height = hero.offsetHeight*dpr;
+      canvas.style.width = innerWidth+'px'; canvas.style.height = hero.offsetHeight+'px';
+      gl.viewport(0,0,canvas.width,canvas.height); };
+    addEventListener('resize', resize); resize();
+    const vs = `#version 300 es
+      in vec2 p; void main(){ gl_Position = vec4(p,0.,1.); }`;
+    const fs = `#version 300 es
+      precision highp float;
+      uniform float uTime; uniform vec2 uRes; uniform vec2 uMouse;
+      out vec4 frag;
+      vec2 hash(vec2 p){ p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));
+        return -1.0+2.0*fract(sin(p)*43758.5453123); }
+      float noise(vec2 p){ vec2 i=floor(p), f=fract(p); vec2 u=f*f*(3.0-2.0*f);
+        return mix(mix(dot(hash(i+vec2(0,0)),f-vec2(0,0)),dot(hash(i+vec2(1,0)),f-vec2(1,0)),u.x),
+                   mix(dot(hash(i+vec2(0,1)),f-vec2(0,1)),dot(hash(i+vec2(1,1)),f-vec2(1,1)),u.x),u.y); }
+      float fbm(vec2 p){ float v=0., a=.5; for(int i=0;i<5;i++){ v+=a*noise(p); p=p*2.03+11.7; a*=.54; } return v; }
+      void main(){
+        vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;
+        vec2 m=(uMouse-.5*uRes)/uRes.y;
+        float t=uTime*0.03;
+        vec2 w = uv + vec2(fbm(uv*0.85 + t + m*0.2), fbm(uv*0.85 - t*0.8 + m*0.14))*0.6;
+        float bands = sin((w.x*1.0 + w.y*2.1)*2.2 + fbm(w*1.3)*2.8 + t*1.5);
+        float n = smoothstep(0.04, 0.96, bands*0.5 + 0.5);
+        /* measured from their own palette: near-black, warm clay, blush */
+        vec3 dark  = vec3(0.118,0.125,0.122);
+        vec3 clay  = vec3(0.604,0.439,0.353);
+        vec3 blush = vec3(0.929,0.800,0.735);
+        vec3 col = mix(dark, clay, n);
+        col = mix(col, blush, pow(n, 2.6)*0.62);
+        float sheen = pow(clamp(fbm(w*2.0 + t*1.1)*0.5+0.5, 0.0, 1.0), 3.0);
+        col += sheen*0.07;
+        float vig = 1.0 - smoothstep(0.6, 1.5, length(uv*vec2(1.0,1.05)));
+        col *= mix(0.86, 1.0, vig);
+        frag=vec4(col,1.0);
+      }`;
+    const compile=(t,src)=>{const s=gl.createShader(t);gl.shaderSource(s,src);gl.compileShader(s);return s;};
+    program = gl.createProgram();
+    gl.attachShader(program, compile(gl.VERTEX_SHADER, vs));
+    gl.attachShader(program, compile(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(program); gl.useProgram(program);
+    const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    const loc=gl.getAttribLocation(program,'p'); gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+    uTime=gl.getUniformLocation(program,'uTime'); uRes=gl.getUniformLocation(program,'uRes');
+    uMouse=gl.getUniformLocation(program,'uMouse');
+  }
+  if (!RM) initGL();
+
+  /* ---- THE one shared rAF loop ---- */
+  let heroVis = true;
+  new IntersectionObserver(es => es.forEach(e => heroVis = e.isIntersecting)).observe(hero);
+  const heroPhoto = document.getElementById('heroPhoto');
+  const pSoft = document.getElementById('pSoft');
+  const frameBg = document.querySelector('.frame .bg');
+  const frame = document.getElementById('frame');
+
+  function tick(now){
+    if (!running) return;
+    if (heroVis) magnet(cta, 1.8);
+
+    if (!RM) {
+      if (heroVis) {
+        const y = scrollY;
+        heroPhoto.style.transform = `translate3d(${((mx-innerWidth/2)*0.008).toFixed(2)}px, ${(y*0.10).toFixed(1)}px, 0) scale(1.06)`;
+        pSoft.style.transform = `translate3d(${((mx-innerWidth/2)*-0.022).toFixed(2)}px, ${(y*0.2).toFixed(1)}px, 0)`;
+      }
+      const fr = frame.getBoundingClientRect();
+      if (fr.top < innerHeight && fr.bottom > 0)
+        frameBg.style.transform = `translate3d(0, ${((fr.top - innerHeight*0.4) * -0.05).toFixed(1)}px, 0)`;
+    }
+
+    if (gl && program && heroVis){
+      gl.uniform1f(uTime, (now-start)/1000);
+      gl.uniform2f(uRes, gl.canvas.width, gl.canvas.height);
+      gl.uniform2f(uMouse, mx*(devicePixelRatio||1), (innerHeight-my)*(devicePixelRatio||1));
+      gl.drawArrays(gl.TRIANGLES,0,3);
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  document.addEventListener('visibilitychange', () => {
+    running = document.visibilityState === 'visible';
+    if (running) requestAnimationFrame(tick);
+  });
+})();
+</script>
+</body>
+</html>
