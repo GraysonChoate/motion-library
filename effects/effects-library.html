@@ -1791,6 +1791,81 @@ and read BLD 09 for what additionally opens up.</pre>
       asked for — the same drift, arriving through the fix instead of the build.</div>
     </div>
 
+    <div class="fcard" style="border-left-color:var(--teal)">
+      <div class="fcard-top"><span class="code" style="color:var(--teal);border-color:rgba(94,138,126,.4)">RUN</span><h4>The mechanical self-check — paste this into the page and read the output</h4></div>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">Reading the page cannot catch these. Computing them can.</b> Every
+      assertion below corresponds to a defect that survived a careful human read of a finished build
+      and was only found by measuring. Paste it in, open the console, fix what it prints, delete it
+      before hand-over.</p>
+      <pre><code>(() =&gt; { const F = [], ok = (c,m) =&gt; c || F.push(m);
+  const $$ = s =&gt; [...document.querySelectorAll(s)];
+  const de = document.documentElement, cs = e =&gt; getComputedStyle(e);
+
+  <i>// 1 · nothing scrolls sideways</i>
+  ok(de.scrollWidth &lt;= de.clientWidth, &#x27;horizontal overflow &#x27; + (de.scrollWidth-de.clientWidth) + &#x27;px&#x27;);
+
+  <i>// 2 · fixed BARS are not sitting on content. A full-viewport decorative</i>
+  <i>//     overlay is not a bar — height and pointer-events tell them apart.</i>
+  $$(&#x27;*&#x27;).filter(e =&gt; cs(e).position === &#x27;fixed&#x27;).forEach(e =&gt; {
+    const r = e.getBoundingClientRect();
+    if (r.height &gt; 0 &amp;&amp; r.height &lt; innerHeight*0.25 &amp;&amp; r.bottom &gt;= innerHeight-2
+        &amp;&amp; cs(e).pointerEvents !== &#x27;none&#x27;)
+      ok(parseFloat(cs(document.body).paddingBottom) &gt;= r.height,
+         &#x27;fixed bottom bar covers content — body needs &#x27; + Math.ceil(r.height) + &#x27;px padding-bottom&#x27;);
+  });
+
+  <i>// 3 · exactly one h1</i>
+  ok($$(&#x27;h1&#x27;).length === 1, &#x27;h1 count is &#x27; + $$(&#x27;h1&#x27;).length);
+
+  <i>// 4 · every link goes somewhere real</i>
+  const dead = $$(&#x27;a&#x27;).filter(a =&gt; { const h = a.getAttribute(&#x27;href&#x27;); return !h || h === &#x27;#&#x27; });
+  ok(!dead.length, dead.length + &#x27; link(s) with no destination&#x27;);
+
+  <i>// 5 · measure. Text LEAVES only — a wrapper reports its own font-size, not its</i>
+  <i>//     child&#x27;s, which is the ch-on-a-parent trap this check exists to catch.</i>
+  <i>//     Skip anything that does not wrap, and anything narrower than a column.</i>
+  $$(&#x27;p,blockquote,li,h1,h2,h3&#x27;).forEach(e =&gt; {
+    const r = e.getBoundingClientRect(), fs = parseFloat(cs(e).fontSize);
+    const lh = parseFloat(cs(e).lineHeight) || fs*1.4;
+    const leaf = ![...e.children].some(c =&gt; cs(c).display !== &#x27;inline&#x27;);
+    if (!leaf || r.height &lt;= lh*1.6 || r.width &lt; 380) return;
+    const ch = r.width / (fs*0.5);
+    if (fs &lt;= 22) ok(ch &gt;= 45 &amp;&amp; ch &lt;= 78, &#x27;body measure &#x27; + Math.round(ch) + &#x27;ch — &quot;&#x27; + e.innerText.slice(0,40) + &#x27;&quot;&#x27;);
+    else          ok(ch &gt;= 10, &#x27;display measure only &#x27; + Math.round(ch) + &#x27;ch — too narrow&#x27;);
+  });
+
+  <i>// 6 · cards in a row are the same height. Mark the row with data-row.</i>
+  $$(&#x27;[data-row]&#x27;).forEach(row =&gt; {
+    const h = [...row.children].map(c =&gt; Math.round(c.getBoundingClientRect().height));
+    ok(Math.max(...h) - Math.min(...h) &lt;= 8, &#x27;uneven card heights: &#x27; + h.join(&#x27;, &#x27;));
+  });
+
+  <i>// 7 · every crop was chosen</i>
+  $$(&#x27;img&#x27;).forEach(i =&gt; { if (cs(i).objectFit === &#x27;cover&#x27;)
+    ok(cs(i).objectPosition !== &#x27;50% 50%&#x27;, &#x27;default centre-crop on: &#x27; + (i.alt || &#x27;(no alt)&#x27;)); });
+
+  <i>// 8 · your own word count. Mark their verbatim copy data-verbatim to exempt it.</i>
+  const all = document.body.innerText.replace(/\s+/g,&#x27; &#x27;).trim().split(&#x27; &#x27;).length;
+  const quoted = $$(&#x27;[data-verbatim]&#x27;).reduce((n,e) =&gt; n + e.innerText.split(/\s+/).length, 0);
+  ok(all - quoted &lt;= 320, &#x27;you wrote &#x27; + (all-quoted) + &#x27; words, budget is 320&#x27;);
+
+  console[F.length ? &#x27;error&#x27; : &#x27;log&#x27;](F.length ? F : &#x27;self-check clean&#x27;);
+})();</code></pre>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">This block was itself debugged against a real build ·</b> its first
+      version reported two false alarms — it counted a full-screen grain canvas as a bottom bar, and
+      it measured a <code>blockquote</code> wrapper instead of the text inside it, which is the exact
+      trap check 5 exists to catch. <b>A check that cries wolf gets ignored, which is worse than no
+      check</b>, so both were fixed before it went in here.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Six of these exist because a build failed them ·</b> a fixed concept
+      bar sat on top of a founder quote · a pull quote was set two words wide by a
+      <code>ch</code> value on its parent · a card row went uneven because one description ran long ·
+      a hero image kept its default crop. None were visible while reading the code. All four printed
+      instantly.</p>
+    </div>
+
     <div class="auditgrid">
       <div class="auditcol">
         <h5>Honesty</h5>
@@ -5013,7 +5088,10 @@ overlay.style.background =
     <p style="margin-top:18px;font-size:13.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
     <b style="color:var(--tan)">Equal-length cards are a structural rule, not a style preference ·</b>
     Three service cards of 9, 31 and 14 words produce three different card heights, and the row reads
-    as an accident. Write the shortest one first and hold the other two to it.</p>
+    as an accident. Write the shortest one first and hold the other two to it.
+    <b style="color:var(--cream)">When the text is the client's verbatim copy you may not trim it —
+    equalise the box instead</b>: a min-height on the text block, or one grid row for all of them.
+    Never edit their sentences to fit a layout.</p>
 
     <p style="margin-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.65;max-width:74ch">
     <b style="color:var(--tan)">Line length ·</b> Running text stays at <b>62–68 characters</b>. Headlines
@@ -5282,6 +5360,24 @@ overlay.style.background =
       <p>Three radii: <b>2px</b> (default — reads engineered), <b>3px</b> (media), <b>999px</b> (pills
       only). <b>2026 premium reads as sharp geometry and 1px hairlines, not soft blurred shadows</b> —
       the rounded-16px-plus-drop-shadow card is the single most dated pattern you can put on a page.</p>
+    </div>
+
+    <div class="kitcard">
+      <h4>Things that look right and compute wrong</h4>
+      <p>Not design advice — mechanics. Each of these produces a page that reads correctly in the
+      source and is broken on the screen, which is the worst category of bug because nothing draws
+      your eye to it.</p>
+      <div class="crime"><b><code>ch</code> on a parent</b><span>Resolves against the <i>parent's</i> font-size, not the child's. A <code>max-width:20ch</code> on a wrapper containing 60px type gives a column two words wide.</span></div>
+      <div class="crime"><b><code>overflow-x:hidden</code> on <code>body</code></b><span>Per spec this forces <code>overflow-y:auto</code>, which creates a scrollport and silently freezes every scroll-driven animation inside it. Use <code>overflow-x:clip</code>.</span></div>
+      <div class="crime"><b>A fixed bar with no matching padding</b><span>Sticky footers, cookie bars and concept labels sit on top of the last section. Add <code>padding-bottom</code> equal to the bar's height.</span></div>
+      <div class="crime"><b><code>clamp()</code> will not land on your grid</b><span>Between the endpoints you get 86.4px. That's correct. Put grid values at both ends and audit the source, not the computed value.</span></div>
+      <div class="crime"><b><code>object-fit:cover</code> with no <code>object-position</code></b><span>Centre-crops every image regardless of where the subject is. Faces, cups and products get cut. Set the position on every single image.</span></div>
+      <div class="crime"><b><code>text-wrap:balance</code> above ~6 lines</b><span>Browsers stop balancing past a line threshold. On a long heading it silently does nothing.</span></div>
+      <div class="crime"><b>Two transforms on one element</b><span>A hover <code>scale</code> and a scroll <code>translate</code> on the same node overwrite each other. Nest them, or compose into one matrix.</span></div>
+      <div class="crime"><b><code>backdrop-filter</code> over a canvas</b><span>Forces a GPU readback every frame. A blurred sticky nav above a WebGL section is the heaviest accident available.</span></div>
+      <div class="crime"><b><code>100vh</code> on a phone</b><span>Not the visible height — browser chrome overlaps it. Use <code>100dvh</code>, or don't rely on full-viewport heights.</span></div>
+      <div class="crime"><b>A webfont with no metric-matched fallback</b><span><code>display=swap</code> alone guarantees a visible reflow. Pair it with <code>size-adjust</code> on the fallback — see the loading card above.</span></div>
+      <div class="crime" style="border-bottom:none"><b>Equalising card text instead of card boxes</b><span>When descriptions are the client's verbatim words you may not trim them. Equalise the <b>box</b> — a min-height or a grid row — never their sentences.</span></div>
     </div>
   </section>
 
