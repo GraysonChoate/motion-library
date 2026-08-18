@@ -1812,6 +1812,7 @@ and read BLD 09 for what additionally opens up.</pre>
         <tr><th>You used…</th><th>Reopen and re-check against</th></tr>
         <tr><td>A logo</td><td><b>KIT 03</b>, the Nevers list specifically — treated presentation, or a raw file in a box?</td></tr>
         <tr><td>A photo</td><td><b>KIT 08</b> — grade, duotone, or wash applied, or an untreated file next to art-directed type?</td></tr>
+        <tr><td>A photo over a mesh, grain field or canvas</td><td><b>KIT 08</b>, the edge table — feathered into what's behind it, or a hard-cornered rectangle pasted onto a generative background?</td></tr>
         <tr><td>Any shadow, blur, or border</td><td><b>KIT 09</b> — hairline by default, or a soft blurred radius over 10px?</td></tr>
         <tr><td>Any two effects on one page</td><td><b>CHO 04</b>, the fighting-pairs table — do any of your combinations appear in it?</td></tr>
         <tr><td>The one signature moment</td><td><b>CHO 02</b> — is it actually layered (base + 1-2 effects, one trigger), or one flat effect wearing a bigger word count?</td></tr>
@@ -6654,6 +6655,65 @@ overlay.style.background =
       it, drop it and change archetype. <b>Type-first hero exists precisely for this case.</b> And
       generated imagery must never depict the actual business — no invented storefronts, no invented
       staff. Abstract, textural or product-adjacent only.</p>
+    </div>
+
+    <div class="kitcard" style="border-left-color:var(--ember)">
+      <h4>How a photo MEETS what's behind it — the pasted-in tell</h4>
+      <p>Treatment fixes a photo's <i>colour</i>. It does nothing about its <b>edge</b>, and the edge
+      is what gives a page away. <b style="color:var(--cream)">A hard-cornered rectangle sitting on
+      top of a generative background — a mesh gradient, a grain field, a WebGL canvas — reads as
+      pasted in, no matter how well the image itself is graded.</b> The photo and the background were
+      obviously made by different processes, and a sharp edge announces it.</p>
+      <table class="lentable">
+        <tr><th>What's behind the photo</th><th>Edge treatment</th></tr>
+        <tr><td>A flat token colour (paper, paper-2)</td><td><b>Hard edge is correct.</b> 2px radius, hairline per KIT 09. Two flat surfaces meeting cleanly is honest — nothing to blend into.</td></tr>
+        <tr><td>A mesh gradient, grain field, or live canvas</td><td><b>Feather it.</b> A radial <code>mask-image</code> fading the image (and its duotone layers) to transparent at the edges, so the background shows through and the two become one surface.</td></tr>
+        <tr><td>A full-bleed photo hero</td><td>Gradient wash for legibility only — the photo IS the ground, so there's no seam to hide.</td></tr>
+      </table>
+      <pre><code><i>/* the mask must wrap the image AND its duotone pseudo-elements —
+   masking the img alone leaves the two colour layers as a visible
+   hard rectangle, which is the exact bug this is meant to fix.  */</i>
+.photo-media {
+  position: absolute; inset: 0;
+  -webkit-mask-image: radial-gradient(ellipse 72% 76% at 50% 42%,
+                        #000 58%, transparent 100%);
+          mask-image: radial-gradient(ellipse 72% 76% at 50% 42%,
+                        #000 58%, transparent 100%);
+}
+<i>// the 58% stop is the dial: higher = more photo, tighter feather.
+// Below ~45% the subject itself starts dissolving — that's too far.</i></code></pre>
+      <p style="margin-top:12px"><b>Why this belongs next to the duotone recipe ·</b> both exist for
+      the same reason. A duotone stops a photo from clashing in <i>colour</i> with the page; a
+      feathered edge stops it from clashing in <i>construction</i>. Do the first and skip the second
+      and you get a beautifully graded image that still looks dropped on.</p>
+      <div class="warnbox"><b>Do not reach for a soft drop shadow to solve this.</b> The instinct is
+      to "lift" the photo off the background — that's the KIT 09 dated-shadow trap arriving through a
+      side door. The fix is fewer edges, not a blurrier one.</div>
+    </div>
+
+    <div class="kitcard">
+      <h4>When they have no usable photography at all</h4>
+      <p>Small businesses often have three phone photos and a logo. The rejection rule above tells you
+      what to throw out; this tells you what to do next. <b>In this order</b> — stop at the first one
+      that works, never skip ahead to generation because it's more fun.</p>
+      <table class="lentable">
+        <tr><th></th><th>Route</th><th>When</th></tr>
+        <tr><td class="w">1</td><td><b>Use what they have, smaller.</b></td><td>A 700px photo is sharp at 700px. Crop tight, treat it, let type carry the scale. Almost always the right answer.</td></tr>
+        <tr><td class="w">2</td><td><b>Type-first hero, no photo.</b></td><td>Their best sentence at display size on a textured ground (KIT 10). Costs nothing, never looks cheap, and several award-winning restaurant and studio sites do exactly this.</td></tr>
+        <tr><td class="w">3</td><td><b>Generative background as the hero itself.</b></td><td>A mesh/grain field or a GL effect in their measured palette, standing in for an image rather than sitting behind one.</td></tr>
+        <tr><td class="w">4</td><td><b>Generate an image.</b></td><td>Last resort, and only within the hard limits below.</td></tr>
+      </table>
+      <p style="margin-top:12px"><b>If you do generate ·</b> it must be <b>abstract, textural, or
+      product-adjacent</b> — a material, a surface, steam, grain, fabric, a close crop of an
+      ingredient. Never the business itself: no invented storefront, no invented interior, no invented
+      staff, no invented plated dish presented as theirs. Feed the generator their <b>measured
+      palette</b> so it lands in the same ramp as everything else, treat the result through KIT 08
+      exactly like a client photo, and <b>label it as generated in the hand-over</b> so a person can
+      overrule it.</p>
+      <div class="warnbox"><b>The line that decides it ·</b> a generated image may set a
+      <i>mood</i>; it may never make a <i>claim</i>. "Warm, steam, dark roast" is a mood. "This is
+      what their café looks like" is a claim, and it's a fabrication — the same hard stop as an
+      invented price or an invented review.</div>
     </div>
 
     <div class="kitcard">
