@@ -2319,6 +2319,28 @@ and read BLD 09 for what additionally opens up.</pre>
   ok(fam.size &gt;= 5, &#x27;only &#x27; + fam.size + &#x27; motion technique(s) on the page (&#x27;
      + [...fam].join(&#x27;, &#x27;) + &#x27;) — a Phase 1 page needs 5+. Fade-and-rise everywhere is not a choice, it is a default (BLD 02 step 6)&#x27;);
 
+  <i>// 27 · IS THE SIGNATURE ACTUALLY LAYERED? Check 26 proves the page uses</i>
+  <i>//      several techniques; it cannot tell whether any ONE moment stacks them.</i>
+  <i>//      CHO 02 requires the signature to be a base treatment PLUS one or two</i>
+  <i>//      effects on the SAME trigger. Five shallow effects in five places is a</i>
+  <i>//      demo reel; two or three in one place is craft. Measured as: at least</i>
+  <i>//      one element transitioning a &quot;heavy&quot; property (the base treatment)</i>
+  <i>//      alongside movement, or three-plus distinct properties at once.</i>
+  const HEAVY = [&#x27;clip-path&#x27;,&#x27;filter&#x27;,&#x27;mask&#x27;,&#x27;mask-image&#x27;,&#x27;letter-spacing&#x27;,&#x27;backdrop-filter&#x27;,&#x27;background&#x27;];
+  let layered = 0, deepest = 0, deepestWhat = &#x27;&#x27;;
+  $$(&#x27;*&#x27;).forEach(e =&gt; {
+    const props = (cs(e).transitionProperty || &#x27;&#x27;).split(&#x27;,&#x27;).map(x =&gt; x.trim()).filter(x =&gt; x &amp;&amp; x !== &#x27;none&#x27;);
+    if (!props.length || props.includes(&#x27;all&#x27;)) return;
+    const set = new Set(props);
+    const heavy = props.some(x =&gt; HEAVY.some(h =&gt; x.includes(h)));
+    const moves = props.some(x =&gt; x.includes(&#x27;transform&#x27;) || x.includes(&#x27;opacity&#x27;));
+    if (set.size &gt; deepest) { deepest = set.size; deepestWhat = [...set].join(&#x27;+&#x27;); }
+    if ((heavy &amp;&amp; moves) || set.size &gt;= 3) layered++;
+  });
+  ok(layered &gt; 0, &#x27;no layered moment on the page — deepest element animates &#x27; + deepest
+     + &#x27; propert&#x27; + (deepest===1?&#x27;y&#x27;:&#x27;ies&#x27;) + (deepestWhat ? &#x27; (&#x27; + deepestWhat + &#x27;)&#x27; : &#x27;&#x27;)
+     + &#x27;. CHO 02: the signature is a base treatment PLUS one or two effects on ONE trigger, not one flat effect&#x27;);
+
   console[F.length ? &#x27;error&#x27; : &#x27;log&#x27;](F.length ? F : &#x27;self-check clean&#x27;);
 })();</code></pre>
       <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
@@ -2802,6 +2824,104 @@ and read BLD 09 for what additionally opens up.</pre>
 <div class="ixgroup" data-ixg="plt"><h5>PLT · platform <em>6</em></h5><div class="ixgrid"><a class="ix" href="#e-PLT-01" data-ix="PLT-01 Animating height to auto interpolate-size"><b>PLT-01</b><span>Animating height to auto</span><i>interpolate-size</i></a><a class="ix" href="#e-PLT-02" data-ix="PLT-02 Entry animations @starting-style"><b>PLT-02</b><span>Entry animations</span><i>@starting-style</i></a><a class="ix" href="#e-PLT-03" data-ix="PLT-03 Native tooltips and menus Popover API + anchor positioning"><b>PLT-03</b><span>Native tooltips and menus</span><i>Popover API + anchor positioning</i></a><a class="ix" href="#e-PLT-04" data-ix="PLT-04 Animatable gradients @property"><b>PLT-04</b><span>Animatable gradients</span><i>@property</i></a><a class="ix" href="#e-PLT-05" data-ix="PLT-05 Component-level responsive container queries"><b>PLT-05</b><span>Component-level responsive</span><i>container queries</i></a><a class="ix" href="#e-PLT-06" data-ix="PLT-06 Carousels that know where they are scroll-snap events"><b>PLT-06</b><span>Carousels that know where they are</span><i>scroll-snap events</i></a></div></div>
 <div class="ixgroup" data-ixg="amb"><h5>AMB · ambient <em>6</em></h5><div class="ixgrid"><a class="ix" href="#e-AMB-01" data-ix="AMB-01 Animated film grain canvas noise, throttled"><b>AMB-01</b><span>Animated film grain</span><i>canvas noise, throttled</i></a><a class="ix" href="#e-AMB-02" data-ix="AMB-02 Aurora drift blurred blobs, pure CSS"><b>AMB-02</b><span>Aurora drift</span><i>blurred blobs, pure CSS</i></a><a class="ix" href="#e-AMB-03" data-ix="AMB-03 Dust motes with depth three parallax layers"><b>AMB-03</b><span>Dust motes with depth</span><i>three parallax layers</i></a><a class="ix" href="#e-AMB-04" data-ix="AMB-04 Breathing on idle idle detection + micro-motion"><b>AMB-04</b><span>Breathing on idle</span><i>idle detection + micro-motion</i></a><a class="ix" href="#e-AMB-05" data-ix="AMB-05 Caustics low-res canvas, upscaled"><b>AMB-05</b><span>Caustics</span><i>low-res canvas, upscaled</i></a><a class="ix" href="#e-AMB-06" data-ix="AMB-06 Colour temperature drift scroll-mapped white balance"><b>AMB-06</b><span>Colour temperature drift</span><i>scroll-mapped white balance</i></a></div></div>
   <p class="ixnote" id="ixempty" hidden>Nothing matches that.</p>
+</div>
+
+<div class="fcard" style="border-left-color:var(--ember)" id="pickmap">
+  <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">PICK</span><h4>Register &rarr; candidate effects &mdash; stop choosing motion from memory</h4></div>
+  <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+  <b style="color:var(--cream)">Register decides treatment, so Register decides the shortlist.</b>
+  Find your row, take the signature from that row, then one or two supporting, one ambient and one
+  pointer. <b>These are candidates, not commands</b> &mdash; the signature must still trace to a fact
+  about this business (BLD 02 step 6). What this table removes is the blank page, which is where the
+  fade-up default creeps in.</p>
+  <table class="lentable">
+    <tr><th>Register</th><th>Signature &mdash; pick 1, layer it</th><th>Supporting &mdash; pick 2</th><th>Ambient</th><th>Pointer</th></tr>
+    <tr><td><b style="color:var(--cream)">Raw</b></td><td>REA-02 velocity trail &middot; TYP-07 velocity skew &middot; GL-09 dithering</td><td>REV-02 aperture &middot; TYP-09 velocity marquee</td><td>AMB-01 film grain</td><td>REA-02 magnetic</td></tr>
+    <tr><td><b style="color:var(--cream)">Calm</b></td><td>TYP-02 line mask &middot; REV-01 gradient wipe &middot; GL-08 domain warp</td><td>DEP-01 parallax &middot; TYP-03 tracking open</td><td>AMB-02 aurora drift</td><td>REA-03 spotlight</td></tr>
+    <tr><td><b style="color:var(--cream)">Clinical</b></td><td>REV-02 aperture &middot; SYS-04 view transitions &middot; TYP-06 counter roll</td><td>SYS-01 scroll timelines &middot; PLT-05 container queries</td><td>&mdash; <i>none; grain reads as dirt here</i></td><td>DEP-02 pointer tilt <i>(restrained)</i></td></tr>
+    <tr><td><b style="color:var(--cream)">Craft</b></td><td>TYP-10 threshold dissolve &middot; REV-01 gradient wipe &middot; GL-08 domain warp</td><td>DEP-01 parallax &middot; TYP-02 line mask</td><td>AMB-01 grain &middot; AMB-06 temperature drift</td><td>REA-03 spotlight</td></tr>
+    <tr><td><b style="color:var(--cream)">Luxury</b></td><td>GL-02 dispersion glass &middot; TYP-03 tracking open &middot; REV-05 progressive blur</td><td>DEP-03 focus falloff &middot; TYP-01 character stagger</td><td>AMB-05 caustics &middot; AMB-02 aurora</td><td>GL-04 fluid cursor <i>(low amplitude)</i></td></tr>
+    <tr><td><b style="color:var(--cream)">Community</b></td><td>REA-01 particle field &middot; TYP-01 character stagger &middot; REV-04 stacking cards</td><td>DEP-01 parallax &middot; TYP-09 marquee</td><td>AMB-03 dust motes</td><td>REA-01 pointer wake</td></tr>
+  </table>
+  <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+  <b style="color:var(--tan)">Pattern adjusts the emphasis, not the shortlist ·</b>
+  <b>A</b> book a slot and <b>E</b> retain a professional lean calmer &mdash; drop one amplitude notch and
+  keep motion away from the booking control. <b>B</b> come and consume and <b>G</b> attend an occasion
+  can carry the most atmosphere. <b>C</b> join and <b>H</b> enrol want REV-03 proportional fill or
+  TYP-06 counter roll somewhere, because progress is the thing being sold.
+  <b>D</b> hire for a job and <b>F</b> buy a product want DEP-01 or DEP-03 on the proof &mdash; the work,
+  or the product.</p>
+  <div class="warnbox"><b>Universal, every register ·</b> SYS-01/02/03 and PLT-01&ndash;06 are
+  infrastructure, not flavour &mdash; they never count against the budget and never appear in the
+  shortlist above. Use them freely wherever they fit.</div>
+</div>
+
+<div class="fcard" style="border-left-color:var(--teal)" id="porting">
+  <div class="fcard-top"><span class="code" style="color:var(--teal);border-color:rgba(94,138,126,.4)">PORT</span><h4>How to lift a demo into a client build &mdash; the part that was missing</h4></div>
+  <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+  Every code block below is an <b>excerpt from a demo on this page</b>, wired to this document's own
+  classes, tokens and dark theme. <b style="color:var(--cream)">That friction is why effects go
+  unused:</b> under time pressure a model that has to reverse-engineer a fragment writes its own
+  simpler thing instead &mdash; and its own simpler thing is a fade-up. Porting is four mechanical
+  substitutions. Do them, don't improvise.</p>
+  <table class="lentable">
+    <tr><th>In the demo</th><th>In a client build</th></tr>
+    <tr><td>Document tokens &mdash; <code>var(--gold)</code>, <code>var(--char)</code>, <code>var(--ink-dim)</code></td><td><b>The measured client ramp</b> from KIT 01. Never carry a document colour into a build.</td></tr>
+    <tr><td>Demo classes &mdash; <code>.bench</code>, <code>.stage</code>, <code>.rail</code>, <code>.fill</code></td><td>Your own semantic classes. The demo shell is scaffolding for the page you are reading, not structure.</td></tr>
+    <tr><td>Its own <code>requestAnimationFrame</code> loop</td><td><b>Register into the ONE shared loop.</b> A second loop is the most common performance defect in these builds.</td></tr>
+    <tr><td>Always-on, full amplitude</td><td><b>IntersectionObserver-gated</b>, amplitude per the CHO 00 coverage table, and it must not re-trigger on scroll back up.</td></tr>
+  </table>
+  <p style="margin:14px 0 0;font-size:14px;color:var(--ink-dim);line-height:1.65">
+  <b style="color:var(--tan)">Paste this scaffold first, then hang effects off it.</b> It is the same
+  in every build, it satisfies the shared-loop and reduced-motion rules by construction, and it is
+  what checks 22&ndash;26 are measuring.</p>
+  <pre><code><i>/* ---- the scaffold every Phase 1 build starts from ---- */</i>
+:root{
+  --e:cubic-bezier(.16,1,.3,1);          <i>/* ONE easing family        */</i>
+  --d1:1s; --d2:.7s; --d3:.45s; --micro:.2s;  <i>/* ONE duration scale  */</i>
+  --rvd:0ms;                             <i>/* stagger delay, MUST be on :root */</i>
+}
+<i>/* one reveal vocabulary, reused at descending amplitude (CHO 00) */</i>
+.w,.ln{display:inline-block; overflow:hidden; vertical-align:top}
+.w &gt; span{display:inline-block; transform:translateY(110%);
+  transition:transform var(--d1) var(--e) var(--rvd)}
+.on .w &gt; span{transform:translateY(0)}
+[data-rv="fade"]{opacity:0; transform:translateY(20px);
+  transition:opacity var(--d2) var(--e) var(--rvd), transform var(--d2) var(--e) var(--rvd)}
+[data-rv="fade"].on{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important; transition:none !important}
+  [data-rv],.w &gt; span{opacity:1 !important; transform:none !important}
+}
+
+<i>/* ONE observer drives every reveal; nothing re-runs on scroll back */</i>
+const io = new IntersectionObserver(es =&gt; es.forEach(en =&gt; {
+  if (!en.isIntersecting) return;
+  en.target.classList.add('on');
+  io.unobserve(en.target);
+}), { threshold:.15, rootMargin:'0px 0px -6% 0px' });
+$$('[data-rv],[data-split],h1,h2,h3,.card').forEach(el =&gt; io.observe(el));
+
+<i>/* ONE rAF loop. Every continuous behaviour lives in here — never a second one. */</i>
+let mx = innerWidth/2, my = innerHeight/2, running = true, visible = true;
+addEventListener('pointermove', e =&gt; { mx = e.clientX; my = e.clientY; }, {passive:true});
+new IntersectionObserver(es =&gt; es.forEach(e =&gt; visible = e.isIntersecting)).observe(hero);
+function tick(now){
+  if (!running) return;
+  if (visible) { <i>/* shader uniforms · parallax · magnetic CTA · cursor */</i> }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+document.addEventListener('visibilitychange', () =&gt; {
+  running = document.visibilityState === 'visible';
+  if (running) requestAnimationFrame(tick);
+});</code></pre>
+  <div class="warnbox"><b>Three traps that have actually broken builds ·</b>
+  <code>--rvd</code> declared on <code>[data-rv]</code> instead of <code>:root</code> makes
+  <code>var(--rvd)</code> invalid inside a shared rule and <b>silently kills the whole transition</b> &middot;
+  an oversized texture pseudo-element needs <code>overflow:clip</code> on its parent or it pushes the
+  page sideways &middot; <code>backdrop-filter</code> over a live canvas forces a GPU readback every
+  frame (CHO 04).</div>
 </div>
 
   <div class="panel-intro">
