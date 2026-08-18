@@ -238,9 +238,10 @@ canvas.fill{position:absolute; inset:0; width:100%; height:100%; display:block}
 .magbtn:focus-visible{outline:2px solid var(--slate); outline-offset:4px}
 
 footer{border-top:1px solid var(--edge); margin-top:clamp(64px,10vh,120px);
-  padding:44px 0 72px; font-size:13.5px; color:var(--ink-faint)}
-footer p{margin:0 0 10px; max-width:70ch}
-footer b{color:var(--ink-dim); font-weight:500}
+  padding:44px 0 72px; font-size:14.5px; line-height:1.7; color:var(--ink-dim);
+  max-width:1080px; margin-inline:auto; padding-inline:24px}
+footer p{margin:0 0 16px; max-width:66ch}
+footer b{color:var(--cream); font-weight:600}
 .disclaimer{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em;
   text-transform:uppercase; color:var(--ember); margin-top:20px}
 
@@ -8148,25 +8149,27 @@ dot.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;</code>
     </ul>
   </div>
 </div><!-- /panel-standards -->
-</section>
 
 <footer>
   <p><b>How to use this.</b> Each bench is independent — lift the snippet, keep the constants,
   swap the palette tokens. The constants marked in gold are the ones that were tuned by feel;
   they're the difference between the effect working and the effect being visible.</p>
   <p><b>The architecture that matters more than any single effect:</b> one
-  <code>requestAnimationFrame</code> loop drives all eleven demos, and each stage is registered
-  with an <code>IntersectionObserver</code> so nothing off screen computes a thing. Eleven
-  private loops would idle this page at 100% CPU. That pattern is the actual takeaway.</p>
+  <code>requestAnimationFrame</code> loop drives every demo on this page, and each stage is registered
+  with an <code>IntersectionObserver</code> so nothing off screen computes a thing. Fifty-three
+  private loops would idle this page at 100% CPU. That pattern is the actual takeaway, and it is
+  the same one every build is required to follow.</p>
   <p><b>Every plate here is procedural</b> — layered gradients standing in for architecture, light
   and material. That is deliberate: it proves the techniques need no assets. Drop real photography
   into DEP-01 and DEP-03 and the depth stops being a demonstration and becomes a place.</p>
   <p><b>Demo values are not ship values.</b> Constants here are tuned so each effect is obvious at
   a glance. Production wants the opposite — the page feels alive and the reader never notices the
-  mechanism. Ship roughly 40–50% of these numbers; the full dial table is in the docs.</p>
+  mechanism. Ship roughly 40–50% of these numbers — the amplitude column in CHO 00 is the full dial.</p>
   <p class="disclaimer">General template · Grounded Labs palette · client-agnostic ·
   swap the <code>:root</code> tokens to re-skin</p>
 </footer>
+</section>
+
 </div>
 
 <script>
