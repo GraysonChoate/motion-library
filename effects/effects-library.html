@@ -1135,75 +1135,313 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 .gcard .gsrc{display:block; margin:5px 14px 0; font-family:var(--mono); font-size:9.5px;
   color:var(--ink-faint); line-height:1.4}
 
-/* per-group motifs — alive, cheap, no duplicated demos */
-.gp-img i:nth-child(1){inset:14% 18%; border-radius:50% 50% 3px 3px/32% 32% 3px 3px;
-  background:linear-gradient(160deg,#EBD3A6,#8a5a3c); animation:gfloat 7s ease-in-out infinite alternate}
-.gp-img i:nth-child(2){inset:30% 46% 30% 12%; border-radius:50%;
-  background:radial-gradient(circle,#9FD4C4,transparent 70%); mix-blend-mode:screen;
-  animation:gfloat 9s ease-in-out infinite alternate-reverse}
-.gp-img i:nth-child(3){display:none}
-.gp-typ i{height:9px; border-radius:2px; background:var(--edge); left:18%}
-.gp-typ i:nth-child(1){top:32%; width:46%; animation:gslide 3.4s ease-in-out infinite alternate}
-.gp-typ i:nth-child(2){top:48%; width:30%; animation:gslide 3.4s .2s ease-in-out infinite alternate}
-.gp-typ i:nth-child(3){top:64%; width:38%; animation:gslide 3.4s .4s ease-in-out infinite alternate}
-.gp-rev i{inset:26% 20%; background:linear-gradient(120deg,var(--gold),transparent);
-  border-radius:2px; animation:gwipe 4s cubic-bezier(.16,1,.3,1) infinite}
-.gp-rev i:nth-child(2),.gp-rev i:nth-child(3){display:none}
-.gp-rea i{width:12px; height:12px; border-radius:50%; background:var(--gold); top:44%;
-  animation:gtrail 3.2s ease-in-out infinite}
-.gp-rea i:nth-child(1){left:22%}
-.gp-rea i:nth-child(2){left:44%; animation-delay:.18s; opacity:.6}
-.gp-rea i:nth-child(3){left:66%; animation-delay:.36s; opacity:.3}
-.gp-dep i{inset:auto 16% 22%; height:22px; border-radius:3px; background:var(--edge)}
-.gp-dep i:nth-child(1){bottom:20%; animation:gpar 6s ease-in-out infinite alternate}
-.gp-dep i:nth-child(2){bottom:40%; inset-inline:24%; opacity:.6; animation:gpar 6s .4s ease-in-out infinite alternate-reverse}
-.gp-dep i:nth-child(3){bottom:60%; inset-inline:32%; opacity:.35; animation:gpar 6s .8s ease-in-out infinite alternate}
-.gp-gl i{inset:-20%; background:
-  radial-gradient(circle at 32% 38%,rgba(240,216,160,.55),transparent 58%),
-  radial-gradient(circle at 68% 62%,rgba(94,138,126,.55),transparent 56%);
-  filter:blur(12px); animation:gdrift 11s ease-in-out infinite alternate}
-.gp-gl i:nth-child(2),.gp-gl i:nth-child(3){display:none}
-.gp-amb i{width:5px; height:5px; border-radius:50%; background:var(--tan); opacity:.5}
-.gp-amb i:nth-child(1){left:28%; top:36%; animation:gmote 7s ease-in-out infinite alternate}
-.gp-amb i:nth-child(2){left:54%; top:58%; animation:gmote 9s .5s ease-in-out infinite alternate-reverse}
-.gp-amb i:nth-child(3){left:72%; top:30%; animation:gmote 8s 1s ease-in-out infinite alternate}
-.gp-sys i{left:18%; right:18%; height:2px; background:var(--edge)}
-.gp-sys i:nth-child(1){top:38%}
-.gp-sys i:nth-child(2){top:52%; animation:gscale 4s ease-in-out infinite alternate; transform-origin:left}
-.gp-sys i:nth-child(3){top:66%; opacity:.5}
-.gp-plt i{border:1px solid var(--edge); border-radius:2px}
-.gp-plt i:nth-child(1){inset:26% 30% 26% 20%; animation:gsize 5s ease-in-out infinite alternate}
-.gp-plt i:nth-child(2){inset:34% 20% 34% 56%; opacity:.6}
-.gp-plt i:nth-child(3){display:none}
-@keyframes gfloat{to{transform:translate(6%,-7%) scale(1.06)}}
-@keyframes gslide{from{transform:scaleX(.25); transform-origin:left} to{transform:scaleX(1); transform-origin:left}}
-@keyframes gwipe{0%{clip-path:inset(0 100% 0 0)}55%,100%{clip-path:inset(0 0 0 0)}}
-@keyframes gtrail{0%,100%{transform:translateY(0); opacity:inherit}50%{transform:translateY(-14px)}}
-@keyframes gpar{to{transform:translateX(10%)}}
-@keyframes gdrift{to{transform:translate(8%,-6%) scale(1.15)}}
-@keyframes gmote{to{transform:translate(10px,-16px); opacity:.9}}
-@keyframes gscale{from{transform:scaleX(.3)}to{transform:scaleX(1)}}
-@keyframes gsize{to{inset:20% 24% 20% 20%}}
-/* vary each card within its group so a row reads as a family, not as clones */
-.gcard:nth-child(6n+2) .gprev i{animation-delay:.4s !important}
-.gcard:nth-child(6n+3) .gprev i{animation-delay:.8s !important}
-.gcard:nth-child(6n+4) .gprev i{animation-delay:1.2s !important}
-.gcard:nth-child(6n+5) .gprev i{animation-delay:1.6s !important}
-.gcard:nth-child(6n+6) .gprev i{animation-delay:2s !important}
-.gcard:nth-child(2n) .gprev{filter:hue-rotate(14deg)}
-.gcard:nth-child(3n) .gprev{filter:hue-rotate(-18deg)}
-.gcard:nth-child(5n) .gprev{filter:hue-rotate(30deg) saturate(.8)}
-.gcard:nth-child(2n) .gp-img i:nth-child(1){border-radius:50%}
-.gcard:nth-child(3n) .gp-img i:nth-child(1){border-radius:999px 999px 3px 3px; inset:12% 30%}
-.gcard:nth-child(4n) .gp-img i:nth-child(1){border-radius:3px; inset:22% 16%}
-.gcard:nth-child(5n) .gp-img i:nth-child(1){border-radius:50% 50% 3px 3px/40% 40% 3px 3px; inset:16% 26%}
-.gcard:nth-child(2n) .gp-typ i:nth-child(1){width:34%}
-.gcard:nth-child(2n) .gp-typ i:nth-child(3){width:52%}
-.gcard:nth-child(3n) .gp-typ i:nth-child(2){width:48%}
-.gcard:nth-child(2n) .gp-rev i{background:linear-gradient(300deg,var(--tan),transparent)}
-.gcard:nth-child(3n) .gp-rev i{inset:34% 14%; border-radius:50%}
-.gcard:nth-child(2n) .gp-gl i{filter:blur(18px)}
-.gcard:nth-child(3n) .gp-gl i{filter:blur(8px)}
+/* ===== per-EFFECT preview motifs =====
+   One motif per ID, not per group. A group placeholder made every card in a row
+   identical, which told a reader nothing about the individual effect. Each of
+   these is a miniature of what that specific technique actually does. Pure CSS,
+   no duplicated demos, no canvas. */
+.gprev i{background:var(--edge)}
+.gk{position:absolute; inset:0}
+
+/* --- generic bars used by most type/layout motifs --- */
+[class*="gp-"] i{border-radius:2px}
+
+/* ---------- TYPOGRAPHY ---------- */
+.gcard[data-goto="e-TYP-01"] i{height:8px; left:22%; background:var(--tan)}
+.gcard[data-goto="e-TYP-01"] i:nth-child(1){top:34%; width:34%; animation:mBlur 2.6s ease-in-out infinite}
+.gcard[data-goto="e-TYP-01"] i:nth-child(2){top:50%; width:26%; animation:mBlur 2.6s .18s ease-in-out infinite}
+.gcard[data-goto="e-TYP-01"] i:nth-child(3){top:66%; width:40%; animation:mBlur 2.6s .36s ease-in-out infinite}
+
+.gcard[data-goto="e-TYP-02"] i{left:22%; height:9px; background:var(--tan); clip-path:inset(0 0 0 0)}
+.gcard[data-goto="e-TYP-02"] i:nth-child(1){top:32%; width:42%; animation:mUp 3s ease-in-out infinite}
+.gcard[data-goto="e-TYP-02"] i:nth-child(2){top:49%; width:30%; animation:mUp 3s .2s ease-in-out infinite}
+.gcard[data-goto="e-TYP-02"] i:nth-child(3){top:66%; width:36%; animation:mUp 3s .4s ease-in-out infinite}
+
+.gcard[data-goto="e-TYP-03"] i{top:46%; height:10px; width:9%; background:var(--tan);
+  animation:mSpread 3.4s ease-in-out infinite alternate}
+.gcard[data-goto="e-TYP-03"] i:nth-child(1){left:30%}
+.gcard[data-goto="e-TYP-03"] i:nth-child(2){left:45%; animation-delay:.05s}
+.gcard[data-goto="e-TYP-03"] i:nth-child(3){left:60%; animation-delay:.1s}
+
+.gcard[data-goto="e-TYP-04"] i{left:26%; background:var(--tan); border-radius:2px}
+.gcard[data-goto="e-TYP-04"] i:nth-child(1){top:32%; width:44%; height:6px; animation:mWeight 3s ease-in-out infinite alternate}
+.gcard[data-goto="e-TYP-04"] i:nth-child(2){top:48%; width:44%; height:10px; animation:mWeight 3s .3s ease-in-out infinite alternate}
+.gcard[data-goto="e-TYP-04"] i:nth-child(3){top:66%; width:44%; height:14px; animation:mWeight 3s .6s ease-in-out infinite alternate}
+
+.gcard[data-goto="e-TYP-05"] i{top:46%; height:11px; background:var(--tan)}
+.gcard[data-goto="e-TYP-05"] i:nth-child(1){left:26%; width:8%; animation:mScram .9s steps(3) infinite}
+.gcard[data-goto="e-TYP-05"] i:nth-child(2){left:42%; width:8%; animation:mScram .9s .15s steps(3) infinite}
+.gcard[data-goto="e-TYP-05"] i:nth-child(3){left:58%; width:8%; animation:mScram .9s .3s steps(3) infinite}
+
+.gcard[data-goto="e-TYP-06"] .gprev{overflow:hidden}
+.gcard[data-goto="e-TYP-06"] i{left:38%; width:24%; height:16px; background:var(--tan);
+  animation:mRoll 2.4s cubic-bezier(.16,1,.3,1) infinite}
+.gcard[data-goto="e-TYP-06"] i:nth-child(1){top:42%}
+.gcard[data-goto="e-TYP-06"] i:nth-child(2){top:42%; animation-delay:.8s}
+.gcard[data-goto="e-TYP-06"] i:nth-child(3){display:none}
+
+.gcard[data-goto="e-TYP-07"] i{left:24%; height:9px; background:var(--tan); transform-origin:left}
+.gcard[data-goto="e-TYP-07"] i:nth-child(1){top:34%; width:40%; animation:mSkew 2.8s ease-in-out infinite}
+.gcard[data-goto="e-TYP-07"] i:nth-child(2){top:50%; width:32%; animation:mSkew 2.8s .1s ease-in-out infinite}
+.gcard[data-goto="e-TYP-07"] i:nth-child(3){top:66%; width:38%; animation:mSkew 2.8s .2s ease-in-out infinite}
+
+.gcard[data-goto="e-TYP-08"] i{height:10px; background:var(--tan)}
+.gcard[data-goto="e-TYP-08"] i:nth-child(1){top:38%; left:22%; width:30%; animation:mOppL 4s ease-in-out infinite alternate}
+.gcard[data-goto="e-TYP-08"] i:nth-child(2){top:56%; right:22%; width:30%; animation:mOppR 4s ease-in-out infinite alternate}
+.gcard[data-goto="e-TYP-08"] i:nth-child(3){display:none}
+
+.gcard[data-goto="e-TYP-09"] .gprev{overflow:hidden}
+.gcard[data-goto="e-TYP-09"] i{top:46%; height:11px; width:26%; background:var(--tan);
+  animation:mMarq 3s linear infinite}
+.gcard[data-goto="e-TYP-09"] i:nth-child(1){left:0}
+.gcard[data-goto="e-TYP-09"] i:nth-child(2){left:36%}
+.gcard[data-goto="e-TYP-09"] i:nth-child(3){left:72%}
+
+.gcard[data-goto="e-TYP-10"] i{left:24%; height:10px; background:var(--tan)}
+.gcard[data-goto="e-TYP-10"] i:nth-child(1){top:34%; width:40%; animation:mDiss 3.2s ease-in-out infinite}
+.gcard[data-goto="e-TYP-10"] i:nth-child(2){top:51%; width:28%; animation:mDiss 3.2s .25s ease-in-out infinite}
+.gcard[data-goto="e-TYP-10"] i:nth-child(3){top:68%; width:34%; animation:mDiss 3.2s .5s ease-in-out infinite}
+
+/* ---------- REVEAL ---------- */
+.gcard[data-goto="e-REV-01"] i:nth-child(1){inset:28% 20%; background:linear-gradient(100deg,var(--gold),var(--tan));
+  animation:mWipe 3.4s cubic-bezier(.16,1,.3,1) infinite}
+.gcard[data-goto="e-REV-01"] i:nth-child(2),.gcard[data-goto="e-REV-01"] i:nth-child(3){display:none}
+
+.gcard[data-goto="e-REV-02"] i:nth-child(1){inset:16% 26%; border-radius:50%; background:var(--gold);
+  animation:mIris 3.2s cubic-bezier(.16,1,.3,1) infinite}
+.gcard[data-goto="e-REV-02"] i:nth-child(2),.gcard[data-goto="e-REV-02"] i:nth-child(3){display:none}
+
+.gcard[data-goto="e-REV-03"] i{left:20%; right:20%; height:10px; border-radius:999px}
+.gcard[data-goto="e-REV-03"] i:nth-child(1){top:46%; background:var(--edge)}
+.gcard[data-goto="e-REV-03"] i:nth-child(2){top:46%; background:var(--gold); transform-origin:left;
+  animation:mFill 3.2s ease-in-out infinite alternate}
+.gcard[data-goto="e-REV-03"] i:nth-child(3){display:none}
+
+.gcard[data-goto="e-REV-04"] i{left:26%; right:26%; height:22px; border-radius:3px;
+  background:var(--edge); border:1px solid var(--edge-soft)}
+.gcard[data-goto="e-REV-04"] i:nth-child(1){top:22%; animation:mStack 3.6s ease-in-out infinite alternate}
+.gcard[data-goto="e-REV-04"] i:nth-child(2){top:38%; animation:mStack 3.6s .2s ease-in-out infinite alternate}
+.gcard[data-goto="e-REV-04"] i:nth-child(3){top:54%; animation:mStack 3.6s .4s ease-in-out infinite alternate}
+
+.gcard[data-goto="e-REV-05"] i{left:18%; right:18%; height:16px; background:var(--tan)}
+.gcard[data-goto="e-REV-05"] i:nth-child(1){top:26%; filter:blur(0px)}
+.gcard[data-goto="e-REV-05"] i:nth-child(2){top:47%; filter:blur(2px)}
+.gcard[data-goto="e-REV-05"] i:nth-child(3){top:68%; filter:blur(5px)}
+
+/* ---------- REACTIVITY ---------- */
+.gcard[data-goto="e-REA-01"] i{width:7px; height:7px; border-radius:50%; background:var(--gold)}
+.gcard[data-goto="e-REA-01"] i:nth-child(1){left:32%; top:70%; animation:mRise 3.4s ease-in-out infinite}
+.gcard[data-goto="e-REA-01"] i:nth-child(2){left:52%; top:70%; animation:mRise 3.4s .7s ease-in-out infinite}
+.gcard[data-goto="e-REA-01"] i:nth-child(3){left:68%; top:70%; animation:mRise 3.4s 1.4s ease-in-out infinite}
+
+.gcard[data-goto="e-REA-02"] i{width:11px; height:11px; border-radius:50%; background:var(--gold); top:44%;
+  animation:mSwipe 2.6s ease-in-out infinite}
+.gcard[data-goto="e-REA-02"] i:nth-child(1){left:18%}
+.gcard[data-goto="e-REA-02"] i:nth-child(2){left:18%; animation-delay:.1s; opacity:.55}
+.gcard[data-goto="e-REA-02"] i:nth-child(3){left:18%; animation-delay:.2s; opacity:.28}
+
+.gcard[data-goto="e-REA-03"] i:nth-child(1){inset:0; background:
+  repeating-linear-gradient(90deg,var(--edge-soft) 0 1px,transparent 1px 14px),
+  repeating-linear-gradient(0deg,var(--edge-soft) 0 1px,transparent 1px 14px)}
+.gcard[data-goto="e-REA-03"] i:nth-child(2){width:52px; height:52px; border-radius:50%; top:26%; left:20%;
+  background:radial-gradient(circle,rgba(201,164,92,.65),transparent 70%);
+  animation:mSpot 4.2s ease-in-out infinite alternate}
+.gcard[data-goto="e-REA-03"] i:nth-child(3){display:none}
+
+/* ---------- DEPTH ---------- */
+.gcard[data-goto="e-DEP-01"] i{left:14%; right:14%; height:14px; border-radius:3px}
+.gcard[data-goto="e-DEP-01"] i:nth-child(1){top:62%; background:var(--tan); animation:mPara 4s ease-in-out infinite alternate}
+.gcard[data-goto="e-DEP-01"] i:nth-child(2){top:44%; background:var(--edge); animation:mPara 4s ease-in-out infinite alternate; animation-delay:.25s; opacity:.75}
+.gcard[data-goto="e-DEP-01"] i:nth-child(3){top:26%; background:var(--edge); animation:mPara 4s ease-in-out infinite alternate; animation-delay:.5s; opacity:.45}
+
+.gcard[data-goto="e-DEP-02"] i:nth-child(1){inset:24% 26%; border-radius:3px;
+  background:linear-gradient(140deg,var(--tan),var(--edge));
+  animation:mTilt 4.4s ease-in-out infinite alternate}
+.gcard[data-goto="e-DEP-02"] i:nth-child(2),.gcard[data-goto="e-DEP-02"] i:nth-child(3){display:none}
+
+.gcard[data-goto="e-DEP-03"] i{top:30%; height:44px; width:22%; border-radius:3px; background:var(--tan)}
+.gcard[data-goto="e-DEP-03"] i:nth-child(1){left:12%; filter:blur(3px); opacity:.55}
+.gcard[data-goto="e-DEP-03"] i:nth-child(2){left:39%; filter:blur(0)}
+.gcard[data-goto="e-DEP-03"] i:nth-child(3){left:66%; filter:blur(3px); opacity:.55}
+
+/* ---------- IMAGERY ---------- */
+.gcard[data-goto="e-IMG-01"] i:nth-child(1){inset:16% 22%; border-radius:50%;
+  background:radial-gradient(circle,#EBD3A6,transparent 70%); animation:mFloat 6s ease-in-out infinite alternate}
+.gcard[data-goto="e-IMG-01"] i:nth-child(2){inset:26% 38% 26% 14%; border-radius:50%;
+  background:radial-gradient(circle,#9FD4C4,transparent 72%); mix-blend-mode:screen;
+  animation:mFloat 7.5s ease-in-out infinite alternate-reverse}
+.gcard[data-goto="e-IMG-01"] i:nth-child(3){display:none}
+
+.gcard[data-goto="e-IMG-02"] i{bottom:22%; width:24%; background:linear-gradient(160deg,#EBD3A6,#8a5a3c)}
+.gcard[data-goto="e-IMG-02"] i:nth-child(1){left:12%; height:48%; border-radius:50% 50% 3px 3px/32% 32% 3px 3px}
+.gcard[data-goto="e-IMG-02"] i:nth-child(2){left:39%; height:38%; border-radius:50%}
+.gcard[data-goto="e-IMG-02"] i:nth-child(3){left:66%; height:52%; border-radius:999px 999px 3px 3px}
+
+.gcard[data-goto="e-IMG-03"] i:nth-child(1){inset:20% 24%; border-radius:3px;
+  background:linear-gradient(140deg,#EBD3A6,#5a3a26)}
+.gcard[data-goto="e-IMG-03"] i:nth-child(2){inset:20% 24%; border-radius:3px; background:#2a1d14;
+  mix-blend-mode:multiply; animation:mDuo 3.6s ease-in-out infinite}
+.gcard[data-goto="e-IMG-03"] i:nth-child(3){display:none}
+
+.gcard[data-goto="e-IMG-04"] i{inset:24% 28%; border-radius:3px; mix-blend-mode:screen}
+.gcard[data-goto="e-IMG-04"] i:nth-child(1){background:rgba(214,74,74,.62); animation:mSplitL 2.4s ease-in-out infinite}
+.gcard[data-goto="e-IMG-04"] i:nth-child(2){background:rgba(74,120,214,.62); animation:mSplitR 2.4s ease-in-out infinite}
+.gcard[data-goto="e-IMG-04"] i:nth-child(3){background:rgba(232,220,200,.5)}
+
+.gcard[data-goto="e-IMG-05"] i:nth-child(1){inset:36% 22%;
+  background:linear-gradient(120deg,#e6c07a,#5E8A7E,#c98b5a); background-size:200% 200%;
+  -webkit-mask-image:repeating-linear-gradient(90deg,#000 0 14px,transparent 14px 22px);
+          mask-image:repeating-linear-gradient(90deg,#000 0 14px,transparent 14px 22px);
+  animation:mPan 8s ease-in-out infinite alternate}
+.gcard[data-goto="e-IMG-05"] i:nth-child(2),.gcard[data-goto="e-IMG-05"] i:nth-child(3){display:none}
+
+.gcard[data-goto="e-IMG-06"] i{width:26px; height:34px; border-radius:2px; top:38%;
+  background:linear-gradient(150deg,#EBD3A6,#6b5a41); animation:mPop 2.8s ease-in-out infinite}
+.gcard[data-goto="e-IMG-06"] i:nth-child(1){left:22%}
+.gcard[data-goto="e-IMG-06"] i:nth-child(2){left:42%; animation-delay:.3s}
+.gcard[data-goto="e-IMG-06"] i:nth-child(3){left:62%; animation-delay:.6s}
+
+/* ---------- RENDERED (GL) ---------- */
+.gcard[data-goto^="e-GL-"] i:nth-child(2),.gcard[data-goto^="e-GL-"] i:nth-child(3){display:none}
+.gcard[data-goto^="e-GL-"] i:nth-child(1){inset:-24%}
+.gcard[data-goto="e-GL-01"] i{background:radial-gradient(circle at 42% 44%,#EBD3A6,transparent 46%),
+  radial-gradient(circle at 62% 62%,#8a5a3c,transparent 52%); filter:blur(3px); animation:mWarp 9s ease-in-out infinite alternate}
+.gcard[data-goto="e-GL-02"] i{background:conic-gradient(from 0deg,#EBD3A6,#9FD4C4,#c98b5a,#EBD3A6);
+  filter:blur(9px); animation:mSpin 14s linear infinite}
+.gcard[data-goto="e-GL-03"] i{background:linear-gradient(100deg,#EBD3A6 0 50%,#5E8A7E 50% 100%);
+  filter:blur(7px); animation:mSlideX 5s ease-in-out infinite alternate}
+.gcard[data-goto="e-GL-04"] i{background:radial-gradient(circle at 34% 50%,#9FD4C4,transparent 44%),
+  radial-gradient(circle at 66% 50%,#EBD3A6,transparent 44%); filter:blur(6px); animation:mFluid 6s ease-in-out infinite alternate}
+.gcard[data-goto="e-GL-05"] i{background:radial-gradient(circle at 30% 40%,#EBD3A6 0 2px,transparent 3px) 0 0/18px 18px,
+  radial-gradient(circle at 70% 60%,#9FD4C4 0 2px,transparent 3px) 0 0/22px 22px; animation:mDrift2 10s ease-in-out infinite alternate}
+.gcard[data-goto="e-GL-06"] i{background:linear-gradient(140deg,#EBD3A6,#5E8A7E); filter:blur(5px) saturate(1.4) contrast(1.3);
+  animation:mPost 7s ease-in-out infinite alternate}
+.gcard[data-goto="e-GL-07"] i{background:repeating-linear-gradient(90deg,#EBD3A6 0 3px,transparent 3px 15px);
+  filter:blur(1px); animation:mMesh 6s ease-in-out infinite alternate}
+.gcard[data-goto="e-GL-08"] i{background:radial-gradient(circle at 32% 38%,#EBD3A6,transparent 54%),
+  radial-gradient(circle at 68% 62%,#5E8A7E,transparent 54%); filter:blur(11px); animation:mWarp 11s ease-in-out infinite alternate}
+.gcard[data-goto="e-GL-09"] i{background:repeating-conic-gradient(#EBD3A6 0 25%,#2a2118 0 50%) 0 0/7px 7px;
+  opacity:.8; animation:mDither 4s steps(4) infinite}
+
+/* ---------- AMBIENT ---------- */
+.gcard[data-goto="e-AMB-01"] i:nth-child(1){inset:0; opacity:.5;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>');
+  animation:mFlick .5s steps(2) infinite}
+.gcard[data-goto="e-AMB-01"] i:nth-child(2),.gcard[data-goto="e-AMB-01"] i:nth-child(3){display:none}
+.gcard[data-goto="e-AMB-02"] i{inset:-30%; border-radius:50%; filter:blur(16px)}
+.gcard[data-goto="e-AMB-02"] i:nth-child(1){background:radial-gradient(circle,#EBD3A6,transparent 66%); animation:mBlob 13s ease-in-out infinite alternate}
+.gcard[data-goto="e-AMB-02"] i:nth-child(2){background:radial-gradient(circle,#5E8A7E,transparent 66%); animation:mBlob 17s 1s ease-in-out infinite alternate-reverse}
+.gcard[data-goto="e-AMB-02"] i:nth-child(3){background:radial-gradient(circle,#c98b5a,transparent 66%); animation:mBlob 19s 2s ease-in-out infinite alternate}
+.gcard[data-goto="e-AMB-03"] i{border-radius:50%; background:var(--tan)}
+.gcard[data-goto="e-AMB-03"] i:nth-child(1){width:6px;height:6px;left:26%;top:38%; animation:mMote 7s ease-in-out infinite alternate}
+.gcard[data-goto="e-AMB-03"] i:nth-child(2){width:4px;height:4px;left:52%;top:60%; opacity:.7; animation:mMote 9s .6s ease-in-out infinite alternate-reverse}
+.gcard[data-goto="e-AMB-03"] i:nth-child(3){width:3px;height:3px;left:74%;top:32%; opacity:.5; animation:mMote 11s 1.2s ease-in-out infinite alternate}
+.gcard[data-goto="e-AMB-04"] i:nth-child(1){inset:30% 30%; border-radius:4px; background:var(--tan);
+  animation:mBreath 4.5s ease-in-out infinite alternate}
+.gcard[data-goto="e-AMB-04"] i:nth-child(2),.gcard[data-goto="e-AMB-04"] i:nth-child(3){display:none}
+.gcard[data-goto="e-AMB-05"] i:nth-child(1){inset:-10%;
+  background:repeating-radial-gradient(circle at 40% 40%,rgba(235,211,166,.5) 0 2px,transparent 2px 16px);
+  filter:blur(3px); animation:mCaust 9s ease-in-out infinite alternate}
+.gcard[data-goto="e-AMB-05"] i:nth-child(2),.gcard[data-goto="e-AMB-05"] i:nth-child(3){display:none}
+.gcard[data-goto="e-AMB-06"] i:nth-child(1){inset:0; background:linear-gradient(180deg,#EBD3A6,#5E8A7E);
+  opacity:.55; animation:mTemp 8s ease-in-out infinite alternate}
+.gcard[data-goto="e-AMB-06"] i:nth-child(2),.gcard[data-goto="e-AMB-06"] i:nth-child(3){display:none}
+
+/* ---------- ARCHITECTURE (SYS) ---------- */
+.gcard[data-goto^="e-SYS-"] i{left:18%; right:18%; height:3px; background:var(--edge)}
+.gcard[data-goto="e-SYS-01"] i:nth-child(1){top:36%}
+.gcard[data-goto="e-SYS-01"] i:nth-child(2){top:52%; background:var(--gold); transform-origin:left; animation:mFill 3.6s linear infinite}
+.gcard[data-goto="e-SYS-01"] i:nth-child(3){top:68%}
+.gcard[data-goto="e-SYS-02"] i{height:20px; border-radius:3px; left:auto; right:auto; width:24%}
+.gcard[data-goto="e-SYS-02"] i:nth-child(1){top:34%; left:18%; animation:mFlip 3.4s ease-in-out infinite alternate}
+.gcard[data-goto="e-SYS-02"] i:nth-child(2){top:34%; left:58%; animation:mFlipB 3.4s ease-in-out infinite alternate}
+.gcard[data-goto="e-SYS-02"] i:nth-child(3){display:none}
+.gcard[data-goto="e-SYS-03"] i{height:12px; width:12px; border-radius:50%; left:22%; right:auto; background:var(--gold)}
+.gcard[data-goto="e-SYS-03"] i:nth-child(1){top:32%; animation:mSpring 2.6s cubic-bezier(.34,1.56,.64,1) infinite}
+.gcard[data-goto="e-SYS-03"] i:nth-child(2){top:58%; animation:mEase 2.6s ease-in-out infinite; opacity:.55}
+.gcard[data-goto="e-SYS-03"] i:nth-child(3){display:none}
+.gcard[data-goto="e-SYS-04"] i{border-radius:3px; height:auto; left:auto; right:auto}
+.gcard[data-goto="e-SYS-04"] i:nth-child(1){inset:28% 30%; background:var(--tan); animation:mMorph 4s ease-in-out infinite alternate}
+.gcard[data-goto="e-SYS-04"] i:nth-child(2),.gcard[data-goto="e-SYS-04"] i:nth-child(3){display:none}
+.gcard[data-goto="e-SYS-05"] i{height:8px; border-radius:2px}
+.gcard[data-goto="e-SYS-05"] i:nth-child(1){top:38%; background:var(--gold); animation:mPre 3s ease-in-out infinite}
+.gcard[data-goto="e-SYS-05"] i:nth-child(2){top:54%; opacity:.6; animation:mPre 3s .3s ease-in-out infinite}
+.gcard[data-goto="e-SYS-05"] i:nth-child(3){top:70%; opacity:.3; animation:mPre 3s .6s ease-in-out infinite}
+
+/* ---------- PLATFORM (PLT) ---------- */
+.gcard[data-goto^="e-PLT-"] i{border:1px solid var(--edge); border-radius:3px; background:transparent}
+.gcard[data-goto="e-PLT-01"] i:nth-child(1){inset:30% 26%; animation:mGrow 3.4s ease-in-out infinite alternate}
+.gcard[data-goto="e-PLT-01"] i:nth-child(2),.gcard[data-goto="e-PLT-01"] i:nth-child(3){display:none}
+.gcard[data-goto="e-PLT-02"] i{inset:34% 30%; background:var(--tan); border:0; animation:mEnter 3s ease-in-out infinite}
+.gcard[data-goto="e-PLT-02"] i:nth-child(2){animation-delay:.25s; opacity:.6}
+.gcard[data-goto="e-PLT-02"] i:nth-child(3){animation-delay:.5s; opacity:.3}
+.gcard[data-goto="e-PLT-03"] i:nth-child(1){inset:52% 46% 22% 20%; background:var(--tan); border:0}
+.gcard[data-goto="e-PLT-03"] i:nth-child(2){inset:22% 20% 44% 44%; animation:mPop2 3.2s ease-in-out infinite}
+.gcard[data-goto="e-PLT-03"] i:nth-child(3){display:none}
+.gcard[data-goto="e-PLT-04"] i:nth-child(1){inset:28% 22%; border:0;
+  background:linear-gradient(90deg,#EBD3A6,#5E8A7E); background-size:200% 100%; animation:mGrad 5s ease-in-out infinite alternate}
+.gcard[data-goto="e-PLT-04"] i:nth-child(2),.gcard[data-goto="e-PLT-04"] i:nth-child(3){display:none}
+.gcard[data-goto="e-PLT-05"] i:nth-child(1){inset:26% 54% 26% 18%; animation:mCq 3.8s ease-in-out infinite alternate}
+.gcard[data-goto="e-PLT-05"] i:nth-child(2){inset:26% 18% 26% 54%; animation:mCqB 3.8s ease-in-out infinite alternate}
+.gcard[data-goto="e-PLT-05"] i:nth-child(3){display:none}
+.gcard[data-goto="e-PLT-06"] i{inset:32% auto 32% 0; width:26%; border-radius:3px}
+.gcard[data-goto="e-PLT-06"] i:nth-child(1){left:8%; background:var(--tan); border:0; animation:mSnap 4s ease-in-out infinite alternate}
+.gcard[data-goto="e-PLT-06"] i:nth-child(2){left:38%; animation:mSnap 4s ease-in-out infinite alternate}
+.gcard[data-goto="e-PLT-06"] i:nth-child(3){left:68%; animation:mSnap 4s ease-in-out infinite alternate}
+
+@keyframes mBlur{0%,100%{filter:blur(4px);opacity:.3}45%,70%{filter:blur(0);opacity:1}}
+@keyframes mUp{0%{clip-path:inset(0 0 100% 0)}40%,75%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 0 100% 0)}}
+@keyframes mSpread{from{transform:translateX(0)}to{transform:translateX(14px)}}
+@keyframes mWeight{from{transform:scaleY(.5);transform-origin:center}to{transform:scaleY(1)}}
+@keyframes mScram{0%{width:6%}33%{width:13%}66%{width:8%}100%{width:11%}}
+@keyframes mRoll{0%{transform:translateY(18px);opacity:0}25%,70%{transform:translateY(0);opacity:1}100%{transform:translateY(-18px);opacity:0}}
+@keyframes mSkew{0%,100%{transform:skewX(0) scaleX(1)}45%{transform:skewX(-11deg) scaleX(.92)}}
+@keyframes mOppL{from{transform:translateX(-10px)}to{transform:translateX(12px)}}
+@keyframes mOppR{from{transform:translateX(12px)}to{transform:translateX(-10px)}}
+@keyframes mMarq{from{transform:translateX(0)}to{transform:translateX(-36%)}}
+@keyframes mDiss{0%,100%{opacity:.15;filter:blur(3px)}45%,70%{opacity:1;filter:blur(0)}}
+@keyframes mWipe{0%{clip-path:inset(0 100% 0 0)}55%,100%{clip-path:inset(0 0 0 0)}}
+@keyframes mIris{0%{transform:scale(0);opacity:.4}60%,100%{transform:scale(1);opacity:1}}
+@keyframes mFill{from{transform:scaleX(.12)}to{transform:scaleX(1)}}
+@keyframes mStack{from{transform:translateY(6px)}to{transform:translateY(-4px)}}
+@keyframes mRise{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(-46px);opacity:0}}
+@keyframes mSwipe{0%{transform:translateX(0)}50%{transform:translateX(96px)}100%{transform:translateX(0)}}
+@keyframes mSpot{from{transform:translate(0,0)}to{transform:translate(58px,18px)}}
+@keyframes mPara{from{transform:translateX(-9px)}to{transform:translateX(9px)}}
+@keyframes mTilt{from{transform:perspective(300px) rotateY(-15deg) rotateX(7deg)}to{transform:perspective(300px) rotateY(15deg) rotateX(-7deg)}}
+@keyframes mFloat{to{transform:translate(7%,-8%) scale(1.08)}}
+@keyframes mDuo{0%,100%{opacity:.85}45%,65%{opacity:0}}
+@keyframes mSplitL{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}
+@keyframes mSplitR{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+@keyframes mPan{to{background-position:100% 100%}}
+@keyframes mPop{0%{opacity:0;transform:scale(.8)}25%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.1)}}
+@keyframes mWarp{to{transform:translate(9%,-7%) scale(1.16)}}
+@keyframes mSpin{to{transform:rotate(360deg)}}
+@keyframes mSlideX{to{transform:translateX(-24%)}}
+@keyframes mFluid{to{transform:translateX(16%) scale(1.1)}}
+@keyframes mDrift2{to{background-position:26px 18px, -22px 14px}}
+@keyframes mPost{to{filter:blur(9px) saturate(2) contrast(1.7)}}
+@keyframes mMesh{to{transform:skewY(-7deg) scaleY(1.2)}}
+@keyframes mDither{to{opacity:.42}}
+@keyframes mFlick{to{opacity:.28}}
+@keyframes mBlob{to{transform:translate(16%,-12%) scale(1.25)}}
+@keyframes mMote{to{transform:translate(12px,-18px);opacity:.95}}
+@keyframes mBreath{from{transform:scale(.94);opacity:.6}to{transform:scale(1.04);opacity:1}}
+@keyframes mCaust{to{transform:translate(8%,6%) scale(1.12)}}
+@keyframes mTemp{from{filter:hue-rotate(0)}to{filter:hue-rotate(38deg)}}
+@keyframes mFlip{from{transform:translateX(0)}to{transform:translateX(96px)}}
+@keyframes mFlipB{from{transform:translateX(0)}to{transform:translateX(-96px)}}
+@keyframes mSpring{0%{transform:translateX(0)}55%{transform:translateX(84px)}75%{transform:translateX(74px)}100%{transform:translateX(80px)}}
+@keyframes mEase{0%{transform:translateX(0)}55%,100%{transform:translateX(80px)}}
+@keyframes mMorph{from{inset:28% 30%;border-radius:3px}to{inset:16% 18%;border-radius:50%}}
+@keyframes mPre{0%{transform:translateX(-8px);opacity:.2}45%,100%{transform:translateX(0);opacity:1}}
+@keyframes mGrow{from{inset:38% 30%}to{inset:18% 22%}}
+@keyframes mEnter{0%{opacity:0;transform:translateY(10px) scale(.9)}30%,70%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-6px)}}
+@keyframes mPop2{0%,100%{opacity:0;transform:scale(.9)}30%,70%{opacity:1;transform:scale(1)}}
+@keyframes mGrad{to{background-position:100% 0}}
+@keyframes mCq{to{inset:26% 62% 26% 18%}}
+@keyframes mCqB{to{inset:18% 12% 18% 46%}}
+@keyframes mSnap{to{transform:translateX(-22px)}}
 @media (prefers-reduced-motion:reduce){ .gprev i{animation:none !important} }
 @media (max-width:640px){ .ggrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))} }
 
@@ -1333,6 +1571,16 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
   color:var(--ink-faint); letter-spacing:.06em}
 .ix:hover span{color:var(--cream)}
 .bench:target{box-shadow:0 0 0 1px var(--gold); border-radius:2px}
+.backfixed{position:fixed; left:18px; bottom:64px; z-index:71; display:none;
+  align-items:center; gap:9px; appearance:none; cursor:pointer;
+  font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  padding:11px 18px; border-radius:999px; border:1px solid var(--edge);
+  background:rgba(22,23,26,.96); color:var(--cream); backdrop-filter:blur(6px);
+  transition:border-color .2s, color .2s, transform .2s}
+.backfixed.on{display:inline-flex}
+.backfixed:hover{border-color:var(--gold); color:var(--gold); transform:translateX(-2px)}
+.backfixed:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+@media (max-width:640px){ .backfixed{left:12px; bottom:58px; font-size:10px; padding:9px 14px} }
 .backtop{position:fixed; right:18px; bottom:64px; z-index:70; display:none;
   font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
   padding:9px 14px; border-radius:999px; border:1px solid var(--edge);
@@ -9887,9 +10135,22 @@ qa('[data-demo="typ-dissolve"]').forEach(stage => {
 
   /* ---- top-level modes: the human's front door ---- */
   const modes = qa('.mode');
-  function goMode(id){
+  let cameFrom = 'mode-start';
+  const backBtn = document.createElement('button');
+  backBtn.className = 'backfixed';
+  backBtn.addEventListener('click', () => goMode(cameFrom));
+  document.body.appendChild(backBtn);
+
+  function goMode(id, opts){
+    if (id === 'mode-manual' && !(opts && opts.keepOrigin)) {
+      const cur = modes.find(m => !m.hidden);
+      if (cur && cur.id !== 'mode-manual') cameFrom = cur.id;
+    }
     modes.forEach(m => { m.hidden = m.id !== id; });
-    scrollTo({top:0});
+    /* the way out is always on screen — never make someone scroll to leave */
+    backBtn.classList.toggle('on', id === 'mode-manual');
+    backBtn.textContent = cameFrom === 'mode-browse' ? '\u2190 Back to the library' : '\u2190 Back to the start';
+    if (!(opts && opts.keepScroll)) scrollTo({top:0});
     /* demos size on resize only; a panel that was hidden has never had a layout */
     requestAnimationFrame(() => dispatchEvent(new Event('resize')));
   }
@@ -9897,7 +10158,7 @@ qa('[data-demo="typ-dissolve"]').forEach(stage => {
 
   /* a gallery card opens the real demo: manual -> Effects -> library -> anchor */
   function openEffect(anchorId){
-    goMode('mode-manual');
+    goMode('mode-manual', {keepScroll:true});
     const t = document.getElementById('tab-effects'); if (t) t.click();
     const lib = document.getElementById('st-library');
     if (lib && document.getElementById('sub-library')?.hidden) lib.click();
