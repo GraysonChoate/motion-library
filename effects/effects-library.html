@@ -1135,313 +1135,312 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 .gcard .gsrc{display:block; margin:5px 14px 0; font-family:var(--mono); font-size:9.5px;
   color:var(--ink-faint); line-height:1.4}
 
-/* ===== per-EFFECT preview motifs =====
-   One motif per ID, not per group. A group placeholder made every card in a row
-   identical, which told a reader nothing about the individual effect. Each of
-   these is a miniature of what that specific technique actually does. Pure CSS,
-   no duplicated demos, no canvas. */
-.gprev i{background:var(--edge)}
-.gk{position:absolute; inset:0}
+/* ===== per-EFFECT previews =====
+   Each effect is previewed ON THE THING IT ACTS ON. Typography shows real
+   words, because that is what it changes. Imagery shows a photograph. Ambient
+   sits behind real lines of text so you can see it is atmosphere and not
+   content. Abstract bars told a reader nothing about which effect they were
+   looking at, which is the whole job of this gallery. */
+.gprev{display:grid; place-items:center}
+.gprev i{position:absolute; display:block; background:var(--edge)}
 
-/* --- generic bars used by most type/layout motifs --- */
-[class*="gp-"] i{border-radius:2px}
+/* shared props */
+.gw{position:relative; display:inline-flex; gap:1px; font-family:var(--display);
+  font-size:30px; line-height:1; color:var(--gold); letter-spacing:-.01em}
+.gw b{display:inline-block; font-weight:500}
+.gph{position:absolute; border-radius:3px; background:
+  radial-gradient(circle at 34% 30%,#EBD3A6,transparent 58%),
+  radial-gradient(circle at 72% 74%,#8a5a3c,transparent 56%),
+  linear-gradient(150deg,#5c4a34,#241c15)}
+.glines{position:absolute; left:22%; right:22%; top:32%; display:grid; gap:7px}
+.glines u{display:block; height:6px; border-radius:2px; background:var(--edge); text-decoration:none}
+.glines u:nth-child(2){width:78%}
+.glines u:nth-child(3){width:56%}
+.gcur{position:absolute; width:13px; height:13px; border-radius:50%;
+  background:var(--gold); box-shadow:0 0 0 4px rgba(201,164,92,.18)}
 
-/* ---------- TYPOGRAPHY ---------- */
-.gcard[data-goto="e-TYP-01"] i{height:8px; left:22%; background:var(--tan)}
-.gcard[data-goto="e-TYP-01"] i:nth-child(1){top:34%; width:34%; animation:mBlur 2.6s ease-in-out infinite}
-.gcard[data-goto="e-TYP-01"] i:nth-child(2){top:50%; width:26%; animation:mBlur 2.6s .18s ease-in-out infinite}
-.gcard[data-goto="e-TYP-01"] i:nth-child(3){top:66%; width:40%; animation:mBlur 2.6s .36s ease-in-out infinite}
+/* ---------- TYPOGRAPHY — always shown on real words ---------- */
+.gprev[data-fx="TYP-01"] b{animation:tBlur 3s ease-in-out infinite}
+.gprev[data-fx="TYP-01"] b:nth-child(2){animation-delay:.12s}
+.gprev[data-fx="TYP-01"] b:nth-child(3){animation-delay:.24s}
+.gprev[data-fx="TYP-01"] b:nth-child(4){animation-delay:.36s}
+@keyframes tBlur{0%,100%{filter:blur(6px);opacity:0}35%,75%{filter:blur(0);opacity:1}}
 
-.gcard[data-goto="e-TYP-02"] i{left:22%; height:9px; background:var(--tan); clip-path:inset(0 0 0 0)}
-.gcard[data-goto="e-TYP-02"] i:nth-child(1){top:32%; width:42%; animation:mUp 3s ease-in-out infinite}
-.gcard[data-goto="e-TYP-02"] i:nth-child(2){top:49%; width:30%; animation:mUp 3s .2s ease-in-out infinite}
-.gcard[data-goto="e-TYP-02"] i:nth-child(3){top:66%; width:36%; animation:mUp 3s .4s ease-in-out infinite}
+.gclip{display:block; overflow:hidden; padding:2px 0}
+.gprev[data-fx="TYP-02"] .gw{animation:tUp 3.2s cubic-bezier(.16,1,.3,1) infinite}
+@keyframes tUp{0%{transform:translateY(105%)}30%,72%{transform:translateY(0)}100%{transform:translateY(-105%)}}
 
-.gcard[data-goto="e-TYP-03"] i{top:46%; height:10px; width:9%; background:var(--tan);
-  animation:mSpread 3.4s ease-in-out infinite alternate}
-.gcard[data-goto="e-TYP-03"] i:nth-child(1){left:30%}
-.gcard[data-goto="e-TYP-03"] i:nth-child(2){left:45%; animation-delay:.05s}
-.gcard[data-goto="e-TYP-03"] i:nth-child(3){left:60%; animation-delay:.1s}
+.gprev[data-fx="TYP-03"] .gw{animation:tTrack 3.6s ease-in-out infinite alternate}
+@keyframes tTrack{from{letter-spacing:-.02em}to{letter-spacing:.34em}}
 
-.gcard[data-goto="e-TYP-04"] i{left:26%; background:var(--tan); border-radius:2px}
-.gcard[data-goto="e-TYP-04"] i:nth-child(1){top:32%; width:44%; height:6px; animation:mWeight 3s ease-in-out infinite alternate}
-.gcard[data-goto="e-TYP-04"] i:nth-child(2){top:48%; width:44%; height:10px; animation:mWeight 3s .3s ease-in-out infinite alternate}
-.gcard[data-goto="e-TYP-04"] i:nth-child(3){top:66%; width:44%; height:14px; animation:mWeight 3s .6s ease-in-out infinite alternate}
+.gprev[data-fx="TYP-04"] b{animation:tWeight 3.2s ease-in-out infinite alternate}
+.gprev[data-fx="TYP-04"] b:nth-child(2){animation-delay:.1s}
+.gprev[data-fx="TYP-04"] b:nth-child(3){animation-delay:.2s}
+.gprev[data-fx="TYP-04"] b:nth-child(4){animation-delay:.3s}
+@keyframes tWeight{from{font-weight:200;transform:scaleX(.94)}to{font-weight:800;transform:scaleX(1.02)}}
 
-.gcard[data-goto="e-TYP-05"] i{top:46%; height:11px; background:var(--tan)}
-.gcard[data-goto="e-TYP-05"] i:nth-child(1){left:26%; width:8%; animation:mScram .9s steps(3) infinite}
-.gcard[data-goto="e-TYP-05"] i:nth-child(2){left:42%; width:8%; animation:mScram .9s .15s steps(3) infinite}
-.gcard[data-goto="e-TYP-05"] i:nth-child(3){left:58%; width:8%; animation:mScram .9s .3s steps(3) infinite}
+/* two glyph sets flickering against each other reads as a scramble resolving */
+.gscram b{position:relative}
+.gscram b::after{content:attr(data-alt); position:absolute; inset:0; color:var(--tan)}
+.gprev[data-fx="TYP-05"] b{animation:tReal 2.8s steps(1) infinite}
+.gprev[data-fx="TYP-05"] b::after{animation:tAlt 2.8s steps(1) infinite}
+.gprev[data-fx="TYP-05"] b:nth-child(2),.gprev[data-fx="TYP-05"] b:nth-child(2)::after{animation-delay:.18s}
+.gprev[data-fx="TYP-05"] b:nth-child(3),.gprev[data-fx="TYP-05"] b:nth-child(3)::after{animation-delay:.36s}
+.gprev[data-fx="TYP-05"] b:nth-child(4),.gprev[data-fx="TYP-05"] b:nth-child(4)::after{animation-delay:.54s}
+@keyframes tReal{0%,45%{color:transparent}50%,100%{color:var(--gold)}}
+@keyframes tAlt{0%,45%{opacity:1}50%,100%{opacity:0}}
 
-.gcard[data-goto="e-TYP-06"] .gprev{overflow:hidden}
-.gcard[data-goto="e-TYP-06"] i{left:38%; width:24%; height:16px; background:var(--tan);
-  animation:mRoll 2.4s cubic-bezier(.16,1,.3,1) infinite}
-.gcard[data-goto="e-TYP-06"] i:nth-child(1){top:42%}
-.gcard[data-goto="e-TYP-06"] i:nth-child(2){top:42%; animation-delay:.8s}
-.gcard[data-goto="e-TYP-06"] i:nth-child(3){display:none}
+.groll{position:relative; display:inline-flex; align-items:center; gap:4px;
+  font-family:var(--display); font-size:30px; color:var(--gold); line-height:1}
+.groll .gcol{display:block; height:32px; overflow:hidden}
+.groll .gcol b{display:block; height:32px; font-weight:500; font-variant-numeric:tabular-nums;
+  animation:tRoll 3.4s cubic-bezier(.16,1,.3,1) infinite}
+.groll i{position:static; background:none; font-style:normal; font-size:20px; color:var(--tan)}
+@keyframes tRoll{0%,12%{transform:translateY(0)}30%,42%{transform:translateY(-32px)}
+  58%,70%{transform:translateY(-64px)}86%,100%{transform:translateY(-96px)}}
 
-.gcard[data-goto="e-TYP-07"] i{left:24%; height:9px; background:var(--tan); transform-origin:left}
-.gcard[data-goto="e-TYP-07"] i:nth-child(1){top:34%; width:40%; animation:mSkew 2.8s ease-in-out infinite}
-.gcard[data-goto="e-TYP-07"] i:nth-child(2){top:50%; width:32%; animation:mSkew 2.8s .1s ease-in-out infinite}
-.gcard[data-goto="e-TYP-07"] i:nth-child(3){top:66%; width:38%; animation:mSkew 2.8s .2s ease-in-out infinite}
+.gprev[data-fx="TYP-07"] .gw{animation:tSkew 2.8s ease-in-out infinite}
+@keyframes tSkew{0%,100%{transform:skewX(0) scaleY(1)}45%{transform:skewX(-13deg) scaleY(.9)}}
 
-.gcard[data-goto="e-TYP-08"] i{height:10px; background:var(--tan)}
-.gcard[data-goto="e-TYP-08"] i:nth-child(1){top:38%; left:22%; width:30%; animation:mOppL 4s ease-in-out infinite alternate}
-.gcard[data-goto="e-TYP-08"] i:nth-child(2){top:56%; right:22%; width:30%; animation:mOppR 4s ease-in-out infinite alternate}
-.gcard[data-goto="e-TYP-08"] i:nth-child(3){display:none}
+.gtwo{display:grid; gap:8px}
+.gprev[data-fx="TYP-08"] .gw{font-size:22px}
+.gprev[data-fx="TYP-08"] .gw:nth-child(1){animation:tDriftL 4.2s ease-in-out infinite alternate}
+.gprev[data-fx="TYP-08"] .gw:nth-child(2){color:var(--tan); animation:tDriftR 4.2s ease-in-out infinite alternate}
+@keyframes tDriftL{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+@keyframes tDriftR{from{transform:translateX(14px)}to{transform:translateX(-14px)}}
 
-.gcard[data-goto="e-TYP-09"] .gprev{overflow:hidden}
-.gcard[data-goto="e-TYP-09"] i{top:46%; height:11px; width:26%; background:var(--tan);
-  animation:mMarq 3s linear infinite}
-.gcard[data-goto="e-TYP-09"] i:nth-child(1){left:0}
-.gcard[data-goto="e-TYP-09"] i:nth-child(2){left:36%}
-.gcard[data-goto="e-TYP-09"] i:nth-child(3){left:72%}
+.gmarq{display:flex; gap:22px; width:max-content; animation:tMarq 4s linear infinite}
+.gprev[data-fx="TYP-09"]{overflow:hidden}
+.gprev[data-fx="TYP-09"] .gw{font-size:24px}
+@keyframes tMarq{to{transform:translateX(-33.33%)}}
 
-.gcard[data-goto="e-TYP-10"] i{left:24%; height:10px; background:var(--tan)}
-.gcard[data-goto="e-TYP-10"] i:nth-child(1){top:34%; width:40%; animation:mDiss 3.2s ease-in-out infinite}
-.gcard[data-goto="e-TYP-10"] i:nth-child(2){top:51%; width:28%; animation:mDiss 3.2s .25s ease-in-out infinite}
-.gcard[data-goto="e-TYP-10"] i:nth-child(3){top:68%; width:34%; animation:mDiss 3.2s .5s ease-in-out infinite}
+.gprev[data-fx="TYP-10"] b{animation:tDiss 3.4s ease-in-out infinite}
+.gprev[data-fx="TYP-10"] b:nth-child(2){animation-delay:.15s}
+.gprev[data-fx="TYP-10"] b:nth-child(3){animation-delay:.3s}
+.gprev[data-fx="TYP-10"] b:nth-child(4){animation-delay:.45s}
+@keyframes tDiss{0%,100%{opacity:0;filter:blur(5px);transform:scale(1.08)}40%,72%{opacity:1;filter:blur(0);transform:none}}
 
-/* ---------- REVEAL ---------- */
-.gcard[data-goto="e-REV-01"] i:nth-child(1){inset:28% 20%; background:linear-gradient(100deg,var(--gold),var(--tan));
-  animation:mWipe 3.4s cubic-bezier(.16,1,.3,1) infinite}
-.gcard[data-goto="e-REV-01"] i:nth-child(2),.gcard[data-goto="e-REV-01"] i:nth-child(3){display:none}
+/* ---------- IMAGERY — shown on a photograph ---------- */
+.gprev[data-fx="IMG-01"] .gph{inset:14% 20%;
+  -webkit-mask-image:radial-gradient(ellipse 62% 64% at 50% 50%,#000 12%,transparent 84%);
+          mask-image:radial-gradient(ellipse 62% 64% at 50% 50%,#000 12%,transparent 84%);
+  animation:iFloat 7s ease-in-out infinite alternate}
+.gprev[data-fx="IMG-01"] .gph:nth-child(2){inset:24% 46% 24% 14%; mix-blend-mode:screen; opacity:.75;
+  animation-direction:alternate-reverse}
+@keyframes iFloat{to{transform:translate(7%,-8%) scale(1.07)}}
 
-.gcard[data-goto="e-REV-02"] i:nth-child(1){inset:16% 26%; border-radius:50%; background:var(--gold);
-  animation:mIris 3.2s cubic-bezier(.16,1,.3,1) infinite}
-.gcard[data-goto="e-REV-02"] i:nth-child(2),.gcard[data-goto="e-REV-02"] i:nth-child(3){display:none}
+.gprev[data-fx="IMG-02"] .gph{bottom:22%; width:24%; height:46%;
+  animation:iShape 6s ease-in-out infinite}
+.gprev[data-fx="IMG-02"] .gph:nth-child(1){left:12%}
+.gprev[data-fx="IMG-02"] .gph:nth-child(2){left:39%; height:38%; animation-delay:.5s}
+.gprev[data-fx="IMG-02"] .gph:nth-child(3){left:66%; height:52%; animation-delay:1s}
+@keyframes iShape{
+  0%,100%{border-radius:50% 50% 3px 3px/34% 34% 3px 3px}
+  33%{border-radius:50%}
+  66%{border-radius:999px 999px 3px 3px}}
 
-.gcard[data-goto="e-REV-03"] i{left:20%; right:20%; height:10px; border-radius:999px}
-.gcard[data-goto="e-REV-03"] i:nth-child(1){top:46%; background:var(--edge)}
-.gcard[data-goto="e-REV-03"] i:nth-child(2){top:46%; background:var(--gold); transform-origin:left;
-  animation:mFill 3.2s ease-in-out infinite alternate}
-.gcard[data-goto="e-REV-03"] i:nth-child(3){display:none}
+.gprev[data-fx="IMG-03"] .gph{inset:18% 22%}
+.gprev[data-fx="IMG-03"] i{inset:18% 22%; border-radius:3px; mix-blend-mode:color;
+  animation:iDuo 4.4s ease-in-out infinite}
+.gprev[data-fx="IMG-03"] i:nth-child(2){background:linear-gradient(160deg,#123f47,#63c9bb)}
+.gprev[data-fx="IMG-03"] i:nth-child(3){background:linear-gradient(160deg,#5d1f08,#f2b25a);
+  animation-delay:-2.2s}
+@keyframes iDuo{0%,6%{opacity:1}44%,56%{opacity:0}94%,100%{opacity:1}}
 
-.gcard[data-goto="e-REV-04"] i{left:26%; right:26%; height:22px; border-radius:3px;
-  background:var(--edge); border:1px solid var(--edge-soft)}
-.gcard[data-goto="e-REV-04"] i:nth-child(1){top:22%; animation:mStack 3.6s ease-in-out infinite alternate}
-.gcard[data-goto="e-REV-04"] i:nth-child(2){top:38%; animation:mStack 3.6s .2s ease-in-out infinite alternate}
-.gcard[data-goto="e-REV-04"] i:nth-child(3){top:54%; animation:mStack 3.6s .4s ease-in-out infinite alternate}
+.gprev[data-fx="IMG-04"] .gph{inset:22% 26%}
+.gprev[data-fx="IMG-04"] i{inset:22% 26%; border-radius:3px; mix-blend-mode:screen}
+.gprev[data-fx="IMG-04"] i:nth-child(2){background:rgba(214,74,74,.6); animation:iL 2.4s ease-in-out infinite}
+.gprev[data-fx="IMG-04"] i:nth-child(3){background:rgba(74,120,214,.6); animation:iR 2.4s ease-in-out infinite}
+@keyframes iL{0%,100%{transform:translateX(0)}50%{transform:translateX(-6px)}}
+@keyframes iR{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
 
-.gcard[data-goto="e-REV-05"] i{left:18%; right:18%; height:16px; background:var(--tan)}
-.gcard[data-goto="e-REV-05"] i:nth-child(1){top:26%; filter:blur(0px)}
-.gcard[data-goto="e-REV-05"] i:nth-child(2){top:47%; filter:blur(2px)}
-.gcard[data-goto="e-REV-05"] i:nth-child(3){top:68%; filter:blur(5px)}
+.gmask{font-size:40px; font-weight:800; letter-spacing:-.03em;
+  background:radial-gradient(circle at 26% 24%,#FFF0CE,transparent 46%),
+    radial-gradient(circle at 68% 30%,#7FD2C6,transparent 42%),
+    radial-gradient(circle at 44% 82%,#E4823C,transparent 48%),
+    linear-gradient(140deg,#c98b5a 0%,#3d6b62 46%,#1b1510 100%);
+  background-size:230% 230%; -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; animation:iPan 9s ease-in-out infinite alternate}
+.gmask b{font-weight:800}
+@keyframes iPan{to{background-position:100% 100%}}
 
-/* ---------- REACTIVITY ---------- */
-.gcard[data-goto="e-REA-01"] i{width:7px; height:7px; border-radius:50%; background:var(--gold)}
-.gcard[data-goto="e-REA-01"] i:nth-child(1){left:32%; top:70%; animation:mRise 3.4s ease-in-out infinite}
-.gcard[data-goto="e-REA-01"] i:nth-child(2){left:52%; top:70%; animation:mRise 3.4s .7s ease-in-out infinite}
-.gcard[data-goto="e-REA-01"] i:nth-child(3){left:68%; top:70%; animation:mRise 3.4s 1.4s ease-in-out infinite}
+.gprev[data-fx="IMG-06"] .gph{width:26%; height:44%; top:30%; animation:iPop 2.8s ease-in-out infinite}
+.gprev[data-fx="IMG-06"] .gph:nth-child(1){left:16%}
+.gprev[data-fx="IMG-06"] .gph:nth-child(2){left:38%; animation-delay:.3s}
+.gprev[data-fx="IMG-06"] .gph:nth-child(3){left:60%; animation-delay:.6s}
+@keyframes iPop{0%{opacity:0;transform:scale(.82)}22%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.1)}}
 
-.gcard[data-goto="e-REA-02"] i{width:11px; height:11px; border-radius:50%; background:var(--gold); top:44%;
-  animation:mSwipe 2.6s ease-in-out infinite}
-.gcard[data-goto="e-REA-02"] i:nth-child(1){left:18%}
-.gcard[data-goto="e-REA-02"] i:nth-child(2){left:18%; animation-delay:.1s; opacity:.55}
-.gcard[data-goto="e-REA-02"] i:nth-child(3){left:18%; animation-delay:.2s; opacity:.28}
+/* ---------- REVEAL — a real thing entering ---------- */
+.gprev[data-fx="REV-01"] .gph{inset:24% 20%; animation:rWipe 3.4s cubic-bezier(.16,1,.3,1) infinite}
+@keyframes rWipe{0%{clip-path:inset(0 100% 0 0)}55%,100%{clip-path:inset(0 0 0 0)}}
+.gprev[data-fx="REV-02"] .gph{inset:14% 30%; animation:rIris 3.4s cubic-bezier(.16,1,.3,1) infinite}
+@keyframes rIris{0%{clip-path:circle(0% at 50% 50%)}60%,100%{clip-path:circle(75% at 50% 50%)}}
+.gbar{position:absolute; left:20%; right:20%; top:46%; height:10px; border-radius:999px;
+  background:var(--edge); overflow:hidden}
+.gbar i{position:absolute; inset:0; background:var(--gold); transform-origin:left;
+  animation:rFill 3.2s ease-in-out infinite alternate}
+@keyframes rFill{from{transform:scaleX(.1)}to{transform:scaleX(1)}}
+.gprev[data-fx="REV-04"] .gph{left:26%; right:26%; height:24px; width:auto;
+  border:1px solid rgba(232,220,200,.18)}
+.gprev[data-fx="REV-04"] .gph:nth-child(1){top:20%; animation:rStack 3.6s ease-in-out infinite alternate}
+.gprev[data-fx="REV-04"] .gph:nth-child(2){top:38%; animation:rStack 3.6s .2s ease-in-out infinite alternate}
+.gprev[data-fx="REV-04"] .gph:nth-child(3){top:56%; animation:rStack 3.6s .4s ease-in-out infinite alternate}
+@keyframes rStack{from{transform:translateY(7px)}to{transform:translateY(-5px)}}
+.gprev[data-fx="REV-05"] .gph{left:18%; right:18%; height:18px; width:auto;
+  animation:rBlur 4.2s ease-in-out infinite}
+.gprev[data-fx="REV-05"] .gph:nth-child(1){top:24%}
+.gprev[data-fx="REV-05"] .gph:nth-child(2){top:46%; animation-delay:.45s}
+.gprev[data-fx="REV-05"] .gph:nth-child(3){top:68%; animation-delay:.9s}
+@keyframes rBlur{
+  0%{filter:blur(7px); opacity:.35; transform:translateY(6px)}
+  45%,70%{filter:blur(0); opacity:1; transform:translateY(0)}
+  100%{filter:blur(7px); opacity:.35; transform:translateY(-6px)}}
 
-.gcard[data-goto="e-REA-03"] i:nth-child(1){inset:0; background:
-  repeating-linear-gradient(90deg,var(--edge-soft) 0 1px,transparent 1px 14px),
-  repeating-linear-gradient(0deg,var(--edge-soft) 0 1px,transparent 1px 14px)}
-.gcard[data-goto="e-REA-03"] i:nth-child(2){width:52px; height:52px; border-radius:50%; top:26%; left:20%;
-  background:radial-gradient(circle,rgba(201,164,92,.65),transparent 70%);
-  animation:mSpot 4.2s ease-in-out infinite alternate}
-.gcard[data-goto="e-REA-03"] i:nth-child(3){display:none}
+/* ---------- REACTIVITY — a pointer acting on content ---------- */
+.gprev[data-fx="REA-01"] i{width:7px; height:7px; border-radius:50%; background:var(--tan)}
+.gprev[data-fx="REA-01"] i:nth-child(1){left:34%; top:66%; animation:aRise 3.2s ease-in-out infinite}
+.gprev[data-fx="REA-01"] i:nth-child(2){left:52%; top:66%; animation:aRise 3.2s .6s ease-in-out infinite}
+.gprev[data-fx="REA-01"] i:nth-child(3){left:66%; top:66%; animation:aRise 3.2s 1.2s ease-in-out infinite}
+.gprev[data-fx="REA-01"] .gcur{left:44%; top:44%; animation:aCur 3.2s ease-in-out infinite alternate}
+@keyframes aRise{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(-40px);opacity:0}}
+@keyframes aCur{from{transform:translate(-16px,6px)}to{transform:translate(18px,-6px)}}
+.gprev[data-fx="REA-02"] i{width:11px; height:11px; border-radius:50%; background:var(--tan); top:47%;
+  left:22%; animation:aSwipe 2.8s ease-in-out infinite}
+.gprev[data-fx="REA-02"] i:nth-child(2){animation-delay:.24s; opacity:.5}
+.gprev[data-fx="REA-02"] i:nth-child(3){animation-delay:.48s; opacity:.24}
+.gprev[data-fx="REA-02"] .gcur{top:45%; left:22%; animation:aSwipe 2.8s ease-in-out infinite}
+@keyframes aSwipe{0%{transform:translateX(0)}50%{transform:translateX(92px)}100%{transform:translateX(0)}}
+.gprev[data-fx="REA-03"] .glines u{background:rgba(232,220,200,.13)}
+.gprev[data-fx="REA-03"] .glit u{background:var(--gold)}
+.gprev[data-fx="REA-03"] .glit{
+  -webkit-mask-image:radial-gradient(circle 30px at 50% 50%,#000 42%,transparent 72%);
+  mask-image:radial-gradient(circle 30px at 50% 50%,#000 42%,transparent 72%);
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  animation:aReveal 4.4s ease-in-out infinite alternate}
+.gprev[data-fx="REA-03"] .gcur{width:60px; height:60px; left:50%; top:50%; margin:-30px 0 0 -30px;
+  box-shadow:none; background:radial-gradient(circle,rgba(201,164,92,.22),transparent 68%);
+  animation:aSpot 4.4s ease-in-out infinite alternate}
+@keyframes aSpot{from{transform:translate(-46px,-14px)}to{transform:translate(46px,16px)}}
+@keyframes aReveal{
+  from{-webkit-mask-position:-46px -14px; mask-position:-46px -14px}
+  to{-webkit-mask-position:46px 16px; mask-position:46px 16px}}
 
-/* ---------- DEPTH ---------- */
-.gcard[data-goto="e-DEP-01"] i{left:14%; right:14%; height:14px; border-radius:3px}
-.gcard[data-goto="e-DEP-01"] i:nth-child(1){top:62%; background:var(--tan); animation:mPara 4s ease-in-out infinite alternate}
-.gcard[data-goto="e-DEP-01"] i:nth-child(2){top:44%; background:var(--edge); animation:mPara 4s ease-in-out infinite alternate; animation-delay:.25s; opacity:.75}
-.gcard[data-goto="e-DEP-01"] i:nth-child(3){top:26%; background:var(--edge); animation:mPara 4s ease-in-out infinite alternate; animation-delay:.5s; opacity:.45}
+/* ---------- DEPTH — layered photographs ---------- */
+.gprev[data-fx="DEP-01"] .gph{left:14%; right:14%; height:16px; width:auto}
+.gprev[data-fx="DEP-01"] .gph:nth-child(1){top:60%; animation:dPar 4s ease-in-out infinite alternate}
+.gprev[data-fx="DEP-01"] .gph:nth-child(2){top:40%; opacity:.75; animation:dPar 4s .25s ease-in-out infinite alternate}
+.gprev[data-fx="DEP-01"] .gph:nth-child(3){top:20%; opacity:.5; animation:dPar 4s .5s ease-in-out infinite alternate}
+@keyframes dPar{from{transform:translateX(-11px)}to{transform:translateX(11px)}}
+.gprev[data-fx="DEP-02"] .gph{inset:22% 26%; animation:dTilt 4.4s ease-in-out infinite alternate}
+@keyframes dTilt{from{transform:perspective(320px) rotateY(-17deg) rotateX(8deg)}
+  to{transform:perspective(320px) rotateY(17deg) rotateX(-8deg)}}
+.gprev[data-fx="DEP-03"] .gph{top:28%; height:46%; width:22%;
+  animation:dFocus 5.4s ease-in-out infinite}
+.gprev[data-fx="DEP-03"] .gph:nth-child(1){left:12%}
+.gprev[data-fx="DEP-03"] .gph:nth-child(2){left:39%; animation-delay:-3.6s}
+.gprev[data-fx="DEP-03"] .gph:nth-child(3){left:66%; animation-delay:-1.8s}
+@keyframes dFocus{
+  0%,8%{filter:blur(0); opacity:1; transform:scale(1.06)}
+  33%,92%{filter:blur(4px); opacity:.42; transform:scale(.94)}
+  100%{filter:blur(0); opacity:1; transform:scale(1.06)}}
 
-.gcard[data-goto="e-DEP-02"] i:nth-child(1){inset:24% 26%; border-radius:3px;
-  background:linear-gradient(140deg,var(--tan),var(--edge));
-  animation:mTilt 4.4s ease-in-out infinite alternate}
-.gcard[data-goto="e-DEP-02"] i:nth-child(2),.gcard[data-goto="e-DEP-02"] i:nth-child(3){display:none}
-
-.gcard[data-goto="e-DEP-03"] i{top:30%; height:44px; width:22%; border-radius:3px; background:var(--tan)}
-.gcard[data-goto="e-DEP-03"] i:nth-child(1){left:12%; filter:blur(3px); opacity:.55}
-.gcard[data-goto="e-DEP-03"] i:nth-child(2){left:39%; filter:blur(0)}
-.gcard[data-goto="e-DEP-03"] i:nth-child(3){left:66%; filter:blur(3px); opacity:.55}
-
-/* ---------- IMAGERY ---------- */
-.gcard[data-goto="e-IMG-01"] i:nth-child(1){inset:16% 22%; border-radius:50%;
-  background:radial-gradient(circle,#EBD3A6,transparent 70%); animation:mFloat 6s ease-in-out infinite alternate}
-.gcard[data-goto="e-IMG-01"] i:nth-child(2){inset:26% 38% 26% 14%; border-radius:50%;
-  background:radial-gradient(circle,#9FD4C4,transparent 72%); mix-blend-mode:screen;
-  animation:mFloat 7.5s ease-in-out infinite alternate-reverse}
-.gcard[data-goto="e-IMG-01"] i:nth-child(3){display:none}
-
-.gcard[data-goto="e-IMG-02"] i{bottom:22%; width:24%; background:linear-gradient(160deg,#EBD3A6,#8a5a3c)}
-.gcard[data-goto="e-IMG-02"] i:nth-child(1){left:12%; height:48%; border-radius:50% 50% 3px 3px/32% 32% 3px 3px}
-.gcard[data-goto="e-IMG-02"] i:nth-child(2){left:39%; height:38%; border-radius:50%}
-.gcard[data-goto="e-IMG-02"] i:nth-child(3){left:66%; height:52%; border-radius:999px 999px 3px 3px}
-
-.gcard[data-goto="e-IMG-03"] i:nth-child(1){inset:20% 24%; border-radius:3px;
-  background:linear-gradient(140deg,#EBD3A6,#5a3a26)}
-.gcard[data-goto="e-IMG-03"] i:nth-child(2){inset:20% 24%; border-radius:3px; background:#2a1d14;
-  mix-blend-mode:multiply; animation:mDuo 3.6s ease-in-out infinite}
-.gcard[data-goto="e-IMG-03"] i:nth-child(3){display:none}
-
-.gcard[data-goto="e-IMG-04"] i{inset:24% 28%; border-radius:3px; mix-blend-mode:screen}
-.gcard[data-goto="e-IMG-04"] i:nth-child(1){background:rgba(214,74,74,.62); animation:mSplitL 2.4s ease-in-out infinite}
-.gcard[data-goto="e-IMG-04"] i:nth-child(2){background:rgba(74,120,214,.62); animation:mSplitR 2.4s ease-in-out infinite}
-.gcard[data-goto="e-IMG-04"] i:nth-child(3){background:rgba(232,220,200,.5)}
-
-.gcard[data-goto="e-IMG-05"] i:nth-child(1){inset:36% 22%;
-  background:linear-gradient(120deg,#e6c07a,#5E8A7E,#c98b5a); background-size:200% 200%;
-  -webkit-mask-image:repeating-linear-gradient(90deg,#000 0 14px,transparent 14px 22px);
-          mask-image:repeating-linear-gradient(90deg,#000 0 14px,transparent 14px 22px);
-  animation:mPan 8s ease-in-out infinite alternate}
-.gcard[data-goto="e-IMG-05"] i:nth-child(2),.gcard[data-goto="e-IMG-05"] i:nth-child(3){display:none}
-
-.gcard[data-goto="e-IMG-06"] i{width:26px; height:34px; border-radius:2px; top:38%;
-  background:linear-gradient(150deg,#EBD3A6,#6b5a41); animation:mPop 2.8s ease-in-out infinite}
-.gcard[data-goto="e-IMG-06"] i:nth-child(1){left:22%}
-.gcard[data-goto="e-IMG-06"] i:nth-child(2){left:42%; animation-delay:.3s}
-.gcard[data-goto="e-IMG-06"] i:nth-child(3){left:62%; animation-delay:.6s}
-
-/* ---------- RENDERED (GL) ---------- */
-.gcard[data-goto^="e-GL-"] i:nth-child(2),.gcard[data-goto^="e-GL-"] i:nth-child(3){display:none}
-.gcard[data-goto^="e-GL-"] i:nth-child(1){inset:-24%}
-.gcard[data-goto="e-GL-01"] i{background:radial-gradient(circle at 42% 44%,#EBD3A6,transparent 46%),
-  radial-gradient(circle at 62% 62%,#8a5a3c,transparent 52%); filter:blur(3px); animation:mWarp 9s ease-in-out infinite alternate}
-.gcard[data-goto="e-GL-02"] i{background:conic-gradient(from 0deg,#EBD3A6,#9FD4C4,#c98b5a,#EBD3A6);
-  filter:blur(9px); animation:mSpin 14s linear infinite}
-.gcard[data-goto="e-GL-03"] i{background:linear-gradient(100deg,#EBD3A6 0 50%,#5E8A7E 50% 100%);
-  filter:blur(7px); animation:mSlideX 5s ease-in-out infinite alternate}
-.gcard[data-goto="e-GL-04"] i{background:radial-gradient(circle at 34% 50%,#9FD4C4,transparent 44%),
-  radial-gradient(circle at 66% 50%,#EBD3A6,transparent 44%); filter:blur(6px); animation:mFluid 6s ease-in-out infinite alternate}
-.gcard[data-goto="e-GL-05"] i{background:radial-gradient(circle at 30% 40%,#EBD3A6 0 2px,transparent 3px) 0 0/18px 18px,
-  radial-gradient(circle at 70% 60%,#9FD4C4 0 2px,transparent 3px) 0 0/22px 22px; animation:mDrift2 10s ease-in-out infinite alternate}
-.gcard[data-goto="e-GL-06"] i{background:linear-gradient(140deg,#EBD3A6,#5E8A7E); filter:blur(5px) saturate(1.4) contrast(1.3);
-  animation:mPost 7s ease-in-out infinite alternate}
-.gcard[data-goto="e-GL-07"] i{background:repeating-linear-gradient(90deg,#EBD3A6 0 3px,transparent 3px 15px);
-  filter:blur(1px); animation:mMesh 6s ease-in-out infinite alternate}
-.gcard[data-goto="e-GL-08"] i{background:radial-gradient(circle at 32% 38%,#EBD3A6,transparent 54%),
-  radial-gradient(circle at 68% 62%,#5E8A7E,transparent 54%); filter:blur(11px); animation:mWarp 11s ease-in-out infinite alternate}
-.gcard[data-goto="e-GL-09"] i{background:repeating-conic-gradient(#EBD3A6 0 25%,#2a2118 0 50%) 0 0/7px 7px;
-  opacity:.8; animation:mDither 4s steps(4) infinite}
-
-/* ---------- AMBIENT ---------- */
-.gcard[data-goto="e-AMB-01"] i:nth-child(1){inset:0; opacity:.5;
+/* ---------- AMBIENT — atmosphere sitting BEHIND real content ---------- */
+.gprev[data-fx^="AMB"] .glines u{background:var(--edge)}
+.gprev[data-fx="AMB-01"] i{inset:0; opacity:.55; mix-blend-mode:overlay;
   background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>');
   animation:mFlick .5s steps(2) infinite}
-.gcard[data-goto="e-AMB-01"] i:nth-child(2),.gcard[data-goto="e-AMB-01"] i:nth-child(3){display:none}
-.gcard[data-goto="e-AMB-02"] i{inset:-30%; border-radius:50%; filter:blur(16px)}
-.gcard[data-goto="e-AMB-02"] i:nth-child(1){background:radial-gradient(circle,#EBD3A6,transparent 66%); animation:mBlob 13s ease-in-out infinite alternate}
-.gcard[data-goto="e-AMB-02"] i:nth-child(2){background:radial-gradient(circle,#5E8A7E,transparent 66%); animation:mBlob 17s 1s ease-in-out infinite alternate-reverse}
-.gcard[data-goto="e-AMB-02"] i:nth-child(3){background:radial-gradient(circle,#c98b5a,transparent 66%); animation:mBlob 19s 2s ease-in-out infinite alternate}
-.gcard[data-goto="e-AMB-03"] i{border-radius:50%; background:var(--tan)}
-.gcard[data-goto="e-AMB-03"] i:nth-child(1){width:6px;height:6px;left:26%;top:38%; animation:mMote 7s ease-in-out infinite alternate}
-.gcard[data-goto="e-AMB-03"] i:nth-child(2){width:4px;height:4px;left:52%;top:60%; opacity:.7; animation:mMote 9s .6s ease-in-out infinite alternate-reverse}
-.gcard[data-goto="e-AMB-03"] i:nth-child(3){width:3px;height:3px;left:74%;top:32%; opacity:.5; animation:mMote 11s 1.2s ease-in-out infinite alternate}
-.gcard[data-goto="e-AMB-04"] i:nth-child(1){inset:30% 30%; border-radius:4px; background:var(--tan);
-  animation:mBreath 4.5s ease-in-out infinite alternate}
-.gcard[data-goto="e-AMB-04"] i:nth-child(2),.gcard[data-goto="e-AMB-04"] i:nth-child(3){display:none}
-.gcard[data-goto="e-AMB-05"] i:nth-child(1){inset:-10%;
-  background:repeating-radial-gradient(circle at 40% 40%,rgba(235,211,166,.5) 0 2px,transparent 2px 16px);
-  filter:blur(3px); animation:mCaust 9s ease-in-out infinite alternate}
-.gcard[data-goto="e-AMB-05"] i:nth-child(2),.gcard[data-goto="e-AMB-05"] i:nth-child(3){display:none}
-.gcard[data-goto="e-AMB-06"] i:nth-child(1){inset:0; background:linear-gradient(180deg,#EBD3A6,#5E8A7E);
-  opacity:.55; animation:mTemp 8s ease-in-out infinite alternate}
-.gcard[data-goto="e-AMB-06"] i:nth-child(2),.gcard[data-goto="e-AMB-06"] i:nth-child(3){display:none}
+.gprev[data-fx="AMB-02"] i{inset:-30%; border-radius:50%; filter:blur(18px); opacity:.6}
+.gprev[data-fx="AMB-02"] i:nth-child(1){background:radial-gradient(circle,#EBD3A6,transparent 66%); animation:mBlob 13s ease-in-out infinite alternate}
+.gprev[data-fx="AMB-02"] i:nth-child(2){background:radial-gradient(circle,#5E8A7E,transparent 66%); animation:mBlob 17s 1s ease-in-out infinite alternate-reverse}
+.gprev[data-fx="AMB-02"] i:nth-child(3){background:radial-gradient(circle,#c98b5a,transparent 66%); animation:mBlob 19s 2s ease-in-out infinite alternate}
+.gprev[data-fx="AMB-03"] i{border-radius:50%; background:var(--tan)}
+.gprev[data-fx="AMB-03"] i:nth-child(1){width:6px;height:6px;left:24%;top:30%; animation:mMote 7s ease-in-out infinite alternate}
+.gprev[data-fx="AMB-03"] i:nth-child(2){width:4px;height:4px;left:56%;top:66%; opacity:.7; animation:mMote 9s .6s ease-in-out infinite alternate-reverse}
+.gprev[data-fx="AMB-03"] i:nth-child(3){width:3px;height:3px;left:78%;top:26%; opacity:.5; animation:mMote 11s 1.2s ease-in-out infinite alternate}
+.gprev[data-fx="AMB-04"] .gph{inset:26% 28%; animation:mBreath 4.6s ease-in-out infinite alternate}
+.gprev[data-fx="AMB-05"] i{inset:-10%; filter:blur(3px); opacity:.7;
+  background:repeating-radial-gradient(circle at 40% 40%,rgba(235,211,166,.55) 0 2px,transparent 2px 16px);
+  animation:mCaust 9s ease-in-out infinite alternate}
+.gprev[data-fx="AMB-06"] i{inset:0; opacity:.4; background:linear-gradient(180deg,#EBD3A6,#5E8A7E);
+  animation:mTemp 8s ease-in-out infinite alternate}
 
-/* ---------- ARCHITECTURE (SYS) ---------- */
-.gcard[data-goto^="e-SYS-"] i{left:18%; right:18%; height:3px; background:var(--edge)}
-.gcard[data-goto="e-SYS-01"] i:nth-child(1){top:36%}
-.gcard[data-goto="e-SYS-01"] i:nth-child(2){top:52%; background:var(--gold); transform-origin:left; animation:mFill 3.6s linear infinite}
-.gcard[data-goto="e-SYS-01"] i:nth-child(3){top:68%}
-.gcard[data-goto="e-SYS-02"] i{height:20px; border-radius:3px; left:auto; right:auto; width:24%}
-.gcard[data-goto="e-SYS-02"] i:nth-child(1){top:34%; left:18%; animation:mFlip 3.4s ease-in-out infinite alternate}
-.gcard[data-goto="e-SYS-02"] i:nth-child(2){top:34%; left:58%; animation:mFlipB 3.4s ease-in-out infinite alternate}
-.gcard[data-goto="e-SYS-02"] i:nth-child(3){display:none}
-.gcard[data-goto="e-SYS-03"] i{height:12px; width:12px; border-radius:50%; left:22%; right:auto; background:var(--gold)}
-.gcard[data-goto="e-SYS-03"] i:nth-child(1){top:32%; animation:mSpring 2.6s cubic-bezier(.34,1.56,.64,1) infinite}
-.gcard[data-goto="e-SYS-03"] i:nth-child(2){top:58%; animation:mEase 2.6s ease-in-out infinite; opacity:.55}
-.gcard[data-goto="e-SYS-03"] i:nth-child(3){display:none}
-.gcard[data-goto="e-SYS-04"] i{border-radius:3px; height:auto; left:auto; right:auto}
-.gcard[data-goto="e-SYS-04"] i:nth-child(1){inset:28% 30%; background:var(--tan); animation:mMorph 4s ease-in-out infinite alternate}
-.gcard[data-goto="e-SYS-04"] i:nth-child(2),.gcard[data-goto="e-SYS-04"] i:nth-child(3){display:none}
-.gcard[data-goto="e-SYS-05"] i{height:8px; border-radius:2px}
-.gcard[data-goto="e-SYS-05"] i:nth-child(1){top:38%; background:var(--gold); animation:mPre 3s ease-in-out infinite}
-.gcard[data-goto="e-SYS-05"] i:nth-child(2){top:54%; opacity:.6; animation:mPre 3s .3s ease-in-out infinite}
-.gcard[data-goto="e-SYS-05"] i:nth-child(3){top:70%; opacity:.3; animation:mPre 3s .6s ease-in-out infinite}
+/* ---------- RENDERED (GL) ---------- */
+.gprev[data-fx^="GL-"] i{inset:-24%}
+.gprev[data-fx="GL-01"] i{background:radial-gradient(circle at 42% 44%,#EBD3A6,transparent 46%),
+  radial-gradient(circle at 62% 62%,#8a5a3c,transparent 52%); filter:blur(3px); animation:mWarp 9s ease-in-out infinite alternate}
+.gprev[data-fx="GL-02"] i{background:conic-gradient(from 0deg,#EBD3A6,#9FD4C4,#c98b5a,#EBD3A6); filter:blur(10px); animation:mSpin 15s linear infinite}
+.gprev[data-fx="GL-03"] i{background:linear-gradient(100deg,#EBD3A6 0 50%,#5E8A7E 50% 100%); filter:blur(7px); animation:mSlideX 5s ease-in-out infinite alternate}
+.gprev[data-fx="GL-04"] i{background:radial-gradient(circle at 34% 50%,#9FD4C4,transparent 44%),
+  radial-gradient(circle at 66% 50%,#EBD3A6,transparent 44%); filter:blur(7px); animation:mFluid 6s ease-in-out infinite alternate}
+.gprev[data-fx="GL-05"] i{background:radial-gradient(circle at 30% 40%,#EBD3A6 0 2px,transparent 3px) 0 0/18px 18px,
+  radial-gradient(circle at 70% 60%,#9FD4C4 0 2px,transparent 3px) 0 0/22px 22px; animation:mDrift2 10s ease-in-out infinite alternate}
+.gprev[data-fx="GL-06"] i{background:linear-gradient(140deg,#EBD3A6,#5E8A7E); filter:blur(5px) saturate(1.5) contrast(1.4); animation:mPost 7s ease-in-out infinite alternate}
+.gprev[data-fx="GL-07"] i{background:repeating-linear-gradient(90deg,#EBD3A6 0 3px,transparent 3px 15px); filter:blur(1px); animation:mMesh 6s ease-in-out infinite alternate}
+.gprev[data-fx="GL-08"] i{background:radial-gradient(circle at 32% 38%,#EBD3A6,transparent 54%),
+  radial-gradient(circle at 68% 62%,#5E8A7E,transparent 54%); filter:blur(12px); animation:mWarp 11s ease-in-out infinite alternate}
+.gprev[data-fx="GL-09"] i{background:repeating-conic-gradient(#EBD3A6 0 25%,#2a2118 0 50%) 0 0/7px 7px; opacity:.85; animation:mDither 4s steps(4) infinite}
 
-/* ---------- PLATFORM (PLT) ---------- */
-.gcard[data-goto^="e-PLT-"] i{border:1px solid var(--edge); border-radius:3px; background:transparent}
-.gcard[data-goto="e-PLT-01"] i:nth-child(1){inset:30% 26%; animation:mGrow 3.4s ease-in-out infinite alternate}
-.gcard[data-goto="e-PLT-01"] i:nth-child(2),.gcard[data-goto="e-PLT-01"] i:nth-child(3){display:none}
-.gcard[data-goto="e-PLT-02"] i{inset:34% 30%; background:var(--tan); border:0; animation:mEnter 3s ease-in-out infinite}
-.gcard[data-goto="e-PLT-02"] i:nth-child(2){animation-delay:.25s; opacity:.6}
-.gcard[data-goto="e-PLT-02"] i:nth-child(3){animation-delay:.5s; opacity:.3}
-.gcard[data-goto="e-PLT-03"] i:nth-child(1){inset:52% 46% 22% 20%; background:var(--tan); border:0}
-.gcard[data-goto="e-PLT-03"] i:nth-child(2){inset:22% 20% 44% 44%; animation:mPop2 3.2s ease-in-out infinite}
-.gcard[data-goto="e-PLT-03"] i:nth-child(3){display:none}
-.gcard[data-goto="e-PLT-04"] i:nth-child(1){inset:28% 22%; border:0;
-  background:linear-gradient(90deg,#EBD3A6,#5E8A7E); background-size:200% 100%; animation:mGrad 5s ease-in-out infinite alternate}
-.gcard[data-goto="e-PLT-04"] i:nth-child(2),.gcard[data-goto="e-PLT-04"] i:nth-child(3){display:none}
-.gcard[data-goto="e-PLT-05"] i:nth-child(1){inset:26% 54% 26% 18%; animation:mCq 3.8s ease-in-out infinite alternate}
-.gcard[data-goto="e-PLT-05"] i:nth-child(2){inset:26% 18% 26% 54%; animation:mCqB 3.8s ease-in-out infinite alternate}
-.gcard[data-goto="e-PLT-05"] i:nth-child(3){display:none}
-.gcard[data-goto="e-PLT-06"] i{inset:32% auto 32% 0; width:26%; border-radius:3px}
-.gcard[data-goto="e-PLT-06"] i:nth-child(1){left:8%; background:var(--tan); border:0; animation:mSnap 4s ease-in-out infinite alternate}
-.gcard[data-goto="e-PLT-06"] i:nth-child(2){left:38%; animation:mSnap 4s ease-in-out infinite alternate}
-.gcard[data-goto="e-PLT-06"] i:nth-child(3){left:68%; animation:mSnap 4s ease-in-out infinite alternate}
+/* ---------- ARCHITECTURE + PLATFORM — real interface parts ---------- */
+.gpanel{position:absolute; border:1px solid var(--edge); border-radius:3px; padding:9px; display:grid; gap:6px; align-content:start}
+.gpanel u{display:block; height:5px; border-radius:2px; background:var(--edge); text-decoration:none}
+.gprog{position:absolute; left:22%; right:22%; bottom:24%; height:6px; border-radius:999px; background:var(--edge-soft); overflow:hidden}
+.gprog i{position:absolute; inset:0; background:var(--gold); transform-origin:left; animation:rFill 3.4s linear infinite}
+.gprev[data-fx="SYS-01"] .glines{top:26%}
+.gprev[data-fx="SYS-02"] .gph{top:32%; width:24%; height:36%}
+.gprev[data-fx="SYS-02"] .gph:nth-child(1){left:16%; animation:sFlip 3.6s ease-in-out infinite alternate}
+.gprev[data-fx="SYS-02"] .gph:nth-child(2){left:60%; animation:sFlipB 3.6s ease-in-out infinite alternate}
+@keyframes sFlip{to{transform:translateX(96px)}}
+@keyframes sFlipB{to{transform:translateX(-96px)}}
+.gprev[data-fx="SYS-03"] i{width:13px; height:13px; border-radius:50%; background:var(--gold); left:22%}
+.gprev[data-fx="SYS-03"] i:nth-child(1){top:34%; animation:sSpring 2.8s cubic-bezier(.34,1.56,.64,1) infinite}
+.gprev[data-fx="SYS-03"] i:nth-child(2){top:58%; opacity:.5; animation:sEase 2.8s ease-in-out infinite}
+@keyframes sSpring{0%{transform:translateX(0)}55%{transform:translateX(88px)}72%{transform:translateX(76px)}100%{transform:translateX(82px)}}
+@keyframes sEase{0%{transform:translateX(0)}55%,100%{transform:translateX(82px)}}
+.gprev[data-fx="SYS-04"] .gph{inset:26% 30%; animation:sMorph 4.2s ease-in-out infinite alternate}
+@keyframes sMorph{from{inset:26% 30%;border-radius:3px}to{inset:14% 18%;border-radius:50%}}
+.gprev[data-fx="SYS-05"] .glines u{animation:sPre 3s ease-in-out infinite}
+.gprev[data-fx="SYS-05"] .glines u:nth-child(2){animation-delay:.25s}
+.gprev[data-fx="SYS-05"] .glines u:nth-child(3){animation-delay:.5s}
+@keyframes sPre{0%{opacity:.15;transform:translateX(-9px)}45%,100%{opacity:1;transform:none}}
+.gprev[data-fx="PLT-01"] .gpanel{inset:26% 28%; animation:pGrow 3.6s ease-in-out infinite alternate}
+@keyframes pGrow{from{inset:34% 28%}to{inset:18% 22%}}
+.gprev[data-fx="PLT-02"] .gph{inset:34% 30%; animation:pEnter 3s ease-in-out infinite}
+.gprev[data-fx="PLT-02"] .gph:nth-child(2){animation-delay:.25s; opacity:.6}
+.gprev[data-fx="PLT-02"] .gph:nth-child(3){animation-delay:.5s; opacity:.3}
+@keyframes pEnter{0%{opacity:0;transform:translateY(10px) scale(.9)}30%,70%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-6px)}}
+.gbtn{position:absolute; left:22%; bottom:26%; width:28%; height:16px; border-radius:999px; background:var(--tan)}
+.gtip{position:absolute; left:30%; top:24%; width:38%; height:24px; border-radius:3px;
+  border:1px solid var(--edge); background:var(--soot); animation:pTip 3.2s ease-in-out infinite}
+@keyframes pTip{0%,100%{opacity:0;transform:translateY(6px)}30%,70%{opacity:1;transform:none}}
+.gprev[data-fx="PLT-04"] i{inset:26% 22%; border-radius:3px;
+  background:linear-gradient(90deg,#EBD3A6,#5E8A7E); background-size:220% 100%;
+  animation:mGrad 5s ease-in-out infinite alternate}
+.gprev[data-fx="PLT-05"] .gpanel.narrow{inset:26% 56% 26% 16%; animation:pCq 4s ease-in-out infinite alternate}
+.gprev[data-fx="PLT-05"] .gpanel.wide{inset:26% 16% 26% 56%}
+.gprev[data-fx="PLT-05"] .gpanel.wide u:nth-child(2){width:60%}
+@keyframes pCq{to{inset:20% 62% 20% 12%}}
+.gprev[data-fx="PLT-06"]{overflow:hidden}
+.gprev[data-fx="PLT-06"] .gph{top:30%; height:42%; width:26%; animation:pSnap 4.4s ease-in-out infinite alternate}
+.gprev[data-fx="PLT-06"] .gph:nth-child(1){left:8%}
+.gprev[data-fx="PLT-06"] .gph:nth-child(2){left:38%}
+.gprev[data-fx="PLT-06"] .gph:nth-child(3){left:68%}
+@keyframes pSnap{to{transform:translateX(-30px)}}
 
-@keyframes mBlur{0%,100%{filter:blur(4px);opacity:.3}45%,70%{filter:blur(0);opacity:1}}
-@keyframes mUp{0%{clip-path:inset(0 0 100% 0)}40%,75%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 0 100% 0)}}
-@keyframes mSpread{from{transform:translateX(0)}to{transform:translateX(14px)}}
-@keyframes mWeight{from{transform:scaleY(.5);transform-origin:center}to{transform:scaleY(1)}}
-@keyframes mScram{0%{width:6%}33%{width:13%}66%{width:8%}100%{width:11%}}
-@keyframes mRoll{0%{transform:translateY(18px);opacity:0}25%,70%{transform:translateY(0);opacity:1}100%{transform:translateY(-18px);opacity:0}}
-@keyframes mSkew{0%,100%{transform:skewX(0) scaleX(1)}45%{transform:skewX(-11deg) scaleX(.92)}}
-@keyframes mOppL{from{transform:translateX(-10px)}to{transform:translateX(12px)}}
-@keyframes mOppR{from{transform:translateX(12px)}to{transform:translateX(-10px)}}
-@keyframes mMarq{from{transform:translateX(0)}to{transform:translateX(-36%)}}
-@keyframes mDiss{0%,100%{opacity:.15;filter:blur(3px)}45%,70%{opacity:1;filter:blur(0)}}
-@keyframes mWipe{0%{clip-path:inset(0 100% 0 0)}55%,100%{clip-path:inset(0 0 0 0)}}
-@keyframes mIris{0%{transform:scale(0);opacity:.4}60%,100%{transform:scale(1);opacity:1}}
-@keyframes mFill{from{transform:scaleX(.12)}to{transform:scaleX(1)}}
-@keyframes mStack{from{transform:translateY(6px)}to{transform:translateY(-4px)}}
-@keyframes mRise{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(-46px);opacity:0}}
-@keyframes mSwipe{0%{transform:translateX(0)}50%{transform:translateX(96px)}100%{transform:translateX(0)}}
-@keyframes mSpot{from{transform:translate(0,0)}to{transform:translate(58px,18px)}}
-@keyframes mPara{from{transform:translateX(-9px)}to{transform:translateX(9px)}}
-@keyframes mTilt{from{transform:perspective(300px) rotateY(-15deg) rotateX(7deg)}to{transform:perspective(300px) rotateY(15deg) rotateX(-7deg)}}
-@keyframes mFloat{to{transform:translate(7%,-8%) scale(1.08)}}
-@keyframes mDuo{0%,100%{opacity:.85}45%,65%{opacity:0}}
-@keyframes mSplitL{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}
-@keyframes mSplitR{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
-@keyframes mPan{to{background-position:100% 100%}}
-@keyframes mPop{0%{opacity:0;transform:scale(.8)}25%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.1)}}
 @keyframes mWarp{to{transform:translate(9%,-7%) scale(1.16)}}
 @keyframes mSpin{to{transform:rotate(360deg)}}
 @keyframes mSlideX{to{transform:translateX(-24%)}}
 @keyframes mFluid{to{transform:translateX(16%) scale(1.1)}}
 @keyframes mDrift2{to{background-position:26px 18px, -22px 14px}}
-@keyframes mPost{to{filter:blur(9px) saturate(2) contrast(1.7)}}
+@keyframes mPost{to{filter:blur(9px) saturate(2) contrast(1.8)}}
 @keyframes mMesh{to{transform:skewY(-7deg) scaleY(1.2)}}
-@keyframes mDither{to{opacity:.42}}
-@keyframes mFlick{to{opacity:.28}}
+@keyframes mDither{to{opacity:.45}}
+@keyframes mFlick{to{opacity:.3}}
 @keyframes mBlob{to{transform:translate(16%,-12%) scale(1.25)}}
 @keyframes mMote{to{transform:translate(12px,-18px);opacity:.95}}
-@keyframes mBreath{from{transform:scale(.94);opacity:.6}to{transform:scale(1.04);opacity:1}}
+@keyframes mBreath{from{transform:scale(.94);opacity:.65}to{transform:scale(1.04);opacity:1}}
 @keyframes mCaust{to{transform:translate(8%,6%) scale(1.12)}}
-@keyframes mTemp{from{filter:hue-rotate(0)}to{filter:hue-rotate(38deg)}}
-@keyframes mFlip{from{transform:translateX(0)}to{transform:translateX(96px)}}
-@keyframes mFlipB{from{transform:translateX(0)}to{transform:translateX(-96px)}}
-@keyframes mSpring{0%{transform:translateX(0)}55%{transform:translateX(84px)}75%{transform:translateX(74px)}100%{transform:translateX(80px)}}
-@keyframes mEase{0%{transform:translateX(0)}55%,100%{transform:translateX(80px)}}
-@keyframes mMorph{from{inset:28% 30%;border-radius:3px}to{inset:16% 18%;border-radius:50%}}
-@keyframes mPre{0%{transform:translateX(-8px);opacity:.2}45%,100%{transform:translateX(0);opacity:1}}
-@keyframes mGrow{from{inset:38% 30%}to{inset:18% 22%}}
-@keyframes mEnter{0%{opacity:0;transform:translateY(10px) scale(.9)}30%,70%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-6px)}}
-@keyframes mPop2{0%,100%{opacity:0;transform:scale(.9)}30%,70%{opacity:1;transform:scale(1)}}
+@keyframes mTemp{from{filter:hue-rotate(0)}to{filter:hue-rotate(40deg)}}
 @keyframes mGrad{to{background-position:100% 0}}
-@keyframes mCq{to{inset:26% 62% 26% 18%}}
-@keyframes mCqB{to{inset:18% 12% 18% 46%}}
-@keyframes mSnap{to{transform:translateX(-22px)}}
 @media (prefers-reduced-motion:reduce){ .gprev i{animation:none !important} }
 @media (max-width:640px){ .ggrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))} }
 
@@ -1751,15 +1750,15 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
       <input id="gq" type="search" placeholder="Filter&hellip;  (press /)" aria-label="Filter effects">
       <span class="gtotal" id="gtotal">53</span>
     </div>
-    <div class="gsection" data-gsec="img"><div class="ghead"><h3>Imagery</h3><span class="gcount">6</span><p>Photographs — masking, framing, grading, pointer response.</p></div><div class="ggrid"><button class="gcard" data-goto="e-IMG-01" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-01</span><span class="gname">Feathered plate</span><span class="gsrc">radial mask + blend mode</span></button><button class="gcard" data-goto="e-IMG-02" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-02</span><span class="gname">Shaped frame</span><span class="gsrc">border-radius as composition</span></button><button class="gcard" data-goto="e-IMG-03" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-03</span><span class="gname">Duotone release</span><span class="gsrc">two blend layers, dropped on hover</span></button><button class="gcard" data-goto="e-IMG-04" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-04</span><span class="gname">Chromatic split</span><span class="gsrc">channel offset by pointer velocity</span></button><button class="gcard" data-goto="e-IMG-05" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-05</span><span class="gname">Type-masked image</span><span class="gsrc">background-clip: text</span></button><button class="gcard" data-goto="e-IMG-06" data-g="img"><span class="gprev gp-img"><i></i><i></i><i></i></span><span class="gid">IMG-06</span><span class="gname">Pointer image trail</span><span class="gsrc">distance-gated image queue</span></button></div></div>
-<div class="gsection" data-gsec="typ"><div class="ghead"><h3>Typography</h3><span class="gcount">10</span><p>Headlines and text that arrive instead of appearing.</p></div><div class="ggrid"><button class="gcard" data-goto="e-TYP-01" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-01</span><span class="gname">Character blur-stagger</span><span class="gsrc">split-text transition</span></button><button class="gcard" data-goto="e-TYP-02" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-02</span><span class="gname">Line mask reveal</span><span class="gsrc">clip per line, not per character</span></button><button class="gcard" data-goto="e-TYP-03" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-03</span><span class="gname">Tracking open</span><span class="gsrc">letter-spacing as the animation</span></button><button class="gcard" data-goto="e-TYP-04" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-04</span><span class="gname">Weight response</span><span class="gsrc">variable-font principle</span></button><button class="gcard" data-goto="e-TYP-05" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-05</span><span class="gname">Text scramble</span><span class="gsrc">glyph resolve</span></button><button class="gcard" data-goto="e-TYP-06" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-06</span><span class="gname">Counter roll</span><span class="gsrc">tabular digits</span></button><button class="gcard" data-goto="e-TYP-07" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-07</span><span class="gname">Velocity skew &amp; settle</span><span class="gsrc">scroll-velocity response</span></button><button class="gcard" data-goto="e-TYP-08" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-08</span><span class="gname">Sticky set swap, opposing drift</span><span class="gsrc">multi-stop scroll interpolation</span></button><button class="gcard" data-goto="e-TYP-09" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-09</span><span class="gname">Velocity marquee</span><span class="gsrc">scroll-coupled</span></button><button class="gcard" data-goto="e-TYP-10" data-g="typ"><span class="gprev gp-typ"><i></i><i></i><i></i></span><span class="gid">TYP-10</span><span class="gname">Threshold dissolve</span><span class="gsrc">canvas 2D, noise mask</span></button></div></div>
-<div class="gsection" data-gsec="rev"><div class="ghead"><h3>Reveal</h3><span class="gcount">5</span><p>How a thing enters the page.</p></div><div class="ggrid"><button class="gcard" data-goto="e-REV-01" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-01</span><span class="gname">Gradient mask wipe</span><span class="gsrc">animated mask-image</span></button><button class="gcard" data-goto="e-REV-02" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-02</span><span class="gname">Aperture open</span><span class="gsrc">animated clip-path</span></button><button class="gcard" data-goto="e-REV-03" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-03</span><span class="gname">Proportional fill control</span><span class="gsrc">proportional state control</span></button><button class="gcard" data-goto="e-REV-04" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-04</span><span class="gname">Sticky stacking cards</span><span class="gsrc">scroll-driven pile</span></button><button class="gcard" data-goto="e-REV-05" data-g="rev"><span class="gprev gp-rev"><i></i><i></i><i></i></span><span class="gid">REV-05</span><span class="gname">Progressive blur</span><span class="gsrc">layered backdrop-filter</span></button></div></div>
-<div class="gsection" data-gsec="rea"><div class="ghead"><h3>Reactivity</h3><span class="gcount">3</span><p>The page answering the pointer.</p></div><div class="ggrid"><button class="gcard" data-goto="e-REA-01" data-g="rea"><span class="gprev gp-rea"><i></i><i></i><i></i></span><span class="gid">REA-01</span><span class="gname">Particle field with pointer wake</span><span class="gsrc">canvas particle system</span></button><button class="gcard" data-goto="e-REA-02" data-g="rea"><span class="gprev gp-rea"><i></i><i></i><i></i></span><span class="gid">REA-02</span><span class="gname">Velocity trail + magnetic control</span><span class="gsrc">velocity-spawned trail + magnetism</span></button><button class="gcard" data-goto="e-REA-03" data-g="rea"><span class="gprev gp-rea"><i></i><i></i><i></i></span><span class="gid">REA-03</span><span class="gname">Spotlight mask</span><span class="gsrc">reveal by proximity</span></button></div></div>
-<div class="gsection" data-gsec="dep"><div class="ghead"><h3>Depth</h3><span class="gcount">3</span><p>Layers that move at different rates so the page has space.</p></div><div class="ggrid"><button class="gcard" data-goto="e-DEP-01" data-g="dep"><span class="gprev gp-dep"><i></i><i></i><i></i></span><span class="gid">DEP-01</span><span class="gname">Multi-plane parallax</span><span class="gsrc">pointer + scroll parallax</span></button><button class="gcard" data-goto="e-DEP-02" data-g="dep"><span class="gprev gp-dep"><i></i><i></i><i></i></span><span class="gid">DEP-02</span><span class="gname">Pointer-tilted panel</span><span class="gsrc">pointer-driven 3D transform</span></button><button class="gcard" data-goto="e-DEP-03" data-g="dep"><span class="gprev gp-dep"><i></i><i></i><i></i></span><span class="gid">DEP-03</span><span class="gname">Focus falloff carousel</span><span class="gsrc">depth via blur, not position</span></button></div></div>
-<div class="gsection" data-gsec="gl"><div class="ghead"><h3>Rendered</h3><span class="gcount">9</span><p>Shader-rendered fields. The heaviest and the most striking.</p></div><div class="ggrid"><button class="gcard" data-goto="e-GL-01" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-01</span><span class="gname">Raymarched SDF field</span><span class="gsrc">fragment shader, zero geometry</span></button><button class="gcard" data-goto="e-GL-02" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-02</span><span class="gname">Dispersion glass</span><span class="gsrc">index-of-refraction shader</span></button><button class="gcard" data-goto="e-GL-03" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-03</span><span class="gname">Displacement transition</span><span class="gsrc">two textures, one noise map</span></button><button class="gcard" data-goto="e-GL-04" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-04</span><span class="gname">Fluid cursor</span><span class="gsrc">ping-pong advection</span></button><button class="gcard" data-goto="e-GL-05" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-05</span><span class="gname">GPGPU particles</span><span class="gsrc">positions stored in a texture</span></button><button class="gcard" data-goto="e-GL-06" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-06</span><span class="gname">Post-processing stack</span><span class="gsrc">render to texture, then treat it</span></button><button class="gcard" data-goto="e-GL-07" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-07</span><span class="gname">Mesh distortion on scroll</span><span class="gsrc">vertex displacement</span></button><button class="gcard" data-goto="e-GL-08" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-08</span><span class="gname">Domain-warped field</span><span class="gsrc">noise sampled through noise</span></button><button class="gcard" data-goto="e-GL-09" data-g="gl"><span class="gprev gp-gl"><i></i><i></i><i></i></span><span class="gid">GL-09</span><span class="gname">Ordered dithering</span><span class="gsrc">post-pass, any source</span></button></div></div>
-<div class="gsection" data-gsec="amb"><div class="ghead"><h3>Ambient</h3><span class="gcount">6</span><p>Atmosphere you notice only when it is gone.</p></div><div class="ggrid"><button class="gcard" data-goto="e-AMB-01" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-01</span><span class="gname">Animated film grain</span><span class="gsrc">canvas noise, throttled</span></button><button class="gcard" data-goto="e-AMB-02" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-02</span><span class="gname">Aurora drift</span><span class="gsrc">blurred blobs, pure CSS</span></button><button class="gcard" data-goto="e-AMB-03" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-03</span><span class="gname">Dust motes with depth</span><span class="gsrc">three parallax layers</span></button><button class="gcard" data-goto="e-AMB-04" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-04</span><span class="gname">Breathing on idle</span><span class="gsrc">idle detection + micro-motion</span></button><button class="gcard" data-goto="e-AMB-05" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-05</span><span class="gname">Caustics</span><span class="gsrc">low-res canvas, upscaled</span></button><button class="gcard" data-goto="e-AMB-06" data-g="amb"><span class="gprev gp-amb"><i></i><i></i><i></i></span><span class="gid">AMB-06</span><span class="gname">Colour temperature drift</span><span class="gsrc">scroll-mapped white balance</span></button></div></div>
-<div class="gsection" data-gsec="sys"><div class="ghead"><h3>Architecture</h3><span class="gcount">5</span><p>How motion is produced. Read first — changes everything after.</p></div><div class="ggrid"><button class="gcard" data-goto="e-SYS-01" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-01</span><span class="gname">Native CSS scroll timelines</span><span class="gsrc">browser-native, zero JS</span></button><button class="gcard" data-goto="e-SYS-02" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-02</span><span class="gname">FLIP layout animation</span><span class="gsrc">First, Last, Invert, Play</span></button><button class="gcard" data-goto="e-SYS-03" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-03</span><span class="gname">Spring physics vs easing</span><span class="gsrc">velocity-aware motion</span></button><button class="gcard" data-goto="e-SYS-04" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-04</span><span class="gname">View Transitions</span><span class="gsrc">browser-native morphing</span></button><button class="gcard" data-goto="e-SYS-05" data-g="sys"><span class="gprev gp-sys"><i></i><i></i><i></i></span><span class="gid">SYS-05</span><span class="gname">Speculation Rules</span><span class="gsrc">prefetch and prerender on intent</span></button></div></div>
-<div class="gsection" data-gsec="plt"><div class="ghead"><h3>Platform</h3><span class="gcount">6</span><p>Browser features that replace JavaScript you would have written.</p></div><div class="ggrid"><button class="gcard" data-goto="e-PLT-01" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-01</span><span class="gname">Animating height to auto</span><span class="gsrc">interpolate-size</span></button><button class="gcard" data-goto="e-PLT-02" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-02</span><span class="gname">Entry animations</span><span class="gsrc">@starting-style</span></button><button class="gcard" data-goto="e-PLT-03" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-03</span><span class="gname">Native tooltips and menus</span><span class="gsrc">Popover API + anchor positioning</span></button><button class="gcard" data-goto="e-PLT-04" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-04</span><span class="gname">Animatable gradients</span><span class="gsrc">@property</span></button><button class="gcard" data-goto="e-PLT-05" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-05</span><span class="gname">Component-level responsive</span><span class="gsrc">container queries</span></button><button class="gcard" data-goto="e-PLT-06" data-g="plt"><span class="gprev gp-plt"><i></i><i></i><i></i></span><span class="gid">PLT-06</span><span class="gname">Carousels that know where they are</span><span class="gsrc">scroll-snap events</span></button></div></div>
+    <div class="gsection" data-gsec="img"><div class="ghead"><h3>Imagery</h3><span class="gcount">6</span><p>Photographs — masking, framing, grading, pointer response.</p></div><div class="ggrid"><button class="gcard" data-goto="e-IMG-01" data-g="img"><span class="gprev gp-img" data-fx="IMG-01"><span class="gph"></span><span class="gph"></span></span><span class="gid">IMG-01</span><span class="gname">Feathered plate</span><span class="gsrc">radial mask + blend mode</span></button><button class="gcard" data-goto="e-IMG-02" data-g="img"><span class="gprev gp-img" data-fx="IMG-02"><span class="gph"></span><span class="gph"></span><span class="gph"></span></span><span class="gid">IMG-02</span><span class="gname">Shaped frame</span><span class="gsrc">border-radius as composition</span></button><button class="gcard" data-goto="e-IMG-03" data-g="img"><span class="gprev gp-img" data-fx="IMG-03"><span class="gph"></span><i></i><i></i></span><span class="gid">IMG-03</span><span class="gname">Duotone release</span><span class="gsrc">two blend layers, dropped on hover</span></button><button class="gcard" data-goto="e-IMG-04" data-g="img"><span class="gprev gp-img" data-fx="IMG-04"><span class="gph"></span><i></i><i></i></span><span class="gid">IMG-04</span><span class="gname">Chromatic split</span><span class="gsrc">channel offset by pointer velocity</span></button><button class="gcard" data-goto="e-IMG-05" data-g="img"><span class="gprev gp-img" data-fx="IMG-05"><span class="gw gmask"><b>T</b><b>y</b><b>p</b><b>e</b></span></span><span class="gid">IMG-05</span><span class="gname">Type-masked image</span><span class="gsrc">background-clip: text</span></button><button class="gcard" data-goto="e-IMG-06" data-g="img"><span class="gprev gp-img" data-fx="IMG-06"><span class="gph"></span><span class="gph"></span><span class="gph"></span></span><span class="gid">IMG-06</span><span class="gname">Pointer image trail</span><span class="gsrc">distance-gated image queue</span></button></div></div>
+<div class="gsection" data-gsec="typ"><div class="ghead"><h3>Typography</h3><span class="gcount">10</span><p>Headlines and text that arrive instead of appearing.</p></div><div class="ggrid"><button class="gcard" data-goto="e-TYP-01" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-01"><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span></span><span class="gid">TYP-01</span><span class="gname">Character blur-stagger</span><span class="gsrc">split-text transition</span></button><button class="gcard" data-goto="e-TYP-02" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-02"><span class="gclip"><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span></span></span><span class="gid">TYP-02</span><span class="gname">Line mask reveal</span><span class="gsrc">clip per line, not per character</span></button><button class="gcard" data-goto="e-TYP-03" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-03"><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span></span><span class="gid">TYP-03</span><span class="gname">Tracking open</span><span class="gsrc">letter-spacing as the animation</span></button><button class="gcard" data-goto="e-TYP-04" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-04"><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span></span><span class="gid">TYP-04</span><span class="gname">Weight response</span><span class="gsrc">variable-font principle</span></button><button class="gcard" data-goto="e-TYP-05" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-05"><span class="gw gscram"><b data-alt="%">T</b><b data-alt="#">y</b><b data-alt="8">p</b><b data-alt="@">e</b></span></span><span class="gid">TYP-05</span><span class="gname">Text scramble</span><span class="gsrc">glyph resolve</span></button><button class="gcard" data-goto="e-TYP-06" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-06"><span class="groll"><span class="gcol"><b>2</b><b>3</b><b>4</b><b>5</b></span><i>%</i></span></span><span class="gid">TYP-06</span><span class="gname">Counter roll</span><span class="gsrc">tabular digits</span></button><button class="gcard" data-goto="e-TYP-07" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-07"><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span></span><span class="gid">TYP-07</span><span class="gname">Velocity skew &amp; settle</span><span class="gsrc">scroll-velocity response</span></button><button class="gcard" data-goto="e-TYP-08" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-08"><span class="gtwo"><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span><span class="gw"><b>S</b><b>e</b><b>t</b><b>s</b></span></span></span><span class="gid">TYP-08</span><span class="gname">Sticky set swap, opposing drift</span><span class="gsrc">multi-stop scroll interpolation</span></button><button class="gcard" data-goto="e-TYP-09" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-09"><span class="gmarq"><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span></span></span><span class="gid">TYP-09</span><span class="gname">Velocity marquee</span><span class="gsrc">scroll-coupled</span></button><button class="gcard" data-goto="e-TYP-10" data-g="typ"><span class="gprev gp-typ" data-fx="TYP-10"><span class="gw"><b>T</b><b>y</b><b>p</b><b>e</b></span></span><span class="gid">TYP-10</span><span class="gname">Threshold dissolve</span><span class="gsrc">canvas 2D, noise mask</span></button></div></div>
+<div class="gsection" data-gsec="rev"><div class="ghead"><h3>Reveal</h3><span class="gcount">5</span><p>How a thing enters the page.</p></div><div class="ggrid"><button class="gcard" data-goto="e-REV-01" data-g="rev"><span class="gprev gp-rev" data-fx="REV-01"><span class="gph"></span></span><span class="gid">REV-01</span><span class="gname">Gradient mask wipe</span><span class="gsrc">animated mask-image</span></button><button class="gcard" data-goto="e-REV-02" data-g="rev"><span class="gprev gp-rev" data-fx="REV-02"><span class="gph"></span></span><span class="gid">REV-02</span><span class="gname">Aperture open</span><span class="gsrc">animated clip-path</span></button><button class="gcard" data-goto="e-REV-03" data-g="rev"><span class="gprev gp-rev" data-fx="REV-03"><span class="gbar"><i></i></span></span><span class="gid">REV-03</span><span class="gname">Proportional fill control</span><span class="gsrc">proportional state control</span></button><button class="gcard" data-goto="e-REV-04" data-g="rev"><span class="gprev gp-rev" data-fx="REV-04"><span class="gph"></span><span class="gph"></span><span class="gph"></span></span><span class="gid">REV-04</span><span class="gname">Sticky stacking cards</span><span class="gsrc">scroll-driven pile</span></button><button class="gcard" data-goto="e-REV-05" data-g="rev"><span class="gprev gp-rev" data-fx="REV-05"><span class="gph"></span><span class="gph"></span><span class="gph"></span></span><span class="gid">REV-05</span><span class="gname">Progressive blur</span><span class="gsrc">layered backdrop-filter</span></button></div></div>
+<div class="gsection" data-gsec="rea"><div class="ghead"><h3>Reactivity</h3><span class="gcount">3</span><p>The page answering the pointer.</p></div><div class="ggrid"><button class="gcard" data-goto="e-REA-01" data-g="rea"><span class="gprev gp-rea" data-fx="REA-01"><i></i><i></i><i></i><span class="gcur"></span></span><span class="gid">REA-01</span><span class="gname">Particle field with pointer wake</span><span class="gsrc">canvas particle system</span></button><button class="gcard" data-goto="e-REA-02" data-g="rea"><span class="gprev gp-rea" data-fx="REA-02"><i></i><i></i><i></i><span class="gcur"></span></span><span class="gid">REA-02</span><span class="gname">Velocity trail + magnetic control</span><span class="gsrc">velocity-spawned trail + magnetism</span></button><button class="gcard" data-goto="e-REA-03" data-g="rea"><span class="gprev gp-rea" data-fx="REA-03"><span class="glines"><u></u><u></u><u></u></span><span class="glines glit"><u></u><u></u><u></u></span><span class="gcur"></span></span><span class="gid">REA-03</span><span class="gname">Spotlight mask</span><span class="gsrc">reveal by proximity</span></button></div></div>
+<div class="gsection" data-gsec="dep"><div class="ghead"><h3>Depth</h3><span class="gcount">3</span><p>Layers that move at different rates so the page has space.</p></div><div class="ggrid"><button class="gcard" data-goto="e-DEP-01" data-g="dep"><span class="gprev gp-dep" data-fx="DEP-01"><span class="gph"></span><span class="gph"></span><span class="gph"></span></span><span class="gid">DEP-01</span><span class="gname">Multi-plane parallax</span><span class="gsrc">pointer + scroll parallax</span></button><button class="gcard" data-goto="e-DEP-02" data-g="dep"><span class="gprev gp-dep" data-fx="DEP-02"><span class="gph"></span></span><span class="gid">DEP-02</span><span class="gname">Pointer-tilted panel</span><span class="gsrc">pointer-driven 3D transform</span></button><button class="gcard" data-goto="e-DEP-03" data-g="dep"><span class="gprev gp-dep" data-fx="DEP-03"><span class="gph"></span><span class="gph"></span><span class="gph"></span></span><span class="gid">DEP-03</span><span class="gname">Focus falloff carousel</span><span class="gsrc">depth via blur, not position</span></button></div></div>
+<div class="gsection" data-gsec="gl"><div class="ghead"><h3>Rendered</h3><span class="gcount">9</span><p>Shader-rendered fields. The heaviest and the most striking.</p></div><div class="ggrid"><button class="gcard" data-goto="e-GL-01" data-g="gl"><span class="gprev gp-gl" data-fx="GL-01"><i></i></span><span class="gid">GL-01</span><span class="gname">Raymarched SDF field</span><span class="gsrc">fragment shader, zero geometry</span></button><button class="gcard" data-goto="e-GL-02" data-g="gl"><span class="gprev gp-gl" data-fx="GL-02"><i></i></span><span class="gid">GL-02</span><span class="gname">Dispersion glass</span><span class="gsrc">index-of-refraction shader</span></button><button class="gcard" data-goto="e-GL-03" data-g="gl"><span class="gprev gp-gl" data-fx="GL-03"><i></i></span><span class="gid">GL-03</span><span class="gname">Displacement transition</span><span class="gsrc">two textures, one noise map</span></button><button class="gcard" data-goto="e-GL-04" data-g="gl"><span class="gprev gp-gl" data-fx="GL-04"><i></i></span><span class="gid">GL-04</span><span class="gname">Fluid cursor</span><span class="gsrc">ping-pong advection</span></button><button class="gcard" data-goto="e-GL-05" data-g="gl"><span class="gprev gp-gl" data-fx="GL-05"><i></i></span><span class="gid">GL-05</span><span class="gname">GPGPU particles</span><span class="gsrc">positions stored in a texture</span></button><button class="gcard" data-goto="e-GL-06" data-g="gl"><span class="gprev gp-gl" data-fx="GL-06"><i></i></span><span class="gid">GL-06</span><span class="gname">Post-processing stack</span><span class="gsrc">render to texture, then treat it</span></button><button class="gcard" data-goto="e-GL-07" data-g="gl"><span class="gprev gp-gl" data-fx="GL-07"><i></i></span><span class="gid">GL-07</span><span class="gname">Mesh distortion on scroll</span><span class="gsrc">vertex displacement</span></button><button class="gcard" data-goto="e-GL-08" data-g="gl"><span class="gprev gp-gl" data-fx="GL-08"><i></i></span><span class="gid">GL-08</span><span class="gname">Domain-warped field</span><span class="gsrc">noise sampled through noise</span></button><button class="gcard" data-goto="e-GL-09" data-g="gl"><span class="gprev gp-gl" data-fx="GL-09"><i></i></span><span class="gid">GL-09</span><span class="gname">Ordered dithering</span><span class="gsrc">post-pass, any source</span></button></div></div>
+<div class="gsection" data-gsec="amb"><div class="ghead"><h3>Ambient</h3><span class="gcount">6</span><p>Atmosphere you notice only when it is gone.</p></div><div class="ggrid"><button class="gcard" data-goto="e-AMB-01" data-g="amb"><span class="gprev gp-amb" data-fx="AMB-01"><i></i><span class="glines"><u></u><u></u><u></u></span></span><span class="gid">AMB-01</span><span class="gname">Animated film grain</span><span class="gsrc">canvas noise, throttled</span></button><button class="gcard" data-goto="e-AMB-02" data-g="amb"><span class="gprev gp-amb" data-fx="AMB-02"><i></i><i></i><i></i><span class="glines"><u></u><u></u><u></u></span></span><span class="gid">AMB-02</span><span class="gname">Aurora drift</span><span class="gsrc">blurred blobs, pure CSS</span></button><button class="gcard" data-goto="e-AMB-03" data-g="amb"><span class="gprev gp-amb" data-fx="AMB-03"><i></i><i></i><i></i><span class="glines"><u></u><u></u><u></u></span></span><span class="gid">AMB-03</span><span class="gname">Dust motes with depth</span><span class="gsrc">three parallax layers</span></button><button class="gcard" data-goto="e-AMB-04" data-g="amb"><span class="gprev gp-amb" data-fx="AMB-04"><span class="gph"></span></span><span class="gid">AMB-04</span><span class="gname">Breathing on idle</span><span class="gsrc">idle detection + micro-motion</span></button><button class="gcard" data-goto="e-AMB-05" data-g="amb"><span class="gprev gp-amb" data-fx="AMB-05"><i></i><span class="glines"><u></u><u></u><u></u></span></span><span class="gid">AMB-05</span><span class="gname">Caustics</span><span class="gsrc">low-res canvas, upscaled</span></button><button class="gcard" data-goto="e-AMB-06" data-g="amb"><span class="gprev gp-amb" data-fx="AMB-06"><i></i><span class="glines"><u></u><u></u><u></u></span></span><span class="gid">AMB-06</span><span class="gname">Colour temperature drift</span><span class="gsrc">scroll-mapped white balance</span></button></div></div>
+<div class="gsection" data-gsec="sys"><div class="ghead"><h3>Architecture</h3><span class="gcount">5</span><p>How motion is produced. Read first — changes everything after.</p></div><div class="ggrid"><button class="gcard" data-goto="e-SYS-01" data-g="sys"><span class="gprev gp-sys" data-fx="SYS-01"><span class="glines"><u></u><u></u><u></u></span><span class="gprog"><i></i></span></span><span class="gid">SYS-01</span><span class="gname">Native CSS scroll timelines</span><span class="gsrc">browser-native, zero JS</span></button><button class="gcard" data-goto="e-SYS-02" data-g="sys"><span class="gprev gp-sys" data-fx="SYS-02"><span class="gph"></span><span class="gph"></span></span><span class="gid">SYS-02</span><span class="gname">FLIP layout animation</span><span class="gsrc">First, Last, Invert, Play</span></button><button class="gcard" data-goto="e-SYS-03" data-g="sys"><span class="gprev gp-sys" data-fx="SYS-03"><i></i><i></i></span><span class="gid">SYS-03</span><span class="gname">Spring physics vs easing</span><span class="gsrc">velocity-aware motion</span></button><button class="gcard" data-goto="e-SYS-04" data-g="sys"><span class="gprev gp-sys" data-fx="SYS-04"><span class="gph"></span></span><span class="gid">SYS-04</span><span class="gname">View Transitions</span><span class="gsrc">browser-native morphing</span></button><button class="gcard" data-goto="e-SYS-05" data-g="sys"><span class="gprev gp-sys" data-fx="SYS-05"><span class="glines"><u></u><u></u><u></u></span></span><span class="gid">SYS-05</span><span class="gname">Speculation Rules</span><span class="gsrc">prefetch and prerender on intent</span></button></div></div>
+<div class="gsection" data-gsec="plt"><div class="ghead"><h3>Platform</h3><span class="gcount">6</span><p>Browser features that replace JavaScript you would have written.</p></div><div class="ggrid"><button class="gcard" data-goto="e-PLT-01" data-g="plt"><span class="gprev gp-plt" data-fx="PLT-01"><span class="gpanel"><u></u><u></u><u></u></span></span><span class="gid">PLT-01</span><span class="gname">Animating height to auto</span><span class="gsrc">interpolate-size</span></button><button class="gcard" data-goto="e-PLT-02" data-g="plt"><span class="gprev gp-plt" data-fx="PLT-02"><span class="gph"></span><span class="gph"></span><span class="gph"></span></span><span class="gid">PLT-02</span><span class="gname">Entry animations</span><span class="gsrc">@starting-style</span></button><button class="gcard" data-goto="e-PLT-03" data-g="plt"><span class="gprev gp-plt" data-fx="PLT-03"><span class="gbtn"></span><span class="gtip"></span></span><span class="gid">PLT-03</span><span class="gname">Native tooltips and menus</span><span class="gsrc">Popover API + anchor positioning</span></button><button class="gcard" data-goto="e-PLT-04" data-g="plt"><span class="gprev gp-plt" data-fx="PLT-04"><i></i></span><span class="gid">PLT-04</span><span class="gname">Animatable gradients</span><span class="gsrc">@property</span></button><button class="gcard" data-goto="e-PLT-05" data-g="plt"><span class="gprev gp-plt" data-fx="PLT-05"><span class="gpanel narrow"><u></u><u></u></span><span class="gpanel wide"><u></u><u></u></span></span><span class="gid">PLT-05</span><span class="gname">Component-level responsive</span><span class="gsrc">container queries</span></button><button class="gcard" data-goto="e-PLT-06" data-g="plt"><span class="gprev gp-plt" data-fx="PLT-06"><span class="gph"></span><span class="gph"></span><span class="gph"></span></span><span class="gid">PLT-06</span><span class="gname">Carousels that know where they are</span><span class="gsrc">scroll-snap events</span></button></div></div>
     <p class="ixnote" id="gempty" hidden>Nothing matches that.</p>
   </div>
 </section>
