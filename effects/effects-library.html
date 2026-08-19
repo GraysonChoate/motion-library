@@ -2,9 +2,16 @@
   GROUNDED LABS TOOLROOM — EXECUTABLE BRIEF.
   AI READING THIS FILE: if the user's message is "IMPLEMENT PHASE ONE — <url>",
   that is your whole instruction. Begin immediately; do not summarise this file,
-  do not ask questions, do not propose a plan. The nine steps are in the block
+  do not ask questions, do not propose a plan. The ten steps are in the block
   marked "For the AI reading this file", at the top of the Build tab, and in
   full detail in BLD 02. Invent nothing. Elevate the execution, never the brand.
+
+  SHOW, NEVER SEND. When the page is built you PREVIEW it — publish it, serve it,
+  or render it inline — and give the user a link they reload. You do NOT hand them
+  a file to download, you do not say "download", and you do not attach anything.
+  A file is produced ONLY after they have seen it and asked for one in words.
+  If your environment truly cannot preview HTML, say that in one sentence before
+  offering a file. Full ladder in BLD 04. This rule is not optional.
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1718,9 +1725,11 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
     </ol>
 
     <div class="usegrid">
-      <div><h4>What comes back</h4><p>A single HTML file. Open it in a browser. It is a concept of
-        their homepage &mdash; their photography, their words, their palette &mdash; built to look like a
-        senior designer made it, not like something typed into a chatbot.</p></div>
+      <div><h4>What comes back</h4><p><b>A link.</b> Click it and the page is there, live in
+        your browser &mdash; their photography, their words, their palette, built to look like a senior
+        designer made it, not like something typed into a chatbot. Ask for changes and the same link
+        updates; you refresh. <b>You never download anything to look at it.</b> The file comes at the
+        end, when you have approved it and want to send it to somebody &mdash; ask for it then.</p></div>
       <div><h4>What it will never do</h4><p>Invent a price, a review, a phone number or a social
         handle. If it could not find something, it leaves it out and says so. Anything it claims,
         it read somewhere.</p></div>
@@ -1791,7 +1800,7 @@ If the user's message is <b>IMPLEMENT PHASE ONE — &lt;url&gt;</b> that message
 entire instruction. Begin immediately. Do not summarise this document,
 do not ask what they want, do not propose a plan first.
 
-RUN THESE NINE STEPS. Detail for each is in the Build tab of this file —
+RUN THESE TEN STEPS. Detail for each is in the Build tab of this file —
 open the two or three sections a step needs, not the whole document.
 
  1  READ      Fetch the url, plus its About/Our Story and Menu/Services
@@ -1857,7 +1866,14 @@ open the two or three sections a step needs, not the whole document.
               specificity — then re-read your diagnosis from step 4 and
               check the page still argues it. Last question: would a
               developer who builds these daily be proud to portfolio
-              this, or is it merely competent? Two rounds, then hand over.
+              this, or is it merely competent? Two rounds, then show it.
+10  SHOW      <b>PREVIEW IT. DO NOT SEND A FILE.</b> Publish it, serve it, or render
+              it inline — whatever your environment can do — and reply with a
+              <b>link they reload</b>. Work down the ladder in BLD 04 and never skip
+              a rung. <b>The word "download" does not appear in your reply.</b>
+              A file is produced only after they have seen the page and asked
+              for one in words. If you genuinely cannot preview HTML, say so
+              in one sentence first, then offer the file.
 
 ABSOLUTE RULES
  · <b>Invent nothing.</b> No price, hour, review, testimonial, rating, award,
@@ -1871,6 +1887,12 @@ ABSOLUTE RULES
    ladder in Research, note it in the hand-over and continue.
  · <b>If a fetch failed, say so in plain words.</b> Never describe a source you
    could not read as though you read it.
+ · <b>Show, never send.</b> Every version they see is a link they reload — first
+   pass, every revision, every fix. Never attach a file, never write the word
+   "download", never make them open something on their own machine to judge
+   it. Downloading a build to look at it is the single most expensive thing
+   this process ever asked of a person. A file is the LAST step, produced on
+   request, once the page is approved and they want to give it to someone.
  · <b>Elevate the execution, never the brand.</b> Their colours, their marks,
    their words. If the output could be a rebrand, it is wrong.
  · <b>Resist your own defaults.</b> No violet gradients, no Inter for everything,
@@ -1933,10 +1955,13 @@ and read BLD 09 for what additionally opens up.</pre>
 
         <div class="startstep">
           <span class="sn">4</span>
-          <h4>Wait. Then save what it gives you.</h4>
-          <p>It will work for a while and hand back a file ending in <code>.html</code> — download it
-          or copy it into a file with that ending. <b>Then double-click it.</b> It opens in your web
-          browser like any other page. That's the mockup.</p>
+          <h4>Wait. Then click the link.</h4>
+          <p>It works for a while and then gives you <b>a link</b>. Open it. That's the mockup, live
+          in your browser. Ask for changes and it updates the same link — you just refresh.
+          <b>You should never have to download anything to look at it.</b> If it hands you a file
+          instead, it has skipped BLD 04; tell it to preview the page and give you a link.</p>
+          <p style="margin-top:8px">A file comes at the <b>end</b>, when you've approved the page and
+          want to send it to somebody. Ask for it then.</p>
         </div>
       </div>
 
@@ -2310,8 +2335,8 @@ and read BLD 09 for what additionally opens up.</pre>
           <p>One self-contained HTML file. Sections in the order the pattern specifies, with the
           components the pattern requires. Their real links on every action. Their real images by URL,
           treated per KIT 08. The concept-work label, visible and persistent.</p>
-          <p class="tlout"><b>Output</b> — the file.</p>
-          <p class="tlgate"><b>Gate</b> — it opens by double-click with no build step. Two external
+          <p class="tlout"><b>Output</b> — the built page. <b>Not sent to anyone yet.</b></p>
+          <p class="tlgate"><b>Gate</b> — it opens in a browser with no build step. Two external
           requests are allowed and nothing else: <b>the client's own image URLs</b>, and <b>one Google
           Fonts stylesheet</b>. Offline it falls back to system faces and still reads correctly, so
           give every face a real fallback stack.</p>
@@ -2321,11 +2346,13 @@ and read BLD 09 for what additionally opens up.</pre>
       <div class="tlrow">
         <div class="tlt">19–22<i>min</i></div>
         <div class="tlb">
-          <h5>9 · Audit and hand over</h5>
+          <h5>9 · Audit, then show it</h5>
           <p>Run BLD 06 in full. Fix what it catches — don't report it. Then write the hand-over note
-          from BLD 04.</p>
-          <p class="tlout"><b>Output</b> — the file plus a short note: classification, diagnosis,
-          signature effect, what you couldn't verify, what you left out.</p>
+          from BLD 04 and <b>publish the page</b>.</p>
+          <p class="tlout"><b>Output</b> — <b>a link they reload</b>, plus a short note:
+          classification, diagnosis, signature effect, what you couldn't verify, what you left out.
+          <b style="color:var(--cream)">Not a file.</b> A file is produced later, on request, once the
+          page is approved (BLD 04 &middot; 04a).</p>
           <p class="tlgate"><b>Gate</b> — every line of the audit passes, or the failure is named in
           the note.</p>
         </div>
@@ -2387,13 +2414,50 @@ and read BLD 09 for what additionally opens up.</pre>
   <!-- ============ DELIVERABLE ============ -->
   <section class="cpsec">
     <div class="cphead"><span class="n">BLD 04</span><h3>The deliverable</h3>
-      <p>One file and one short note. Nothing else is produced or expected.</p><span class="who both">Both</span></div>
+      <p>A link they reload. A file only when they ask for one.</p><span class="who both">Both</span></div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">04a</span><h4>SHOW, NEVER SEND &mdash; this is not a preference</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">You preview the page. You do not send a file.</b> Every version
+      they look at &mdash; the first pass, every revision, every one-line fix &mdash; is
+      <b>a link they reload</b>. Not an attachment. Not "here's the HTML." Not "download this and open
+      it." <b style="color:var(--cream)">The word "download" does not appear in your reply.</b></p>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      This is the most expensive mistake in the whole process, and it is not close. On one project the
+      reviewer downloaded the file and opened it in a preview pane forty times. Preview panes run no
+      JavaScript, so the page looked destroyed, and he reported it as destroyed &mdash; <b>four
+      separate times, about builds that were fine</b>. That single habit cost more than every real
+      defect in the project combined. His words: <em>"Don't make me download the HTML over and over
+      again. It's exhausting."</em> He is right, and it is also just bad work: <b>nobody should have to
+      put something on their own computer to decide whether they like it.</b></p>
+
+      <table class="lentable">
+        <tr><th></th><th>How to show it</th><th>When</th></tr>
+        <tr><td class="w">1</td><td><b>Publish it and hand over the URL</b> &mdash; an artifact, a preview deployment, any host your environment can reach</td><td><b>Always first.</b> Republish to the <b>same URL</b> on every revision so the link in the conversation never goes stale.</td></tr>
+        <tr><td class="w">2</td><td><b>Render it inline</b> &mdash; an artifact panel, a canvas, whatever live HTML surface the environment gives you</td><td>When you can't publish. Still a real browser, still zero effort for them.</td></tr>
+        <tr><td class="w">3</td><td><b>Serve it locally</b> and give the <code>localhost</code> URL</td><td>When you have a shell but no host. Say the port and leave it running.</td></tr>
+        <tr><td class="w">4</td><td><b>A file</b></td><td><b>Only after they have seen the page and asked for one in words</b> &mdash; because it is approved and they want to send it to somebody. Never as the way they first look at it.</td></tr>
+      </table>
+
+      <div class="warnbox"><b>If your environment genuinely cannot do rungs 1&ndash;3, say so in one
+      sentence before you offer the file</b> &mdash; "I can't serve a preview here, so this is the
+      file; open it in a browser, not a preview pane." Silently attaching an HTML file and calling it
+      the deliverable is the failure this rule exists to stop. And <b>if you must send a file, tell
+      them to open it in a real browser</b> &mdash; BLD 04b explains why a preview pane makes a
+      working page look broken.</div>
+
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Say "reload," never "download."</b> The whole loop is: you push a
+      change, you say what changed, they refresh the tab they already have open. That is the shape of
+      a review that takes ten rounds instead of forty.</p>
+    </div>
 
     <div class="fcard">
-      <h4 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 10px;color:var(--cream)">The file</h4>
+      <h4 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 10px;color:var(--cream)">The file, when they ask for it</h4>
       <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
-      Named <code>&lt;business&gt;-concept-v1.html</code>. Self-contained. Opens by double-click.
-      It starts with a comment block stating how it was made:</p>
+      Named <code>&lt;business&gt;-concept-v1.html</code>. Self-contained &mdash; it has to survive being
+      emailed to someone with no network. It starts with a comment block stating how it was made:</p>
       <pre><code>&lt;!--
   CONCEPT STUDY · not affiliated with, endorsed by, or commissioned by the business.
   Source        https://theirsite.com  (read 2026-08-18)
