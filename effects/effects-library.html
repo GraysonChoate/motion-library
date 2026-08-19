@@ -1713,7 +1713,7 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
         and adding your own weakens it.</span></li>
       <li><b>Wait.</b><span>It reads their real site, finds their Instagram and Facebook on its own,
         measures their actual colours and fonts from their own images, writes copy in their own
-        words, builds one homepage, then audits itself against 30 mechanical checks and fixes what
+        words, builds one homepage, then audits itself against 31 mechanical checks and fixes what
         it finds before showing you anything.</span></li>
     </ol>
 
@@ -2008,7 +2008,10 @@ and read BLD 09 for what additionally opens up.</pre>
 
     <div class="warnbox" style="margin-top:20px"><b>The one test underneath all fifteen ·</b>
     swap the client's name for a competitor's. If the page still works, it isn't theirs yet — and
-    every rule above is a different way of making sure it can't.</div>
+    every rule above is a different way of making sure it can't.
+    <b style="display:block;margin-top:8px">And the same test for the look ·</b> swap their
+    <b>photographs</b> for a competitor's. If your textures, grounds and overlays still fit, you chose
+    them — they didn't.</div>
   </section>
 
   <!-- ============ TRIGGER ============ -->
@@ -2230,7 +2233,12 @@ and read BLD 09 for what additionally opens up.</pre>
           paragraph, you don't have it yet.</p>
           <p class="tlex"><b>Shapes that work:</b> "The homepage is a coupon and the story is in the
           basement." · "Everything they sell is behind a PDF." · "The photography is good and it's
-          all 400px wide." · "They have three fonts and no hierarchy."</p>
+          all 400px wide." · "They have three fonts and no hierarchy." · <b>"They own X and their
+          site barely shows it."</b></p>
+          <p class="tlex"><b>That last shape is the strongest one available</b>, and it comes from the
+          motif inventory in the Research tab. A gap between what recurs on their Instagram and what
+          reaches their homepage is a diagnosis about something they <b>demonstrably have and are
+          wasting</b> — far stronger than "their spacing is inconsistent."</p>
           <p class="tlout"><b>Output</b> — the sentence. It becomes the thesis the whole page argues.</p>
           <p class="tlgate"><b>Gate</b> — the diagnosis must be about <b>execution</b>, never about
           the brand. We elevate execution; we don't rebrand.</p>
@@ -2447,6 +2455,74 @@ and read BLD 09 for what additionally opens up.</pre>
         <tr><td>Unverified</td><td>every source you could not reach</td></tr>
         <tr><td>Left out</td><td>anything Phase 1 scope excluded that matters here</td></tr>
       </table>
+    </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">04b</span><h4>Build it so it cannot be seen broken</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">The reviewer will not open this in a browser.</b> They will
+      double-click it, or preview it in a mail client, a file browser, Quick Look, or an editor pane.
+      Those <b>run no JavaScript, block remote images and suspend the animation clock</b>. The standard
+      reveal &mdash; <code>opacity:0</code> in CSS, a class added by an observer, a transition back
+      &mdash; then leaves every section at zero <b>forever</b>, and the page reads as destroyed.
+      On one project that produced <b>four separate "you ruined it" reports</b> about builds that were
+      fine, and cost more than every real defect combined. It is not only a review problem: the client
+      opens the file the same way. <b style="color:var(--cream)">Enforced by check 31.</b></p>
+
+      <p style="margin:0 0 8px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Visible is the base state.</b> All three parts are required &mdash;
+      the transition is unconditional so the page still answers checks 22&ndash;24, and only the
+      <b>hidden</b> half depends on a script existing to undo it:</p>
+      <pre><code>&lt;script&gt;document.documentElement.className=&#x27;js&#x27;&lt;/script&gt;   &lt;!-- first thing in head --&gt;
+
+<i>/* UNCONDITIONAL — the element always answers the pointer and the observer */</i>
+[data-rv]{ transition: opacity .7s var(--e), transform 1s var(--e), filter 1s var(--e) }
+<i>/* only the HIDDEN state waits on a script */</i>
+html.js [data-rv]{ opacity:0; transform:translateY(12px); filter:blur(8px) }
+html.js [data-rv].on{ opacity:1; transform:none; filter:none }</code></pre>
+
+      <div class="warnbox"><b>The specificity trap, by name.</b> Gate the hidden rule and forget the
+      visible one and <b>the content can never come back</b>. <code>html.js [data-rv]</code> is
+      <b>(0,2,1)</b>; <code>[data-rv].on</code> is <b>(0,2,0)</b>. The hidden rule wins. This shipped
+      once and hid an entire contact section. <b>Gate both rules or neither.</b></div>
+
+      <div class="warnbox"><b>And it cannot be rescued afterwards.</b> Transitions are the
+      <b>highest cascade origin in CSS</b> &mdash; above author <code>!important</code>. A frozen
+      in-flight transition therefore beats <code>opacity:1 !important</code>, and beats it inline too.
+      There is no CSS patch for this. The structure above is the only fix.</div>
+
+      <p style="margin:12px 0 8px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Visibility must not depend on an observer firing either.</b> Even
+      with scripts running, <code>IntersectionObserver</code> reports nothing in a hidden or zero-area
+      viewport. Two guarantees:</p>
+      <pre><code><i>/* (a) reveal what is already on screen from its own rect — don&#x27;t await a callback */</i>
+requestAnimationFrame(() =&gt; watched.forEach(el =&gt; {
+  if (el.getBoundingClientRect().top &lt; innerHeight * 0.98) { el.classList.add(&#x27;on&#x27;); io.unobserve(el); }
+}));
+
+<i>/* (b) no intersection within 1.5s means this environment cannot observe */</i>
+setTimeout(() =&gt; {
+  if (ioFired) return;
+  watched.forEach(el =&gt; { el.style.transition=&#x27;none&#x27;; el.style.opacity=&#x27;1&#x27;;
+    el.style.transform=&#x27;none&#x27;; el.style.filter=&#x27;none&#x27;; el.classList.add(&#x27;on&#x27;); });
+  de.classList.remove(&#x27;js&#x27;);
+  void document.body.offsetHeight;
+  setTimeout(() =&gt; watched.forEach(el =&gt; el.style.transition=&#x27;&#x27;), 60);   <i>// TIMER, not rAF</i>
+}, 1500);</code></pre>
+      <p style="margin:8px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">Restore on a timer, never <code>requestAnimationFrame</code></b>
+      &mdash; rAF is suspended in exactly the environments this exists for, so restoring there pins
+      <code>transition:none</code> on permanently, every element reads as inert, and checks 22&ndash;24
+      all fail.</p>
+
+      <p style="margin:12px 0 0;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Embed every asset.</b> Remote images are blocked in preview panes and
+      offline &mdash; a page of broken-image icons is the same failure by another route. WebP at
+      q74&ndash;80 keeps a full concept with two client photos and a dozen plates near 800KB.
+      <b style="color:var(--cream)">Dithered and patterned images defeat lossy codecs</b>: one 4-colour
+      dithered plate measured <b>252KB as WebP and 50KB as an indexed PNG</b> at 2 bits. Use palette
+      PNGs for anything quantised. Keep the original source URLs in the hand-over so provenance
+      survives embedding.</p>
     </div>
   </section>
 
@@ -3153,6 +3229,82 @@ and read BLD 09 for what additionally opens up.</pre>
        + &#x27;accent and one counterpoint&#x27;);
   }
 
+
+  <i>// 31 · NOTHING IS INVISIBLE WITHOUT JAVASCRIPT — and nothing is left stuck.</i>
+  <i>//      The standard reveal (opacity:0 in CSS, a class added by an observer, a</i>
+  <i>//      transition back) fails completely wherever the animation clock is frozen:</i>
+  <i>//      preview panes, Quick Look, mail previews, some editors. They run no</i>
+  <i>//      JavaScript, so the class never arrives and the content stays at zero</i>
+  <i>//      FOREVER. A reviewer opening the file sees a blank page and reports that</i>
+  <i>//      you destroyed the build. That happened four separate times on one project</i>
+  <i>//      and cost more than every real bug in it combined — and it is not only a</i>
+  <i>//      review problem, because the client opens the file the same way.</i>
+  <i>//      31a · a hidden state must be GATED on a script having run, so that without</i>
+  <i>//            the script the content is simply visible. See BLD 04&#x27;s card.</i>
+  <i>//      31b · and after everything has run, nothing on screen is still stuck at</i>
+  <i>//            zero — which is what the specificity trap does when the hidden rule</i>
+  <i>//            gets the gate and the visible rule doesn&#x27;t.</i>
+  const GATE = /\.(js|has-js|scripted)\b|\[data-js\b/;
+  const ungated = [];
+  const scanSheet = sheet =&gt; {
+    let rules; try { rules = sheet.cssRules; } catch (err) { return; }
+    if (!rules) return;
+    [...rules].forEach(r =&gt; {
+      if (!r.selectorText) { if (r.cssRules) scanSheet(r); return; }
+      const st = r.style; if (!st) return;
+      const op = st.getPropertyValue(&#x27;opacity&#x27;);
+      const kills = (op !== &#x27;&#x27; &amp;&amp; parseFloat(op) === 0) || st.getPropertyValue(&#x27;visibility&#x27;) === &#x27;hidden&#x27;;
+      if (!kills || GATE.test(r.selectorText)) return;
+      let matched = []; try { matched = [...document.querySelectorAll(r.selectorText)]; } catch (err) { return; }
+  <i>// a fixed, pointer-events:none follower (a cursor pill, a spotlight) is</i>
+  <i>// decoration driven by the pointer, not content. It SHOULD be hidden with no</i>
+  <i>// script — the same distinction check 2 makes between a bar and an overlay.</i>
+      const isContent = e =&gt; { const st = cs(e);
+        if (st.position === &#x27;fixed&#x27; &amp;&amp; st.pointerEvents === &#x27;none&#x27;) return false;
+        return (e.innerText || &#x27;&#x27;).trim().length &gt; 2 || !!e.querySelector(&#x27;img,canvas,svg,video&#x27;); };
+      if (matched.some(isContent) &amp;&amp; ungated.indexOf(r.selectorText) &lt; 0) ungated.push(r.selectorText);
+    });
+  };
+  [...document.styleSheets].forEach(scanSheet);
+  ok(ungated.length === 0, &#x27;content is invisible without JavaScript — &#x27; + ungated.length
+     + &#x27; rule(s) hide real content with no script gate, starting with &quot;&#x27; + ungated[0]
+     + &#x27;&quot;. Move the hidden state under html.js and leave the transition unconditional (BLD 04). &#x27;
+     + &#x27;A preview pane runs no JS, so this content never comes back and the page reads as destroyed&#x27;);
+
+  <i>// an element that is deliberately at zero until you hover it is not stuck —</i>
+  <i>// find everything a :hover or :focus rule would bring back, and leave it alone</i>
+  const revealable = new Set();
+  const scanHover = sheet =&gt; {
+    let rules; try { rules = sheet.cssRules; } catch (err) { return; }
+    if (!rules) return;
+    [...rules].forEach(r =&gt; {
+      if (!r.selectorText) { if (r.cssRules) scanHover(r); return; }
+      if (!/:hover|:focus/.test(r.selectorText)) return;
+      if (!r.style || (r.style.getPropertyValue(&#x27;opacity&#x27;) === &#x27;&#x27;
+          &amp;&amp; r.style.getPropertyValue(&#x27;visibility&#x27;) === &#x27;&#x27;)) return;
+      const bare = r.selectorText.replace(/:(hover|focus|focus-visible|focus-within)/g, &#x27;&#x27;);
+      try { document.querySelectorAll(bare).forEach(el =&gt; revealable.add(el)); } catch (err) {}
+    });
+  };
+  [...document.styleSheets].forEach(scanHover);
+
+  const stuck = [];
+  $$(&#x27;*&#x27;).forEach(e =&gt; {
+    if (revealable.has(e)) return;
+    const r = e.getBoundingClientRect();
+    if (r.bottom &lt; 0 || r.top &gt; innerHeight || r.width &lt; 4 || r.height &lt; 4) return;
+    const st = cs(e);
+    if (st.display === &#x27;none&#x27; || st.visibility === &#x27;hidden&#x27;) return;   // deliberately gone, not stuck
+    if (st.position === &#x27;fixed&#x27; &amp;&amp; st.pointerEvents === &#x27;none&#x27;) return;   // a pointer follower, not content
+    if (parseFloat(st.opacity) !== 0) return;
+    if (e.closest(&#x27;[hidden],[aria-hidden=&quot;true&quot;],[data-static-ok]&#x27;)) return;
+    if ((e.innerText || &#x27;&#x27;).trim().length &gt; 2) stuck.push((e.innerText || &#x27;&#x27;).trim().slice(0,24));
+  });
+  ok(stuck.length === 0, stuck.length + &#x27; element(s) on screen are laid out but painting nothing — &#x27;
+     + &#x27;still at opacity 0 after everything ran: &quot;&#x27; + stuck[0] + &#x27;&quot;. Either a reveal never fired, or &#x27;
+     + &#x27;the hidden rule out-specifies the visible one (html.js [data-rv] is 0,2,1 and [data-rv].on is &#x27;
+     + &#x27;0,2,0, so the hidden rule wins and the content can never return). Gate BOTH rules or neither&#x27;);
+
   console[F.length ? &#x27;error&#x27; : &#x27;log&#x27;](F.length ? F : &#x27;self-check clean&#x27;);
 })();</code></pre>
       <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
@@ -3239,7 +3391,123 @@ and read BLD 09 for what additionally opens up.</pre>
       around it on two of colour, weight, an underline over 50% opacity, or an <code>::after</code>
       mark. Phone and email links answer to the second tier — they are the conversion action on a small
       business page, but a pill drawn around an address is wrong design.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Check 31 enforces BLD 04b, and it is the cheapest check here to
+      ignore and the most expensive to have ignored ·</b> it reads the stylesheets for any rule that
+      hides real content without a script gate, and then looks for anything on screen still sitting at
+      zero after everything has run. The first half is the preview-pane failure &mdash; four separate
+      "you ruined it" reports about builds that were fine. The second half is the
+      <b>specificity trap</b>: gate the hidden rule, forget the visible one, and the content can never
+      return. A fixed <code>pointer-events:none</code> follower is exempt from both, because a cursor
+      pill genuinely should be invisible with no script running.</p>
     </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">RUN</span><h4>PROTECT — run this before you edit anything, and again after</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">The most damaging failure in this whole process is not a bad
+      build. It is destroying something good while fixing something else</b>, and never noticing.
+      Real example: a headline carried a bronze shimmer. Asked to "make it white so it's more
+      visible," the build changed the fill <b>and</b> the blend mode. Over pale plaster the result was
+      imperceptible &mdash; the layer was still in the CSS, and the effect was gone. The client watched
+      something he liked disappear and was told it had been improved.</p>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Change only the property that was named.</b> "Make it white" changes
+      the colour. Not the blend mode, not the opacity, not the radius, not the trigger. Everything
+      already in a region is <b>protected</b> until someone asks for it to go. And
+      <b style="color:var(--cream)">a thing made invisible has been removed, whatever the CSS says</b>
+      &mdash; which is the half a human reviewer cannot verify by reading a diff, and this can.</p>
+      <p style="margin:0 0 12px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      Paste it once. Call <code>protect(&quot;.quote&quot;)</code> before the edit. Reload after the
+      edit and call it again. It compares every animation, transition, filter, mask, clip-path, blend
+      mode, pseudo-element, fill and border in that region &mdash; and whether each element is still
+      actually painting &mdash; then prints what you lost. It survives a reload, so editing the file
+      in between is the expected workflow.</p>
+      <pre><code>(() =&gt; {
+  const KEY = &#x27;gl-protect&#x27;;
+  const cs = e =&gt; getComputedStyle(e);
+  const key = e =&gt; {
+    const p = e.parentElement;
+    const i = p ? [...p.children].indexOf(e) : 0;
+    return e.tagName.toLowerCase() + (e.className &amp;&amp; typeof e.className === &#x27;string&#x27;
+      ? &#x27;.&#x27; + e.className.trim().split(/\s+/).join(&#x27;.&#x27;) : &#x27;&#x27;) + &#x27;[&#x27; + i + &#x27;]&#x27;
+      + ((e.innerText || &#x27;&#x27;).trim().slice(0,18) ? &#x27; &quot;&#x27; + (e.innerText || &#x27;&#x27;).trim().slice(0,18) + &#x27;&quot;&#x27; : &#x27;&#x27;);
+  };
+  // every way an element can be alive, in one flat list
+  const fx = e =&gt; {
+    const s = cs(e), out = [];
+    const push = (label, v) =&gt; { if (v &amp;&amp; v !== &#x27;none&#x27; &amp;&amp; v !== &#x27;normal&#x27; &amp;&amp; v !== &#x27;0s&#x27;) out.push(label + &#x27;:&#x27; + v); };
+    push(&#x27;anim&#x27;, s.animationName);
+    (s.transitionProperty || &#x27;&#x27;).split(&#x27;,&#x27;).map(x =&gt; x.trim())
+      .filter(x =&gt; x &amp;&amp; x !== &#x27;none&#x27;).forEach(x =&gt; out.push(&#x27;trans:&#x27; + x));
+    [&#x27;filter&#x27;,&#x27;maskImage&#x27;,&#x27;webkitMaskImage&#x27;,&#x27;clipPath&#x27;,&#x27;mixBlendMode&#x27;,&#x27;backdropFilter&#x27;,&#x27;backgroundImage&#x27;,&#x27;transform&#x27;]
+      .forEach(p =&gt; push(p, s[p]));
+    [&#x27;::before&#x27;,&#x27;::after&#x27;].forEach(q =&gt; {
+      const ps = getComputedStyle(e, q);
+      if (ps.content &amp;&amp; ps.content !== &#x27;none&#x27;) {
+        out.push(q + &#x27;:present&#x27;);
+        if (ps.animationName &amp;&amp; ps.animationName !== &#x27;none&#x27;) out.push(q + &#x27; anim:&#x27; + ps.animationName);
+      }
+    });
+    // a fill that vanished is a lost effect, but the exact colour changes for
+    // legitimate reasons — so track only whether there IS one
+    const _c = document.createElement(&#x27;canvas&#x27;); _c.width = _c.height = 1;
+    const _x = _c.getContext(&#x27;2d&#x27;); _x.fillStyle = s.backgroundColor; _x.fillRect(0,0,1,1);
+    if (_x.getImageData(0,0,1,1).data[3] &gt; 20) out.push(&#x27;filled&#x27;);
+    if (parseFloat(s.borderTopWidth) &gt;= 1) out.push(&#x27;bordered&#x27;);
+    // is it actually painting? an effect made invisible has been removed
+    const r = e.getBoundingClientRect();
+    out.push(&#x27;paints:&#x27; + (parseFloat(s.opacity) &gt; 0.02 &amp;&amp; s.visibility !== &#x27;hidden&#x27;
+      &amp;&amp; s.display !== &#x27;none&#x27; &amp;&amp; r.width &gt; 0 &amp;&amp; r.height &gt; 0));
+    return out;
+  };
+  const take = sel =&gt; {
+    const root = document.querySelector(sel);
+    if (!root) { console.error(&#x27;PROTECT: nothing matches &#x27; + sel); return null; }
+    const map = {};
+    [root, ...root.querySelectorAll(&#x27;*&#x27;)].forEach(e =&gt; { map[key(e)] = fx(e); });
+    return map;
+  };
+
+  window.protect = sel =&gt; {
+    const now = take(sel); if (!now) return;
+    const store = JSON.parse(sessionStorage.getItem(KEY) || &#x27;{}&#x27;);
+    const before = store[sel];
+    if (!before) {
+      store[sel] = now; sessionStorage.setItem(KEY, JSON.stringify(store));
+      console.log(&#x27;PROTECT: &#x27; + Object.keys(now).length + &#x27; elements in &#x27; + sel + &#x27; recorded. &#x27;
+        + &#x27;Edit, reload, then run protect(&quot;&#x27; + sel + &#x27;&quot;) again.&#x27;);
+      return;
+    }
+    const lost = [], gone = [], dark = [];
+    Object.keys(before).forEach(k =&gt; {
+      if (!now[k]) { gone.push(k); return; }
+      const had = before[k], has = now[k];
+      const missing = had.filter(f =&gt; !f.startsWith(&#x27;paints:&#x27;) &amp;&amp; has.indexOf(f) &lt; 0);
+      if (missing.length) lost.push(k + &#x27;  —  lost &#x27; + missing.join(&#x27;, &#x27;));
+      if (had.indexOf(&#x27;paints:true&#x27;) &gt;= 0 &amp;&amp; has.indexOf(&#x27;paints:false&#x27;) &gt;= 0) dark.push(k);
+    });
+    const R = [];
+    if (gone.length) R.push(&#x27;REMOVED FROM THE DOM (&#x27; + gone.length + &#x27;): &#x27; + gone.join(&#x27; | &#x27;));
+    if (dark.length) R.push(&#x27;STILL THERE BUT NO LONGER PAINTING (&#x27; + dark.length + &#x27;): &#x27; + dark.join(&#x27; | &#x27;)
+      + &#x27;  —  invisible is removed, whatever the CSS says&#x27;);
+    if (lost.length) R.push(&#x27;EFFECTS LOST (&#x27; + lost.length + &#x27;):\n  &#x27; + lost.join(&#x27;\n  &#x27;));
+    console[R.length ? &#x27;error&#x27; : &#x27;log&#x27;](R.length
+      ? [&#x27;PROTECT — you changed things you were not asked to change:&#x27;, ...R].join(&#x27;\n&#x27;)
+      : &#x27;PROTECT: nothing was lost in &#x27; + sel);
+    delete store[sel]; sessionStorage.setItem(KEY, JSON.stringify(store));
+  };
+  console.log(&#x27;PROTECT ready. protect(&quot;&lt;selector&gt;&quot;) before an edit, and again after.&#x27;);
+})();</code></pre>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Three verdicts, and all three are regressions ·</b>
+      <b>removed from the DOM</b> &mdash; the element is gone. <b>Still there but no longer painting</b>
+      &mdash; opacity, visibility, display or zero size; the CSS looks fine and the user sees nothing.
+      <b>Effects lost</b> &mdash; the element survived but an animation, a transition, a mask or a fill
+      did not. If a change genuinely required dropping one, that is a thing to <b>say out loud before
+      shipping</b>, not a thing to discover three rounds later.</p>
+    </div>
+
 
     <div class="auditgrid">
       <div class="auditcol">
@@ -6264,6 +6532,16 @@ document.addEventListener('visibilitychange', () =&gt; {
       <b style="color:var(--tan)">Reveal once ·</b> Scroll up and back down and nothing re-animates.
       Re-triggering reveals is the single most common scroll-animation mistake, and it makes a page
       feel unstable rather than alive.</p>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">This forbids re-firing, not reversing ·</b> the rule above is about
+      <b>event-triggered</b> reveals — an observer callback running a second time, so a thing that had
+      already arrived arrives again. <b style="color:var(--cream)">A scroll-linked animation is a
+      different mechanism and is explicitly allowed to run in both directions.</b> Anything driven by
+      <code>animation-timeline: view()</code> or a measured scroll offset is a function of position,
+      not an event: at 40% down it looks the same whether you got there going down or coming back up,
+      and it should. That is the entire point of scrubbing it. A build once read the reveal-once rule
+      and reasoned its way out of a scroll-linked colour wipe the client had asked for by name —
+      <b>if it is tied to scroll position, it animates regardless of direction.</b></p>
     </div>
 
     <div class="fcard">
@@ -6474,6 +6752,42 @@ document.addEventListener('visibilitychange', () =&gt; {
     </ul>
     <blockquote><p>A colleague should reach your diagnosis from the card alone, without you in the
     room. If it only works with your narration, you're carrying it — not the research.</p></blockquote>
+  </div>
+
+  <div class="law" id="motif">
+    <h3>The motif inventory &mdash; where the look actually comes from</h3>
+    <p>Before choosing a single texture, find <b>what already recurs across the surfaces this business
+    owns</b>: their homepage, their service pages, their Instagram, their Facebook, and above all
+    <b>the contents of their own photographs</b>. That recurring thing is the direction. It is a
+    better instruction than picking a register, because it is <b>falsifiable</b> &mdash; you can point
+    at their evidence and say "this is where that came from," or you can't, in which case it is your
+    taste and it will read as a template however well executed.</p>
+    <p>Samoa Beauty got florals because there is a <b>real floral arch physically installed in their
+    studio</b>, present in the hero photograph itself. That single observation is what made supplied
+    orchid and petal plates legitimate rather than decorative: the page was <b>continuing a motif the
+    business already owns</b>, not importing one.</p>
+
+    <table class="lentable">
+      <tr><th>Motif</th><th>Homepage</th><th>Instagram</th><th>Their photographs</th><th>Verdict</th></tr>
+      <tr><td><b>Floral arch</b></td><td>behind the hero</td><td>frequent</td><td><b>in the hero itself</b></td><td><b>Amplify</b> &mdash; it recurs everywhere</td></tr>
+      <tr><td><b>Dogs in the studio</b></td><td>absent</td><td>constant</td><td>in most posts</td><td><b>Surface it</b> &mdash; this gap is the diagnosis</td></tr>
+      <tr><td><b>Gold script</b></td><td>logo only</td><td>rare</td><td>&mdash;</td><td>Leave it alone</td></tr>
+    </table>
+
+    <p style="margin-top:12px"><b>Two verdicts matter.</b> <b style="color:var(--cream)">Amplify</b>
+    what recurs on every surface. <b style="color:var(--cream)">Surface</b> what is heavy off-site and
+    missing on-site &mdash; they already own the material and their site is under-serving it, which is
+    a much stronger thing to tell a cold lead than "your spacing is inconsistent." Anything appearing
+    once, in a footer, is your preference. Drop it.</p>
+
+    <div class="warnbox"><b>A category kit is real, and it is one step from a template.</b> The
+    <b>techniques</b> transfer &mdash; how to measure a ground colour, build a scrubbed wipe, feather a
+    plate, hold contrast in every state. The <b>motif, palette, typeface and the subject of every
+    plate</b> do not, and must be re-derived from each client's own evidence every time. Samoa got
+    orchids because there is an orchid wall in their studio; a med spa of concrete and steel with no
+    flowers gets concrete and steel &mdash; same wipe, same spotlight, same contrast discipline,
+    entirely different material. <b>If two pages out of this document look like each other, this step
+    was skipped.</b></div>
   </div>
 
   <div class="law" id="imgsource">
