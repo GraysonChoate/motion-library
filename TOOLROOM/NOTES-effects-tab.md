@@ -2,7 +2,7 @@
 
 Working, debugged interaction code. Lift it, keep the constants, swap the palette tokens.
 
-Open [`effects-library.html`](effects-library.html) in any browser to feel each
+Open [`TOOLROOM-UPLOAD-THIS.html`](TOOLROOM-UPLOAD-THIS.html) in any browser to feel each
 technique. This file is the index, and it exists mainly to answer one question:
 
 > **The demos look dramatic. Do I ship those numbers?**

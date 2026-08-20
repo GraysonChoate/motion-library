@@ -6,7 +6,7 @@ The floor. Anything shipped from this toolroom clears all of it.
 
 ## 1. Demo values are not ship values
 
-Everything in [`effects/effects-library.html`](../effects/effects-library.html) is tuned
+Everything in [`TOOLROOM/TOOLROOM-UPLOAD-THIS.html`](../TOOLROOM/TOOLROOM-UPLOAD-THIS.html) is tuned
 so the effect is **obvious at a glance** — visible in a still screenshot, unmistakable on
 first hover. Production wants the opposite: the page feels alive and the reader **never
 notices the mechanism**.

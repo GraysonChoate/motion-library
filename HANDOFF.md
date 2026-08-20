@@ -1,13 +1,13 @@
 # Grounded Labs Toolroom — Handoff
 
-**Read this first, then read `effects/effects-library.html`.** That file is the deliverable.
+**Read this first, then read `TOOLROOM/TOOLROOM-UPLOAD-THIS.html`.** That file is the deliverable.
 This document only explains what it is, what state it is in, and what is still broken.
 
 ---
 
 ## 1 · What this project is
 
-`effects/effects-library.html` is a single self-contained HTML file (~880KB, no build step,
+`TOOLROOM/TOOLROOM-UPLOAD-THIS.html` is a single self-contained HTML file (~880KB, no build step,
 no dependencies) that is meant to function as **the brain of a website-building AI agent** —
 not as a document a human reads.
 
@@ -226,7 +226,7 @@ Extract the block from BLD 06 and run it against a built page in real Chromium:
 ```bash
 python3 - <<'PY'
 import re, html
-s = open('effects/effects-library.html', encoding='utf-8').read()
+s = open('TOOLROOM/TOOLROOM-UPLOAD-THIS.html', encoding='utf-8').read()
 m = re.search(r'<pre><code>\(\(\) =&gt; \{.*?\}\)\(\);</code></pre>', s, re.S)
 code = html.unescape(m.group(0))[len('<pre><code>'):-len('</code></pre>')]
 code = re.sub(r'/\*.*?\*/', '', code, flags=re.S)

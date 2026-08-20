@@ -23,7 +23,7 @@ every other tab is one of those fifteen worked out in detail. Read those first.
 | **Kit** *(in the library page)* | tokens, layout archetypes, utility components, photo treatment, edge language — the **furniture** |
 | **[`standards/`](standards/)** | accessibility, performance, and demo-vs-ship values — the **tolerances** |
 
-**New here?** Open **[`effects/effects-library.html`](effects/effects-library.html)** in a
+**New here?** Open **[`TOOLROOM/TOOLROOM-UPLOAD-THIS.html`](TOOLROOM/TOOLROOM-UPLOAD-THIS.html)** in a
 browser. It opens on the **Build** tab — the procedure — and everything else is reference the
 procedure sends you to. Then go to **Effects** and move your cursor through every stage. Then read
 [`research/README.md`](research/README.md) and fill in a research card for a business you
