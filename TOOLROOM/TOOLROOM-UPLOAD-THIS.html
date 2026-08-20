@@ -1720,7 +1720,7 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
         and adding your own weakens it.</span></li>
       <li><b>Wait.</b><span>It reads their real site, finds their Instagram and Facebook on its own,
         measures their actual colours and fonts from their own images, writes copy in their own
-        words, builds one homepage, then audits itself against 31 mechanical checks and fixes what
+        words, builds one homepage, then audits itself against 33 mechanical checks and fixes what
         it finds before showing you anything.</span></li>
     </ol>
 
@@ -1887,6 +1887,23 @@ ABSOLUTE RULES
    ladder in Research, note it in the hand-over and continue.
  · <b>If a fetch failed, say so in plain words.</b> Never describe a source you
    could not read as though you read it.
+ · <b>The catalogue is a vocabulary, not a spec.</b> Effect IDs exist so you stop
+   defaulting to fade-up — not so you build to a name. If someone changes which
+   named effect they want on the SAME element twice, stop matching names: ask what
+   it should FEEL like, and try the cheapest reversible option first (reuse a class
+   that already exists on the page). One paragraph had three bespoke effects built
+   and thrown away — including 80 lines of line-detection written twice — before
+   the answer turned out to be the reveal already used on the photo beside it.
+ · <b>Audit the architecture before you tune a number.</b> When something "feels
+   disconnected" or "isn’t responding", do NOT touch amplitude, lerp or speed
+   first. Confirm that at least one visual element’s position is a direct, literal
+   function of the input — not an offset, not a distance-from-centre scalar applied
+   to something fixed. If nothing is AT the cursor, no amplitude reads as connected;
+   it reads as the page moving on its own. Two tuning passes were spent, and a 4x
+   amplitude increase shipped, against a bug no number could fix.
+ · <b>A freshness warning applies to you too.</b> If anything in your context says a
+   file may be stale — even from an unrelated conversation — check it against every
+   copy you hold before trusting any of them. Do not wait to be told twice.
  · <b>Show, never send.</b> Every version they see is a link they reload — first
    pass, every revision, every fix. Never attach a file, never write the word
    "download", never make them open something on their own machine to judge
@@ -2550,6 +2567,20 @@ html.js [data-rv].on{ opacity:1; transform:none; filter:none }</code></pre>
       <b>(0,2,1)</b>; <code>[data-rv].on</code> is <b>(0,2,0)</b>. The hidden rule wins. This shipped
       once and hid an entire contact section. <b>Gate both rules or neither.</b></div>
 
+      <div class="warnbox"><b>The other transform trap, and it deletes things.</b> An element with a
+      live transform &mdash; or just <code>will-change: transform</code>, which reveal classes carry for
+      performance &mdash; becomes the <b>containing block for its own absolutely-positioned
+      descendants, regardless of its own <code>position</code> value</b>. A photo made full-bleed with
+      <code>position:absolute; top:0; bottom:0</code> inside a wrapper carrying a scroll-reveal class
+      <b>vanished completely</b>, and the wrapper collapsed to zero height at the same time &mdash; two
+      unrelated-looking failures from one cause, neither visible by reading the CSS.
+      <b style="display:block;margin-top:8px">Before making anything <code>position:absolute</code>,
+      check every ancestor up to the intended containing block for a transform or
+      <code>will-change:transform</code>. A reveal class disqualifies an ancestor exactly as much as an
+      explicit <code>transform:</code> rule.</b> The fix: make the absolute element a <b>direct child of
+      the block it is meant to fill</b>, never nested inside an animated one. Checks 32 and 33 catch the
+      result.</div>
+
       <div class="warnbox"><b>And it cannot be rescued afterwards.</b> Transitions are the
       <b>highest cascade origin in CSS</b> &mdash; above author <code>!important</code>. A frozen
       in-flight transition therefore beats <code>opacity:1 !important</code>, and beats it inline too.
@@ -2951,7 +2982,8 @@ setTimeout(() =&gt; {
         <i>// also a hard fail, for the same reason as check 11: verify it by eye</i>
         <i>// ONCE and mark data-contrast-ok. Never leave it printing every run.</i>
         ok(false, &#x27;contrast unverifiable on &quot;&#x27; + e.innerText.slice(0,30)
-           + &#x27;&quot; — a canvas, image or video is painted behind it. Check it by eye, then mark data-contrast-ok&#x27;);
+           + &#x27;&quot; — a canvas, image or video is painted behind it. SAMPLE THE PIXELS, do not eyeball it &#x27;
+           + &#x27;(see the worst-pixel note below), then mark data-contrast-ok&#x27;);
         return;
       }
     }
@@ -2959,7 +2991,9 @@ setTimeout(() =&gt; {
     if (bgPair[1]) {
       ok(false, &#x27;contrast unverifiable on &quot;&#x27; + e.innerText.slice(0,30) + &#x27;&quot; — a photograph (&#x27;
          + bgPair[1] + &#x27; background-image) is painted behind it, so the nearest CSS colour is not the &#x27;
-         + &#x27;surface this text sits on. Check it by eye ONCE, then mark data-contrast-ok&#x27;);
+         + &#x27;surface this text sits on. DO NOT EYEBALL THIS — sample many real pixels behind the text &#x27;
+         + &#x27;region and take the WORST, not the average. A measured build read 6.8:1 median and 1.0:1 &#x27;
+         + &#x27;at its worst pixel. Then mark data-contrast-ok&#x27;);
       return;
     }
     const L1 = relLum(fg), L2 = relLum(bg);
@@ -3369,6 +3403,51 @@ setTimeout(() =&gt; {
      + &#x27;the hidden rule out-specifies the visible one (html.js [data-rv] is 0,2,1 and [data-rv].on is &#x27;
      + &#x27;0,2,0, so the hidden rule wins and the content can never return). Gate BOTH rules or neither&#x27;);
 
+
+  <i>// 32 · SOMETHING THAT IS IN THE MARKUP AND RENDERS AT NOTHING.</i>
+  <i>//      A photo was made full-bleed with position:absolute inside a wrapper that</i>
+  <i>//      carried a scroll-reveal class, and it VANISHED. Two failures from one</i>
+  <i>//      cause: an element with a live transform (or will-change:transform)</i>
+  <i>//      becomes the containing block for its absolutely-positioned descendants</i>
+  <i>//      regardless of its own position value, so top/bottom resolved against the</i>
+  <i>//      wrong box — and with its only in-flow child now out of flow, the wrapper</i>
+  <i>//      collapsed to zero height. Neither shows up in the CSS by reading it.</i>
+  <i>//      See BLD 04b for the rule. This catches the result, whatever the cause.</i>
+  const vanished = [];
+  $$(&#x27;img,canvas,video,svg,picture&#x27;).forEach(e =&gt; {
+    const st = cs(e);
+    if (st.display === &#x27;none&#x27; || st.visibility === &#x27;hidden&#x27;) return;   // deliberately gone
+    if (e.closest(&#x27;[hidden],[aria-hidden=&quot;true&quot;],[data-static-ok]&#x27;)) return;
+    const r = e.getBoundingClientRect();
+    if (r.width &gt;= 2 &amp;&amp; r.height &gt;= 2) return;
+    const id = e.tagName.toLowerCase() + (e.getAttribute(&#x27;src&#x27;) ? &#x27; &#x27; + e.getAttribute(&#x27;src&#x27;).slice(-42) : &#x27;&#x27;)
+      + (e.className &amp;&amp; typeof e.className === &#x27;string&#x27; ? &#x27;.&#x27; + e.className.trim().split(/\s+/)[0] : &#x27;&#x27;);
+    vanished.push(id + &#x27; (&#x27; + Math.round(r.width) + &#x27;x&#x27; + Math.round(r.height) + &#x27;)&#x27;);
+  });
+  ok(vanished.length === 0, vanished.length + &#x27; element(s) are in the markup and render at zero size: &#x27;
+     + vanished.slice(0,3).join(&#x27; | &#x27;) + &#x27;. If one is position:absolute, check EVERY ancestor up to the &#x27;
+     + &#x27;intended containing block for a transform or will-change:transform — a scroll-reveal class &#x27;
+     + &#x27;disqualifies an ancestor exactly as much as an explicit transform rule does (BLD 04b)&#x27;);
+
+  <i>// 33 · A CONTAINER THAT COLLAPSED UNDER ITS OWN CHILD — the other half of the</i>
+  <i>//      same bug, and it reads as &quot;the layout broke&quot; rather than &quot;one thing went&quot;.</i>
+  const collapsed = [];
+  $$(&#x27;section,div,article,aside,figure&#x27;).forEach(e =&gt; {
+    if (!e.children.length) return;
+    const st = cs(e);
+    if (st.display === &#x27;none&#x27; || st.position === &#x27;absolute&#x27; || st.position === &#x27;fixed&#x27;) return;
+    if (e.closest(&#x27;[data-static-ok]&#x27;)) return;
+    const r = e.getBoundingClientRect();
+    if (r.height &gt; 4) return;
+    const tall = [...e.children].find(c =&gt; c.getBoundingClientRect().height &gt; 40);
+    if (!tall) return;
+    collapsed.push((e.className &amp;&amp; typeof e.className === &#x27;string&#x27; ? &#x27;.&#x27; + e.className.trim().split(/\s+/)[0] : e.tagName.toLowerCase())
+      + &#x27; is &#x27; + Math.round(r.height) + &#x27;px tall around a &#x27; + Math.round(tall.getBoundingClientRect().height) + &#x27;px child&#x27;);
+  });
+  ok(collapsed.length === 0, collapsed.length + &#x27; container(s) collapsed to nothing around real content: &#x27;
+     + collapsed.slice(0,3).join(&#x27; | &#x27;) + &#x27;. Usually its only in-flow child was taken out of flow — &#x27;
+     + &#x27;move the absolutely-positioned element to be a DIRECT child of the block it should fill (BLD 04b)&#x27;);
+
   console[F.length ? &#x27;error&#x27; : &#x27;log&#x27;](F.length ? F : &#x27;self-check clean&#x27;);
 })();</code></pre>
       <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
@@ -3464,6 +3543,38 @@ setTimeout(() =&gt; {
       <b>specificity trap</b>: gate the hidden rule, forget the visible one, and the content can never
       return. A fixed <code>pointer-events:none</code> follower is exempt from both, because a cursor
       pill genuinely should be invisible with no script running.</p>
+    </div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">VER</span><h4>How to verify — and the two ways a test lies to you</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)"><code>element.click()</code> is not a click.</b> It fires the handler.
+      It does not touch hit-testing, pointer capture, or mousedown/mouseup target resolution &mdash; so it
+      cannot catch the bugs most likely to exist. A real build shipped a card-centring feature and a set
+      of arrow buttons both "verified" this way; a real pointer produced <b>no click event at all</b>
+      (a <code>setPointerCapture</code> from an unrelated drag feature swallowed it) and the arrows
+      skipped cards. Both survived the whole session behind that shortcut.
+      <b>For anything described in terms of what a person does &mdash; click, drag, swipe, hold &mdash;
+      dispatch real input at real coordinates.</b> If you cannot, say the feature is unverified rather
+      than reporting it done.</p>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--cream)">And a test that tests nothing looks exactly like a test that passed.</b>
+      Before dispatching at a coordinate, confirm with <code>document.elementFromPoint(x,y)</code> that
+      your target is really the hit target there. A run once reported total failure across seven clicks;
+      the real cause was that smooth-scroll had not finished, so the coordinates were off-screen and
+      every click landed in empty space. <b>"0 failures" and "never actually ran" are the same output
+      unless you check.</b> This document was audited with <code>.click()</code> for an entire session
+      before that hole was noticed &mdash; the doors, tabs and 53 gallery cards were only confirmed
+      hit-testable afterwards.</p>
+      <p style="margin:0 0 0;font-size:13.5px;color:var(--ink-dim);line-height:1.65">
+      <b style="color:var(--tan)">Three more, learned the expensive way ·</b> use <code>--headless=new</code>
+      &mdash; old headless renders a JS-heavy page as a blank rectangle with zero errors.
+      <code>--virtual-time-budget</code> does <b>not</b> drive IntersectionObserver or scroll position;
+      it is fine for a static screenshot and useless for anything gated on a reveal. And a background
+      headless tab <b>throttles rAF to about a sixth</b>, so never trust an absolute timing measured that
+      way &mdash; trust direction and convergence, sampled with generous waits. Use computed-style and
+      DOM-state reads to prove a <b>mechanism</b> fired; reserve screenshots for whether it <b>looks</b>
+      right.</p>
     </div>
 
     <div class="fcard" style="border-left-color:var(--ember)">
