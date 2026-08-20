@@ -1,6 +1,6 @@
 <!--
   GROUNDED LABS TOOLROOM — EXECUTABLE BRIEF.
-  VERSION 2026-08-20 · v8 — newest in this build: STEP 0 sight gate · BLD 05a · 35 checks · VER card · transform-containing-block trap · PROTECT · SHOW-NEVER-SEND
+  VERSION 2026-08-21 · v9 — newest in this build: v9 — gated the KIT reveal snippet (it taught the bug), check 31 now sees transform-hiding, check 18 deduped per section · VER card · transform-containing-block trap · PROTECT · SHOW-NEVER-SEND
   If anything in your context says a Toolroom file may be stale, compare THIS
   line against the copy you are holding before you trust either of them. Two
   copies with different version lines are two different documents.
@@ -1684,7 +1684,7 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 <section class="mode" id="mode-start">
   <div class="doorwrap">
     <p class="dooreyebrow">Start here<span style="float:right;font-family:var(--mono);font-size:10.5px;
-      letter-spacing:.14em;color:var(--tan);opacity:.85">VERSION 2026-08-20 · v8</span></p>
+      letter-spacing:.14em;color:var(--tan);opacity:.85">VERSION 2026-08-21 · v9</span></p>
     <div class="doors">
       <button class="door" data-mode="mode-use">
         <span class="dnum">1</span>
@@ -1923,6 +1923,26 @@ ABSOLUTE RULES
  · <b>Two stacked fallbacks means stop.</b> One BLD 05 default is a gap you can
    build around. Two compounding — no site AND no imagery, no copy AND no
    palette — is a build with nothing underneath it. Say so instead of shipping it.
+ · <b>Never desaturate anything a human would eat.</b> Duotone and grayscale are a
+   rescue for a clashing photo. Applied to food they are simply wrong — a greyed
+   dish reads as inedible. Food, drink and skin keep their own colour; grade
+   warmth and contrast only. This shipped once and it made the menu look spoiled.
+ · <b>The biggest image gets the most elaborate treatment.</b> Not the one you built
+   an effect on two turns ago. When a request says "the big image", re-read the
+   layout and identify which one it means before touching anything — and decide
+   full-bleed vs contained deliberately per image, never inherited from whatever
+   wrapper happens to contain it.
+ · <b>Proof content is shown to everyone, automatically, all of it.</b> Testimonials,
+   reviews, press, awards — real, verified, hard to fabricate, and the most
+   valuable thing on the page. Default to ambient passive motion, a marquee or
+   ticker that shows every instance with zero interaction. Never a slot sized for
+   one favourite line, and <b>never a carousel gated behind a click</b> — a visitor
+   who does not click never learns the others exist.
+ · <b>Name the anchor before any signature effect ships.</b> One sentence: "this is
+   anchored to ___, which is actually visible in this specific image." If that
+   sentence would read identically for a different photo, it is decoration wearing
+   a signature&#x27;s clothes. Steam rising from a mug is a signature; the same
+   particles rising from an arbitrary point in a temple photo is not.
  · <b>The catalogue is a vocabulary, not a spec.</b> Effect IDs exist so you stop
    defaulting to fade-up — not so you build to a name. If someone changes which
    named effect they want on the SAME element twice, stop matching names: ask what
@@ -2634,7 +2654,13 @@ requestAnimationFrame(() =&gt; watched.forEach(el =&gt; {
 <i>/* (b) no intersection within 1.5s means this environment cannot observe */</i>
 setTimeout(() =&gt; {
   if (ioFired) return;
-  watched.forEach(el =&gt; { el.style.transition=&#x27;none&#x27;; el.style.opacity=&#x27;1&#x27;;
+  <i>/* SCOPE IT. A build shipped this as a blanket forEach over every watched</i>
+  <i>   element, which marked the entire page — including everything below the</i>
+  <i>   fold — as already revealed, on a timer, killing every scroll animation on</i>
+  <i>   the rest of the page. This rescues what SHOULD ALREADY BE ON SCREEN in a</i>
+  <i>   dead environment. It must never touch anything you have not scrolled to. */</i>
+  watched.filter(el =&gt; el.getBoundingClientRect().top &lt; innerHeight)
+    .forEach(el =&gt; { el.style.transition=&#x27;none&#x27;; el.style.opacity=&#x27;1&#x27;;
     el.style.transform=&#x27;none&#x27;; el.style.filter=&#x27;none&#x27;; el.classList.add(&#x27;on&#x27;); });
   de.classList.remove(&#x27;js&#x27;);
   void document.body.offsetHeight;
@@ -3034,6 +3060,7 @@ setTimeout(() =&gt; {
   <i>// 18 · WCAG contrast: 4.5:1 body text, 3:1 for 24px+/19px+bold. Walks up for</i>
   <i>//      the nearest opaque background. Mark data-contrast-ok to exempt (e.g. text</i>
   <i>//      over a busy photo where a scrim was already checked by eye).</i>
+  const PHOTOSEEN = new Set();
   const relLum = rgba =&gt; {
     const [r,g,b] = [...rgba].slice(0,3).map(c =&gt; { c/=255; return c&lt;=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4); });
     return 0.2126*r+0.7152*g+0.0722*b;
@@ -3072,7 +3099,13 @@ setTimeout(() =&gt; {
     }
     const fg = toRGBA(cs(e).color), bgPair = bgOf(e), bg = bgPair[0];
     if (bgPair[1]) {
-      ok(false, &#x27;contrast unverifiable on &quot;&#x27; + e.innerText.slice(0,30) + &#x27;&quot; — a photograph (&#x27;
+      <i>// one finding per SECTION, not per word. A build with word-split headings</i>
+      <i>// produced 20+ identical lines for a single band — and a check that cries</i>
+      <i>// wolf gets ignored, which is worse than no check.</i>
+      const band = e.closest(&#x27;section,header,footer,article&#x27;) || e.parentElement;
+      if (PHOTOSEEN.has(band)) return;
+      PHOTOSEEN.add(band);
+      ok(false, &#x27;contrast unverifiable on &quot;&#x27; + e.innerText.slice(0,30) + &#x27;&quot; (and the rest of this section) — a photograph (&#x27;
          + bgPair[1] + &#x27; background-image) is painted behind it, so the nearest CSS colour is not the &#x27;
          + &#x27;surface this text sits on. DO NOT EYEBALL THIS — sample many real pixels behind the text &#x27;
          + &#x27;region and take the WORST, not the average. A measured build read 6.8:1 median and 1.0:1 &#x27;
@@ -3434,7 +3467,14 @@ setTimeout(() =&gt; {
       if (!r.selectorText) { if (r.cssRules) scanSheet(r); return; }
       const st = r.style; if (!st) return;
       const op = st.getPropertyValue(&#x27;opacity&#x27;);
-      const kills = (op !== &#x27;&#x27; &amp;&amp; parseFloat(op) === 0) || st.getPropertyValue(&#x27;visibility&#x27;) === &#x27;hidden&#x27;;
+      <i>// opacity and visibility are the OBVIOUS ways to hide something. The way</i>
+      <i>// that actually shipped was a transform: a word pushed 110% down inside an</i>
+      <i>// overflow:hidden mask is just as gone, and this check used to miss it</i>
+      <i>// entirely — including in this document&#x27;s own reveal snippet.</i>
+      const tf = st.getPropertyValue(&#x27;transform&#x27;) || &#x27;&#x27;;
+      const shoved = /translate/i.test(tf) &amp;&amp; /\b(1[0-9]{2}|[89][0-9])(\.\d+)?%/.test(tf);
+      const kills = (op !== &#x27;&#x27; &amp;&amp; parseFloat(op) === 0)
+        || st.getPropertyValue(&#x27;visibility&#x27;) === &#x27;hidden&#x27; || shoved;
       if (!kills || GATE.test(r.selectorText)) return;
       let matched = []; try { matched = [...document.querySelectorAll(r.selectorText)]; } catch (err) { return; }
   <i>// a fixed, pointer-events:none follower (a cursor pill, a spotlight) is</i>
@@ -6543,14 +6583,22 @@ overlay.style.background =
   --d1:1s; --d2:.7s; --d3:.45s; --micro:.2s;  <i>/* ONE duration scale  */</i>
   --rvd:0ms;                             <i>/* stagger delay, MUST be on :root */</i>
 }
-<i>/* one reveal vocabulary, reused at descending amplitude (CHO 00) */</i>
+<i>/* one reveal vocabulary, reused at descending amplitude (CHO 00).</i>
+<i>   GATED PER BLD 04b — the TRANSITION is unconditional so checks 22-24 still</i>
+<i>   pass, and only the HIDDEN half sits under html.js. An earlier version of</i>
+<i>   this very snippet was ungated; a build copied it verbatim and shipped a page</i>
+<i>   whose headings were invisible with no JavaScript. A document that states a</i>
+<i>   hard rule and then ships a snippet breaking it is a trap, not a reference. */</i>
 .w,.ln{display:inline-block; overflow:hidden; vertical-align:top}
-.w &gt; span{display:inline-block; transform:translateY(110%);
+.w &gt; span{display:inline-block;
   transition:transform var(--d1) var(--e) var(--rvd)}
-.on .w &gt; span{transform:translateY(0)}
-[data-rv="fade"]{opacity:0; transform:translateY(20px);
+[data-rv="fade"]{
   transition:opacity var(--d2) var(--e) var(--rvd), transform var(--d2) var(--e) var(--rvd)}
-[data-rv="fade"].on{opacity:1; transform:none}
+<i>/* hidden states only exist if a script ran to create them */</i>
+html.js .w &gt; span{transform:translateY(110%)}
+html.js .on .w &gt; span{transform:translateY(0)}
+html.js [data-rv="fade"]{opacity:0; transform:translateY(20px)}
+html.js [data-rv="fade"].on{opacity:1; transform:none}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none !important; transition:none !important}
   [data-rv],.w &gt; span{opacity:1 !important; transform:none !important}
