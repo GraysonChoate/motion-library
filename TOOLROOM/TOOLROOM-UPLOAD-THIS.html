@@ -1,6 +1,6 @@
 <!--
   GROUNDED LABS TOOLROOM — EXECUTABLE BRIEF.
-  VERSION 2026-08-20 · v7 — newest in this build: 33 checks · VER card · transform-containing-block trap · PROTECT · SHOW-NEVER-SEND
+  VERSION 2026-08-20 · v8 — newest in this build: STEP 0 sight gate · BLD 05a · 35 checks · VER card · transform-containing-block trap · PROTECT · SHOW-NEVER-SEND
   If anything in your context says a Toolroom file may be stale, compare THIS
   line against the copy you are holding before you trust either of them. Two
   copies with different version lines are two different documents.
@@ -1684,7 +1684,7 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 <section class="mode" id="mode-start">
   <div class="doorwrap">
     <p class="dooreyebrow">Start here<span style="float:right;font-family:var(--mono);font-size:10.5px;
-      letter-spacing:.14em;color:var(--tan);opacity:.85">VERSION 2026-08-20 · v7</span></p>
+      letter-spacing:.14em;color:var(--tan);opacity:.85">VERSION 2026-08-20 · v8</span></p>
     <div class="doors">
       <button class="door" data-mode="mode-use">
         <span class="dnum">1</span>
@@ -1726,7 +1726,7 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
         and adding your own weakens it.</span></li>
       <li><b>Wait.</b><span>It reads their real site, finds their Instagram and Facebook on its own,
         measures their actual colours and fonts from their own images, writes copy in their own
-        words, builds one homepage, then audits itself against 33 mechanical checks and fixes what
+        words, builds one homepage, then audits itself against 35 mechanical checks and fixes what
         it finds before showing you anything.</span></li>
     </ol>
 
@@ -1805,6 +1805,27 @@ pre.tcmd{font-family:var(--mono); white-space:pre-wrap; word-break:break-word;
 If the user's message is <b>IMPLEMENT PHASE ONE — &lt;url&gt;</b> that message is your
 entire instruction. Begin immediately. Do not summarise this document,
 do not ask what they want, do not propose a plan first.
+
+<b>FIRST, STEP 0 — PROVE YOU CAN SEE THE SITE.</b> A build once produced a whole
+homepage, audited it, and reported every check passing, for a business
+whose website it had never once loaded. Nothing stopped it. This does.
+All FOUR, before step 1:
+
+ 0  SEE       (a) A CONTROL FETCH of a site you know works. This separates
+                  "their host is refusing me" from "I have no internet at
+                  all" — completely different problems, see BLD 05a.
+              (b) THEIR HTML, actually retrieved. Real markup with their
+                  real words in it — not an error page, not a bot wall, not
+                  a JS shell with an empty body.
+              (c) ONE REAL IMAGE from their site, actually opened. Not the
+                  url — the bytes. Their palette and their photography both
+                  live on their asset host, and it often blocks separately
+                  from their HTML.
+              (d) A RENDER, if you have any way to produce one.
+              <b>Any of the first three fails → STOP. Do not build. Go to BLD 05a</b>,
+              work the ladder, and if it does not resolve, TELL THE PERSON.
+              Never build a page for a business you could not see and never
+              record the failure as a comment in a file nobody reads.
 
 RUN THESE TEN STEPS. Detail for each is in the Build tab of this file —
 open the two or three sections a step needs, not the whole document.
@@ -1893,6 +1914,15 @@ ABSOLUTE RULES
    ladder in Research, note it in the hand-over and continue.
  · <b>If a fetch failed, say so in plain words.</b> Never describe a source you
    could not read as though you read it.
+ · <b>A blocked fetch is reported to a PERSON, out loud, in the reply.</b> Not in a
+   comment block, not in a hand-over note nobody opens. If STEP 0 fails and the
+   BLD 05a ladder does not rescue it, that is the whole reply: what you tried,
+   what came back, and what you need. This is the ONE case where you stop and
+   ask — it overrides "do not ask clarifying questions", because every other
+   ambiguity has a stated default and this one has no honest one.
+ · <b>Two stacked fallbacks means stop.</b> One BLD 05 default is a gap you can
+   build around. Two compounding — no site AND no imagery, no copy AND no
+   palette — is a build with nothing underneath it. Say so instead of shipping it.
  · <b>The catalogue is a vocabulary, not a spec.</b> Effect IDs exist so you stop
    defaulting to fade-up — not so you build to a name. If someone changes which
    named effect they want on the SAME element twice, stop matching names: ask what
@@ -2629,6 +2659,53 @@ setTimeout(() =&gt; {
 
   <!-- ============ BAD INPUT ============ -->
   <section class="cpsec">
+    <div class="cphead"><span class="n">BLD 05a</span><h3>When you cannot see the site at all</h3>
+      <p>STEP 0 failed. This is a different problem from bad input, and it has its own ladder.</p><span class="who ai">The AI</span></div>
+
+    <div class="fcard" style="border-left-color:var(--ember)">
+      <div class="fcard-top"><span class="code" style="color:var(--ember);border-color:rgba(180,99,58,.4)">05a</span><h4>First, which failure is it — because the fixes have nothing in common</h4></div>
+      <p style="margin:0 0 10px;font-size:14.5px;color:var(--ink-dim);line-height:1.65">
+      The control fetch in STEP 0 exists to answer exactly this, and the answer changes everything you
+      do next. <b style="color:var(--cream)">Class A — the control fetch worked and theirs did not.</b>
+      Their host is refusing <em>you</em>: a bot wall, a Cloudflare challenge, a 403 to datacentre
+      addresses, a geo-block. The internet is fine and the page exists; you are the one being turned
+      away, which means a different route to the same content usually works.
+      <b style="color:var(--cream)">Class B — the control fetch failed too.</b> You have no egress. No
+      route to their content exists from where you are, and no amount of cleverness invents one. Rungs
+      1&ndash;8 below are pointless; go straight to rung 9.</p>
+
+      <table class="lentable">
+        <tr><th></th><th>Rung</th><th>Notes</th></tr>
+        <tr><td class="w">1</td><td><b>A different tool you already have</b></td><td>A fetch tool, a search tool, a browser, a sandbox with its own egress. They frequently do not share one network path. The one that is blocked is not all of them.</td></tr>
+        <tr><td class="w">2</td><td><b>A real browser</b>, if you have one</td><td>A headless browser with a normal user-agent clears challenges that a bare HTTP client never will. <code>--headless=new</code> (VER card).</td></tr>
+        <tr><td class="w">3</td><td><b>Address variants</b></td><td><code>www</code> and bare, <code>http</code> and <code>https</code>, trailing slash, <code>/index.html</code>, <code>/home</code>. A redirect chain that dies on one form often resolves on another.</td></tr>
+        <tr><td class="w">4</td><td><b>Other domains they own</b></td><td>A booking platform (Vagaro, Mindbody, Square, Resy, Toast), an old marketing site, a shop subdomain. Their real photography and their real prices are usually on one of these.</td></tr>
+        <tr><td class="w">5</td><td><b>The Wayback Machine</b></td><td><code>web.archive.org</code> serves their real HTML, their real CSS and often their real images, from a host that does not block you. A six-month-old capture is still <b>their words</b>, and that beats a guess absolutely. Say which capture date you used.</td></tr>
+        <tr><td class="w">6</td><td><b>Their imagery on third parties</b></td><td>Google Business, Yelp, Facebook, Instagram, delivery platforms, local press. These carry photographs the business itself uploaded — real, theirs, and reachable.</td></tr>
+        <tr><td class="w">7</td><td><b>Image search</b></td><td>Search their name and read the results page. Thumbnails and their source urls both come back in the result text.</td></tr>
+        <tr><td class="w">8</td><td><b>A reader or text proxy</b></td><td>Any service that fetches a page and returns readable text. Gets you copy and structure; will not get you colours or photographs.</td></tr>
+        <tr><td class="w">9</td><td><b>The person who sent you the url</b></td><td><b>Not a defeat — the correct ending.</b> Say which rungs you tried and what each returned. This is the one authorised exception to "do not ask clarifying questions."</td></tr>
+      </table>
+
+      <div class="warnbox"><b>What a rung must actually deliver before you continue.</b> Reaching
+      <em>something</em> is not the same as passing STEP 0. You still need <b>their real words</b>,
+      <b>their real colours</b>, and <b>at least one real photograph of the business</b>. A rung that
+      returns only a business name and a phone number has not rescued the build &mdash; it has told you
+      what to report. <b>Say which rung you used, in the reply and in the hand-over</b>, so nobody
+      downstream mistakes an archive capture for a live read.</div>
+
+      <div class="warnbox"><b>The failure this exists to stop.</b> A build produced a complete homepage
+      for a business whose site it never loaded once, ran the self-check, and reported every check
+      passing &mdash; because every check measured the page it had just written, and none of them
+      measured whether it was <b>about anybody</b>. A page assembled from search snippets is a guess
+      wearing a concept study's clothes, and it is worse than no page, because it looks finished.
+      <b style="color:var(--cream)">Checks 34 and 35 now measure provenance</b>, but the real guard is
+      STEP 0 &mdash; stop at the top, not at the audit.</div>
+    </div>
+  </section>
+
+  <!-- ============ BAD INPUT ============ -->
+  <section class="cpsec">
     <div class="cphead"><span class="n">BLD 05</span><h3>When the input is bad</h3>
       <p>It usually is. Every row has a stated default so nothing here stops the run.</p><span class="who ai">The AI</span></div>
 
@@ -2650,7 +2727,7 @@ setTimeout(() =&gt; {
       <tr><td>No logo anywhere</td><td>Wordmark in the display face with deliberate tracking. That <i>is</i> a logo for mockup purposes.</td><td>Design a mark. Not our call.</td></tr>
       <tr><td>Menu or prices only as a PDF</td><td>Read the PDF, set it as live HTML text. This alone is often the largest single improvement on the page.</td><td>Embed or link the PDF again.</td></tr>
       <tr><td>Site is a JS shell — no content in the HTML</td><td>Take content from the rendered text, their Google Business listing, and their social bios. Tag the tiers honestly and say the DOM was unreadable.</td><td>Claim you parsed their CSS when you got a shell.</td></tr>
-      <tr><td>Their website is unreachable</td><td>Work from what is indexed: search their name, read the results page, their Google Business listing, their social. A caf&eacute; can be classified and built from those alone. Say in the hand-over that the site itself was unreadable.</td><td>Ask the person for a screenshot. Build from your mental model of the brand.</td></tr>
+      <tr><td>Their website is unreachable</td><td><b>Work the BLD 05a ladder first — every rung.</b> If a rung gets you their real words, their real images and their real colours, continue and say which rung you used. If the ladder is exhausted, <b>STOP and tell the person</b>: name what you tried and what it returned. <b>Do not build a homepage for a business you have never seen</b> — a page assembled from search snippets is a guess wearing a concept study's clothes.</td><td>Build from indexed snippets and call it done. Record the failure only in a file comment. Build from your mental model of the brand.</td></tr>
       <tr><td>They have no address or hours</td><td>Omit the practical section. A missing section is honest; an invented one is not.</td><td>Fill it with plausible hours.</td></tr>
       <tr><td>Reviews exist but you can't verify them</td><td>Omit the proof section, and say in the note that review proof is the highest-value addition available.</td><td>Paraphrase, attribute to initials, or invent a rating.</td></tr>
       <tr><td>Site is already good</td><td>Say so plainly, then find the one thing that is genuinely weaker than the rest and rebuild that section only. Honest and short beats a rebuild nobody needed.</td><td>Change it for the sake of changing it.</td></tr>
@@ -3453,6 +3530,43 @@ setTimeout(() =&gt; {
   ok(collapsed.length === 0, collapsed.length + &#x27; container(s) collapsed to nothing around real content: &#x27;
      + collapsed.slice(0,3).join(&#x27; | &#x27;) + &#x27;. Usually its only in-flow child was taken out of flow — &#x27;
      + &#x27;move the absolutely-positioned element to be a DIRECT child of the block it should fill (BLD 04b)&#x27;);
+
+
+  <i>// 34 · IS ANY OF THIS ACTUALLY THEIRS? A build once wrote a complete homepage</i>
+  <i>//      for a business whose site it never loaded, ran this self-check, and</i>
+  <i>//      reported everything passing — because every check measured the page it</i>
+  <i>//      had just written, and none asked whether the page was ABOUT ANYBODY.</i>
+  <i>//      Provenance is the missing measurement. Every image is either loaded</i>
+  <i>//      from a real remote host (self-evidently sourced) or, once embedded as a</i>
+  <i>//      data: URI per BLD 04b, carries data-source naming where it came from.</i>
+  <i>//      An unlabelled data: URI is an image with no story, and a generated</i>
+  <i>//      image with no label is the exact shape of passing a guess off as theirs.</i>
+  const unsourced = [], remote = [];
+  $$(&#x27;img&#x27;).forEach(e =&gt; {
+    const src = e.getAttribute(&#x27;src&#x27;) || &#x27;&#x27;;
+    if (!src) return;
+    if (/^data:/i.test(src)) {
+      if (!e.getAttribute(&#x27;data-source&#x27;) &amp;&amp; !e.closest(&#x27;[data-source]&#x27;))
+        unsourced.push((e.alt || e.className || &#x27;img&#x27;).toString().slice(0,28));
+    } else if (/^https?:/i.test(src)) remote.push(src);
+  });
+  ok(unsourced.length === 0, unsourced.length + &#x27; embedded image(s) carry no data-source saying where &#x27;
+     + &#x27;they came from: &#x27; + unsourced.slice(0,3).join(&#x27; | &#x27;) + &#x27;. Embedding is required (BLD 04b) but it &#x27;
+     + &#x27;erases provenance — put the original url on data-source so nobody downstream mistakes a &#x27;
+     + &#x27;generated or supplied plate for the client’s own photography&#x27;);
+
+  <i>// 35 · THE PROVENANCE BLOCK. BLD 04 requires the file to open with a comment</i>
+  <i>//      stating where this came from and — the half that gets dropped — what</i>
+  <i>//      could NOT be reached. &quot;Unverified&quot; being empty is a claim; &quot;Unverified&quot;</i>
+  <i>//      being absent is a build that never asked itself the question.</i>
+  let head = &#x27;&#x27;;
+  for (const n of document.childNodes) if (n.nodeType === 8) head += n.nodeValue;
+  if (!head) { const w = document.createTreeWalker(document, NodeFilter.SHOW_COMMENT);
+    let c, i = 0; while ((c = w.nextNode()) &amp;&amp; i++ &lt; 6) head += c.nodeValue; }
+  const missing = [&#x27;Source&#x27;, &#x27;Unverified&#x27;].filter(k =&gt; head.indexOf(k) &lt; 0);
+  ok(missing.length === 0, &#x27;the provenance comment is missing &#x27; + missing.join(&#x27; and &#x27;)
+     + &#x27; — BLD 04 requires the file to open with where this was read from AND what could not be &#x27;
+     + &#x27;reached. If STEP 0 needed the BLD 05a ladder, name the rung and the capture date here&#x27;);
 
   console[F.length ? &#x27;error&#x27; : &#x27;log&#x27;](F.length ? F : &#x27;self-check clean&#x27;);
 })();</code></pre>
